@@ -1,0 +1,8 @@
+tar xvf ExRootAnalysis.tgz
+cd Ex.../
+make
+
+Usage 1--------------------
+ExRootLHEFConverter myfile.lhe myfile.root
+Usage 2--------------------
+gSystem->Load("lib/libExRootAnalysis.so");

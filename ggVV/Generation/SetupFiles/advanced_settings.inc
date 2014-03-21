@@ -55,7 +55,7 @@ const bool resonantHiggsOnly = false;     // affects phase space mapping
 
 // PARTON DISTRIBUTION FUNCTIONS and ALPHAS ================================
 
-const string Pdf::_pathToLhapdfInputFile = "/afs/cern.ch/work/s/salee/private/HWWwidth/CMSSW_5_3_7/src/HWW/ggVV/Generation/lhapdf-5.9.1/lhapdf-5.9.1-out/share/lhapdf"+ lhapdf_file ;
+const string Pdf::_pathToLhapdfInputFile = "/afs/cern.ch/work/s/salee/private/HWWwidth/CMSSW_5_3_7/src/HWW/ggVV/Generation/lhapdf-5.9.1/lhapdf-5.9.1-out/share/lhapdf/"+ lhapdf_file ;
 
 // LHAPDF Fortran function declaration:
 extern "C"
