@@ -1,6 +1,9 @@
 import os
-indir = '/afs/cern.ch/work/s/salee/private/HWWwidth/GG2VV/test/TestResults'
-outDir = 'TestRst'
+Sample = 'SigHw25RoScMiCut'
+print 'Processing data set of '+Sample +'##################'
+#Sample = 'ContHw25RoScGeCut'
+indir = '/afs/cern.ch/work/s/salee/private/HWWwidth/GG2VV/test/' + Sample
+outDir = Sample
 os.system('mkdir '+outDir)
 for root, dirs, filenames in os.walk(indir):
   for f in filenames:
