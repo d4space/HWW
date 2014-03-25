@@ -1,5 +1,5 @@
 #define GGVvTemplate_cxx
-#include "../include/GGVvTemplate.h"
+#include "GGVvTemplate.h"
 #include <TH2.h>
 #include <TStyle.h>
 #include <TCanvas.h>
@@ -16,7 +16,7 @@ void GGVvTemplate::Loop()
   cout<<"Total number of event is "<<Ntries<<endl;
   for (int i(0); i<Ntries;i++)
   {
-    if(i % 100000 == 0) cout<<i<<"th event"<<endl;
+    if(i % 1000 == 0) cout<<i<<"th event"<<endl;
     fChain->GetEntry(i);
   }
   OutTFile->Write();

@@ -1,5 +1,5 @@
 #define GGVvBase_cxx
-#include "../include/GGVvBase.h"
+#include "GGVvBase.h"
 #include <TH2.h>
 #include <TStyle.h>
 #include <TCanvas.h>

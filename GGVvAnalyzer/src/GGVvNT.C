@@ -1,5 +1,5 @@
 #define GGVvNT_cxx
-#include "../include/GGVvNT.h"
+#include "GGVvNT.h"
 #include <TH2.h>
 #include <TStyle.h>
 #include <TCanvas.h>
