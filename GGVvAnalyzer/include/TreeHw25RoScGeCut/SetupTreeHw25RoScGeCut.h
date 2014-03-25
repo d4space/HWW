@@ -5,7 +5,7 @@
 
 void SetupTreeHw25RoScGeCut( TString sample, TChain* chains )
 {
-  cout<<"SetupTree.h: "<<sample<<endl;
+  cout<<"SetupTreeHw25RoScGeCut.h: "<<sample<<endl;
   //=========
   //LowPU
   //=========
@@ -18,7 +18,6 @@ void SetupTreeHw25RoScGeCut( TString sample, TChain* chains )
   else if( sample == "ContHw25RoScGeCut")
   {
     chain_ContHw25RoScGeCut(chains);
-  }
-    cout<<"[SetupTree.h] Nanigorae? "<<endl;
-  }
+  }else
+    cout<<"[SetupTreeHw25RoScGeCut.h] Nanigorae? "<<endl;
 }

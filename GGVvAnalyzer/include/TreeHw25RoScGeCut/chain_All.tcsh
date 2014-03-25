@@ -1,5 +1,6 @@
 #!/bin/tcsh -f
-set dirName_Base = "/afs/cern.ch/work/s/salee/private/HWWwidth/CMSSW_5_3_7/src/HWW/GGVvAnalyzer/MakeRooT"
+set dirName_Base = "/terranova_0/HWWwidth/HWW/GGVvAnalyzer/MakeRooT"
+#set dirName_Base = "/afs/cern.ch/work/s/salee/private/HWWwidth/CMSSW_5_3_7/src/HWW/GGVvAnalyzer/MakeRooT"
 
 set dirName = "SigHw25RoScGeCut"
 #set dirName = "$dirName_base/SigHw25RoScGeCut"
