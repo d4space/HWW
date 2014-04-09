@@ -8,11 +8,13 @@
 #define GGVvBase_h
 
 #include <iostream>
+#include <fstream>
 #include "../ExRootAnalysis/ExRootAnalysis/ExRootAnalysis.h"
-#include "GGVvNT.h"
+#include "../Utils/const.h"
 #include <TSystem.h>
 #include <TBenchmark.h>                   // class to track macro running statistics
-
+#include <TLorentzVector.h>
+#include "GGVvNT.h"
 // Fixed size dimensions of array or collections stored in the TTree if any.
 
 class GGVvBase: public GGVvNT {
@@ -28,8 +30,23 @@ public :
    virtual Bool_t   Notify();
    virtual void     Show(Long64_t entry = -1);
 protected:
+   virtual int Init4Event();
+   int DumpParticles();
+
    TString mDirName;
    TString mMode;
+
+   TLorentzVector mu_TL;
+   bool isMu;
+   TLorentzVector muNu_TL;
+   bool isMuNu;
+   TLorentzVector el_TL;
+   bool isEl;
+   TLorentzVector elNu_TL;
+   bool isElNu;
+
+   TLorentzVector higgs_TL;
+   double Hig_mass;
 };
 
 #endif
@@ -105,5 +122,41 @@ Int_t GGVvBase::Cut(Long64_t entry)
 // returns  1 if entry is accepted.
 // returns -1 otherwise.
    return 1;
+}
+int GGVvBase::Init4Event()
+{
+  isMu = false;
+  isMuNu = false;
+  isEl = false;
+  isElNu = false;
+  return 0;
+}
+int GGVvBase::DumpParticles()
+{
+  for(int i(0); i<kMaxParticle;i++)
+  {
+    //cout<<"Particle (idx,Id, Status): "<<i<<"  "<<Particle_PID[i]<<" "<<Particle_Status[i]<<endl;
+    if(fabs(Particle_PID[i]) == int(GenType::kElectron))
+    {
+      el_TL.SetXYZM(Particle_Px[i], Particle_Py[i], Particle_Pz[i], GenType::M_ele);
+      isEl = true;
+    }
+    else if(fabs(Particle_PID[i]) == GenType::keNeutrino)
+    {
+      elNu_TL.SetXYZM(Particle_Px[i], Particle_Py[i], Particle_Pz[i], 0.0);
+      isElNu = true;
+    }
+    else if(fabs(Particle_PID[i]) == GenType::kMuon)
+    {
+      mu_TL.SetXYZM(Particle_Px[i], Particle_Py[i], Particle_Pz[i], GenType::M_mu);
+      isMu = true;
+    }
+    else if(fabs(Particle_PID[i]) == GenType::kmuNeutrino)
+    {
+      muNu_TL.SetXYZM(Particle_Px[i], Particle_Py[i], Particle_Pz[i], 0.0);
+      isMuNu = true;
+    }
+  }
+  return 0;
 }
 #endif // #ifdef GGVvBase_cxx
