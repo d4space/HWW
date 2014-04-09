@@ -30,11 +30,11 @@ void MakeHisto()
   SigHw25RoScMiCutBeatles.Loop();
 
   cout<<"TreeHw25RoScMiCut============================"<<endl;
-  TChain *Ch_ContHw25RoScMiCut     = new TChain("LHEF","");
-  SetupTreeHw25RoScMiCut("ContHw25RoScMiCut",Ch_ContHw25RoScMiCut);
+  TChain *Ch_CotHw25RoScMiCut     = new TChain("LHEF","");
+  SetupTreeHw25RoScMiCut("CotHw25RoScMiCut",Ch_CotHw25RoScMiCut);
   TString DirName = "CotHw25RoScMiCut";
-  GGVvCtrPlt ContHw25RoScMiCutBeatles(Ch_ContHw25RoScMiCut,DirName,Mode);
-  ContHw25RoScMiCutBeatles.Loop();
+  GGVvCtrPlt CotHw25RoScMiCutBeatles(Ch_CotHw25RoScMiCut,DirName,Mode);
+  CotHw25RoScMiCutBeatles.Loop();
 
   cout<<"TreeHw25RoScMiCut============================"<<endl;
   TChain *Ch_IntHw25RoScMiCut     = new TChain("LHEF","");
