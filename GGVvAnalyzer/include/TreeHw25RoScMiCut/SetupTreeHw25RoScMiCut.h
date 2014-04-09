@@ -1,7 +1,7 @@
 #include <TChain.h>
 #include "chain_SigHw25RoScMiCut.h" 
 #include "chain_IntHw25RoScMiCut.h" 
-#include "chain_ContHw25RoScMiCut.h" 
+#include "chain_CotHw25RoScMiCut.h" 
 
 void SetupTreeHw25RoScMiCut( TString sample, TChain* chains )
 {
@@ -15,7 +15,7 @@ void SetupTreeHw25RoScMiCut( TString sample, TChain* chains )
   else if( sample == "IntHw25RoScMiCut"){
     chain_IntHw25RoScMiCut(chains);
   }
-  else if( sample == "ContHw25RoScMiCut")
+  else if( sample == "CotHw25RoScMiCut")
   {
     chain_ContHw25RoScMiCut(chains);
   }else
