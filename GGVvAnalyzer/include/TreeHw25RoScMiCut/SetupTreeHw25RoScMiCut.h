@@ -17,7 +17,7 @@ void SetupTreeHw25RoScMiCut( TString sample, TChain* chains )
   }
   else if( sample == "CotHw25RoScMiCut")
   {
-    chain_ContHw25RoScMiCut(chains);
+    chain_CotHw25RoScMiCut(chains);
   }else
     cout<<"[SetupTreeHw25RoScMiCut.h] Nanigorae? "<<endl;
 }
