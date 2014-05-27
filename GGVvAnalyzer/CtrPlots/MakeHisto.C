@@ -1,12 +1,7 @@
 #include <iostream>
-#include "../include/TreeHw25RoScMiCut/SetupTreeHw25RoScMiCut.h" 
+#include "../include/TreeHw1RoScMiCut/SetupTreeHw1RoScMiCut.h" 
 //#include "../include/TreeHw25RoScGeCut/SetupTreeHw25RoScGeCut.h" 
 using namespace std;
-//#define	RealLumi	(19619) //pb
-//#define	RealLumi	(890.608) //pb
-//#define	RealLumi	(4429) //pb
-//#define	RealLumi	(7026.245) //pb
-#define	RealLumi	(7274) //pb
 void MakeHisto()
 {
 //======================================
@@ -22,24 +17,24 @@ void MakeHisto()
 
   double LumiWeight = 1;
 
-  cout<<"TreeHw25RoScMiCut============================"<<endl;
-  TChain *Ch_SigHw25RoScMiCut     = new TChain("LHEF","");
-  SetupTreeHw25RoScMiCut("SigHw25RoScMiCut",Ch_SigHw25RoScMiCut);
-  TString DirName = "SigHw25RoScMiCut";
-  GGVvCtrPlt SigHw25RoScMiCutBeatles(Ch_SigHw25RoScMiCut,DirName,Mode);
-  SigHw25RoScMiCutBeatles.Loop();
+  cout<<"TreeHw1RoScMiCut============================"<<endl;
+  TChain *Ch_SigHw1RoScMiCut     = new TChain("LHEF","");
+  SetupTreeHw1RoScMiCut("SigHw1RoScMiCut",Ch_SigHw1RoScMiCut);
+  TString DirName = "SigHw1RoScMiCut";
+  GGVvCtrPlt SigHw1RoScMiCutBeatles(Ch_SigHw1RoScMiCut,DirName,Mode);
+  SigHw1RoScMiCutBeatles.Loop();
 
-  cout<<"TreeHw25RoScMiCut============================"<<endl;
-  TChain *Ch_CotHw25RoScMiCut     = new TChain("LHEF","");
-  SetupTreeHw25RoScMiCut("CotHw25RoScMiCut",Ch_CotHw25RoScMiCut);
-  TString DirName = "CotHw25RoScMiCut";
-  GGVvCtrPlt CotHw25RoScMiCutBeatles(Ch_CotHw25RoScMiCut,DirName,Mode);
-  CotHw25RoScMiCutBeatles.Loop();
+  cout<<"TreeHw1RoScMiCut============================"<<endl;
+  TChain *Ch_CotHw1RoScMiCut     = new TChain("LHEF","");
+  SetupTreeHw1RoScMiCut("CotHw1RoScMiCut",Ch_CotHw1RoScMiCut);
+  TString DirName = "CotHw1RoScMiCut";
+  GGVvCtrPlt CotHw1RoScMiCutBeatles(Ch_CotHw1RoScMiCut,DirName,Mode);
+  CotHw1RoScMiCutBeatles.Loop();
 
-  cout<<"TreeHw25RoScMiCut============================"<<endl;
-  TChain *Ch_IntHw25RoScMiCut     = new TChain("LHEF","");
-  SetupTreeHw25RoScMiCut("IntHw25RoScMiCut",Ch_IntHw25RoScMiCut);
-  TString DirName = "IntHw25RoScMiCut";
-  GGVvCtrPlt IntHw25RoScMiCutBeatles(Ch_IntHw25RoScMiCut,DirName,Mode);
-  IntHw25RoScMiCutBeatles.Loop();
+  cout<<"TreeHw1RoScMiCut============================"<<endl;
+  TChain *Ch_IntHw1RoScMiCut     = new TChain("LHEF","");
+  SetupTreeHw1RoScMiCut("IntHw1RoScMiCut",Ch_IntHw1RoScMiCut);
+  TString DirName = "IntHw1RoScMiCut";
+  GGVvCtrPlt IntHw1RoScMiCutBeatles(Ch_IntHw1RoScMiCut,DirName,Mode);
+  IntHw1RoScMiCutBeatles.Loop();
 }

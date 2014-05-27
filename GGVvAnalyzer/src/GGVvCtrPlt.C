@@ -24,14 +24,18 @@ void GGVvCtrPlt::Loop()
     fChain->GetEntry(i);
     Init4Event();
     DumpParticles();
+    EmuFidCut();
+    if(!PassFid) continue;
+
     if(isEl && isElNu && isMu && isMuNu)
     {
       higgs_TL = el_TL + elNu_TL + mu_TL + muNu_TL;
       Hig_mass = higgs_TL.M();
+      Hig_mt   = higgs_TL.Mt();
       if(Hig_mass >0   && Hig_mass <= 124) Hig_N_LowReso++;
       if(Hig_mass >124 && Hig_mass <= 128) Hig_N_Reso++;
-      if(Hig_mass >0   && Hig_mass <= 140) Hig_N_OnPeak++;
-      if(Hig_mass >140 && Hig_mass <= 1000) Hig_N_OffPeak++;
+      if(Hig_mass >0   && Hig_mass <= 160) Hig_N_OnPeak++;
+      if(Hig_mass >160 && Hig_mass <= 1000) Hig_N_OffPeak++;
       if(Hig_mass >128 && Hig_mass <= GenType::M_W*2) Hig_N_HighReso++;
       if(Hig_mass >GenType::M_W*2 && Hig_mass <= 1000) Hig_N_Sig++;
       if(Hig_mass >0   && Hig_mass <= 1000) Hig_N_Total++;
@@ -71,6 +75,8 @@ void GGVvCtrPlt::Loop()
       }
 
       hHig_Mass->Fill(Hig_mass);
+      hHig_Mt->Fill(Hig_mt);
+      hHig_MassMt->Fill(Hig_mass, Hig_mt);
     }
   }
   Fout<<"Hig_N_LowReso: "<<Hig_N_LowReso<<endl;
@@ -124,6 +130,8 @@ int GGVvCtrPlt::InitHistogram()
   Fout.open(FoutName);
   OutTFile = new TFile(mDirName+"/"+mMode+".root","RECREATE");
   hHig_Mass = new TH1D("hHig_Mass","Mass of Higgs",200,0,1000);
+  hHig_Mt = new TH1D("hHig_Mt","MT of Higgs",200,0,1000);
+  hHig_MassMt = new TH2D("hHig_MassMt","Mass vs. MT",200,0,1000,200,0,1000);
   return 0;
 }
 int GGVvCtrPlt::InitVar()

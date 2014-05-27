@@ -1,5 +1,5 @@
 #define PI  3.14159265358979323846
-#define LumiTotal8TeV 19.468
+#define LumiTotal8TeV 19.468 // fb^-1
 namespace GenType
 {
   enum{

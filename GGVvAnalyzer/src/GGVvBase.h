@@ -10,7 +10,7 @@
 #include <iostream>
 #include <fstream>
 #include "../ExRootAnalysis/ExRootAnalysis/ExRootAnalysis.h"
-#include "../Utils/const.h"
+#include "../../Utils/const.h"
 #include <TSystem.h>
 #include <TBenchmark.h>                   // class to track macro running statistics
 #include <TLorentzVector.h>
@@ -32,6 +32,7 @@ public :
 protected:
    virtual int Init4Event();
    int DumpParticles();
+   int EmuFidCut();
 
    TString mDirName;
    TString mMode;
@@ -47,6 +48,9 @@ protected:
 
    TLorentzVector higgs_TL;
    double Hig_mass;
+   double Hig_mt;
+
+   bool PassFid;
 };
 
 #endif
@@ -129,6 +133,7 @@ int GGVvBase::Init4Event()
   isMuNu = false;
   isEl = false;
   isElNu = false;
+  PassFid = false;
   return 0;
 }
 int GGVvBase::DumpParticles()
@@ -155,6 +160,24 @@ int GGVvBase::DumpParticles()
     {
       muNu_TL.SetXYZM(Particle_Px[i], Particle_Py[i], Particle_Pz[i], 0.0);
       isMuNu = true;
+    }
+  }
+  return 0;
+}
+int GGVvBase::EmuFidCut()
+{
+  if(isEl && isMu)
+  if( fabs(el_TL.Eta()) <2.5 && fabs(mu_TL.Eta()) <2.4)
+  {
+    if(el_TL.Pt() > 20 && mu_TL.Pt() > 10)
+    {
+      PassFid = true;
+      return 1;
+    }
+    if(el_TL.Pt() > 10 && mu_TL.Pt() > 20)
+    {
+      PassFid = true;
+      return 1;
     }
   }
   return 0;

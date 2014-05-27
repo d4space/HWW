@@ -1,89 +1,82 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Tue Mar 25 16:28:28 2014 by ROOT version 5.32/00
-// from TChain LHEF/
+// Wed Mar 12 01:53:46 2014 by ROOT version 5.32/00
+// from TChain latino/
 //////////////////////////////////////////////////////////
 
-#ifndef GGVvCtrPlt_h
-#define GGVvCtrPlt_h
+#ifndef HWwTempla_h
+#define HWwTempla_h
 
+#include <TSystem.h>
+#include <TROOT.h>
+#include <TChain.h>
+#include <TFile.h>
 #include <TH1D.h>
-#include <TH2D.h>
-#include "GGVvBase.h"
+
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+
+#include "HWwBase.h"
+// Header file for the classes stored in the TTree if any.
 
 // Fixed size dimensions of array or collections stored in the TTree if any.
 
-class GGVvCtrPlt: public GGVvBase {
+class HWwTempla: public HWwBase {
 public :
 
-   GGVvCtrPlt(TTree *tree=0,TString DirName = "OutPut", TString Mode="Test");
-   virtual ~GGVvCtrPlt();
-   virtual Int_t    Cut(Long64_t entry);
+   HWwTempla(TTree *tree=0,double lumiweight =1, TString SampleName = "Data",TString Cut ="Tight", bool RunOnMC= true);
+   virtual ~HWwTempla();
    virtual Int_t    GetEntry(Long64_t entry);
    virtual Long64_t LoadTree(Long64_t entry);
+   //virtual void     Init(TTree *tree);
    virtual void     Loop();
    virtual Bool_t   Notify();
    virtual void     Show(Long64_t entry = -1);
 protected:
-   int InitHistogram();
    int InitVar();
-   int Ntries;
-
-   int Hig_N_LowReso;
-   int Hig_N_Reso;
-   int Hig_N_HighReso;
-   int Hig_N_Sig; //Signal region
-   int Hig_N_Total;
-   int Hig_N_OnPeak;
-   int Hig_N_OffPeak;
-
-   int Hig_N_LowReso8;
-   int Hig_N_Reso8;
-   int Hig_N_HighReso8;
-   int Hig_N_Sig8; //Signal region
-   int Hig_N_Total8;
-   int Hig_N_OnPeak8;
-   int Hig_N_OffPeak8;
-
-   int Hig_N_LowReso20;
-   int Hig_N_Reso20;
-   int Hig_N_HighReso20;
-   int Hig_N_Sig20; //Signal region
-   int Hig_N_Total20;
-   int Hig_N_OnPeak20;
-   int Hig_N_OffPeak20;
-
-   TFile *OutTFile;
-   TH1D *hHig_Mass;
-   TH1D *hHig_Mt;
-   TH2D *hHig_MassMt;
+   int InitVar4Evt();
+   int InitHistogram();
+   int Write_Histo();
 
    ofstream Fout;
+   TFile *myFile;
+   TH1D *h1_mll[4];
+
 };
 
 #endif
 
-#ifdef GGVvCtrPlt_cxx
-GGVvCtrPlt::GGVvCtrPlt(TTree *tree, TString DirName, TString Mode) :
-  GGVvBase::GGVvBase(tree, DirName, Mode)
+#ifdef HWwTempla_cxx
+
+HWwTempla::HWwTempla(TTree *tree,double lumiweight, TString SampleName_,TString Cut_, bool RunOnMC) :
+  HWwBase::HWwBase( tree, lumiweight, SampleName_, Cut_, RunOnMC)
 {
+// if parameter tree is not specified (or zero), connect the file
+// used to generate this class and read the Tree.
+  cout<<"HWwTempla constructor"<<endl;
+  if (tree == 0) {
+    cout<<"Usage: HWwTempla(TTree*... ) "<<endl;
+    exit(-1);
+  }
+  cout<<"HWwTempla.h: initializing =================="<<endl;
   InitVar();
   InitHistogram();
 }
 
-GGVvCtrPlt::~GGVvCtrPlt()
+HWwTempla::~HWwTempla()
 {
    if (!fChain) return;
    delete fChain->GetCurrentFile();
 }
 
-Int_t GGVvCtrPlt::GetEntry(Long64_t entry)
+Int_t HWwTempla::GetEntry(Long64_t entry)
 {
 // Read contents of entry.
    if (!fChain) return 0;
    return fChain->GetEntry(entry);
 }
-Long64_t GGVvCtrPlt::LoadTree(Long64_t entry)
+Long64_t HWwTempla::LoadTree(Long64_t entry)
 {
 // Set the environment to read one entry
    if (!fChain) return -5;
@@ -96,7 +89,8 @@ Long64_t GGVvCtrPlt::LoadTree(Long64_t entry)
    return centry;
 }
 
-Bool_t GGVvCtrPlt::Notify()
+
+Bool_t HWwTempla::Notify()
 {
    // The Notify() function is called when a new file is opened. This
    // can be either for a new TTree in a TChain or when when a new TTree
@@ -107,18 +101,11 @@ Bool_t GGVvCtrPlt::Notify()
    return kTRUE;
 }
 
-void GGVvCtrPlt::Show(Long64_t entry)
+void HWwTempla::Show(Long64_t entry)
 {
 // Print contents of entry.
 // If entry is not specified, print current entry
    if (!fChain) return;
    fChain->Show(entry);
 }
-Int_t GGVvCtrPlt::Cut(Long64_t entry)
-{
-// This function may be called from Loop.
-// returns  1 if entry is accepted.
-// returns -1 otherwise.
-   return 1;
-}
-#endif // #ifdef GGVvCtrPlt_cxx
+#endif // #ifdef HWwTempla_cxx
