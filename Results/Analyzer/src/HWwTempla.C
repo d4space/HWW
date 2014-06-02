@@ -17,12 +17,35 @@ void HWwTempla::Loop()
   int Ntries = fChain->GetEntries();
   cout<<"Total: "<<Ntries<<endl;
   cout<<"LumiW: "<<LumiW<<endl;
-  
+ 
+  cout<<"Arg Channel: "<<argChannel<<endl;
   for (int i(0); i<Ntries;i++)
   {
     InitVar4Evt();
     evtCnt++;
     fChain->GetEntry(i);
+
+  
+    // For all channel option, check channel and save to myChannel
+    if(argChannel == 100){// all
+      if (SF0jCut() == 1)     myChannel = AC_sf0j;
+      else if (OF0jCut() == 1)myChannel = AC_of0j;
+      else if (SF1jCut() == 1)myChannel = AC_sf1j;
+      else if (OF1jCut() == 1)myChannel = AC_of1j;
+      else continue;
+    }else{ myChannel = argChannel;}
+
+    // For single channel option, check Channel
+    if(argChannel == AC_sf0j)if(SF0jCut() != 1) continue;
+    if(argChannel == AC_of0j)if(OF0jCut() != 1) continue;
+    if(argChannel == AC_sf1j)if(SF1jCut() != 1) continue;
+    if(argChannel == AC_of1j)if(OF1jCut() != 1) continue;
+
+    if( Cut == "Tight")if(CommonCut() !=1)continue;
+
+    EvtWeight = CalcWeight();
+    ScaleF = ScaleFactor();
+    Fill_Histo();
 
   }
 
@@ -36,6 +59,7 @@ void HWwTempla::Loop()
   Fout.close();
   gBenchmark->Show("HWwTempla");
 }
+
 int HWwTempla::InitVar()
 {
   TString FoutName = mResultDir+"/"+SampleName+"_"+Cut+".txt";
@@ -45,6 +69,11 @@ int HWwTempla::InitVar()
 }
 int HWwTempla::InitVar4Evt()
 {
+  return 0;
+}
+int HWwTempla::Fill_Histo()
+{
+  h1_mll[myChannel]->Fill(mll, EvtWeight*ScaleF);
   return 0;
 }
 int HWwTempla::InitHistogram()

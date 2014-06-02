@@ -25,7 +25,7 @@
 class HWwTempla: public HWwBase {
 public :
 
-   HWwTempla(TTree *tree=0,double lumiweight =1, TString SampleName = "Data",TString Cut ="Tight", bool RunOnMC= true);
+   HWwTempla(TTree *tree=0,double lumiweight =1, TString SampleName = "Data",TString Cut ="Tight", bool RunOnMC= true, TString Channel= "all");
    virtual ~HWwTempla();
    virtual Int_t    GetEntry(Long64_t entry);
    virtual Long64_t LoadTree(Long64_t entry);
@@ -37,6 +37,7 @@ protected:
    int InitVar();
    int InitVar4Evt();
    int InitHistogram();
+   int Fill_Histo();
    int Write_Histo();
 
    ofstream Fout;
@@ -49,12 +50,13 @@ protected:
 
 #ifdef HWwTempla_cxx
 
-HWwTempla::HWwTempla(TTree *tree,double lumiweight, TString SampleName_,TString Cut_, bool RunOnMC) :
-  HWwBase::HWwBase( tree, lumiweight, SampleName_, Cut_, RunOnMC)
+HWwTempla::HWwTempla(TTree *tree,double lumiweight, TString SampleName_,TString Cut_, bool RunOnMC, TString Channel) :
+  HWwBase::HWwBase( tree, lumiweight, SampleName_, Cut_, RunOnMC, Channel)
 {
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
   cout<<"HWwTempla constructor"<<endl;
+  cout<<"Channel: "<<Channel<<endl;
   if (tree == 0) {
     cout<<"Usage: HWwTempla(TTree*... ) "<<endl;
     exit(-1);

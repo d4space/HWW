@@ -26,10 +26,10 @@ void HWwCtrPlt::Loop()
     //cout<<"channel: "<<channel<<endl;
     // NT already applied loose cuts
     // select channel
-    if (SF0jCut() == 1)     myChannel = An_sf0j;
-    else if (DF0jCut() == 1)myChannel = An_of0j;
-    else if (SF1jCut() == 1)myChannel = An_sf1j;
-    else if (DF1jCut() == 1)myChannel = An_of1j;
+    if (SF0jCut() == 1)     myChannel = AC_sf0j;
+    else if (DF0jCut() == 1)myChannel = AC_of0j;
+    else if (SF1jCut() == 1)myChannel = AC_sf1j;
+    else if (DF1jCut() == 1)myChannel = AC_of1j;
     else continue;
 
     if( Cut == "Tight")if(CommonCut() !=1)continue;

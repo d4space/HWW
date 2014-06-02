@@ -31,7 +31,7 @@ Int_t HWwBase::SF0jCut()
   if (njet != 0) return -1;
   return 1;
 }
-Int_t HWwBase::DF0jCut()
+Int_t HWwBase::OF0jCut()
 {
   if (sameflav)  return -1;
   if (njet != 0) return -1;
@@ -43,7 +43,7 @@ Int_t HWwBase::SF1jCut()
   if (njet != 1) return -1;
   return 1;
 }
-Int_t HWwBase::DF1jCut()
+Int_t HWwBase::OF1jCut()
 {
   if (sameflav)  return -1;
   if (njet != 1) return -1;
@@ -70,35 +70,77 @@ Int_t HWwBase::CommonCut()
   if (ptll>30.){;}else{ return -1;}
   return 1;
 }
-int HWwBase::CalcWeight()
+double HWwBase::CalcWeight()
 {
+  double evtWeight(1);
   if(SampleName == "Data")
   {
-    EvtWeight = 1;
+    evtWeight = 1;
   }else if(SampleName == "WJet")
   {
-    EvtWeight = fakeW*(run!=201191);
+    evtWeight = fakeW*(run!=201191);
   }else if(SampleName == "WW")
   {
-    EvtWeight = puW*baseW*effW*triggW*LumiW;
+    evtWeight = puW*baseW*effW*triggW*LumiW;
   }else if(SampleName == "Top")
   {
-    EvtWeight = puW*baseW*effW*triggW*LumiW;
+    evtWeight = puW*baseW*effW*triggW*LumiW;
   }else if(SampleName == "DYll")
   {
-    EvtWeight = puW*baseW*effW*triggW*sameflav*LumiW;
+    evtWeight = puW*baseW*effW*triggW*sameflav*LumiW;
   }else if(SampleName == "DYtt")
   {
-    EvtWeight = puW*baseW*effW*triggW*(!sameflav)*LumiW;
+    evtWeight = puW*baseW*effW*triggW*(!sameflav)*LumiW;
   }else if(SampleName == "VV")
   {
-    EvtWeight = puW*baseW*effW*triggW*(1+0.5*(dataset>=82&&dataset<=84))*LumiW;
+    evtWeight = puW*baseW*effW*triggW*(1+0.5*(dataset>=82&&dataset<=84))*LumiW;
   }else if(SampleName == "VVV")
   {
-    EvtWeight = puW*baseW*effW*triggW*LumiW;
+    evtWeight = puW*baseW*effW*triggW*LumiW;
   }else if(SampleName == "H125")
   {
-    EvtWeight = puW*baseW*effW*triggW*LumiW;
+    evtWeight = puW*baseW*effW*triggW*LumiW;
   }
-  return EvtWeight;
+  return evtWeight;
+}
+double HWwBase::ScaleFactor()
+{
+  double scaleF(1);
+  // TODO same flavor scale factor not decided
+  if( (myChannel == AC_sf0j) || (myChannel == AC_sf1j) )
+  {
+    return 1;
+  }
+  if(SampleName == "Data")
+  {
+    scaleF = 1;
+  }else if(SampleName == "WJet")
+  {
+    scaleF = 1;
+  }else if(SampleName == "WW")
+  {
+    if(myChannel == AC_of0j) scaleF = 1.0364;
+    if(myChannel == AC_of1j) scaleF = 0.84151;
+  }else if(SampleName == "Top")
+  {
+    if(myChannel == AC_of0j) scaleF = 1.01264;
+    if(myChannel == AC_of1j) scaleF = 1.11272;
+  }else if(SampleName == "DYll")
+  {
+    if(myChannel == AC_of0j) scaleF = 6.98418;
+    if(myChannel == AC_of1j) scaleF = 3.73978;
+  }else if(SampleName == "DYtt")
+  {
+    scaleF = 1;
+  }else if(SampleName == "VV")
+  {
+    scaleF = 1;
+  }else if(SampleName == "VVV")
+  {
+    scaleF = 1;
+  }else if(SampleName == "H125")
+  {
+    scaleF = 1;
+  }
+  return scaleF;
 }

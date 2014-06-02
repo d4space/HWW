@@ -26,7 +26,7 @@
 class HWwBase: public HWwNT {
 public :
 
-   HWwBase(TTree *tree=0,double lumiweight =1, TString SampleName = "Data",TString Cut ="Test", bool RunOnMC=true);
+   HWwBase(TTree *tree=0,double lumiweight =1, TString SampleName = "Data",TString Cut ="Test", bool RunOnMC=true, TString Channel="of0j");
    virtual ~HWwBase();
    virtual Int_t    GetEntry(Long64_t entry);
    virtual Long64_t LoadTree(Long64_t entry);
@@ -39,19 +39,31 @@ protected:
    double MT;
    double LumiW;
    double EvtWeight;
+   double ScaleF;
    bool RunOnMC;
+
+
+   int argChannel;
+   int myChannel;
+   enum AnaChan{
+     AC_sf0j,
+     AC_of0j,
+     AC_sf1j,
+     AC_of1j
+   };
 
    TString       mResultDir;
    TString       SampleName;
    TString       Cut;
 
    virtual Int_t    SF0jCut();
-   virtual Int_t    DF0jCut();
+   virtual Int_t    OF0jCut();
    virtual Int_t    SF1jCut();
-   virtual Int_t    DF1jCut();
+   virtual Int_t    OF1jCut();
    virtual Int_t    CommonCut();
 
-   int 		CalcWeight();
+   double 	CalcWeight();
+   double 	ScaleFactor();
 
 
 };
@@ -69,6 +81,7 @@ void HWwBase::Init(TTree *tree)
 
    HWwNT::Init(tree);
    EvtWeight = 1;
+   ScaleF = 1;
 
    cout<<"RunOnMC:  "<<RunOnMC<<endl;
    if(!RunOnMC)
@@ -100,7 +113,7 @@ void HWwBase::Init(TTree *tree)
    Notify();
 }
 
-HWwBase::HWwBase(TTree *HWwBaseTree,double lumiweight, TString SampleName_,TString Cut_, bool runOnMC)
+HWwBase::HWwBase(TTree *HWwBaseTree,double lumiweight, TString SampleName_,TString Cut_, bool runOnMC, TString Channel)
 {
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
@@ -115,6 +128,12 @@ HWwBase::HWwBase(TTree *HWwBaseTree,double lumiweight, TString SampleName_,TStri
   mResultDir = SampleName_;
   Cut = Cut_;
   RunOnMC = runOnMC;
+  if(Channel == "sf0j") argChannel = AC_sf0j;
+  else if(Channel == "of0j") argChannel = AC_of0j;
+  else if(Channel == "sf1j") argChannel = AC_sf1j;
+  else if(Channel == "of1j") argChannel = AC_of1j;
+  else if(Channel == "all") argChannel  = 100;
+  else{cout<<"Channel is wrong: "<<Channel<<endl; exit(-1);}
   Init(HWwBaseTree);
 }
 

@@ -49,12 +49,6 @@ protected:
      nt_elmu,
      nt_muel
    };
-   enum AnaChan{
-     An_sf0j,
-     An_of0j,
-     An_sf1j,
-     An_of1j
-   };
 
 
    TH1D *h1_channel[4];
