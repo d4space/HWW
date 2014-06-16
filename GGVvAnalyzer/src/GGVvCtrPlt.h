@@ -55,9 +55,15 @@ protected:
 
    TFile *OutTFile;
    TH1D *hHig_Mass;
-   TH1D *hHig_Mt;
-   TH2D *hHig_MassMt;
-
+   TH1D *hEle_Mass;
+   TH1D *hMu_Mass;
+   TH1D *hEleMu_Mass;
+   TH1D *hHigT_Mass;
+   TH1D *h_leadingPt;
+//   TH1D *h_trailingPt;
+   TH1D *h_leadingM;
+   TH1D *hHig_Et;
+   TH1D *hHigEM_Mass;
    ofstream Fout;
 };
 
