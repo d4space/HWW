@@ -47,8 +47,20 @@ protected:
    bool isElNu;
 
    TLorentzVector higgs_TL;
+   TLorentzVector higgsT_TL;
+   TLorentzVector elmu_TL;
+   TLorentzVector higgsl_TL;
+   TLorentzVector higgsEM_TL;
+
    double Hig_mass;
-   double Hig_mt;
+   double Ele_mass;
+   double Mu_mass;
+   double EleMu_mass;
+   double HigT_mass;
+   double Higl_mass;
+   double Hig_cut_mass;
+   double Hig_Et;
+   double HigEM_mass;
 
    bool PassFid;
 };
@@ -133,7 +145,6 @@ int GGVvBase::Init4Event()
   isMuNu = false;
   isEl = false;
   isElNu = false;
-  PassFid = false;
   return 0;
 }
 int GGVvBase::DumpParticles()
@@ -160,24 +171,6 @@ int GGVvBase::DumpParticles()
     {
       muNu_TL.SetXYZM(Particle_Px[i], Particle_Py[i], Particle_Pz[i], 0.0);
       isMuNu = true;
-    }
-  }
-  return 0;
-}
-int GGVvBase::EmuFidCut()
-{
-  if(isEl && isMu)
-  if( fabs(el_TL.Eta()) <2.5 && fabs(mu_TL.Eta()) <2.4)
-  {
-    if(el_TL.Pt() > 20 && mu_TL.Pt() > 10)
-    {
-      PassFid = true;
-      return 1;
-    }
-    if(el_TL.Pt() > 10 && mu_TL.Pt() > 20)
-    {
-      PassFid = true;
-      return 1;
     }
   }
   return 0;
