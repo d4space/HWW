@@ -9,6 +9,7 @@
 #include "chain_vv.h"
 #include "chain_vvv.h"
 #include "chain_ww.h"
+#include "chain_ggWW.h"
 
 //===============
 
@@ -44,6 +45,9 @@ void SetupTree( TString sample, TChain* chains )
   }
   else if( sample == "H125"){
     chain_h125(chains);
+  }
+  else if(sample == "ggWW"){
+    chain_ggWW(chains);
   }
   else
   {

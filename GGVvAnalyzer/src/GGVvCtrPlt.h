@@ -28,6 +28,19 @@ protected:
    int InitHistogram();
    int InitVar();
    int Ntries;
+   int FillHist();
+   int Nselected4Bin();
+
+   int Higgs_EM_N_Total;
+   int Npt0_140;
+   int Npt8_140;
+   int Npt20_140;
+   int Npt0_140_300;
+   int Npt8_140_300;
+   int Npt20_140_300;
+   int Npt0_300;
+   int Npt8_300;
+   int Npt20_300;
 
    int Hig_N_LowReso;
    int Hig_N_Reso;
@@ -60,10 +73,13 @@ protected:
    TH1D *hEleMu_Mass;
    TH1D *hHigT_Mass;
    TH1D *h_leadingPt;
-//   TH1D *h_trailingPt;
+   TH1D *h_trailingPt;
    TH1D *h_leadingM;
    TH1D *hHig_Et;
-   TH1D *hHigEM_Mass;
+   TH1D *h_DiLept_Mass;
+   TH1D *h_MET;
+   TH1D *h_mpMET;
+   TH1D *h_dphill;
    ofstream Fout;
 };
 

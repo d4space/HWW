@@ -33,6 +33,8 @@ protected:
    virtual int Init4Event();
    int DumpParticles();
    int EmuFidCut();
+   Double_t deltaPhi(double phi1, double phi2);
+   int SelectParticles();
 
    TString mDirName;
    TString mMode;
@@ -50,18 +52,25 @@ protected:
    TLorentzVector higgsT_TL;
    TLorentzVector elmu_TL;
    TLorentzVector higgsl_TL;
-   TLorentzVector higgsEM_TL;
+   TLorentzVector DiLept_TL;
+   TLorentzVector MET_TL;
 
+   double elPt;
+   double muPt;
+   double elMass;
+   double muMass;
    double Hig_mass;
-   double Ele_mass;
-   double Mu_mass;
-   double EleMu_mass;
    double HigT_mass;
-   double Higl_mass;
-   double Hig_cut_mass;
    double Hig_Et;
-   double HigEM_mass;
-
+   double DiLept_mass;
+   double MET;
+   double mpMET;
+   double DiLept_dphi;
+   double dphi_MEtLL;
+   double DiLept_pt;
+   double pt1;
+   double pt2;
+   
    bool PassFid;
 };
 
@@ -173,6 +182,69 @@ int GGVvBase::DumpParticles()
       isMuNu = true;
     }
   }
+  
+  //Variables
+  if(isEl && isElNu && isMu && isMuNu)
+  {
+    //Leading and Trailing lepton pt
+    elPt = el_TL.Pt();
+    muPt = mu_TL.Pt();
+    if(elPt > muPt){
+      pt1 = elPt; 
+      pt2 = muPt;
+    }else{
+      pt1 = muPt; 
+      pt2 = elPt;
+    }
+
+    //pfMET
+    MET_TL = elNu_TL + muNu_TL; 
+    MET = MET_TL.Pt();
+
+    //dPhi between MET and DiLepton
+    dphi_MEtLL = deltaPhi(MET_TL.Phi(), DiLept_TL.Phi());
+    
+    //DiLepton variables
+    DiLept_TL = el_TL + mu_TL;
+    DiLept_pt = DiLept_TL.Pt();
+    DiLept_mass = DiLept_TL.M();
+    DiLept_dphi = deltaPhi(el_TL.Phi(), mu_TL.Phi());
+    
+    //Higgs variables
+    double mt2 = 2.*DiLept_pt*MET*(1.-TMath::Cos(dphi_MEtLL));
+    HigT_mass = (mt2 > 0) ? TMath::Sqrt(mt2) : 0;
+    higgs_TL = el_TL + elNu_TL + mu_TL + muNu_TL;
+    Hig_mass = higgs_TL.M();
+    Hig_Et = higgs_TL.Et();
+
+    //Transverse MET
+    double dphi_min;
+    double dphi_lept1met;
+    double dphi_lept2met;
+    dphi_lept1met = deltaPhi(MET_TL.Phi(), el_TL.Phi());
+    dphi_lept2met = deltaPhi(MET_TL.Phi(), mu_TL.Phi());
+    dphi_min = TMath::Min(dphi_lept1met,dphi_lept2met);
+    if(dphi_min>PI/2) mpMET = MET;
+    if(dphi_min<PI/2) mpMET = MET*TMath::Sin(dphi_min);
+  }
   return 0;
+}
+
+int GGVvBase::SelectParticles()
+{
+  if(pt1<=20 && pt2<=10) return -1;
+  if(MET<=20) return -1;
+  if(DiLept_mass<=12) return -1;
+  if(DiLept_pt<=30) return -1;
+  if(mpMET<=20 && MET<=45) return -1;
+  return 1;
+}
+
+Double_t GGVvBase::deltaPhi(double phi1,double phi2)
+{
+  double deltaphi = fabs(phi1-phi2);
+  if(deltaphi>(2.*PI))deltaphi-=2.*PI;
+  if(deltaphi>PI)deltaphi=2.*PI-deltaphi;
+  return deltaphi;
 }
 #endif // #ifdef GGVvBase_cxx
