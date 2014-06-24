@@ -31,7 +31,7 @@ void CtrPlots(TString CutName, TString VarName, TString DirName){
   TFile *fwjets = new TFile("WJet/WJet_"+CutName+".root");
   TFile *fww    = new TFile("WW/WW_"+CutName+".root");
   TFile *ftop   = new TFile("Top/Top_"+CutName+".root");
-  TFile *fdyll  = new TFile("DYll/DYll_"+CutName+".root");
+  TFile *fdyll  = new TFile("DYll/DYll_"+CutName+".root");// we're using DYtt(data driven) in OF channel instead for DYll
   TFile *fdytt  = new TFile("DYtt/DYtt_"+CutName+".root");
   TFile *fvv    = new TFile("VV/VV_"+CutName+".root");
   TFile *fvvv   = new TFile("VVV/VVV_"+CutName+".root");
@@ -45,12 +45,12 @@ void CtrPlots(TString CutName, TString VarName, TString DirName){
   TH1D *h_wjets[4];
   TH1D *h_ww[4];
   TH1D *h_top[4];
-  TH1D *h_dyll[4];
+  TH1D *h_dyll[4]; 
+  TH1D *hdy[4];
   TH1D *h_dytt[4];
   TH1D *h_vv[4];
   TH1D *h_vvv[4];
   TH1D *h_h125[4];
-  TH1D *hdy[4];
   TH1D *h125[4];
   TH1D *hdiff[4];
   TH1D* hRatio[4];
@@ -59,6 +59,10 @@ void CtrPlots(TString CutName, TString VarName, TString DirName){
   //=====================================
   //Looping for each Channel
   //=====================================
+  // 0 = "sf0j"
+  // 1 = "of0j"
+  // 2 = "sf1j"
+  // 3 = "of1j"
   for (int i(0);i<4;i++) {
     TCanvas *myCan = new TCanvas("myCan","Can",800,800);
     myCan->cd();
@@ -117,13 +121,14 @@ void CtrPlots(TString CutName, TString VarName, TString DirName){
     sprintf(histName,"h_h125_%d",i);
     h_h125[i]= (TH1D*)fh125->Get(histNameOrg)->Clone(histName); h_h125[i]->Sumw2();
 
-    if(VarName == "dphill")
-      h_wjets[i]->Scale(1./LumiW);
     h_data[i]->SetMarkerStyle(20);
     
     sprintf(histName,"hdy_%d",i);
-    hdy[i] = (TH1D*)h_dyll[i]->Clone(histName);
-    hdy[i]->Add(h_dytt[i]);
+    hdy[i] = (TH1D*)h_dytt[i]->Clone(histName); //DYtt is data driven background amount to DYll
+    if(i == 0 || i == 2)//sf0j, sf1j
+    {
+      hdy[i]->Add(h_dyll[i]);
+    }
     
     sprintf(histName,"h125_%d",i);
     h125[i] = (TH1D*)h_h125[i]->Clone(histName);
@@ -194,8 +199,9 @@ void CtrPlots(TString CutName, TString VarName, TString DirName){
     hdiff[i] = (TH1D*)h_wjets[i]->Clone(histName);
     hdiff[i]->Add(h_ww[i]);
     hdiff[i]->Add(h_top[i]);
-    hdiff[i]->Add(h_dyll[i]);
-    hdiff[i]->Add(h_dytt[i]);
+//    hdiff[i]->Add(h_dyll[i]);
+//    hdiff[i]->Add(h_dytt[i]);
+    hdiff[i]->Add(hdy[i]);
     hdiff[i]->Add(h_vv[i]);
     hdiff[i]->Add(h_vvv[i]);
     hdiff[i]->Add(h_h125[i]);

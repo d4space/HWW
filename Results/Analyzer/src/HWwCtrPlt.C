@@ -26,16 +26,16 @@ void HWwCtrPlt::Loop()
     //cout<<"channel: "<<channel<<endl;
     // NT already applied loose cuts
     // select channel
-    if (SF0jCut() == 1)     myChannel = AC_sf0j;
-    else if (DF0jCut() == 1)myChannel = AC_of0j;
-    else if (SF1jCut() == 1)myChannel = AC_sf1j;
-    else if (DF1jCut() == 1)myChannel = AC_of1j;
+    if (SF0jCut() == 1)     evtChannel = Chan_sf0j;
+    else if (OF0jCut() == 1)evtChannel = Chan_of0j;
+    else if (SF1jCut() == 1)evtChannel = Chan_sf1j;
+    else if (OF1jCut() == 1)evtChannel = Chan_of1j;
     else continue;
 
-    if( Cut == "Tight")if(CommonCut() !=1)continue;
-    CalcWeight();
+    if( Cut == "CommonCut")if(CommonCut() !=1)continue;
+    EvtWeight = CalcWeight();
+    //cout<<"evtChannel: "<<evtChannel<<"  channel: "<<channel<<endl;
     Fill_Histo();
-
   }
   // Usie one of the Write_Histo ro myFile->Write
   // Write_Histo: to write specific ones
@@ -50,10 +50,10 @@ void HWwCtrPlt::Loop()
 int HWwCtrPlt::Fill_Histo()
 {
 
-  h1_channel[myChannel]->Fill(channel, EvtWeight);
-  h1_mll[myChannel]->Fill(mll, EvtWeight);
-  h1_dphill[myChannel]->Fill(180./PI*fabs(dphill), EvtWeight);
-  h1_mth[myChannel]->Fill(mth, EvtWeight);
+  h1_channel[evtChannel]->Fill(channel, EvtWeight); //channel 0,1,2,3 (mumu,elel,elmu,muel)
+  h1_mll    [evtChannel]->Fill(mll, EvtWeight);
+  h1_dphill [evtChannel]->Fill(180./PI*fabs(dphill), EvtWeight);
+  h1_mth    [evtChannel]->Fill(mth, EvtWeight);
 
   return 0;
 }

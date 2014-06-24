@@ -42,13 +42,6 @@ protected:
 
    ofstream Fout;
    TFile *myFile;
-   int myChannel;
-   enum ntChannel{
-     nt_mumu, // Assigned 0
-     nt_elel,
-     nt_elmu,
-     nt_muel
-   };
 
 
    TH1D *h1_channel[4];

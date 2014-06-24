@@ -1,10 +1,9 @@
 import os
 import sys
 
-
 #CutNames=['Loose']
 #CutNames=['Tight']
-CutNames=['Loose','Tight']
+CutNames=['Loose','CommonCut']
 VarNames=['channel','mll','dphill','mth']
 DirName = "Plts"
 cmd_string = "mkdir " + DirName
