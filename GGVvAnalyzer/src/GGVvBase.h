@@ -201,14 +201,14 @@ int GGVvBase::DumpParticles()
     MET_TL = elNu_TL + muNu_TL; 
     MET = MET_TL.Pt();
 
-    //dPhi between MET and DiLepton
-    dphi_MEtLL = deltaPhi(MET_TL.Phi(), DiLept_TL.Phi());
-    
     //DiLepton variables
     DiLept_TL = el_TL + mu_TL;
     DiLept_pt = DiLept_TL.Pt();
     DiLept_mass = DiLept_TL.M();
     DiLept_dphi = deltaPhi(el_TL.Phi(), mu_TL.Phi());
+    
+    //dPhi between MET and DiLepton
+    dphi_MEtLL = deltaPhi(MET_TL.Phi(), DiLept_TL.Phi());
     
     //Higgs variables
     double mt2 = 2.*DiLept_pt*MET*(1.-TMath::Cos(dphi_MEtLL));
