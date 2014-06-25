@@ -11,7 +11,7 @@
 //#define CotXsec 16.6*15 //fb
 //#define IntXsec 38.3*15 //fb
 
-#define Nevt 25000*16
+#define Nevt 25000*160
 
 int CtrPlots()
 {
