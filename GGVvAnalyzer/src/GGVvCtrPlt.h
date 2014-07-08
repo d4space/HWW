@@ -16,7 +16,7 @@
 class GGVvCtrPlt: public GGVvBase {
 public :
 
-   GGVvCtrPlt(TTree *tree=0,TString DirName = "OutPut", TString Mode="Test");
+   GGVvCtrPlt(TTree *tree=0,TString DirName = "OutPut", TString Mode="Test",double weight=1);
    virtual ~GGVvCtrPlt();
    virtual Int_t    Cut(Long64_t entry);
    virtual Int_t    GetEntry(Long64_t entry);
@@ -29,65 +29,92 @@ protected:
    int InitVar();
    int Ntries;
    int FillHist();
+   int FillHistNoCut();
    int Nselected4Bin();
 
-   int Higgs_EM_N_Total;
-   int Npt0_140;
-   int Npt8_140;
-   int Npt20_140;
-   int Npt0_140_300;
-   int Npt8_140_300;
-   int Npt20_140_300;
-   int Npt0_300;
-   int Npt8_300;
-   int Npt20_300;
+   double nPass;
+   double Higgs_EM_N_Total;
+   double Npt0_140;
+   double Npt8_140;
+   double Npt20_140;
+   double Npt0_140_300;
+   double Npt8_140_300;
+   double Npt20_140_300;
+   double Npt0_300;
+   double Npt8_300;
+   double Npt20_300;
 
-   int Hig_N_LowReso;
-   int Hig_N_Reso;
-   int Hig_N_HighReso;
-   int Hig_N_Sig; //Signal region
-   int Hig_N_Total;
-   int Hig_N_OnPeak;
-   int Hig_N_OffPeak;
+   double Hig_N_LowReso;
+   double Hig_N_Reso;
+   double Hig_N_HighReso;
+   double Hig_N_Sig; //Signal region
+   double Hig_N_Total;
+   double Hig_N_OnPeak;
+   double Hig_N_OffPeak;
 
-   int Hig_N_LowReso8;
-   int Hig_N_Reso8;
-   int Hig_N_HighReso8;
-   int Hig_N_Sig8; //Signal region
-   int Hig_N_Total8;
-   int Hig_N_OnPeak8;
-   int Hig_N_OffPeak8;
+   double Hig_N_LowReso8;
+   double Hig_N_Reso8;
+   double Hig_N_HighReso8;
+   double Hig_N_Sig8; //Signal region
+   double Hig_N_Total8;
+   double Hig_N_OnPeak8;
+   double Hig_N_OffPeak8;
 
-   int Hig_N_LowReso20;
-   int Hig_N_Reso20;
-   int Hig_N_HighReso20;
-   int Hig_N_Sig20; //Signal region
-   int Hig_N_Total20;
-   int Hig_N_OnPeak20;
-   int Hig_N_OffPeak20;
+   double Hig_N_LowReso20;
+   double Hig_N_Reso20;
+   double Hig_N_HighReso20;
+   double Hig_N_Sig20; //Signal region
+   double Hig_N_Total20;
+   double Hig_N_OnPeak20;
+   double Hig_N_OffPeak20;
 
    TFile *OutTFile;
-   TH1D *hHig_Mass;
-   TH1D *hEle_Mass;
-   TH1D *hMu_Mass;
-   TH1D *hEleMu_Mass;
-   TH1D *hHigT_Mass;
-   TH1D *h_leadingPt;
-   TH1D *h_trailingPt;
-   TH1D *h_leadingM;
-   TH1D *hHig_Et;
-   TH1D *h_DiLept_Mass;
+   //No Cut
+   TH1D *hNoCut_Hig_Mass;
+   TH1D *hNoCut_HigT_Mass;
+   TH1D *hNoCut_DiLept_mass;
+   TH1D *hNoCut_DiLept_pt;
+   TH1D *hNoCut_pt1;
+   TH1D *hNoCut_pt2;
+   TH1D *hNoCut_MET;
+   TH1D *hNoCut_mpMET;
+   TH1D *hNoCut_ppfMET;
+   TH1D *hNoCut_dphill;
+   
+   //Common Cut
+   TH1D *h_Hig_Mass;
+   TH1D *h_HigT_Mass;
+   TH1D *h_DiLept_mass;
+   TH1D *h_DiLept_pt;
+   TH1D *h_pt1;
+   TH1D *h_pt2;
    TH1D *h_MET;
    TH1D *h_mpMET;
+   TH1D *h_ppfMET;
    TH1D *h_dphill;
+  
+   //N-1 cut study histograms
+   TH1D *h_n1_pt1;
+   TH1D *h_n1_pt2;
+   TH1D *h_n1_MET;
+   TH1D *h_n1_DiLept_mass;
+   TH1D *h_n1_DiLept_pt;
+   TH1D *h_n1_mpMET;
+   TH2D *h2_Hmass_pt1;
+   TH2D *h2_Hmass_pt2;
+   TH2D *h2_Hmass_MET;
+   TH2D *h2_Hmass_DiLept_mass;
+   TH2D *h2_Hmass_DiLept_pt;
+   TH2D *h2_Hmass_mpMET;
+   TH2D *h2_Hmass_HTmass;
    ofstream Fout;
 };
 
 #endif
 
 #ifdef GGVvCtrPlt_cxx
-GGVvCtrPlt::GGVvCtrPlt(TTree *tree, TString DirName, TString Mode) :
-  GGVvBase::GGVvBase(tree, DirName, Mode)
+GGVvCtrPlt::GGVvCtrPlt(TTree *tree, TString DirName, TString Mode,double lumiweight) :
+  GGVvBase::GGVvBase(tree, DirName, Mode, lumiweight)
 {
   InitVar();
   InitHistogram();

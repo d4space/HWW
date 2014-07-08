@@ -20,7 +20,7 @@
 class GGVvBase: public GGVvNT {
 public :
 
-   GGVvBase(TTree *tree=0, TString DirName="OutDir", TString Mode="Test");
+   GGVvBase(TTree *tree=0, TString DirName="OutDir", TString Mode="Test",double weight=1);
    virtual ~GGVvBase();
    virtual Int_t    Cut(Long64_t entry);
    virtual Int_t    GetEntry(Long64_t entry);
@@ -33,8 +33,14 @@ protected:
    virtual int Init4Event();
    int DumpParticles();
    int EmuFidCut();
+   int CommonCut();
+   int pt1_Cut();
+   int pt2_Cut();
+   int MET_Cut();
+   int DiLept_mass_Cut();
+   int DiLept_pt_Cut();
+   int mpMET_Cut();
    Double_t deltaPhi(double phi1, double phi2);
-   int SelectParticles();
 
    TString mDirName;
    TString mMode;
@@ -65,6 +71,8 @@ protected:
    double DiLept_mass;
    double MET;
    double mpMET;
+   double ppfMET1;
+   double ppfMET2;
    double DiLept_dphi;
    double dphi_MEtLL;
    double DiLept_pt;
@@ -72,12 +80,14 @@ protected:
    double pt2;
    
    bool PassFid;
+   bool isMuNuEleNu;
+   double mTTW;
 };
 
 #endif
 
 #ifdef GGVvBase_cxx
-GGVvBase::GGVvBase(TTree *tree, TString DirName, TString Mode)
+GGVvBase::GGVvBase(TTree *tree, TString DirName, TString Mode,double lumiweight)
 {
   fChain = 0;
 // if parameter tree is not specified (or zero), connect the file
@@ -88,6 +98,7 @@ GGVvBase::GGVvBase(TTree *tree, TString DirName, TString Mode)
    }
    mDirName = DirName;
    mMode = Mode;
+   mTTW = lumiweight;
 
    Init(tree);
 }
@@ -154,6 +165,24 @@ int GGVvBase::Init4Event()
   isMuNu = false;
   isEl = false;
   isElNu = false;
+  isMuNuEleNu = false;
+  elPt = 0;
+  muPt = 0;
+  elMass = 0;
+  muMass = 0;
+  Hig_mass = 0;
+  HigT_mass = 0;
+  Hig_Et = 0;
+  DiLept_mass = 0;
+  MET = 0;
+  mpMET = 0;
+  ppfMET1 = 0;
+  ppfMET2 = 0;
+  DiLept_dphi = 0;
+  dphi_MEtLL = 0;
+  DiLept_pt = 0;
+  pt1 = 0;
+  pt2 = 0;
   return 0;
 }
 int GGVvBase::DumpParticles()
@@ -186,13 +215,14 @@ int GGVvBase::DumpParticles()
   //Variables
   if(isEl && isElNu && isMu && isMuNu)
   {
+    isMuNuEleNu = true;
     //Leading and Trailing lepton pt
     elPt = el_TL.Pt();
     muPt = mu_TL.Pt();
     if(elPt > muPt){
       pt1 = elPt; 
       pt2 = muPt;
-    }else{
+    }else if(elPt < muPt){
       pt1 = muPt; 
       pt2 = elPt;
     }
@@ -217,7 +247,7 @@ int GGVvBase::DumpParticles()
     Hig_mass = higgs_TL.M();
     Hig_Et = higgs_TL.Et();
 
-    //Transverse MET
+    //Projected pfMET
     double dphi_min;
     double dphi_lept1met;
     double dphi_lept2met;
@@ -226,17 +256,80 @@ int GGVvBase::DumpParticles()
     dphi_min = TMath::Min(dphi_lept1met,dphi_lept2met);
     if(dphi_min>PI/2) mpMET = MET;
     if(dphi_min<PI/2) mpMET = MET*TMath::Sin(dphi_min);
+
+    //Minimum of projected METs
+    if(dphi_lept1met>PI/2) ppfMET1 = MET;
+    if(dphi_lept1met<PI/2) ppfMET1 = MET*TMath::Sin(dphi_lept1met);
+    if(dphi_lept2met>PI/2) ppfMET2 = MET;
+    if(dphi_lept2met<PI/2) ppfMET2 = MET*TMath::Sin(dphi_lept2met);
+    //cout<<ppfMET1<<"\t"<<ppfMET2<<"\t"<<mpMET<<endl;
   }
   return 0;
 }
 
-int GGVvBase::SelectParticles()
+int GGVvBase::CommonCut()
 {
-  if(pt1<=20 && pt2<=10) return -1;
-  if(MET<=20) return -1;
-  if(DiLept_mass<=12) return -1;
-  if(DiLept_pt<=30) return -1;
-  if(mpMET<=20 && MET<=45) return -1;
+  if(pt1>20 && pt2>10){}else{return -1;}
+  if(MET>20){}else{return -1;}
+  if(DiLept_mass>12){}else{return -1;}
+  if(DiLept_pt>30){}else{return -1;}
+  if(mpMET>20 && MET>45){}else{return -1;}
+  return 1;
+}
+int GGVvBase::pt1_Cut()
+{
+  //if(pt1>20 && pt2>10){}else{return -1;}
+  if(pt2>10){}else{return -1;}
+  if(MET>20){}else{return -1;}
+  if(DiLept_mass>12){}else{return -1;}
+  if(DiLept_pt>30){}else{return -1;}
+  if(mpMET>20 && MET>45){}else{return -1;}
+  return 1;
+}
+int GGVvBase::pt2_Cut()
+{
+  //if(pt1>20 && pt2>10){}else{return -1;}
+  if(pt1>20){}else{return -1;}
+  if(MET>20){}else{return -1;}
+  if(DiLept_mass>12){}else{return -1;}
+  if(DiLept_pt>30){}else{return -1;}
+  if(mpMET>20 && MET>45){}else{return -1;}
+  return 1;
+}
+int GGVvBase::MET_Cut()
+{
+  if(pt1>20 && pt2>10){}else{return -1;}
+  //if(MET>20){}else{return -1;}
+  if(DiLept_mass>12){}else{return -1;}
+  if(DiLept_pt>30){}else{return -1;}
+  if(mpMET>20 && MET>45){}else{return -1;}
+  return 1;
+}
+int GGVvBase::DiLept_mass_Cut()
+{
+  if(pt1>20 && pt2>10){}else{return -1;}
+  if(MET>20){}else{return -1;}
+  //if(DiLept_mass>12){}else{return -1;}
+  if(DiLept_pt>30){}else{return -1;}
+  if(mpMET>20 && MET>45){}else{return -1;}
+  return 1;
+}
+int GGVvBase::DiLept_pt_Cut()
+{
+  if(pt1>20 && pt2>10){}else{return -1;}
+  if(MET>20){}else{return -1;}
+  if(DiLept_mass>12){}else{return -1;}
+  //if(DiLept_pt>30){}else{return -1;}
+  if(mpMET>20 && MET>45){}else{return -1;}
+  return 1;
+}
+int GGVvBase::mpMET_Cut()
+{
+  if(pt1>20 && pt2>10){}else{return -1;}
+  if(MET>20){}else{return -1;}
+  if(DiLept_mass>12){}else{return -1;}
+  if(DiLept_pt>30){}else{return -1;}
+  //if(mpMET>20 && MET>45){}else{return -1;}
   return 1;
 }
 
