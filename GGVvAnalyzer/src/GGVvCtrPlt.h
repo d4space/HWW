@@ -70,43 +70,45 @@ protected:
 
    TFile *OutTFile;
    //No Cut
-   TH1D *hNoCut_Hig_Mass;
-   TH1D *hNoCut_HigT_Mass;
-   TH1D *hNoCut_DiLept_mass;
-   TH1D *hNoCut_DiLept_pt;
+   TH1D *hNoCut_Hig_mass;
+   TH1D *hNoCut_HigT_mass;
+   TH1D *hNoCut_mll;
+   TH1D *hNoCut_ptll;
    TH1D *hNoCut_pt1;
    TH1D *hNoCut_pt2;
    TH1D *hNoCut_MET;
    TH1D *hNoCut_mpMET;
    TH1D *hNoCut_ppfMET;
    TH1D *hNoCut_dphill;
+   TH1D *hNoCut_dphillmet;
    
    //Common Cut
-   TH1D *h_Hig_Mass;
-   TH1D *h_HigT_Mass;
-   TH1D *h_DiLept_mass;
-   TH1D *h_DiLept_pt;
+   TH1D *h_Hig_mass;
+   TH1D *h_HigT_mass;
+   TH1D *h_mll;
+   TH1D *h_ptll;
    TH1D *h_pt1;
    TH1D *h_pt2;
    TH1D *h_MET;
    TH1D *h_mpMET;
    TH1D *h_ppfMET;
    TH1D *h_dphill;
+   TH1D *h_dphillmet;
   
    //N-1 cut study histograms
-   TH1D *h_n1_pt1;
-   TH1D *h_n1_pt2;
-   TH1D *h_n1_MET;
-   TH1D *h_n1_DiLept_mass;
-   TH1D *h_n1_DiLept_pt;
-   TH1D *h_n1_mpMET;
-   TH2D *h2_Hmass_pt1;
-   TH2D *h2_Hmass_pt2;
-   TH2D *h2_Hmass_MET;
-   TH2D *h2_Hmass_DiLept_mass;
-   TH2D *h2_Hmass_DiLept_pt;
-   TH2D *h2_Hmass_mpMET;
-   TH2D *h2_Hmass_HTmass;
+   TH1D *hN1Cut_pt1;
+   TH1D *hN1Cut_pt2;
+   TH1D *hN1Cut_MET;
+   TH1D *hN1Cut_mll;
+   TH1D *hN1Cut_ptll;
+   TH1D *hN1Cut_mpMET;
+   TH2D *h2_mH_pt1;
+   TH2D *h2_mH_pt2;
+   TH2D *h2_mH_MET;
+   TH2D *h2_mH_mll;
+   TH2D *h2_mH_ptll;
+   TH2D *h2_mH_mpMET;
+   TH2D *h2_mH_mtH;
    ofstream Fout;
 };
 

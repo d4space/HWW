@@ -37,33 +37,33 @@ void GGVvCtrPlt::Loop()
     {
       if(pt1<20)
 	cout<<"pt1<20:\t"<<pt1<<endl;
-      h2_Hmass_pt1->Fill(Hig_mass,pt1);
-      h_n1_pt1->Fill(pt1,mTTW);
+      h2_mH_pt1->Fill(Hig_mass,pt1);
+      hN1Cut_pt1->Fill(pt1,mTTW);
     }
     if(pt2_Cut()>0)
     {
-      h2_Hmass_pt2->Fill(Hig_mass,pt2);
-      h_n1_pt2->Fill(pt2,mTTW);
+      h2_mH_pt2->Fill(Hig_mass,pt2);
+      hN1Cut_pt2->Fill(pt2,mTTW);
     }
     if(MET_Cut()>0)
     {
-      h2_Hmass_MET->Fill(Hig_mass,MET);
-      h_n1_MET->Fill(MET,mTTW);
+      h2_mH_MET->Fill(Hig_mass,MET);
+      hN1Cut_MET->Fill(MET,mTTW);
     }
     if(DiLept_mass_Cut()>0)
     {
-      h2_Hmass_DiLept_mass->Fill(Hig_mass,DiLept_mass);
-      h_n1_DiLept_mass->Fill(DiLept_mass,mTTW);
+      h2_mH_mll->Fill(Hig_mass,DiLept_mass);
+      hN1Cut_mll->Fill(DiLept_mass,mTTW);
     }
     if(DiLept_pt_Cut()>0)
     {
-      h2_Hmass_DiLept_pt->Fill(Hig_mass,DiLept_pt);
-      h_n1_DiLept_pt->Fill(DiLept_pt,mTTW);
+      h2_mH_ptll->Fill(Hig_mass,DiLept_pt);
+      hN1Cut_ptll->Fill(DiLept_pt,mTTW);
     }
     if(mpMET_Cut()>0)
     {
-      h2_Hmass_mpMET->Fill(Hig_mass,mpMET);
-      h_n1_mpMET->Fill(mpMET,mTTW);
+      h2_mH_mpMET->Fill(Hig_mass,mpMET);
+      hN1Cut_mpMET->Fill(mpMET,mTTW);
     }
     if(CommonCut()>0)
     {
@@ -171,50 +171,52 @@ int GGVvCtrPlt::InitHistogram()
   Fout.open(FoutName);
   OutTFile = new TFile(mDirName+"/"+mMode+".root","RECREATE");
   //No Cut
-  hNoCut_Hig_Mass    = new TH1D("hNoCut_Hig_Mass","m_{H} [GeV/c^{2}]",20,0,1000);
-  hNoCut_HigT_Mass   = new TH1D("hNoCut_HigT_Mass","m_{T}^{H} [Gev/c^{2}]",12,0,600);
-  hNoCut_DiLept_mass = new TH1D("hNoCut_DiLept_mass","m_{ll} [GeV/c^{2}]",10,0,600);
-  hNoCut_DiLept_pt   = new TH1D("hNoCut_DiLept_pt","p_{T}^{ll} [GeV/c]",20,0,150);
+  hNoCut_Hig_mass    = new TH1D("hNoCut_Hig_mass","m_{H} [GeV/c^{2}]",20,0,1000);
+  hNoCut_HigT_mass   = new TH1D("hNoCut_HigT_mass","m_{T}^{H} [Gev/c^{2}]",12,0,600);
+  hNoCut_mll = new TH1D("hNoCut_mll","m_{ll} [GeV/c^{2}]",10,0,600);
+  hNoCut_ptll   = new TH1D("hNoCut_ptll","p_{T}^{ll} [GeV/c]",20,0,150);
   hNoCut_pt1    = new TH1D("hNoCut_pt1","p_{T}^{l, max} [GeV/c]",20,0,150);
   hNoCut_pt2    = new TH1D("hNoCut_pt2","p_{T}^{l, min} [GeV/c]",20,0,150);
   hNoCut_MET    = new TH1D("hNoCut_MET","PF #slash{E}_{T} [GeV]",25,0,200);
   hNoCut_mpMET  = new TH1D("hNoCut_mpMET","min(Proj. PF #slash{E}_{T}, ch #slash{E}_{T}) [GeV]",25,0,200);
   hNoCut_ppfMET = new TH1D("hNoCut_ppfMET","proj. PF #slash{E}_{T}, ch #slash{E}_{T}) [GeV]",25,0,200);
   hNoCut_dphill = new TH1D("hNoCut_dphill","#Delta#phi_{ll} [^{0}]",18,0,180);
+  hNoCut_dphillmet = new TH1D("hNoCut_dphillmet","#Delta#phi_{ll-#slash{E}_{T}} [^{0}]",18,0,180);
   //Common Cut
-  h_Hig_Mass    = new TH1D("h_Hig_Mass","m_{H} [GeV/c^{2}]",20,0,1000);
-  h_HigT_Mass   = new TH1D("h_HigT_Mass","m_{T}^{H} [Gev/c^{2}]",12,0,600);
-  h_DiLept_mass = new TH1D("h_DiLept_mass","m_{ll} [GeV/c^{2}]",10,0,600);
-  h_DiLept_pt   = new TH1D("h_DiLept_pt","p_{T}^{ll} [GeV/c]",20,0,150);
+  h_Hig_mass    = new TH1D("h_Hig_mass","m_{H} [GeV/c^{2}]",20,0,1000);
+  h_HigT_mass   = new TH1D("h_HigT_mass","m_{T}^{H} [Gev/c^{2}]",12,0,600);
+  h_mll = new TH1D("h_mll","m_{ll} [GeV/c^{2}]",10,0,600);
+  h_ptll   = new TH1D("h_ptll","p_{T}^{ll} [GeV/c]",20,0,150);
   h_pt1    = new TH1D("h_pt1","p_{T}^{l, max} [GeV/c]",20,0,150);
   h_pt2    = new TH1D("h_pt2","p_{T}^{l, min} [GeV/c]",20,0,150);
   h_MET    = new TH1D("h_MET","PF #slash{E}_{T} [GeV]",25,0,200);
   h_mpMET  = new TH1D("h_mpMET","min(Proj. PF #slash{E}_{T}, ch #slash{E}_{T}) [GeV]",25,0,200);
   h_ppfMET = new TH1D("h_ppfMET","proj. PF #slash{E}_{T}, ch #slash{E}_{T}) [GeV]",25,0,200);
   h_dphill = new TH1D("h_dphill","#Delta#phi_{ll} [^{0}]",18,0,180);
+  h_dphillmet = new TH1D("h_dphillmet","#Delta#phi_{ll-#slash{E}_{T}} [^{0}]",18,0,180);
   
   //N-1 cut study histograms
-  h_n1_pt1 = new TH1D("h_n1_pt1","p_{T}^{l, max} [GeV/c]",20,0,150);
-  h_n1_pt2 = new TH1D("h_n1_pt2","p_{T}^{l, min} [GeV/c]",20,0,150);
-  h_n1_MET = new TH1D("h_n1_MET","PF #slash{E}_{T} [GeV]",25,0,200);
-  h_n1_DiLept_mass = new TH1D("h_n1_DiLept_mass","m_{ll} [GeV/c^{2}]",10,0,600);
-  h_n1_DiLept_pt = new TH1D("h_n1_DiLept_pt","p_{T}^{ll} [GeV/c]",20,0,150);
-  h_n1_mpMET = new TH1D("h_n1_mpMET","min(Proj. PF #slash{E}_{T}, ch #slash{E}_{T}) [GeV]",25,0,200);
-  h2_Hmass_pt1 = new TH2D("h2_Hmass_pt1","Higgs mass vs Leading lepton pt", 20,0,1000,20,0,150);
-  h2_Hmass_pt2 = new TH2D("h2_Hmass_pt2","Higgs mass vs Trailing lepton pt",20,0,1000,20,0,150);
-  h2_Hmass_MET = new TH2D("h2_Hmass_MET","Higgs mass vs MET",20,0,1000,25,0,200);
-  h2_Hmass_mpMET = new TH2D("h2_Hmass_mpMET","Higgs mass vs min. proj. MET",20,0,1000,25,0,200);
-  h2_Hmass_DiLept_mass = new TH2D("h2_Hmass_DiLept_mass","Higgs mass vs DiLepton mass",20,0,1000,20,0,600);
-  h2_Hmass_DiLept_pt = new TH2D("h2_Hmass_DiLept_pt","Higgs mass vs DiLepton pt",20,0,1000,20,0,150);
-  h2_Hmass_HTmass = new TH2D("h2_Hmass_HTmass","Higgs mass vs Higgs Transverse mass",20,0,1000,12,0,600);
+  hN1Cut_pt1 = new TH1D("hN1Cut_pt1","p_{T}^{l, max} [GeV/c]",20,0,150);
+  hN1Cut_pt2 = new TH1D("hN1Cut_pt2","p_{T}^{l, min} [GeV/c]",20,0,150);
+  hN1Cut_MET = new TH1D("hN1Cut_MET","PF #slash{E}_{T} [GeV]",25,0,200);
+  hN1Cut_mll = new TH1D("hN1Cut_mll","m_{ll} [GeV/c^{2}]",10,0,600);
+  hN1Cut_ptll = new TH1D("hN1Cut_ptll","p_{T}^{ll} [GeV/c]",20,0,150);
+  hN1Cut_mpMET = new TH1D("hN1Cut_mpMET","min(Proj. PF #slash{E}_{T}, ch #slash{E}_{T}) [GeV]",25,0,200);
+  h2_mH_pt1 = new TH2D("h2_mH_pt1","Higgs mass vs Leading lepton pt", 20,0,1000,20,0,150);
+  h2_mH_pt2 = new TH2D("h2_mH_pt2","Higgs mass vs Trailing lepton pt",20,0,1000,20,0,150);
+  h2_mH_MET = new TH2D("h2_mH_MET","Higgs mass vs MET",20,0,1000,25,0,200);
+  h2_mH_mpMET = new TH2D("h2_mH_mpMET","Higgs mass vs min. proj. MET",20,0,1000,25,0,200);
+  h2_mH_mll = new TH2D("h2_mH_mll","Higgs mass vs DiLepton mass",20,0,1000,20,0,600);
+  h2_mH_ptll = new TH2D("h2_mH_ptll","Higgs mass vs DiLepton pt",20,0,1000,20,0,150);
+  h2_mH_mtH = new TH2D("h2_mH_mtH","Higgs mass vs Higgs Transverse mass",20,0,1000,12,0,600);
   return 0;
 }
 int GGVvCtrPlt::FillHistNoCut()
 {
-  hNoCut_Hig_Mass->Fill(Hig_mass,mTTW);
-  hNoCut_HigT_Mass->Fill(HigT_mass,mTTW);
-  hNoCut_DiLept_mass->Fill(DiLept_mass,mTTW);
-  hNoCut_DiLept_pt->Fill(DiLept_pt,mTTW);
+  hNoCut_Hig_mass->Fill(Hig_mass,mTTW);
+  hNoCut_HigT_mass->Fill(HigT_mass,mTTW);
+  hNoCut_mll->Fill(DiLept_mass,mTTW);
+  hNoCut_ptll->Fill(DiLept_pt,mTTW);
   hNoCut_pt1->Fill(pt1,mTTW);
   hNoCut_pt2->Fill(pt2,mTTW);
   hNoCut_MET->Fill(MET,mTTW);
@@ -222,14 +224,15 @@ int GGVvCtrPlt::FillHistNoCut()
   hNoCut_ppfMET->Fill(ppfMET1,mTTW);
   hNoCut_ppfMET->Fill(ppfMET2,mTTW);
   hNoCut_dphill->Fill(180./PI*fabs(DiLept_dphi),mTTW);
+  hNoCut_dphillmet->Fill(180./PI*fabs(dphi_MEtLL),mTTW);
   return 0;
 }
 int GGVvCtrPlt::FillHist()
 {
-  h_Hig_Mass->Fill(Hig_mass,mTTW);
-  h_HigT_Mass->Fill(HigT_mass,mTTW);
-  h_DiLept_mass->Fill(DiLept_mass,mTTW);
-  h_DiLept_pt->Fill(DiLept_pt,mTTW);
+  h_Hig_mass->Fill(Hig_mass,mTTW);
+  h_HigT_mass->Fill(HigT_mass,mTTW);
+  h_mll->Fill(DiLept_mass,mTTW);
+  h_ptll->Fill(DiLept_pt,mTTW);
   h_pt1->Fill(pt1,mTTW);
   h_pt2->Fill(pt2,mTTW);
   h_MET->Fill(MET,mTTW);
@@ -237,7 +240,8 @@ int GGVvCtrPlt::FillHist()
   h_ppfMET->Fill(ppfMET1,mTTW);
   h_ppfMET->Fill(ppfMET2,mTTW);
   h_dphill->Fill(180./PI*fabs(DiLept_dphi),mTTW);
-  h2_Hmass_HTmass->Fill(Hig_mass,HigT_mass,mTTW);
+  h_dphillmet->Fill(180./PI*fabs(dphi_MEtLL),mTTW);
+  h2_mH_mtH->Fill(Hig_mass,HigT_mass,mTTW);
   return 0;
 }
 int GGVvCtrPlt::InitVar()
