@@ -15,28 +15,34 @@ void GGVvCtrPlt::Loop()
   gBenchmark->Start("GGVvCtrPlt");
   Ntries = fChain->GetEntries();
   cout<<"Total number of event is "<<Ntries<<endl;
+  Fout<<setprecision(8)<<endl;
   Fout<<"Total Events "<<Ntries<<endl;
   for(int i(0); i<Ntries;i++)
-  //for(int i(0); i<100;i++)
+  //for(int i(0); i<40;i++)
   {
     if(i % 1000000 == 0) cout<<i<<"th event"<<endl;
 
     fChain->GetEntry(i);
     Init4Event();
     DumpParticles();
+    //nEvents Counting for All Channel in OnPeak, Shoulder and Tail
+    if(Hmass > 0 && Hmass <= 140 ) nEvents_OnPeak_AllCh++;
+    if(Hmass > 140 && Hmass <= 300) nEvents_Shoulder_AllCh++;
+    if(Hmass > 300) nEvents_Tail_AllCh++;
+
     if(isMuNuEleNu)
     {
       //cout<<Hig_mass<<" "<<HigT_mass<<" "<<DiLept_mass<<" "<<DiLept_pt<<" "<<pt1<<" "<<pt2<<" "<<MET<<" "<<mpMET<<" "<<ppfMET1<<" "<<ppfMET2<<" "<<DiLept_dphi<<" "<<mTTW<<endl;
       //cout<<pt1<<"\t"<<pt2<<"\t"<<MET<<"\t"<<DiLept_mass<<"\t"<<DiLept_pt<<"\t"<<mpMET<<endl;
-
+      //cout<<i<<" Event Higgs Mass (from EleMu channel): "<<Hig_mass<<endl;
       FillHistNoCut();
       Nselected4Bin();
     }
 
     if(isMuNuEleNu)if(pt1_Cut()>0)
     {
-      if(pt1<20)
-	cout<<"pt1<20:\t"<<pt1<<endl;
+      //if(pt1<20)
+      //  cout<<"pt1<20:\t"<<pt1<<endl;
       h2_mH_pt1->Fill(Hig_mass,pt1);
       hN1Cut_pt1->Fill(pt1,mTTW);
     }
@@ -70,10 +76,14 @@ void GGVvCtrPlt::Loop()
       FillHist();
       nPass++;
     }
+    if(CommonCut_mll()>0)
+      nPass_mll++;
   }
-  Fout<<"Selected Events: "<<nPass<<endl;
-  Fout<<"Higgs_EM_N_Total: "<<Higgs_EM_N_Total<<endl;
-  Fout<<"Cut efficiency: "<<nPass/Higgs_EM_N_Total<<endl;
+  Fout<<"ElMu Ch. - Selected Events(CommonCut): "<<nPass<<endl;
+  Fout<<"ElMu Ch. - Events from CommonCut and mll>100: "<<nPass_mll<<endl;
+  Fout<<"ElMu Ch. - Total nEvents: "<<Higgs_EM_N_Total<<endl;
+  Fout<<"ElMu Ch. - CommonCut efficiency: "<<nPass/Higgs_EM_N_Total<<endl;
+  Fout<<"ElMu Ch. - CommonCut plus mll>100 efficiency: "<<nPass_mll/Higgs_EM_N_Total<<endl;
   Fout<<"Higg_N_LowReso: "<<Hig_N_LowReso<<endl;
   Fout<<"Hig_N_LowReso: "<<Hig_N_LowReso<<endl;
   Fout<<"Hig_N_Reso: "<<Hig_N_Reso<<endl;
@@ -114,6 +124,20 @@ void GGVvCtrPlt::Loop()
   Fout<<"Npt20_140_300: "<<Npt20_140_300<<endl;
   Fout<<"Npt20_300: "    <<Npt20_300<<endl;
 
+  Fout<<"                 "<<endl;
+  Fout<<"=============All channel============="<<endl;
+  Fout<<"Total nEvents: "<<Ntries<<endl;
+  Fout<<"OnPeak: "<<nEvents_OnPeak_AllCh<<endl;
+  Fout<<"Shoulder: "<<nEvents_Shoulder_AllCh<<endl;
+  Fout<<"Tail: "<<nEvents_Tail_AllCh<<endl;
+
+  Fout<<"                 "<<endl;
+  Fout<<"=============Electron Muon channel============="<<endl;
+  Fout<<"Total nEvents: "<<Higgs_EM_N_Total<<endl;
+  Fout<<"OnPeak: "    <<Npt0_140<<endl;
+  Fout<<"Shoulder: "<<Npt0_140_300<<endl;
+  Fout<<"Tail: "    <<Npt0_300<<endl;
+
   OutTFile->Write();
   OutTFile->Close();
   Fout.close();
@@ -132,7 +156,8 @@ int GGVvCtrPlt::Nselected4Bin()
   if(Hig_mass >0   && Hig_mass <= 1000) Hig_N_Total++;
   if(Hig_mass >0     && Hig_mass <= 140)  Npt0_140++;
   if(Hig_mass >140   && Hig_mass <= 300)  Npt0_140_300++;
-  if(Hig_mass >300   && Hig_mass <= 1000) Npt0_300++;
+  //if(Hig_mass >300   && Hig_mass <= 1000) Npt0_300++;
+  if(Hig_mass >300) Npt0_300++;
   
   if(el_TL.Pt() > 8)
   {
@@ -247,6 +272,7 @@ int GGVvCtrPlt::FillHist()
 int GGVvCtrPlt::InitVar()
 {
   nPass = 0;
+  nPass_mll = 0;
   Higgs_EM_N_Total = 0;
   Npt0_140 = 0;
   Npt8_140 = 0;
@@ -282,5 +308,8 @@ int GGVvCtrPlt::InitVar()
   Hig_N_OnPeak20 = 0;
   Hig_N_OffPeak20 = 0;
 
+  nEvents_OnPeak_AllCh = 0;
+  nEvents_Shoulder_AllCh = 0;
+  nEvents_Tail_AllCh = 0;
   return 0;
 }

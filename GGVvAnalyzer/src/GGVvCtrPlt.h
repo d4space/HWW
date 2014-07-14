@@ -33,6 +33,7 @@ protected:
    int Nselected4Bin();
 
    double nPass;
+   double nPass_mll;
    double Higgs_EM_N_Total;
    double Npt0_140;
    double Npt8_140;
@@ -67,6 +68,10 @@ protected:
    double Hig_N_Total20;
    double Hig_N_OnPeak20;
    double Hig_N_OffPeak20;
+
+   double nEvents_OnPeak_AllCh;
+   double nEvents_Shoulder_AllCh;
+   double nEvents_Tail_AllCh;
 
    TFile *OutTFile;
    //No Cut

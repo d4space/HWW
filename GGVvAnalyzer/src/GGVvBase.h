@@ -34,6 +34,7 @@ protected:
    int DumpParticles();
    int EmuFidCut();
    int CommonCut();
+   int CommonCut_mll();
    int pt1_Cut();
    int pt2_Cut();
    int MET_Cut();
@@ -53,6 +54,15 @@ protected:
    bool isEl;
    TLorentzVector elNu_TL;
    bool isElNu;
+
+   //Tau channel
+   TLorentzVector tau_TL;
+   bool isTau;
+   TLorentzVector tauNu_TL;
+   bool isTauNu;
+   int numOfLeptons;
+
+   double Hmass;
 
    TLorentzVector higgs_TL;
    TLorentzVector higgsT_TL;
@@ -166,6 +176,11 @@ int GGVvBase::Init4Event()
   isEl = false;
   isElNu = false;
   isMuNuEleNu = false;
+  isTau = false;
+  isTauNu = false;
+  numOfLeptons=0;
+  Hmass = 0;
+
   elPt = 0;
   muPt = 0;
   elMass = 0;
@@ -187,6 +202,7 @@ int GGVvBase::Init4Event()
 }
 int GGVvBase::DumpParticles()
 {
+  TLorentzVector Lepton4_TL(0, 0, 0, 0);
   for(int i(0); i<kMaxParticle;i++)
   {
     //cout<<"Particle (idx,Id, Status): "<<i<<"  "<<Particle_PID[i]<<" "<<Particle_Status[i]<<endl;
@@ -194,24 +210,52 @@ int GGVvBase::DumpParticles()
     {
       el_TL.SetXYZM(Particle_Px[i], Particle_Py[i], Particle_Pz[i], GenType::M_ele);
       isEl = true;
+      numOfLeptons++;
+      Lepton4_TL += el_TL;
     }
     else if(fabs(Particle_PID[i]) == GenType::keNeutrino)
     {
       elNu_TL.SetXYZM(Particle_Px[i], Particle_Py[i], Particle_Pz[i], 0.0);
       isElNu = true;
+      numOfLeptons++;
+      Lepton4_TL += elNu_TL;
     }
     else if(fabs(Particle_PID[i]) == GenType::kMuon)
     {
       mu_TL.SetXYZM(Particle_Px[i], Particle_Py[i], Particle_Pz[i], GenType::M_mu);
       isMu = true;
+      numOfLeptons++;
+      Lepton4_TL += mu_TL;
     }
     else if(fabs(Particle_PID[i]) == GenType::kmuNeutrino)
     {
       muNu_TL.SetXYZM(Particle_Px[i], Particle_Py[i], Particle_Pz[i], 0.0);
       isMuNu = true;
+      numOfLeptons++;
+      Lepton4_TL += muNu_TL;
     }
+    else if(fabs(Particle_PID[i]) == GenType::kTau)
+    {
+      tau_TL.SetXYZM(Particle_Px[i], Particle_Py[i], Particle_Pz[i], GenType::M_tau);
+      isTau = true;
+      numOfLeptons++;
+      Lepton4_TL += tau_TL;
+    }
+    else if(fabs(Particle_PID[i]) == GenType::ktauNeutrino)
+    {
+      tauNu_TL.SetXYZM(Particle_Px[i], Particle_Py[i], Particle_Pz[i], 0.0);
+      isTauNu = true;
+      numOfLeptons++;
+      Lepton4_TL += tauNu_TL;
+    }
+    Hmass = Lepton4_TL.M();
   }
   
+  if(numOfLeptons != 4)
+  {
+    cout<<"Notice: Number of Leptons is "<<numOfLeptons<<"!!!!!!!!!!"<<endl;
+  }
+
   //Variables
   if(isEl && isElNu && isMu && isMuNu)
   {
@@ -272,6 +316,16 @@ int GGVvBase::CommonCut()
   if(pt1>20 && pt2>10){}else{return -1;}
   if(MET>20){}else{return -1;}
   if(DiLept_mass>12){}else{return -1;}
+  if(DiLept_pt>30){}else{return -1;}
+  if(mpMET>20 && MET>45){}else{return -1;}
+  return 1;
+}
+int GGVvBase::CommonCut_mll()
+{
+  if(pt1>20 && pt2>10){}else{return -1;}
+  if(MET>20){}else{return -1;}
+  //if(DiLept_mass>12){}else{return -1;}
+  if(DiLept_mass>100){}else{return -1;}
   if(DiLept_pt>30){}else{return -1;}
   if(mpMET>20 && MET>45){}else{return -1;}
   return 1;
