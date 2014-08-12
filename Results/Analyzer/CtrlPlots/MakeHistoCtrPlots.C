@@ -14,14 +14,16 @@ void MakeHistoCtrPlots()
 
   //TString Cut = "Loose"; // Loose, Tight
   //TString Cut = "Tight"; // Loose, Tight
-  string Cuts[]={"Loose","CommonCut"}; // Loose, Tight
+  //string Cuts[]={"Loose","CommonCut"}; // Loose, Tight
+  //string Cuts[]={"Loose"}; // Loose, Tight
+  string Cuts[]={"CommonCut"}; // Loose, Tight
   TString SampleName = "Data";
   // BaseName : Data, WJet, WW, Top, VVV, H125, DYll, DYtt, VV
   bool RunOnMC = false;
 
 for( int i(0); i < sizeof(Cuts)/sizeof(*Cuts);++i){
   cout<<"Cut is "<<Cuts[i]<<endl;
-  //***
+/*
 //Data========================================
   cout<<"Data===================="<<endl;
   RunOnMC = false;
@@ -30,7 +32,7 @@ for( int i(0); i < sizeof(Cuts)/sizeof(*Cuts);++i){
   SampleName = "Data";
   HWwCtrPlt HWwCtrPltRD(TC_Data,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
   HWwCtrPltRD.Loop();
-  
+
 //WJet========================================
   cout<<"WJet===================="<<endl;
   RunOnMC = true;
@@ -102,5 +104,77 @@ for( int i(0); i < sizeof(Cuts)/sizeof(*Cuts);++i){
   SampleName = "H125";
   HWwCtrPlt HWwCtrPltH125(TC_H125,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
   HWwCtrPltH125.Loop();
+*/
+//gg2vvHw25========================================
+  //cout<<"gg2vvHw25===================="<<endl;
+  //RunOnMC = true;
+  //TChain *TC_gg2vvHw25  = new TChain("latino","");
+  //SetupTree("gg2vvHw25",TC_gg2vvHw25);
+  //SampleName = "gg2vvHw25";
+  //HWwCtrPlt HWwCtrPltgg2vvHw25(TC_gg2vvHw25,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
+  //HWwCtrPltgg2vvHw25.Loop();
+
+//gg2vvHw1========================================
+  //cout<<"gg2vvHw1===================="<<endl;
+  //RunOnMC = true;
+  //TChain *TC_gg2vvHw1  = new TChain("latino","");
+  //SetupTree("gg2vvHw1",TC_gg2vvHw1);
+  //SampleName = "gg2vvHw1";
+  //HWwCtrPlt HWwCtrPltgg2vvHw1(TC_gg2vvHw1,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
+  //HWwCtrPltgg2vvHw1.Loop();
+
+//gg2vvHw1SigOnPeak========================================
+  cout<<"gg2vvHw1SigOnPeak===================="<<endl;
+  RunOnMC = true;
+  TChain *TC_gg2vvHw1SigOnPeak  = new TChain("latino","");
+  SetupTree("gg2vvHw1SigOnPeak",TC_gg2vvHw1SigOnPeak);
+  SampleName = "gg2vvHw1SigOnPeak";
+  HWwCtrPlt HWwCtrPltgg2vvHw1SigOnPeak(TC_gg2vvHw1SigOnPeak,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
+  HWwCtrPltgg2vvHw1SigOnPeak.Loop();
+
+//gg2vvHw1SigShoulder========================================
+  cout<<"gg2vvHw1SigShoulder===================="<<endl;
+  RunOnMC = true;
+  TChain *TC_gg2vvHw1SigShoulder  = new TChain("latino","");
+  SetupTree("gg2vvHw1SigShoulder",TC_gg2vvHw1SigShoulder);
+  SampleName = "gg2vvHw1SigShoulder";
+  HWwCtrPlt HWwCtrPltgg2vvHw1SigShoulder(TC_gg2vvHw1SigShoulder,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
+  HWwCtrPltgg2vvHw1SigShoulder.Loop();
+
+//gg2vvHw1SigTail========================================
+  cout<<"gg2vvHw1SigTail===================="<<endl;
+  RunOnMC = true;
+  TChain *TC_gg2vvHw1SigTail  = new TChain("latino","");
+  SetupTree("gg2vvHw1SigTail",TC_gg2vvHw1SigTail);
+  SampleName = "gg2vvHw1SigTail";
+  HWwCtrPlt HWwCtrPltgg2vvHw1SigTail(TC_gg2vvHw1SigTail,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
+  HWwCtrPltgg2vvHw1SigTail.Loop();
+
+//gg2vvHw1IntOnPeak========================================
+  cout<<"gg2vvHw1IntOnPeak===================="<<endl;
+  RunOnMC = true;
+  TChain *TC_gg2vvHw1IntOnPeak  = new TChain("latino","");
+  SetupTree("gg2vvHw1IntOnPeak",TC_gg2vvHw1IntOnPeak);
+  SampleName = "gg2vvHw1IntOnPeak";
+  HWwCtrPlt HWwCtrPltgg2vvHw1IntOnPeak(TC_gg2vvHw1IntOnPeak,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
+  HWwCtrPltgg2vvHw1IntOnPeak.Loop();
+
+//gg2vvHw1IntShoulder========================================
+  cout<<"gg2vvHw1IntShoulder===================="<<endl;
+  RunOnMC = true;
+  TChain *TC_gg2vvHw1IntShoulder  = new TChain("latino","");
+  SetupTree("gg2vvHw1IntShoulder",TC_gg2vvHw1IntShoulder);
+  SampleName = "gg2vvHw1IntShoulder";
+  HWwCtrPlt HWwCtrPltgg2vvHw1IntShoulder(TC_gg2vvHw1IntShoulder,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
+  HWwCtrPltgg2vvHw1IntShoulder.Loop();
+
+//gg2vvHw1IntTail========================================
+  cout<<"gg2vvHw1IntTail===================="<<endl;
+  RunOnMC = true;
+  TChain *TC_gg2vvHw1IntTail  = new TChain("latino","");
+  SetupTree("gg2vvHw1IntTail",TC_gg2vvHw1IntTail);
+  SampleName = "gg2vvHw1IntTail";
+  HWwCtrPlt HWwCtrPltgg2vvHw1IntTail(TC_gg2vvHw1IntTail,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
+  HWwCtrPltgg2vvHw1IntTail.Loop();
 }
 }
