@@ -12,6 +12,7 @@
 #include <TChain.h>
 #include <TFile.h>
 #include <TH1D.h>
+#include <TH2D.h>
 
 #include <iostream>
 #include <fstream>
@@ -19,6 +20,7 @@
 
 #include "HWwNT.h"
 #include "../../../Utils/const.h"
+#include <TLorentzVector.h>
 // Header file for the classes stored in the TTree if any.
 
 // Fixed size dimensions of array or collections stored in the TTree if any.
@@ -39,9 +41,31 @@ protected:
    double MT;
    double LumiW;
    double EvtWeight;
-   double ScaleF;
    bool RunOnMC;
 
+   double Nselect;
+   double NselectSF0j;
+   double NselectSF1j;
+   double NselectOF0j;
+   double NselectOF1j;
+   double NselectSF0j_OffShell;
+   double NselectSF1j_OffShell;
+   double NselectOF0j_OffShell;
+   double NselectOF1j_OffShell;
+   double NselectSF0j_OnShell;
+   double NselectSF1j_OnShell;
+   double NselectOF0j_OnShell;
+   double NselectOF1j_OnShell;
+   double ncut1;
+   double ncut2;
+   double ncut3;
+   double ncut4;
+   double ncut5;
+   double ncut6;
+   double ncut7;
+   double ncut8;
+   double ncut9;
+   double ncut10;
 
    int evtChannel;
    enum AnaChan{
@@ -60,11 +84,25 @@ protected:
    virtual Int_t    SF1jCut();
    virtual Int_t    OF1jCut();
    virtual Int_t    CommonCut();
+   virtual Int_t    mllptllCut();
+   virtual Int_t    mllCut();
+   virtual Int_t    ptllCut();
+   virtual Int_t    mpmetCut();
 
    double 	CalcWeight();
 
-};
+   TLorentzVector mu_TL;
+   TLorentzVector el_TL;
+   TLorentzVector nu1_TL;
+   TLorentzVector nu2_TL;
+   TLorentzVector Lepton4_TL;
+   double mH;
 
+   double mllBins[61];
+   double ptllBins[31];
+   double Nmllptll_OF0j[61][31];
+   double Nmllptll_OF1j[61][31];
+};
 #endif
 
 #ifdef HWwBase_cxx
@@ -78,7 +116,6 @@ void HWwBase::Init(TTree *tree)
 
    HWwNT::Init(tree);
    EvtWeight = 1;
-   ScaleF = 1;
 
    cout<<"RunOnMC:  "<<RunOnMC<<endl;
    if(!RunOnMC)

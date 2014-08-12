@@ -21,6 +21,7 @@ public :
    Int_t           fCurrent; //!current Tree number in a TChain
 
    // Declaration of leaf types
+   Float_t         MHiggs;
    Float_t         baseW;
    Float_t         bdt1;
    Float_t         bdt2;
@@ -126,6 +127,14 @@ public :
    Float_t         jettchp3;
    Float_t         jettchp4;
    Float_t         kfW;
+   Float_t         leptonGeneta1;
+   Float_t         leptonGeneta2;
+   Float_t         leptonGenphi1;
+   Float_t         leptonGenphi2;
+   Float_t         leptonGenpid1;
+   Float_t         leptonGenpid2;
+   Float_t         leptonGenpt1;
+   Float_t         leptonGenpt2;
    Float_t         lh1;
    Float_t         lh2;
    Float_t         lh3;
@@ -139,6 +148,14 @@ public :
    Float_t         nbrem2;
    Float_t         nbrem3;
    Float_t         nbrem4;
+   Float_t         neutrinoGeneta1;
+   Float_t         neutrinoGeneta2;
+   Float_t         neutrinoGenphi1;
+   Float_t         neutrinoGenphi2;
+   Float_t         neutrinoGenpid1;
+   Float_t         neutrinoGenpid2;
+   Float_t         neutrinoGenpt1;
+   Float_t         neutrinoGenpt2;
    Float_t         nextra;
    Float_t         njet;
    Float_t         njetid;
@@ -243,6 +260,7 @@ public :
    Float_t         effWDown;
 
    // List of branches
+   TBranch        *b_MHiggs;   //!
    TBranch        *b_baseW;   //!
    TBranch        *b_bdt1;   //!
    TBranch        *b_bdt2;   //!
@@ -348,6 +366,14 @@ public :
    TBranch        *b_jettchp3;   //!
    TBranch        *b_jettchp4;   //!
    TBranch        *b_kfW;   //!
+   TBranch        *b_leptonGeneta1;   //!
+   TBranch        *b_leptonGeneta2;   //!
+   TBranch        *b_leptonGenphi1;   //!
+   TBranch        *b_leptonGenphi2;   //!
+   TBranch        *b_leptonGenpid1;   //!
+   TBranch        *b_leptonGenpid2;   //!
+   TBranch        *b_leptonGenpt1;   //!
+   TBranch        *b_leptonGenpt2;   //!
    TBranch        *b_lh1;   //!
    TBranch        *b_lh2;   //!
    TBranch        *b_lh3;   //!
@@ -362,6 +388,14 @@ public :
    TBranch        *b_nbrem3;   //!
    TBranch        *b_nbrem4;   //!
    TBranch        *b_nextra;   //!
+   TBranch        *b_neutrinoGeneta1;   //!
+   TBranch        *b_neutrinoGeneta2;   //!
+   TBranch        *b_neutrinoGenphi1;   //!
+   TBranch        *b_neutrinoGenphi2;   //!
+   TBranch        *b_neutrinoGenpid1;   //!
+   TBranch        *b_neutrinoGenpid2;   //!
+   TBranch        *b_neutrinoGenpt1;   //!
+   TBranch        *b_neutrinoGenpt2;   //!
    TBranch        *b_njet;   //!
    TBranch        *b_njetid;   //!
    TBranch        *b_njetvbf;   //!
@@ -547,6 +581,7 @@ void HWwNT::Init(TTree *tree)
    fCurrent = -1;
    fChain->SetMakeClass(1);
 
+   fChain->SetBranchAddress("MHiggs", &MHiggs, &b_MHiggs);
    fChain->SetBranchAddress("baseW", &baseW, &b_baseW);
    fChain->SetBranchAddress("bdt1", &bdt1, &b_bdt1);
    fChain->SetBranchAddress("bdt2", &bdt2, &b_bdt2);
@@ -652,6 +687,14 @@ void HWwNT::Init(TTree *tree)
    fChain->SetBranchAddress("jettchp3", &jettchp3, &b_jettchp3);
    fChain->SetBranchAddress("jettchp4", &jettchp4, &b_jettchp4);
    fChain->SetBranchAddress("kfW", &kfW, &b_kfW);
+   fChain->SetBranchAddress("leptonGeneta1", &leptonGeneta1, &b_leptonGeneta1);
+   fChain->SetBranchAddress("leptonGeneta2", &leptonGeneta2, &b_leptonGeneta2);
+   fChain->SetBranchAddress("leptonGenphi1", &leptonGenphi1, &b_leptonGenphi1);
+   fChain->SetBranchAddress("leptonGenphi2", &leptonGenphi2, &b_leptonGenphi2);
+   fChain->SetBranchAddress("leptonGenpid1", &leptonGenpid1, &b_leptonGenpid1);
+   fChain->SetBranchAddress("leptonGenpid2", &leptonGenpid2, &b_leptonGenpid2);
+   fChain->SetBranchAddress("leptonGenpt1", &leptonGenpt1, &b_leptonGenpt1);
+   fChain->SetBranchAddress("leptonGenpt2", &leptonGenpt2, &b_leptonGenpt2);
    fChain->SetBranchAddress("lh1", &lh1, &b_lh1);
    fChain->SetBranchAddress("lh2", &lh2, &b_lh2);
    fChain->SetBranchAddress("lh3", &lh3, &b_lh3);
@@ -665,6 +708,14 @@ void HWwNT::Init(TTree *tree)
    fChain->SetBranchAddress("nbrem2", &nbrem2, &b_nbrem2);
    fChain->SetBranchAddress("nbrem3", &nbrem3, &b_nbrem3);
    fChain->SetBranchAddress("nbrem4", &nbrem4, &b_nbrem4);
+   fChain->SetBranchAddress("neutrinoGeneta1", &neutrinoGeneta1, &b_neutrinoGeneta1);
+   fChain->SetBranchAddress("neutrinoGeneta2", &neutrinoGeneta2, &b_neutrinoGeneta2);
+   fChain->SetBranchAddress("neutrinoGenphi1", &neutrinoGenphi1, &b_neutrinoGenphi1);
+   fChain->SetBranchAddress("neutrinoGenphi2", &neutrinoGenphi2, &b_neutrinoGenphi2);
+   fChain->SetBranchAddress("neutrinoGenpid1", &neutrinoGenpid1, &b_neutrinoGenpid1);
+   fChain->SetBranchAddress("neutrinoGenpid2", &neutrinoGenpid2, &b_neutrinoGenpid2);
+   fChain->SetBranchAddress("neutrinoGenpt1", &neutrinoGenpt1, &b_neutrinoGenpt1);
+   fChain->SetBranchAddress("neutrinoGenpt2", &neutrinoGenpt2, &b_neutrinoGenpt2);
    fChain->SetBranchAddress("nextra", &nextra, &b_nextra);
    fChain->SetBranchAddress("njet", &njet, &b_njet);
    fChain->SetBranchAddress("njetid", &njetid, &b_njetid);
