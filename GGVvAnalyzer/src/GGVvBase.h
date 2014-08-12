@@ -34,7 +34,6 @@ protected:
    int DumpParticles();
    int EmuFidCut();
    int CommonCut();
-   int CommonCut_mll();
    int pt1_Cut();
    int pt2_Cut();
    int MET_Cut();
@@ -42,6 +41,8 @@ protected:
    int DiLept_pt_Cut();
    int mpMET_Cut();
    Double_t deltaPhi(double phi1, double phi2);
+   
+   double MllBins[nMllBin];
 
    TString mDirName;
    TString mMode;
@@ -111,6 +112,18 @@ GGVvBase::GGVvBase(TTree *tree, TString DirName, TString Mode,double lumiweight)
    mTTW = lumiweight;
 
    Init(tree);
+
+   MllBins[0]  = 60;
+   MllBins[1]  = 64;
+   MllBins[2]  = 68;
+   MllBins[3]  = 72;
+   MllBins[4]  = 76;
+   MllBins[5]  = 80;
+   MllBins[6]  = 84;
+   MllBins[7]  = 88;
+   MllBins[8]  = 92;
+   MllBins[9]  = 96;
+   MllBins[10] = 100;
 }
 
 GGVvBase::~GGVvBase()
@@ -205,7 +218,7 @@ int GGVvBase::DumpParticles()
   TLorentzVector Lepton4_TL(0, 0, 0, 0);
   for(int i(0); i<kMaxParticle;i++)
   {
-    //cout<<"Particle (idx,Id, Status): "<<i<<"  "<<Particle_PID[i]<<" "<<Particle_Status[i]<<endl;
+    cout<<"Particle (idx,Id, Status): "<<i<<"  "<<Particle_PID[i]<<" "<<Particle_Status[i]<<endl;
     if(fabs(Particle_PID[i]) == int(GenType::kElectron))
     {
       el_TL.SetXYZM(Particle_Px[i], Particle_Py[i], Particle_Pz[i], GenType::M_ele);
@@ -316,16 +329,6 @@ int GGVvBase::CommonCut()
   if(pt1>20 && pt2>10){}else{return -1;}
   if(MET>20){}else{return -1;}
   if(DiLept_mass>12){}else{return -1;}
-  if(DiLept_pt>30){}else{return -1;}
-  if(mpMET>20 && MET>45){}else{return -1;}
-  return 1;
-}
-int GGVvBase::CommonCut_mll()
-{
-  if(pt1>20 && pt2>10){}else{return -1;}
-  if(MET>20){}else{return -1;}
-  //if(DiLept_mass>12){}else{return -1;}
-  if(DiLept_mass>100){}else{return -1;}
   if(DiLept_pt>30){}else{return -1;}
   if(mpMET>20 && MET>45){}else{return -1;}
   return 1;

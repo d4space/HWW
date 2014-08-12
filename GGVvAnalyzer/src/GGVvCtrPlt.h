@@ -33,7 +33,21 @@ protected:
    int Nselected4Bin();
 
    double nPass;
-   double nPass_mll;
+   double nOffShell_NoCut; //Off-Shell events No Cut
+   double nOffShMll_NoCut[nMllBin]; //Off-Shell events different mll Cut
+   double nOffShPTll_NoCut[nMllBin]; //Off-Shell events different ptll Cut
+   double nOffShell_ComCut; //Off-Shell events Common Cut
+   double nOffShMll_ComCut[nMllBin]; //Off-Shell events different mll Cut and Common Cut
+   double nOffShPTll_ComCut[nMllBin]; //Off-Shell events different ptll Cut and Common Cut
+
+   double nOnShell_NoCut; //On-Shell events No Cut
+   double nOnShMll_NoCut[nMllBin]; //On-Shell events different mll Cut
+   double nOnShPTll_NoCut[nMllBin]; //On-Shell events different ptll Cut
+   double nOnShell_ComCut; //On-Shell events Common Cut
+   double nOnShMll_ComCut[nMllBin]; //On-Shell events different mll Cut and Common Cut
+   double nOnShPTll_ComCut[nMllBin]; //On-Shell events different ptll Cut and Common Cut
+
+   double nOnSh_MllCut[nMllBin];
    double Higgs_EM_N_Total;
    double Npt0_140;
    double Npt8_140;
@@ -86,6 +100,18 @@ protected:
    TH1D *hNoCut_ppfMET;
    TH1D *hNoCut_dphill;
    TH1D *hNoCut_dphillmet;
+   //mll>100 histograms
+   TH1D *hNoCut_Hig_mass_mllCut;
+   TH1D *hNoCut_HigT_mass_mllCut;
+   TH1D *hNoCut_mll_mllCut;
+   TH1D *hNoCut_ptll_mllCut;
+   TH1D *hNoCut_pt1_mllCut;
+   TH1D *hNoCut_pt2_mllCut;
+   TH1D *hNoCut_MET_mllCut;
+   TH1D *hNoCut_mpMET_mllCut;
+   TH1D *hNoCut_ppfMET_mllCut;
+   TH1D *hNoCut_dphill_mllCut;
+   TH1D *hNoCut_dphillmet_mllCut;
    
    //Common Cut
    TH1D *h_Hig_mass;
@@ -99,6 +125,21 @@ protected:
    TH1D *h_ppfMET;
    TH1D *h_dphill;
    TH1D *h_dphillmet;
+   TH2D *h2_mH_mtH;
+
+   //Common Cut at mll>100
+   TH1D *h_Hig_mass_mllCut;
+   TH1D *h_HigT_mass_mllCut;
+   TH1D *h_mll_mllCut;
+   TH1D *h_ptll_mllCut;
+   TH1D *h_pt1_mllCut;
+   TH1D *h_pt2_mllCut;
+   TH1D *h_MET_mllCut;
+   TH1D *h_mpMET_mllCut;
+   TH1D *h_ppfMET_mllCut;
+   TH1D *h_dphill_mllCut;
+   TH1D *h_dphillmet_mllCut;
+   TH2D *h2_mH_mtH_mllCut;
   
    //N-1 cut study histograms
    TH1D *hN1Cut_pt1;
@@ -113,7 +154,20 @@ protected:
    TH2D *h2_mH_mll;
    TH2D *h2_mH_ptll;
    TH2D *h2_mH_mpMET;
-   TH2D *h2_mH_mtH;
+
+   TH1D *h_OffSh_NoCut;
+   TH1D *h_mllOffSh_NoCut;
+   TH1D *h_ptllOffSh_NoCut;
+   TH1D *h_OffSh_ComCut;
+   TH1D *h_mllOffSh_ComCut;
+   TH1D *h_ptllOffSh_ComCut;
+   TH1D *h_OnSh_NoCut;
+   TH1D *h_mllOnSh_NoCut;
+   TH1D *h_ptllOnSh_NoCut;
+   TH1D *h_OnSh_ComCut;
+   TH1D *h_mllOnSh_ComCut;
+   TH1D *h_ptllOnSh_ComCut;
+
    ofstream Fout;
 };
 
