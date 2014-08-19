@@ -33,6 +33,7 @@ protected:
    virtual int Init4Event();
    int DumpParticles();
    int EmuFidCut();
+   int LooseCut();
    int CommonCut();
    int pt1_Cut();
    int pt2_Cut();
@@ -324,6 +325,11 @@ int GGVvBase::DumpParticles()
   return 0;
 }
 
+int GGVvBase::LooseCut()
+{
+  if(pt1>17 && pt2>8){}else{return -1;}
+  return 1;
+}
 int GGVvBase::CommonCut()
 {
   if(pt1>20 && pt2>10){}else{return -1;}
