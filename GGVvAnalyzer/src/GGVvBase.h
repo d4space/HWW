@@ -219,7 +219,7 @@ int GGVvBase::DumpParticles()
   TLorentzVector Lepton4_TL(0, 0, 0, 0);
   for(int i(0); i<kMaxParticle;i++)
   {
-    cout<<"Particle (idx,Id, Status): "<<i<<"  "<<Particle_PID[i]<<" "<<Particle_Status[i]<<endl;
+    //cout<<"Particle (idx,Id, Status): "<<i<<"  "<<Particle_PID[i]<<" "<<Particle_Status[i]<<endl;
     if(fabs(Particle_PID[i]) == int(GenType::kElectron))
     {
       el_TL.SetXYZM(Particle_Px[i], Particle_Py[i], Particle_Pz[i], GenType::M_ele);

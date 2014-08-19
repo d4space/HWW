@@ -116,11 +116,6 @@ void GGVvCtrPlt::Loop()
       {
 	FillHist();
 	nPass++;
-	if(DiLept_mass>100)
-	{
-	  h_pt1_mllCut->Fill(pt1,mTTW);
-	  h_pt2_mllCut->Fill(pt2,mTTW);
-	}
       }
     }
   }
@@ -299,8 +294,10 @@ int GGVvCtrPlt::InitHistogram()
   Fout.open(FoutName);
   OutTFile = new TFile(mDirName+"/"+mMode+".root","RECREATE");
   //No Cut
-  hNoCut_Hig_mass    = new TH1D("hNoCut_Hig_mass","m_{H} [GeV/c^{2}]",100,0,1000);
-  hNoCut_HigT_mass   = new TH1D("hNoCut_HigT_mass","m_{T}^{H} [Gev/c^{2}]",60,0,600);
+  //hNoCut_Hig_mass    = new TH1D("hNoCut_Hig_mass","m_{H} [GeV/c^{2}]",100,0,1000);
+  //hNoCut_HigT_mass   = new TH1D("hNoCut_HigT_mass","m_{T}^{H} [Gev/c^{2}]",60,0,600);
+  hNoCut_Hig_mass    = new TH1D("hNoCut_Hig_mass","m_{H} [GeV/c^{2}]",25,0,1000);
+  hNoCut_HigT_mass   = new TH1D("hNoCut_HigT_mass","m_{T}^{H} [Gev/c^{2}]",15,0,600);
   hNoCut_mll = new TH1D("hNoCut_mll","m_{ll} [GeV/c^{2}]",10,0,600);
   hNoCut_ptll   = new TH1D("hNoCut_ptll","p_{T}^{ll} [GeV/c]",20,0,150);
   hNoCut_pt1    = new TH1D("hNoCut_pt1","p_{T}^{l, max} [GeV/c]",20,0,150);
@@ -311,8 +308,10 @@ int GGVvCtrPlt::InitHistogram()
   hNoCut_dphill = new TH1D("hNoCut_dphill","#Delta#phi_{ll} [^{0}]",18,0,180);
   hNoCut_dphillmet = new TH1D("hNoCut_dphillmet","#Delta#phi_{ll-#slash{E}_{T}} [^{0}]",18,0,180);
   
-  hNoCut_Hig_mass_mllCut    = new TH1D("hNoCut_Hig_mass_mllCut","m_{H} [GeV/c^{2}]",100,0,1000);
-  hNoCut_HigT_mass_mllCut   = new TH1D("hNoCut_HigT_mass_mllCut","m_{T}^{H} [Gev/c^{2}]",60,0,600);
+  //hNoCut_Hig_mass_mllCut    = new TH1D("hNoCut_Hig_mass_mllCut","m_{H} [GeV/c^{2}]",100,0,1000);
+  //hNoCut_HigT_mass_mllCut   = new TH1D("hNoCut_HigT_mass_mllCut","m_{T}^{H} [Gev/c^{2}]",60,0,600);
+  hNoCut_Hig_mass_mllCut    = new TH1D("hNoCut_Hig_mass_mllCut","m_{H} [GeV/c^{2}]",25,0,1000);
+  hNoCut_HigT_mass_mllCut   = new TH1D("hNoCut_HigT_mass_mllCut","m_{T}^{H} [Gev/c^{2}]",15,0,600);
   hNoCut_mll_mllCut    = new TH1D("hNoCut_mll_mllCut","m_{ll} [GeV/c^{2}]",60,0,600);
   hNoCut_ptll_mllCut   = new TH1D("hNoCut_ptll_mllCut","p_{T}^{ll} [GeV/c]",50,0,250);
   hNoCut_pt1_mllCut    = new TH1D("hNoCut_pt1_mllCut","p_{T}^{l, max} [GeV/c]",40,0,400);
@@ -325,8 +324,10 @@ int GGVvCtrPlt::InitHistogram()
   //Common Cut
   //h_Hig_mass    = new TH1D("h_Hig_mass","m_{H} [GeV/c^{2}]",20,0,1000);
   //h_HigT_mass   = new TH1D("h_HigT_mass","m_{T}^{H} [Gev/c^{2}]",12,0,600);
-  h_Hig_mass    = new TH1D("h_Hig_mass","m_{H} [GeV/c^{2}]",100,0,1000);
-  h_HigT_mass   = new TH1D("h_HigT_mass","m_{T}^{H} [Gev/c^{2}]",60,0,600);
+  //h_Hig_mass    = new TH1D("h_Hig_mass","m_{H} [GeV/c^{2}]",100,0,1000);
+  //h_HigT_mass   = new TH1D("h_HigT_mass","m_{T}^{H} [Gev/c^{2}]",60,0,600);
+  h_Hig_mass    = new TH1D("h_Hig_mass","m_{H} [GeV/c^{2}]",25,0,1000);
+  h_HigT_mass   = new TH1D("h_HigT_mass","m_{T}^{H} [Gev/c^{2}]",15,0,600);
   h_mll = new TH1D("h_mll","m_{ll} [GeV/c^{2}]",10,0,600);
   h_ptll   = new TH1D("h_ptll","p_{T}^{ll} [GeV/c]",20,0,150);
   h_pt1    = new TH1D("h_pt1","p_{T}^{l, max} [GeV/c]",20,0,150);
@@ -338,8 +339,10 @@ int GGVvCtrPlt::InitHistogram()
   h_dphillmet = new TH1D("h_dphillmet","#Delta#phi_{ll-#slash{E}_{T}} [^{0}]",18,0,180);
   h2_mH_mtH = new TH2D("h2_mH_mtH","Higgs mass vs Higgs Transverse mass",20,0,1000,12,0,600);
   
-  h_Hig_mass_mllCut    = new TH1D("h_Hig_mass_mllCut","m_{H} [GeV/c^{2}]",100,0,1000);
-  h_HigT_mass_mllCut   = new TH1D("h_HigT_mass_mllCut","m_{T}^{H} [Gev/c^{2}]",60,0,600);
+  //h_Hig_mass_mllCut    = new TH1D("h_Hig_mass_mllCut","m_{H} [GeV/c^{2}]",100,0,1000);
+  //h_HigT_mass_mllCut   = new TH1D("h_HigT_mass_mllCut","m_{T}^{H} [Gev/c^{2}]",60,0,600);
+  h_Hig_mass_mllCut    = new TH1D("h_Hig_mass_mllCut","m_{H} [GeV/c^{2}]",25,0,1000);
+  h_HigT_mass_mllCut   = new TH1D("h_HigT_mass_mllCut","m_{T}^{H} [Gev/c^{2}]",15,0,600);
   h_mll_mllCut    = new TH1D("h_mll_mllCut","m_{ll} [GeV/c^{2}]",60,0,600);
   h_ptll_mllCut   = new TH1D("h_ptll_mllCut","p_{T}^{ll} [GeV/c]",50,0,250);
   h_pt1_mllCut    = new TH1D("h_pt1_mllCut","p_{T}^{l, max} [GeV/c]",80,0,400);
@@ -392,7 +395,7 @@ int GGVvCtrPlt::FillHistNoCut()
   hNoCut_ppfMET->Fill(ppfMET2,mTTW);
   hNoCut_dphill->Fill(180./PI*fabs(DiLept_dphi),mTTW);
   hNoCut_dphillmet->Fill(180./PI*fabs(dphi_MEtLL),mTTW);
-  if(DiLept_mass>100)
+  if(DiLept_mass>70)
   {
     hNoCut_Hig_mass_mllCut->Fill(Hig_mass,mTTW);
     hNoCut_HigT_mass_mllCut->Fill(HigT_mass,mTTW);
@@ -424,7 +427,7 @@ int GGVvCtrPlt::FillHist()
   h_dphill->Fill(180./PI*fabs(DiLept_dphi),mTTW);
   h_dphillmet->Fill(180./PI*fabs(dphi_MEtLL),mTTW);
   h2_mH_mtH->Fill(Hig_mass,HigT_mass,mTTW);
-  if(DiLept_mass>100)
+  if(DiLept_mass>70)
   {
     h_Hig_mass_mllCut->Fill(Hig_mass,mTTW);
     h_HigT_mass_mllCut->Fill(HigT_mass,mTTW);
