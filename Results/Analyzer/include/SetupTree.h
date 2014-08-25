@@ -17,7 +17,11 @@
 #include "chain_gg2vvHw1IntOnPeak.h"
 #include "chain_gg2vvHw1IntShoulder.h"
 #include "chain_gg2vvHw1IntTail.h"
+#include "chain_gg2vvHw1Sig8TeV.h"
+#include "chain_gg2vvHw1Int8TeV.h"
+#include "chain_gg2vvHw25Cot8TeV.h"
 
+#include "chain_gg2vvHw25SigShoulder.h"
 //===============
 
 void SetupTree( TString sample, TChain* chains )
@@ -59,6 +63,9 @@ void SetupTree( TString sample, TChain* chains )
   else if(sample == "gg2vvHw1"){
     chain_gg2vvHw1(chains);
   }
+  else if(sample == "gg2vvHw25SigShoulder"){
+    chain_gg2vvHw25SigShoulder(chains);
+  }
   else if(sample == "gg2vvHw1SigOnPeak"){
     chain_gg2vvHw1SigOnPeak(chains);
   }
@@ -76,6 +83,15 @@ void SetupTree( TString sample, TChain* chains )
   }
   else if(sample == "gg2vvHw1IntTail"){
     chain_gg2vvHw1IntTail(chains);
+  }
+  else if(sample == "gg2vvHw1Sig8TeV"){
+    chain_gg2vvHw1Sig8TeV(chains);
+  }
+  else if(sample == "gg2vvHw1Int8TeV"){
+    chain_gg2vvHw1Int8TeV(chains);
+  }
+  else if(sample == "gg2vvHw25Cot8TeV"){
+    chain_gg2vvHw25Cot8TeV(chains);
   }
   else
   {
