@@ -35,8 +35,7 @@ void CtrPlots(TString CutName, TString VarName, TString DirName){
   TFile *fvv    = new TFile("VV/VV_"+CutName+".root");
   TFile *fvvv   = new TFile("VVV/VVV_"+CutName+".root");
   TFile *fh125  = new TFile("H125/H125_"+CutName+".root");
-  TFile *fhw1  = new TFile("gg2vvHw1/gg2vvHw1_"+CutName+".root");
-  //TFile *fhw25  = new TFile("gg2vvHw25/gg2vvHw25_"+CutName+".root");
+  TFile *fhw1   = new TFile("gg2vvHw1Int8TeV/gg2vvHw1Int8TeV_"+CutName+".root");
 
   char tmpName[30];
   char histName[30];
@@ -280,7 +279,8 @@ void CtrPlots(TString CutName, TString VarName, TString DirName){
     Lgd->AddEntry(hdy[i],"Z/#gamma*","F");
     Lgd->AddEntry(h_ww[i],"WW","F");
     //Lgd->AddEntry(hw25[i],"Hw25SigOnPeak","l");
-    Lgd->AddEntry(hw1[i],"Hw1gg2vvSig","l");
+    //Lgd->AddEntry(hw1[i],"Hw1gg2vvSig","l");
+    Lgd->AddEntry(hw1[i],"Hw1gg2vv_Sig+Bkgr","l");
     Lgd->SetBorderSize(0);
     Lgd->SetFillStyle(0);
     Lgd->SetTextSize(0.03);

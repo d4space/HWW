@@ -19,21 +19,20 @@ void HWwCtrPlt::Loop()
   Fout<<"Total: "<<Ntries<<endl;
   cout<<"LumiW: "<<LumiW<<endl;
   
-  //cout<<"Lept: eta1\t eta2\t phi1\t phi2\t pid1\t pid2\t pt1\t pt2\t Nu: eta1\t eta2\t phi1\t phi2\t pid1\t pid2\t pt1\t pt2"<<endl;
   for (int i(0); i<Ntries;i++)
   //for (int i(0); i<10;i++)
   {
     InitVar4Evt();
     evtCnt++;
     fChain->GetEntry(i);
-    //cout<<"channel: "<<channel<<endl;
-    if(SampleName == "gg2vvHw1SigOnPeak" || SampleName == "gg2vvHw1SigShoulder" || SampleName == "gg2vvHw1SigTail")
+    if (LooseCut() == 1) ncutLoose++;
+    //if(SampleName == "gg2vvHw1SigOnPeak" || SampleName == "gg2vvHw1SigShoulder" || SampleName == "gg2vvHw1SigTail")
+    if(SampleName == "gg2vvHw1Sig8TeV" || SampleName == "gg2vvHw1Int8TeV" || SampleName == "gg2vvHw25Cot8TeV")
     {
       if((leptonGenpid1 == GenType::kElectron && leptonGenpid2 == GenType::kMuon) || (leptonGenpid1 == GenType::kMuon && leptonGenpid2 == GenType::kElectron))
       {
 	if((neutrinoGenpid1 == GenType::keNeutrino && neutrinoGenpid2 == GenType::kmuNeutrino) || (neutrinoGenpid1 == GenType::kmuNeutrino && neutrinoGenpid2 == GenType::keNeutrino))
 	{
-	  //cout<<i<<"\t"<<leptonGeneta1<<"\t"<<leptonGeneta2<<"\t"<<leptonGenphi1<<"\t"<<leptonGenphi2<<"\t"<<leptonGenpid1<<"\t"<<leptonGenpid2<<"\t"<<leptonGenpt1<<"\t"<<leptonGenpt2<<"\t\t"<<neutrinoGeneta1<<"\t"<<neutrinoGeneta2<<"\t"<<neutrinoGenphi1<<"\t"<<neutrinoGenphi2<<"\t"<<neutrinoGenpid1<<"\t"<<neutrinoGenpid2<<"\t"<<neutrinoGenpt1<<"\t"<<neutrinoGenpt2<<endl;
 	  if(leptonGenpid1 == int(GenType::kMuon) && leptonGenpid2 == int(GenType::kElectron))
 	  {
 	    mu_TL.SetPtEtaPhiM(leptonGenpt1, leptonGeneta1, leptonGenphi1, GenType::M_mu);
@@ -48,7 +47,6 @@ void HWwCtrPlt::Loop()
 	  nu2_TL.SetPtEtaPhiM(neutrinoGenpt2, neutrinoGeneta2, neutrinoGenphi2, 0.0);
 	  Lepton4_TL = mu_TL + el_TL + nu1_TL + nu2_TL;
 	  mH = Lepton4_TL.M();
-	  //cout<<i<<"\t"<<mH<<endl;
 	  }else{
 	    cout<<"Strange Channel"<<endl;
 	    exit(-1);
@@ -80,10 +78,10 @@ void HWwCtrPlt::Loop()
     else continue;
 
     EvtWeight = CalcWeight();
-    if(mpmetCut() ==1)
+    if(CommonCut_Without_mpmetCut() ==1)
       h1_mpmet_FOM[evtChannel] ->Fill(mpmet,EvtWeight);
     
-    if(SampleName == "gg2vvHw1SigOnPeak" || SampleName == "gg2vvHw1SigShoulder" || SampleName == "gg2vvHw1SigTail")if(mllptllCut() ==1)
+    if(SampleName == "gg2vvHw1SigOnPeak" || SampleName == "gg2vvHw1SigShoulder" || SampleName == "gg2vvHw1SigTail")if(CommonCut_Without_mll_ptll_Cut() ==1)
     {
       if(OF0jCut() == 1){
 	Nmllptll_OF0j[0][0] += EvtWeight;
@@ -110,6 +108,7 @@ void HWwCtrPlt::Loop()
       }
     }
 
+    if( Cut == "LooseCut")if(LooseCut() !=1)continue;
     if( Cut == "CommonCut")if(CommonCut() !=1)continue;
     //EvtWeight = CalcWeight();
     Nselect += EvtWeight;
@@ -161,6 +160,7 @@ void HWwCtrPlt::Loop()
   Fout<<"Cut8: "<<ncut8<<endl;
   Fout<<"Cut9: "<<ncut9<<endl;
   Fout<<"Cut10: "<<ncut10<<endl;
+  Fout<<"Loose Cut: "<<ncutLoose<<endl;
 
   if(SampleName == "gg2vvHw1SigOnPeak" || SampleName == "gg2vvHw1SigShoulder" || SampleName == "gg2vvHw1SigTail")
     for(int i1(0); i1<61; i1++)
@@ -190,9 +190,9 @@ int HWwCtrPlt::Fill_Histo()
   h1_dphill[evtChannel]  ->Fill(180./PI*fabs(dphill), EvtWeight);
   h1_mth[evtChannel]     ->Fill(mth, EvtWeight);
   h1_mH[evtChannel]      ->Fill(mH,  EvtWeight);
-  if(mH<=2.0*GenType::M_W)
+  if(mH<=160)
     h1_mH_OnShell[evtChannel] ->Fill(mH,EvtWeight);
-  if(mH>2.0*GenType::M_W)
+  if(mH>160)
     h1_mH_OffShell[evtChannel]->Fill(mH,EvtWeight);
   h1_charge1[evtChannel]->Fill(ch1, EvtWeight);
   h1_charge2[evtChannel]->Fill(ch2, EvtWeight);
@@ -244,6 +244,7 @@ int HWwCtrPlt::InitVar()
   ncut8 = 0;
   ncut9 = 0;
   ncut10 = 0;
+  ncutLoose = 0;
   mH = 0;
 
   for(int i1(0); i1<61; i1++)
@@ -277,7 +278,8 @@ int HWwCtrPlt::InitHistogram()
     sprintf(histName,"h1_dphill_%d",i);
     h1_dphill[i] = new TH1D(histName,"Dileptom dphi",18,0,180);
     sprintf(histName,"h1_mth_%d",i);
-    h1_mth[i] = new TH1D(histName,"Transverse higs mass",25,0,300);
+    //h1_mth[i] = new TH1D(histName,"Transverse Higgs mass",25,0,300);
+    h1_mth[i] = new TH1D(histName,"Transverse Higgs mass",50,0,600);
     sprintf(histName,"h1_mH_%d",i);
     h1_mH[i] = new TH1D(histName,"Higgs mass",50,0,1000);
     sprintf(histName,"h1_mH_OffShell_%d",i);

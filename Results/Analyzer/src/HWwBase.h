@@ -66,6 +66,7 @@ protected:
    double ncut8;
    double ncut9;
    double ncut10;
+   double ncutLoose;
 
    int evtChannel;
    enum AnaChan{
@@ -84,10 +85,11 @@ protected:
    virtual Int_t    SF1jCut();
    virtual Int_t    OF1jCut();
    virtual Int_t    CommonCut();
-   virtual Int_t    mllptllCut();
-   virtual Int_t    mllCut();
-   virtual Int_t    ptllCut();
-   virtual Int_t    mpmetCut();
+   virtual Int_t    CommonCut_Without_mll_ptll_Cut();
+   virtual Int_t    CommonCut_Without_mllCut();
+   virtual Int_t    CommonCut_Without_ptllCut();
+   virtual Int_t    CommonCut_Without_mpmetCut();
+   virtual Int_t    LooseCut();
 
    double 	CalcWeight();
 
