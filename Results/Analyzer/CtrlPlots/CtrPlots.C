@@ -26,16 +26,18 @@ void CtrPlots(TString CutName, TString VarName, TString DirName){
   ChannelName[2] = "sf1j";
   ChannelName[3] = "of1j";
 
-  TFile *fdata  = new TFile("Data/Data_"+CutName+".root");
-  TFile *fwjets = new TFile("WJet/WJet_"+CutName+".root");
-  TFile *fww    = new TFile("WW/WW_"+CutName+".root");
-  TFile *ftop   = new TFile("Top/Top_"+CutName+".root");
-  TFile *fdyll  = new TFile("DYll/DYll_"+CutName+".root");// we're using DYtt(data driven) in OF channel instead for DYll
-  TFile *fdytt  = new TFile("DYtt/DYtt_"+CutName+".root");
-  TFile *fvv    = new TFile("VV/VV_"+CutName+".root");
-  TFile *fvvv   = new TFile("VVV/VVV_"+CutName+".root");
-  TFile *fh125  = new TFile("H125/H125_"+CutName+".root");
-  TFile *fhw1   = new TFile("gg2vvHw1Int8TeV/gg2vvHw1Int8TeV_"+CutName+".root");
+  TFile *fdata    = new TFile("Data/Data_"+CutName+".root");
+  TFile *fwjets   = new TFile("WJet/WJet_"+CutName+".root");
+  TFile *fww      = new TFile("WW/WW_"+CutName+".root");
+  TFile *ftop     = new TFile("Top/Top_"+CutName+".root");
+  TFile *fdyll    = new TFile("DYll/DYll_"+CutName+".root");// we're using DYtt(data driven) in OF channel instead for DYll
+  TFile *fdytt    = new TFile("DYtt/DYtt_"+CutName+".root");
+  TFile *fvv      = new TFile("VV/VV_"+CutName+".root");
+  TFile *fvvv     = new TFile("VVV/VVV_"+CutName+".root");
+  TFile *fh125    = new TFile("H125/H125_"+CutName+".root");
+  TFile *fSig     = new TFile("gg2vvHw1Sig8TeV/gg2vvHw1Sig8TeV_"+CutName+".root");
+  TFile *fSigBkgr = new TFile("gg2vvHw1Int8TeV/gg2vvHw1Int8TeV_"+CutName+".root");
+  TFile *fCot     = new TFile("gg2vvHw25Cot8TeV/gg2vvHw25Cot8TeV_"+CutName+".root");
 
   char tmpName[30];
   char histName[30];
@@ -52,8 +54,9 @@ void CtrPlots(TString CutName, TString VarName, TString DirName){
   TH1D *h_vvv[4];
   TH1D *h_h125[4];
   TH1D *h125[4];
-  TH1D *h_hw1[4];
-  TH1D *hw1[4];
+  TH1D *h_sig[4];
+  TH1D *h_sig_bkgr[4];
+  TH1D *h_cot[4];
   //TH1D *h_hw25[4];
   //TH1D *hw25[4];
   TH1D *hdiff[4];
@@ -93,73 +96,75 @@ void CtrPlots(TString CutName, TString VarName, TString DirName){
     //gPad->SetLogy(1);
  
     if(VarName == "channel"){
-      TLegend* Lgd = new TLegend(.22,.65,.5,.85);
+      TLegend* Lgd = new TLegend(.2,.6,.5,.85);
+      if(i == 0 || i == 2)
+	TLegend* Lgd = new TLegend(.6,.6,.9,.85);
       sprintf(histNameOrg,"h1_channel_%d",i);
     }else if(VarName == "dphill"){
-      TLegend* Lgd = new TLegend(.22,.65,.5,.85);
+      TLegend* Lgd = new TLegend(.2,.6,.5,.85);
       sprintf(histNameOrg,"h1_dphill_%d",i);
     }else if(VarName == "mll"){
-      TLegend* Lgd = new TLegend(.62,.65,.9,.85);
+      TLegend* Lgd = new TLegend(.6,.6,.9,.85);
       sprintf(histNameOrg,"h1_mll_%d",i);
     }else if(VarName == "mth"){
-      TLegend* Lgd = new TLegend(.62,.65,.9,.85);
+      TLegend* Lgd = new TLegend(.6,.6,.9,.85);
       sprintf(histNameOrg,"h1_mth_%d",i);
     }else if(VarName == "high_mth"){
-      TLegend* Lgd = new TLegend(.62,.65,.9,.85);
+      TLegend* Lgd = new TLegend(.6,.6,.9,.85);
       sprintf(histNameOrg,"h1_high_mth_%d",i);
     }else if(VarName == "charge1"){
-      TLegend* Lgd = new TLegend(.62,.65,.9,.85);
+      TLegend* Lgd = new TLegend(.6,.6,.9,.85);
       sprintf(histNameOrg,"h1_charge1_%d",i);
     }else if(VarName == "charge2"){
-      TLegend* Lgd = new TLegend(.62,.65,.9,.85);
+      TLegend* Lgd = new TLegend(.6,.6,.9,.85);
       sprintf(histNameOrg,"h1_charge2_%d",i);
     }else if(VarName == "trigger"){
-      TLegend* Lgd = new TLegend(.62,.65,.9,.85);
+      TLegend* Lgd = new TLegend(.2,.6,.5,.85);
       sprintf(histNameOrg,"h1_trigger_%d",i);
     }else if(VarName == "nextra"){
-      TLegend* Lgd = new TLegend(.62,.65,.9,.85);
+      TLegend* Lgd = new TLegend(.6,.6,.9,.85);
       sprintf(histNameOrg,"h1_nextra_%d",i);
     }else if(VarName == "zveto"){
-      TLegend* Lgd = new TLegend(.62,.65,.9,.85);
+      TLegend* Lgd = new TLegend(.6,.6,.9,.85);
       sprintf(histNameOrg,"h1_zveto_%d",i);
     }else if(VarName == "flavor"){
-      TLegend* Lgd = new TLegend(.62,.65,.9,.85);
+      TLegend* Lgd = new TLegend(.6,.6,.9,.85);
       sprintf(histNameOrg,"h1_flavor_%d",i);
     }else if(VarName == "njet"){
-      TLegend* Lgd = new TLegend(.62,.65,.9,.85);
+      TLegend* Lgd = new TLegend(.6,.6,.9,.85);
       sprintf(histNameOrg,"h1_njet_%d",i);
     }else if(VarName == "bveto_mu"){
-      TLegend* Lgd = new TLegend(.62,.65,.9,.85);
+      TLegend* Lgd = new TLegend(.6,.6,.9,.85);
       sprintf(histNameOrg,"h1_bveto_mu_%d",i);
     }else if(VarName == "bveto_ip"){
-      TLegend* Lgd = new TLegend(.62,.65,.9,.85);
+      TLegend* Lgd = new TLegend(.6,.6,.9,.85);
       sprintf(histNameOrg,"h1_bveto_ip_%d",i);
     }else if(VarName == "nbjettche"){
-      TLegend* Lgd = new TLegend(.62,.65,.9,.85);
+      TLegend* Lgd = new TLegend(.6,.6,.9,.85);
       sprintf(histNameOrg,"h1_nbjettche_%d",i);
     }else if(VarName == "ptll"){
-      TLegend* Lgd = new TLegend(.62,.65,.9,.85);
+      TLegend* Lgd = new TLegend(.6,.6,.9,.85);
       sprintf(histNameOrg,"h1_ptll_%d",i);
     }else if(VarName == "pt1"){
-      TLegend* Lgd = new TLegend(.62,.65,.9,.85);
+      TLegend* Lgd = new TLegend(.6,.6,.9,.85);
       sprintf(histNameOrg,"h1_pt1_%d",i);
     }else if(VarName == "pt2"){
-      TLegend* Lgd = new TLegend(.62,.65,.9,.85);
+      TLegend* Lgd = new TLegend(.6,.6,.9,.85);
       sprintf(histNameOrg,"h1_pt2_%d",i);
     }else if(VarName == "pfmet"){
-      TLegend* Lgd = new TLegend(.62,.65,.9,.85);
+      TLegend* Lgd = new TLegend(.6,.6,.9,.85);
       sprintf(histNameOrg,"h1_pfmet_%d",i);
     }else if(VarName == "mpmet"){
-      TLegend* Lgd = new TLegend(.62,.65,.9,.85);
+      TLegend* Lgd = new TLegend(.6,.6,.9,.85);
       sprintf(histNameOrg,"h1_mpmet_%d",i);
     }else if(VarName == "ppfmet"){
-      TLegend* Lgd = new TLegend(.62,.65,.9,.85);
+      TLegend* Lgd = new TLegend(.6,.6,.9,.85);
       sprintf(histNameOrg,"h1_ppfmet_%d",i);
     }else if(VarName == "dymva1"){
-      TLegend* Lgd = new TLegend(.62,.65,.9,.85);
+      TLegend* Lgd = new TLegend(.6,.6,.9,.85);
       sprintf(histNameOrg,"h1_dymva1_%d",i);
     }else if(VarName == "dphilljetjet"){
-      TLegend* Lgd = new TLegend(.62,.65,.9,.85);
+      TLegend* Lgd = new TLegend(.6,.6,.9,.85);
       sprintf(histNameOrg,"h1_dphilljetjet_%d",i);
     }
     
@@ -181,8 +186,12 @@ void CtrPlots(TString CutName, TString VarName, TString DirName){
     h_vvv[i]= (TH1D*)fvvv->Get(histNameOrg)->Clone(histName); h_vvv[i]->Sumw2();
     sprintf(histName,"h_h125_%d",i);
     h_h125[i]= (TH1D*)fh125->Get(histNameOrg)->Clone(histName); h_h125[i]->Sumw2();
-    sprintf(histName,"h_hw1_%d",i);
-    h_hw1[i]= (TH1D*)fhw1->Get(histNameOrg)->Clone(histName); h_hw1[i]->Sumw2();
+    sprintf(histName,"h_sig_%d",i);
+    h_sig[i]= (TH1D*)fSig->Get(histNameOrg)->Clone(histName); h_sig[i]->Sumw2();
+    sprintf(histName,"h_sig_bkgr_%d",i);
+    h_sig_bkgr[i]= (TH1D*)fSigBkgr->Get(histNameOrg)->Clone(histName); h_sig_bkgr[i]->Sumw2();
+    sprintf(histName,"h_cot_%d",i);
+    h_cot[i]= (TH1D*)fCot->Get(histNameOrg)->Clone(histName); h_cot[i]->Sumw2();
     //sprintf(histName,"h_hw25_%d",i);
     //h_hw25[i]= (TH1D*)fhw25->Get(histNameOrg)->Clone(histName); h_hw25[i]->Sumw2();
 
@@ -198,8 +207,6 @@ void CtrPlots(TString CutName, TString VarName, TString DirName){
     sprintf(histName,"h125_%d",i);
     h125[i] = (TH1D*)h_h125[i]->Clone(histName);
     
-    sprintf(histName,"hw1_%d",i);
-    hw1[i] = (TH1D*)h_hw1[i]->Clone(histName);
     //sprintf(histName,"hw25_%d",i);
     //hw25[i] = (TH1D*)h_hw25[i]->Clone(histName);
     
@@ -214,10 +221,13 @@ void CtrPlots(TString CutName, TString VarName, TString DirName){
     h125[i]->SetLineColor(kRed);
     h125[i]->SetLineWidth(2);
     
-    h_hw1[i]->SetFillColor(kViolet);
-    h_hw1[i]->SetLineColor(kViolet);
-    hw1[i]->SetLineColor(kViolet);
-    hw1[i]->SetLineWidth(2);
+    h_sig[i]->SetLineColor(kViolet);
+    //h_sig[i]->SetLineColor(kOrange-3);
+    h_sig[i]->SetLineWidth(2);
+    h_sig_bkgr[i]->SetLineColor(kBlue-3);
+    h_sig_bkgr[i]->SetLineWidth(2);
+    h_cot[i]->SetLineColor(kGreen+3);
+    h_cot[i]->SetLineWidth(2);
     
     //h_hw25[i]->SetFillColor(kViolet);
     //h_hw25[i]->SetLineColor(kViolet);
@@ -240,7 +250,7 @@ void CtrPlots(TString CutName, TString VarName, TString DirName){
     hs[i]->Add(h_wjets[i]);
     //hs[i]->Add(h_h125[i]);
     //hs[i]->SetMaximum(1.5*(h_data[i]->GetMaximum()));
-    hs[i]->SetMaximum(1.15*(hs[i]->GetMaximum()));
+    hs[i]->SetMaximum(2.*(hs[i]->GetMaximum()));
     hs[i]->SetTitle("");
 
     myCan->cd(1);
@@ -262,13 +272,17 @@ void CtrPlots(TString CutName, TString VarName, TString DirName){
     hs[i]->Draw("HIST");
     h_data[i]->Draw("E same");
     h125[i]->Draw("HIST SAME");
-    hw1[i]->Draw("HIST SAME");
+    h_sig[i]->Draw("HIST SAME");
+    h_sig_bkgr[i]->Draw("HIST SAME");
+    h_cot[i]->Draw("HIST SAME");
     //hw25[i]->Draw("HIST SAME");
     
-    if (i==1)
-      Lgd->SetHeader("0-jet e#mu");
-    if (i==3)
-      Lgd->SetHeader("1-jet e#mu");
+    //sprintf(histName,ChannelName[i]+" "+CutName);
+    Lgd->SetHeader(ChannelName[i]+" "+CutName);
+    //if (i==1)
+    //  Lgd->SetHeader("0-jet e#mu");
+    //if (i==3)
+    //  Lgd->SetHeader("1-jet e#mu");
     Lgd->AddEntry(h_data[i],"data","pl");
     Lgd->AddEntry(h125[i],"m_{H}=125 GeV","l");
     //Lgd->AddEntry(h_h125[i],"H125","F");
@@ -279,8 +293,12 @@ void CtrPlots(TString CutName, TString VarName, TString DirName){
     Lgd->AddEntry(hdy[i],"Z/#gamma*","F");
     Lgd->AddEntry(h_ww[i],"WW","F");
     //Lgd->AddEntry(hw25[i],"Hw25SigOnPeak","l");
-    //Lgd->AddEntry(hw1[i],"Hw1gg2vvSig","l");
-    Lgd->AddEntry(hw1[i],"Hw1gg2vv_Sig+Bkgr","l");
+    //Lgd->AddEntry(h_sig[i],"Hw1gg2vvSig","l");
+    Lgd->AddEntry(h_sig[i],"Hw1 Sig","l");
+    Lgd->AddEntry("","","");
+    Lgd->AddEntry(h_sig_bkgr[i],"Hw1 Sig+Bkgr","l");
+    Lgd->AddEntry("","","");
+    Lgd->AddEntry(h_cot[i],"Hw1 Cot","l");
     Lgd->SetBorderSize(0);
     Lgd->SetFillStyle(0);
     Lgd->SetTextSize(0.03);
