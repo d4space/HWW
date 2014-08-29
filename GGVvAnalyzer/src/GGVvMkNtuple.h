@@ -36,7 +36,9 @@ protected:
    TTree *ggTree;
    
    //Common Cut
-   TH1D *h_Hig_mass;
+   TH1D *h_Hig_Mass;
+   TH2D *h_Hig_MassMll;
+   TH2D *h_Hig_MassPtll;
 
    ofstream Fout;
 };

@@ -29,9 +29,11 @@ void HWwCtrPlt::Loop()
     //if(SampleName == "gg2vvHw1SigOnPeak" || SampleName == "gg2vvHw1SigShoulder" || SampleName == "gg2vvHw1SigTail")
     if(SampleName == "gg2vvHw1Sig8TeV" || SampleName == "gg2vvHw1Int8TeV" || SampleName == "gg2vvHw25Cot8TeV")
     {
-      if((leptonGenpid1 == GenType::kElectron && leptonGenpid2 == GenType::kMuon) || (leptonGenpid1 == GenType::kMuon && leptonGenpid2 == GenType::kElectron))
+      if((leptonGenpid1 == GenType::kElectron && leptonGenpid2 == GenType::kMuon)
+	  || (leptonGenpid1 == GenType::kMuon && leptonGenpid2 == GenType::kElectron))
       {
-	if((neutrinoGenpid1 == GenType::keNeutrino && neutrinoGenpid2 == GenType::kmuNeutrino) || (neutrinoGenpid1 == GenType::kmuNeutrino && neutrinoGenpid2 == GenType::keNeutrino))
+	if((neutrinoGenpid1 == GenType::keNeutrino && neutrinoGenpid2 == GenType::kmuNeutrino)
+	    || (neutrinoGenpid1 == GenType::kmuNeutrino && neutrinoGenpid2 == GenType::keNeutrino))
 	{
 	  if(leptonGenpid1 == int(GenType::kMuon) && leptonGenpid2 == int(GenType::kElectron))
 	  {

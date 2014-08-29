@@ -53,19 +53,28 @@ int GGVvMkNtuple::InitHistogram()
   FoutName = mDirName+"/"+mMode+".txt";
   Fout.open(FoutName);
   OutTFile = new TFile(mDirName+"/"+mMode+".root","RECREATE");
-  h_Hig_mass    = new TH1D("h_Hig_mass","m_{H} [GeV/c^{2}]",100,0,1000);
+  h_Hig_Mass       = new TH1D("h_Hig_Mass"    ,"m_{H} [GeV/c^{2}]",100,0,1000);
+  h_Hig_MassMll    = new TH2D("h_Hig_MassMll" ,"m_{H} vs. mll" ,100,0,1000, 100, 0, 1000);
+  h_Hig_MassPtll   = new TH2D("h_Hig_MassPtll","m_{H} vs. Ptll",100,0,1000, 100, 0, 1000);
 
   ggTree = new TTree("ggTree","variables from ggF");
   ggTree->Branch("mHig",&Hig_mass);
+  ggTree->Branch("pt1",&pt1);
+  ggTree->Branch("pt2",&pt2);
+  ggTree->Branch("met",&MET);
+  ggTree->Branch("mpmet",&mpMET);
   ggTree->Branch("mll",&DiLept_mass);
   ggTree->Branch("ptll",&DiLept_pt);
+  ggTree->Branch("dphill",&DiLept_dphi);
   
   return 0;
 }
 int GGVvMkNtuple::FillHist()
 {
   ggTree->Fill();
-  h_Hig_mass->Fill(Hig_mass,mTTW);
+  h_Hig_Mass->Fill(Hig_mass,mTTW);
+  h_Hig_MassMll->Fill(Hig_mass, DiLept_mass,mTTW);
+  h_Hig_MassPtll->Fill(Hig_mass, DiLept_pt,mTTW);
   return 0;
 }
 int GGVvMkNtuple::InitVar()
