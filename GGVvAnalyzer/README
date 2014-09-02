@@ -1,7 +1,7 @@
 tar xvf ExRootAnalysis.tgz
 cd Ex.../
 make
-
+source setEnvSourceMe.tcsh ==> for root and ExRootLHEFConverter
 Usage 1--------------------
 ExRootLHEFConverter myfile.lhe myfile.root
 Usage 2--------------------
