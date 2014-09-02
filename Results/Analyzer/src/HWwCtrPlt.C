@@ -28,36 +28,7 @@ void HWwCtrPlt::Loop()
     if (LooseCut() == 1) ncutLoose++;
     //if(SampleName == "gg2vvHw1SigOnPeak" || SampleName == "gg2vvHw1SigShoulder" || SampleName == "gg2vvHw1SigTail")
     if(SampleName == "gg2vvHw1Sig8TeV" || SampleName == "gg2vvHw1Int8TeV" || SampleName == "gg2vvHw25Cot8TeV")
-    {
-      if((leptonGenpid1 == GenType::kElectron && leptonGenpid2 == GenType::kMuon)
-	  || (leptonGenpid1 == GenType::kMuon && leptonGenpid2 == GenType::kElectron))
-      {
-	if((neutrinoGenpid1 == GenType::keNeutrino && neutrinoGenpid2 == GenType::kmuNeutrino)
-	    || (neutrinoGenpid1 == GenType::kmuNeutrino && neutrinoGenpid2 == GenType::keNeutrino))
-	{
-	  if(leptonGenpid1 == int(GenType::kMuon) && leptonGenpid2 == int(GenType::kElectron))
-	  {
-	    mu_TL.SetPtEtaPhiM(leptonGenpt1, leptonGeneta1, leptonGenphi1, GenType::M_mu);
-	    el_TL.SetPtEtaPhiM(leptonGenpt2, leptonGeneta2, leptonGenphi2, GenType::M_ele);
-	  }else if(leptonGenpid1 == int(GenType::kElectron) && leptonGenpid2 == int(GenType::kMuon))
-	  {
-	    el_TL.SetPtEtaPhiM(leptonGenpt1, leptonGeneta1, leptonGenphi1, GenType::M_ele);
-	    mu_TL.SetPtEtaPhiM(leptonGenpt2, leptonGeneta2, leptonGenphi2, GenType::M_mu);
-	  }
-	  
-	  nu1_TL.SetPtEtaPhiM(neutrinoGenpt1, neutrinoGeneta1, neutrinoGenphi1, 0.0);
-	  nu2_TL.SetPtEtaPhiM(neutrinoGenpt2, neutrinoGeneta2, neutrinoGenphi2, 0.0);
-	  Lepton4_TL = mu_TL + el_TL + nu1_TL + nu2_TL;
-	  mH = Lepton4_TL.M();
-	  }else{
-	    cout<<"Strange Channel"<<endl;
-	    exit(-1);
-	  }
-      //}else{
-      //  continue;
-      //}
-    }
-
+      mH = CalcmWW();
     if(SampleName == "H125")
       mH = MHiggs;
     if (pt1<=20)ncut1++;
@@ -247,7 +218,6 @@ int HWwCtrPlt::InitVar()
   ncut9 = 0;
   ncut10 = 0;
   ncutLoose = 0;
-  mH = 0;
 
   for(int i1(0); i1<61; i1++)
   {

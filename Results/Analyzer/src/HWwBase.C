@@ -287,3 +287,37 @@ double HWwBase::CalcWeight()
   }
   return evtWeight;
 }
+double HWwBase::CalcmWW()
+{
+  TLorentzVector mu_TL;
+  TLorentzVector el_TL;
+  TLorentzVector nu1_TL;
+  TLorentzVector nu2_TL;
+  TLorentzVector Lepton4_TL;
+  double mHiggs(0);
+  
+  if((leptonGenpid1 == GenType::kElectron && leptonGenpid2 == GenType::kMuon) || (leptonGenpid1 == GenType::kMuon && leptonGenpid2 == GenType::kElectron))
+  {
+    if((neutrinoGenpid1 == GenType::keNeutrino && neutrinoGenpid2 == GenType::kmuNeutrino) || (neutrinoGenpid1 == GenType::kmuNeutrino && neutrinoGenpid2 == GenType::keNeutrino))
+    {
+      if(leptonGenpid1 == int(GenType::kMuon) && leptonGenpid2 == int(GenType::kElectron))
+      {
+	mu_TL.SetPtEtaPhiM(leptonGenpt1, leptonGeneta1, leptonGenphi1, GenType::M_mu);
+	el_TL.SetPtEtaPhiM(leptonGenpt2, leptonGeneta2, leptonGenphi2, GenType::M_ele);
+      }else if(leptonGenpid1 == int(GenType::kElectron) && leptonGenpid2 == int(GenType::kMuon))
+      {
+	el_TL.SetPtEtaPhiM(leptonGenpt1, leptonGeneta1, leptonGenphi1, GenType::M_ele);
+	mu_TL.SetPtEtaPhiM(leptonGenpt2, leptonGeneta2, leptonGenphi2, GenType::M_mu);
+      }
+      
+      nu1_TL.SetPtEtaPhiM(neutrinoGenpt1, neutrinoGeneta1, neutrinoGenphi1, 0.0);
+      nu2_TL.SetPtEtaPhiM(neutrinoGenpt2, neutrinoGeneta2, neutrinoGenphi2, 0.0);
+      Lepton4_TL = mu_TL + el_TL + nu1_TL + nu2_TL;
+      mHiggs = Lepton4_TL.M();
+    }else{
+      cout<<"Strange Higgs mass!"<<endl;
+      exit(-1);
+    }
+  }
+  return mHiggs;
+}

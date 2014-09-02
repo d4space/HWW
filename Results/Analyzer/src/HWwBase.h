@@ -92,12 +92,7 @@ protected:
    virtual Int_t    LooseCut();
 
    double 	CalcWeight();
-
-   TLorentzVector mu_TL;
-   TLorentzVector el_TL;
-   TLorentzVector nu1_TL;
-   TLorentzVector nu2_TL;
-   TLorentzVector Lepton4_TL;
+   double       CalcmWW();
    double mH;
 
    double mllBins[61];
@@ -118,6 +113,7 @@ void HWwBase::Init(TTree *tree)
 
    HWwNT::Init(tree);
    EvtWeight = 1;
+   mH = 0;
 
    cout<<"RunOnMC:  "<<RunOnMC<<endl;
    if(!RunOnMC)
