@@ -53,9 +53,9 @@ void HWwCtrPlt::Loop()
 	    cout<<"Strange Channel"<<endl;
 	    exit(-1);
 	  }
-      }else{
-	continue;
-      }
+      //}else{
+      //  continue;
+      //}
     }
 
     if(SampleName == "H125")
