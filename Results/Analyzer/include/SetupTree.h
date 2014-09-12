@@ -17,11 +17,18 @@
 #include "chain_gg2vvHw1IntOnPeak.h"
 #include "chain_gg2vvHw1IntShoulder.h"
 #include "chain_gg2vvHw1IntTail.h"
+#include "chain_gg2vvHw25SigOnPeak.h"
+#include "chain_gg2vvHw25SigShoulder.h"
+#include "chain_gg2vvHw25SigTail.h"
+#include "chain_gg2vvHw25IntOnPeak.h"
+#include "chain_gg2vvHw25IntShoulder.h"
+#include "chain_gg2vvHw25IntTail.h"
 #include "chain_gg2vvHw25CotHead.h"
 #include "chain_gg2vvHw25CotTail.h"
 #include "chain_gg2vvHw1Sig8TeV.h"
 #include "chain_gg2vvHw1Int8TeV.h"
 #include "chain_gg2vvHw25Cot8TeV.h"
+#include "chain_gg2vvHw25Sig8TeV.h"
 
 #include "chain_gg2vvHw25SigShoulder.h"
 //===============
@@ -92,6 +99,24 @@ void SetupTree( TString sample, TChain* chains )
   else if(sample == "gg2vvHw25CotTail"){
     chain_gg2vvHw25CotTail(chains);
   }
+  else if(sample == "gg2vvHw25SigOnPeak"){
+    chain_gg2vvHw25SigOnPeak(chains);
+  }
+  else if(sample == "gg2vvHw25SigShoulder"){
+    chain_gg2vvHw25SigShoulder(chains);
+  }
+  else if(sample == "gg2vvHw25SigTail"){
+    chain_gg2vvHw25SigTail(chains);
+  }
+  else if(sample == "gg2vvHw25IntOnPeak"){
+    chain_gg2vvHw25IntOnPeak(chains);
+  }
+  else if(sample == "gg2vvHw25IntShoulder"){
+    chain_gg2vvHw25IntShoulder(chains);
+  }
+  else if(sample == "gg2vvHw25IntTail"){
+    chain_gg2vvHw25IntTail(chains);
+  }
   else if(sample == "gg2vvHw1Sig8TeV"){
     chain_gg2vvHw1Sig8TeV(chains);
   }
@@ -100,6 +125,9 @@ void SetupTree( TString sample, TChain* chains )
   }
   else if(sample == "gg2vvHw25Cot8TeV"){
     chain_gg2vvHw25Cot8TeV(chains);
+  }
+  else if(sample == "gg2vvHw25Sig8TeV"){
+    chain_gg2vvHw25Sig8TeV(chains);
   }
   else
   {

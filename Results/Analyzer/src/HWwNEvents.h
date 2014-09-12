@@ -44,10 +44,15 @@ protected:
    TFile *myFile;
    
    //Efficiency
-   double ntruth_OF0j[2]; //0 index is RecoLvl OF events, index 1 is genLvl OF events
-   double ntruth_OF1j[2];
+   double ntruth_OF0j[6]; //0,1,2 - RecoLvl OF events (elmu and muel, muel, elmu), index 3,4,5 - genLvl OF events
+   double ntruth_OF1j[6];
    double nfake_OF0j[8]; //0-genLvl total fake events, 1-mumu, 2-mutau, 3-elel, 4-eltau, 5-taumu, 6-tauel, 7-tautau
    double nfake_OF1j[8];
+   
+   double ntruth_SF0j[2]; //0,1,2 - RecoLvl SF events (elmu and muel, muel, elmu), index 3,4,5 - genLvl SF events
+   double ntruth_SF1j[2];
+   double nfake_SF0j[8]; //0-genLvl total fake events, 1-mumu, 2-mutau, 3-elel, 4-eltau, 5-taumu, 6-tauel, 7-tautau
+   double nfake_SF1j[8];
 };
 
 #endif

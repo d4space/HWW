@@ -18,6 +18,7 @@ void HWwCtrPlt::Loop()
   cout<<"Total: "<<Ntries<<endl;
   Fout<<"Total: "<<Ntries<<endl;
   cout<<"LumiW: "<<LumiW<<endl;
+  Fout<<"LumiW: "<<LumiW<<endl;
   
   for (int i(0); i<Ntries;i++)
   //for (int i(0); i<10;i++)
@@ -26,17 +27,20 @@ void HWwCtrPlt::Loop()
     evtCnt++;
     fChain->GetEntry(i);
     if (LooseCut() == 1) ncutLoose++;
-    //if(SampleName == "gg2vvHw1SigOnPeak" || SampleName == "gg2vvHw1SigShoulder" || SampleName == "gg2vvHw1SigTail")
+
     if(SampleName == "gg2vvHw1Sig8TeV" || SampleName == "gg2vvHw1Int8TeV" || SampleName == "gg2vvHw25Cot8TeV")
-      mH = CalcmWW();
+    //  mH = CalcmWW();
+      mH = mWW;
     if(SampleName == "H125")
       mH = MHiggs;
+    //Checking genLvl Higgs mass
+    //if(mWW==mH){}else{Fout<<i<<setprecision(8)<<"\t"<<mWW<<"\t"<<mH<<endl;}
+    //Fout<<"nEvent: "<<i<<"\t"<<mWW<<endl;
     if (pt1<=20)ncut1++;
     if (pt2<=10)ncut2++;
     if (nextra!=0)ncut3++;
     if (pfmet<=20)ncut4++;
     if (mll<=12)ncut5++;
-    //if (mll<=70)ncut5++;
     if (mpmet<=20)ncut6++;
     if (bveto_mu!=1)ncut7++;
     if (bveto_ip!=1)ncut8++;
@@ -44,6 +48,7 @@ void HWwCtrPlt::Loop()
     if (ptll<=30)ncut10++;
     // NT already applied loose cuts
     // select channel
+
     if (SF0jCut() == 1)     evtChannel = Chan_sf0j;
     else if (OF0jCut() == 1)evtChannel = Chan_of0j;
     else if (SF1jCut() == 1)evtChannel = Chan_sf1j;
@@ -81,48 +86,54 @@ void HWwCtrPlt::Loop()
       }
     }
 
-    if( Cut == "LooseCut")if(LooseCut() !=1)continue;
+    if( Cut == "LooseCut") if(LooseCut()  !=1)continue;
     if( Cut == "CommonCut")if(CommonCut() !=1)continue;
-    //EvtWeight = CalcWeight();
-    Nselect += EvtWeight;
-    if (SF0jCut() == 1)     NselectSF0j += EvtWeight;
-    else if (OF0jCut() == 1)NselectOF0j += EvtWeight;
-    else if (SF1jCut() == 1)NselectSF1j += EvtWeight;
-    else if (OF1jCut() == 1)NselectOF1j += EvtWeight;
+    if( Cut == "SignalCutV1")if(SignalCutV1() !=1)continue;
+    if( Cut == "SignalCutV2")if(SignalCutV2() !=1)continue;
+    Nselect[0] ++;    Nselect[1] += EvtWeight;
+    if (SF0jCut() == 1)     {NselectSF0j[0] ++; NselectSF0j[1] += EvtWeight;}
+    else if (OF0jCut() == 1){NselectOF0j[0] ++; NselectOF0j[1] += EvtWeight;}
+    else if (SF1jCut() == 1){NselectSF1j[0] ++; NselectSF1j[1] += EvtWeight;}
+    else if (OF1jCut() == 1){NselectOF1j[0] ++; NselectOF1j[1] += EvtWeight;}
 
     //if(SampleName == "H125" || SampleName == "gg2vvHw1SigOnPeak" || SampleName == "gg2vvHw1SigShoulder" || SampleName == "gg2vvHw1SigTail")
-    //{
-    //  if(mH>160.)
-    //    //if(mll>70.)
-    //    {
-    //      if (SF0jCut() == 1)     NselectSF0j_OffShell += EvtWeight;
-    //      else if (OF0jCut() == 1)NselectOF0j_OffShell += EvtWeight;
-    //      else if (SF1jCut() == 1)NselectSF1j_OffShell += EvtWeight;
-    //      else if (OF1jCut() == 1)NselectOF1j_OffShell += EvtWeight;
-    //    }else{
-    //      if (SF0jCut() == 1)     NselectSF0j_OnShell += EvtWeight;
-    //      else if (OF0jCut() == 1)NselectOF0j_OnShell += EvtWeight;
-    //      else if (SF1jCut() == 1)NselectSF1j_OnShell += EvtWeight;
-    //      else if (OF1jCut() == 1)NselectOF1j_OnShell += EvtWeight;
-    //    }
-    //}
-    //cout<<"evtChannel: "<<evtChannel<<"  channel: "<<channel<<endl;
+    if(SampleName == "gg2vvHw1Int8TeV")
+    {
+      //if(mH>0 && mH<=160){
+      if(mWW<=160){
+        Nselect[2] ++;         Nselect[3] += EvtWeight;
+	if (SF0jCut() == 1)     {NselectSF0j[2] ++; NselectSF0j[3] += EvtWeight;}
+	else if (OF0jCut() == 1){NselectOF0j[2] ++; NselectOF0j[3] += EvtWeight;}
+	else if (SF1jCut() == 1){NselectSF1j[2] ++; NselectSF1j[3] += EvtWeight;}
+	else if (OF1jCut() == 1){NselectOF1j[2] ++; NselectOF1j[3] += EvtWeight;}
+      }else if(mWW>160){
+        Nselect[4] ++;         Nselect[5] += EvtWeight;
+	if (SF0jCut() == 1)     {NselectSF0j[4] ++; NselectSF0j[5] += EvtWeight;}
+	else if (OF0jCut() == 1){NselectOF0j[4] ++; NselectOF0j[5] += EvtWeight;}
+	else if (SF1jCut() == 1){NselectSF1j[4] ++; NselectSF1j[5] += EvtWeight;}
+	else if (OF1jCut() == 1){NselectOF1j[4] ++; NselectOF1j[5] += EvtWeight;}
+      }
+    }
     Fill_Histo();
-    //Fout<<i<<"\t"<<EvtWeight*mpmet<<endl;
   }
-  Fout<<"Nselected: "<<Nselect<<endl;
-  Fout<<"NselectSF0j: "<<NselectSF0j<<endl;
-  Fout<<"NselectSF1j: "<<NselectSF1j<<endl;
-  Fout<<"NselectOF0j: "<<NselectOF0j<<endl;
-  Fout<<"NselectOF1j: "<<NselectOF1j<<endl;
-  Fout<<"NselectSF0j_OffShell: "<<NselectSF0j_OffShell<<endl;
-  Fout<<"NselectSF1j_OffShell: "<<NselectSF1j_OffShell<<endl;
-  Fout<<"NselectOF0j_OffShell: "<<NselectOF0j_OffShell<<endl;
-  Fout<<"NselectOF1j_OffShell: "<<NselectOF1j_OffShell<<endl;
-  Fout<<"NselectSF0j_OnShell: "<<NselectSF0j_OnShell<<endl;
-  Fout<<"NselectSF1j_OnShell: "<<NselectSF1j_OnShell<<endl;
-  Fout<<"NselectOF0j_OnShell: "<<NselectOF0j_OnShell<<endl;
-  Fout<<"NselectOF1j_OnShell: "<<NselectOF1j_OnShell<<endl;
+  Fout<<"Weighted (Counted)"<<endl;
+  Fout<<"Nselected: "<<Nselect[1]<<" ("<<Nselect[0]<<")"<<endl;
+  Fout<<"Nselected mH<160: "<<Nselect[3]<<" ("<<Nselect[2]<<")"<<endl;
+  Fout<<"Nselected mH>160: "<<Nselect[5]<<" ("<<Nselect[4]<<")"<<endl;
+  Fout<<"NselectSF0j: "<<NselectSF0j[1]<<" ("<<NselectSF0j[0]<<")"<<endl;
+  Fout<<"NselectSF1j: "<<NselectSF1j[1]<<" ("<<NselectSF1j[0]<<")"<<endl;
+  Fout<<"NselectOF0j: "<<NselectOF0j[1]<<" ("<<NselectOF0j[0]<<")"<<endl;
+  Fout<<"NselectOF1j: "<<NselectOF1j[1]<<" ("<<NselectOF1j[0]<<")"<<endl;
+  Fout<<"NselectSF0j mH<160: "<<NselectSF0j[3]<<" ("<<NselectSF0j[2]<<")"<<endl;
+  Fout<<"NselectSF1j mH<160: "<<NselectSF1j[3]<<" ("<<NselectSF1j[2]<<")"<<endl;
+  Fout<<"NselectOF0j mH<160: "<<NselectOF0j[3]<<" ("<<NselectOF0j[2]<<")"<<endl;
+  Fout<<"NselectOF1j mH<160: "<<NselectOF1j[3]<<" ("<<NselectOF1j[2]<<")"<<endl;
+  Fout<<"NselectSF0j mH>160: "<<NselectSF0j[5]<<" ("<<NselectSF0j[4]<<")"<<endl;
+  Fout<<"NselectSF1j mH>160: "<<NselectSF1j[5]<<" ("<<NselectSF1j[4]<<")"<<endl;
+  Fout<<"NselectOF0j mH>160: "<<NselectOF0j[5]<<" ("<<NselectOF0j[4]<<")"<<endl;
+  Fout<<"NselectOF1j mH>160: "<<NselectOF1j[5]<<" ("<<NselectOF1j[4]<<")"<<endl;
+  Fout<<"NselectOF mH<160: "<<NselectOF0j[3]+NselectOF1j[3]<<" ("<<NselectOF0j[2]+NselectOF1j[2]<<")"<<endl;
+  Fout<<"NselectOF mH>160: "<<NselectOF0j[5]+NselectOF1j[5]<<" ("<<NselectOF0j[4]+NselectOF1j[4]<<")"<<endl;
   Fout<<"Cut1: "<<ncut1<<endl;
   Fout<<"Cut2: "<<ncut2<<endl;
   Fout<<"Cut3: "<<ncut3<<endl;
@@ -185,6 +196,10 @@ int HWwCtrPlt::Fill_Histo()
   h1_ppfmet[evtChannel] ->Fill(ppfmet,EvtWeight);
   h1_dymva1[evtChannel] ->Fill(dymva1,EvtWeight);
   h1_dphilljetjet[evtChannel] ->Fill(180./PI*fabs(dphilljetjet),EvtWeight);
+  //if((leptonGenpid1 == GenType::kMuon && leptonGenpid2 == GenType::kElectron) || (leptonGenpid1 == GenType::kElectron && leptonGenpid2 == GenType::kMuon))
+  h2_mthmll[evtChannel] ->Fill(mth,mll,EvtWeight);
+  h2_mthdphill[evtChannel] ->Fill(mth,180./PI*fabs(dphill),EvtWeight);
+  h2_mlldphill[evtChannel] ->Fill(mll,180./PI*fabs(dphill),EvtWeight);
 
   return 0;
 }
@@ -193,20 +208,15 @@ int HWwCtrPlt::InitVar()
   TString FoutName = mResultDir+"/"+SampleName+"_"+Cut+".txt";
   Fout.open(FoutName);
   evtCnt = 0;
-  Nselect = 0;
-  NselectSF0j = 0;
-  NselectSF1j = 0;
-  NselectOF0j = 0;
-  NselectOF1j = 0;
 
-  NselectSF0j_OffShell = 0;
-  NselectSF1j_OffShell = 0;
-  NselectOF0j_OffShell = 0;
-  NselectOF1j_OffShell = 0;
-  NselectSF0j_OnShell = 0;
-  NselectSF1j_OnShell = 0;
-  NselectOF0j_OnShell = 0;
-  NselectOF1j_OnShell = 0;
+  for(int j(0); j<6; j++)
+  {
+    Nselect[j] = 0;
+    NselectSF0j[j] = 0;
+    NselectSF1j[j] = 0;
+    NselectOF0j[j] = 0;
+    NselectOF1j[j] = 0;
+  }
   ncut1 = 0;
   ncut2 = 0;
   ncut3 = 0;
@@ -218,6 +228,7 @@ int HWwCtrPlt::InitVar()
   ncut9 = 0;
   ncut10 = 0;
   ncutLoose = 0;
+  //mH = 0;
 
   for(int i1(0); i1<61; i1++)
   {
@@ -245,10 +256,6 @@ int HWwCtrPlt::InitHistogram()
   {
     sprintf(histName, "h1_channel_%d",i);
     h1_channel[i] = new TH1D(histName,"channel", 4, 0, 4);
-    sprintf(histName, "h1_mll_%d",i);
-    h1_mll[i] = new TH1D(histName,"Dilepton mass", 30, 0, 300);
-    sprintf(histName,"h1_dphill_%d",i);
-    h1_dphill[i] = new TH1D(histName,"Dileptom dphi",18,0,180);
     sprintf(histName,"h1_mth_%d",i);
     //h1_mth[i] = new TH1D(histName,"Transverse Higgs mass",25,0,300);
     h1_mth[i] = new TH1D(histName,"Transverse Higgs mass",50,0,600);
@@ -279,28 +286,36 @@ int HWwCtrPlt::InitHistogram()
     h1_bveto_ip[i] = new TH1D(histName,"Passes the ip anti-b-tagging", 4, -0.5, 3.5);
     sprintf(histName, "h1_nbjettche_%d",i);
     h1_nbjettche[i] = new TH1D(histName,"Counted b-jets", 2, -0.5, 1.5);
-    sprintf(histName, "h1_ptll_%d",i);
-    h1_ptll[i] = new TH1D(histName,"Dilepton transverse momentum", 20, 0, 150);
-    sprintf(histName, "h1_pt1_%d",i);
-    h1_pt1[i] = new TH1D(histName,"Leading lepton transverse momentum", 20, 0, 150);
-    sprintf(histName, "h1_pt2_%d",i);
-    h1_pt2[i] = new TH1D(histName,"Trailing lepton transverse momentum", 20, 0, 100);
-    sprintf(histName, "h1_pfmet_%d",i);
-    h1_pfmet[i] = new TH1D(histName,"PF MET", 25, 0, 200);
-    sprintf(histName, "h1_mpmet_%d",i);
-    h1_mpmet[i] = new TH1D(histName,"Minimum proj. MET", 25, 0, 200);
-    sprintf(histName, "h1_ppfmet_%d",i);
-    h1_ppfmet[i] = new TH1D(histName,"Projected MET", 25, 0, 200);
     sprintf(histName, "h1_dymva1_%d",i);
     h1_dymva1[i] = new TH1D(histName,"DY MVA", 10, -1, 1);
     sprintf(histName, "h1_dphilljetjet_%d",i);
     h1_dphilljetjet[i] = new TH1D(histName,"Deltaphi between the dileptons and jets", 18, 0, 180);
-
     sprintf(histName, "h1_mpmet_FOM_%d",i);
     h1_mpmet_FOM[i] = new TH1D(histName,"Minimum proj. MET", 20, 0, 80);//F.O.M. study
-
     sprintf(histName, "h2_mllptll_%d",i);
     h2_mllptll[i] = new TH2D(histName,"mll vs ptll",60,0,300,30,0,150);//mll ptll cut study
+    sprintf(histName, "h2_mthmll_%d",i);
+    h2_mthmll[i] = new TH2D(histName,"mth vs mll",40,0,400,40,0,400);//mth vs mll
+    sprintf(histName, "h2_mthdphill_%d",i);
+    h2_mthdphill[i] = new TH2D(histName,"mth vs dphill",40,0,400,18,0,180);//mth vs dphill
+    sprintf(histName, "h2_mlldphill_%d",i);
+    h2_mlldphill[i] = new TH2D(histName,"mll vs dphill",40,0,400,18,0,180);//mth vs dphill
+    sprintf(histName, "h1_mll_%d",i);
+    h1_mll[i] = new TH1D(histName,"Dilepton mass", 60, 0, 600);
+    sprintf(histName,"h1_dphill_%d",i);
+    h1_dphill[i] = new TH1D(histName,"Dileptom dphi",18,0,180);
+    sprintf(histName, "h1_pfmet_%d",i);
+    h1_pfmet[i] = new TH1D(histName,"PF MET", 25, 0, 200);
+    sprintf(histName, "h1_ptll_%d",i);
+    h1_ptll[i] = new TH1D(histName,"Dilepton transverse momentum", 20, 0, 150);
+    sprintf(histName, "h1_pt1_%d",i);
+    h1_pt1[i] = new TH1D(histName,"Leading lepton transverse momentum", 30, 0, 300);
+    sprintf(histName, "h1_pt2_%d",i);
+    h1_pt2[i] = new TH1D(histName,"Trailing lepton transverse momentum", 30, 0, 300);
+    sprintf(histName, "h1_mpmet_%d",i);
+    h1_mpmet[i] = new TH1D(histName,"Minimum proj. MET", 25, 0, 200);
+    sprintf(histName, "h1_ppfmet_%d",i);
+    h1_ppfmet[i] = new TH1D(histName,"Projected MET", 25, 0, 200);
   }
   return 0;
 }

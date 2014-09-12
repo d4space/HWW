@@ -43,19 +43,11 @@ protected:
    double EvtWeight;
    bool RunOnMC;
 
-   double Nselect;
-   double NselectSF0j;
-   double NselectSF1j;
-   double NselectOF0j;
-   double NselectOF1j;
-   double NselectSF0j_OffShell;
-   double NselectSF1j_OffShell;
-   double NselectOF0j_OffShell;
-   double NselectOF1j_OffShell;
-   double NselectSF0j_OnShell;
-   double NselectSF1j_OnShell;
-   double NselectOF0j_OnShell;
-   double NselectOF1j_OnShell;
+   double Nselect[6];
+   double NselectSF0j[6];
+   double NselectSF1j[6];
+   double NselectOF0j[6];
+   double NselectOF1j[6];
    double ncut1;
    double ncut2;
    double ncut3;
@@ -90,11 +82,12 @@ protected:
    virtual Int_t    CommonCut_Without_ptllCut();
    virtual Int_t    CommonCut_Without_mpmetCut();
    virtual Int_t    LooseCut();
+   virtual Int_t    SignalCutV1();
+   virtual Int_t    SignalCutV2();
 
    double 	CalcWeight();
-   double       CalcmWW();
+   double 	CalcmWW();
    double mH;
-
    double mllBins[61];
    double ptllBins[31];
    double Nmllptll_OF0j[61][31];

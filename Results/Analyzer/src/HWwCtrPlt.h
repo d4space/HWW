@@ -98,6 +98,9 @@ protected:
    TH1D *h1_nbjettche[4];
 
    TH2D *h2_mllptll[4];
+   TH2D *h2_mthmll[4];
+   TH2D *h2_mthdphill[4];
+   TH2D *h2_mlldphill[4];
 };
 
 #endif
