@@ -30,6 +30,7 @@ protected:
    int Ntries;
    int FillHist();
    int FillHistNoCut();
+   int sfFillHist();
    int Nselected4Bin();
 
    double nPass;
@@ -167,6 +168,14 @@ protected:
    TH1D *h_OnSh_ComCut;
    TH1D *h_mllOnSh_ComCut;
    TH1D *h_ptllOnSh_ComCut;
+
+   //SameFlavor
+   TH1D *h1_mH_mumu;
+   TH1D *h1_mH_elel;
+   TH1D *h1_mH_tautau;
+   TH2D *h2_mH_mll_mumu;
+   TH2D *h2_mH_mll_elel;
+   TH2D *h2_mH_mll_tautau;
 
    ofstream Fout;
 };

@@ -25,12 +25,14 @@ void MakeHisto()
   Hw1Sig8TeVCutBeatles.Loop();
   **/
 
+  /**
   cout<<"TreeHw1Int8TeV============================"<<endl;
   TChain *Ch_Hw1Int8TeV     = new TChain("LHEF","");
   SetupTreeHWWgg2vv8TeV("Hw1Int8TeV",Ch_Hw1Int8TeV);
   TString DirName = "Hw1Int8TeV";
   GGVvCtrPlt Hw1Int8TeVCutBeatles(Ch_Hw1Int8TeV,DirName,Mode,LumiWeight);
   Hw1Int8TeVCutBeatles.Loop();
+  **/
 
   /***
   cout<<"TreeHw1Cot8TeV============================"<<endl;
@@ -94,4 +96,11 @@ void MakeHisto()
   GGVvCtrPlt Hw25Sig8TeVCutBeatlesTail(Ch_Hw25Sig8TeVTail,DirName,Mode,LumiWeight);
   Hw25Sig8TeVCutBeatlesTail.Loop();
   ***/
+
+  cout<<"TreeSF_Hw1g2vvInt8TeV============================"<<endl;
+  TChain *Ch_SF_Hw1g2vvInt8TeV     = new TChain("LHEF","");
+  SetupTreeHWWgg2vv8TeV("SF_Hw1g2vvInt8TeV",Ch_SF_Hw1g2vvInt8TeV);
+  TString DirName = "SF_Hw1g2vvInt8TeV";
+  GGVvCtrPlt Hw1SFInt8TeVCutBeatles(Ch_SF_Hw1g2vvInt8TeV,DirName,Mode,LumiWeight);
+  Hw1SFInt8TeVCutBeatles.Loop();
 }

@@ -19,6 +19,7 @@
 #include "chain_IntHw25gg2vv8TeVTail.h" 
 #include "chain_CotHw25gg2vv8TeVHead.h" 
 #include "chain_CotHw25gg2vv8TeVTail.h" 
+#include "chain_SF_Hw1g2vvInt8TeV.h"
 
 void SetupTreeHWWgg2vv8TeV(TString sample, TChain* chains )
 {
@@ -66,6 +67,8 @@ void SetupTreeHWWgg2vv8TeV(TString sample, TChain* chains )
     chain_CotHw25gg2vv8TeVHead(chains);
   }else if(sample == "Hw25Cot8TeVTail"){
     chain_CotHw25gg2vv8TeVTail(chains);
+  }else if(sample == "SF_Hw1g2vvInt8TeV"){
+    chain_SF_Hw1g2vvInt8TeV(chains);
   }else
     cout<<"[SetupTreeHw1gg2vv8TeV.h] Nanigorae? "<<endl;
 }

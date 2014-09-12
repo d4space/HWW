@@ -32,6 +32,7 @@ public :
 protected:
    virtual int Init4Event();
    int DumpParticles();
+   int DumpSFparticles();
    int EmuFidCut();
    int LooseCut();
    int CommonCut();
@@ -94,6 +95,11 @@ protected:
    bool PassFid;
    bool isMuNuEleNu;
    double mTTW;
+
+   //SameFlavor
+   bool isMuMu;
+   bool isEleEle;
+   bool isTauTau;
 };
 
 #endif
@@ -212,6 +218,11 @@ int GGVvBase::Init4Event()
   DiLept_pt = 0;
   pt1 = 0;
   pt2 = 0;
+
+  //SameFlavor
+  isMuMu = false;
+  isEleEle = false;
+  isTauTau = false;
   return 0;
 }
 int GGVvBase::DumpParticles()
@@ -321,6 +332,53 @@ int GGVvBase::DumpParticles()
     if(dphi_lept2met>PI/2) ppfMET2 = MET;
     if(dphi_lept2met<PI/2) ppfMET2 = MET*TMath::Sin(dphi_lept2met);
     //cout<<ppfMET1<<"\t"<<ppfMET2<<"\t"<<mpMET<<endl;
+  }
+  return 0;
+}
+int GGVvBase::DumpSFparticles()
+{
+  TLorentzVector Lept1_TL;
+  TLorentzVector Lept2_TL;
+  TLorentzVector DiLept_TL;
+  TLorentzVector nu1_TL;
+  TLorentzVector nu2_TL;
+  TLorentzVector Lepton4_TL;
+  
+  if((fabs(Particle_PID[2]) == GenType::kmuNeutrino && fabs(Particle_PID[3]) == GenType::kMuon) && (fabs(Particle_PID[4]) == GenType::kmuNeutrino && fabs(Particle_PID[5]) == GenType::kMuon))
+  {
+    isMuMu = true;
+    Lept1_TL.SetXYZM(Particle_Px[3], Particle_Py[3], Particle_Pz[3], GenType::M_mu);
+    Lept2_TL.SetXYZM(Particle_Px[5], Particle_Py[5], Particle_Pz[5], GenType::M_mu);
+    nu1_TL.SetXYZM(Particle_Px[2], Particle_Py[2], Particle_Pz[2], 0.0);
+    nu2_TL.SetXYZM(Particle_Px[4], Particle_Py[4], Particle_Pz[4], 0.0);
+    Lepton4_TL = nu1_TL + Lept1_TL + nu2_TL + Lept2_TL;
+    DiLept_TL = Lept1_TL + Lept2_TL;
+    DiLept_mass = DiLept_TL.M();
+    Hmass = Lepton4_TL.M();
+  }else if((fabs(Particle_PID[2]) == GenType::keNeutrino && fabs(Particle_PID[3]) == GenType::kElectron) && (fabs(Particle_PID[4]) == GenType::keNeutrino && fabs(Particle_PID[5]) == GenType::kElectron))
+  {
+    isEleEle = true;
+    Lept1_TL.SetXYZM(Particle_Px[3], Particle_Py[3], Particle_Pz[3], GenType::M_mu);
+    Lept2_TL.SetXYZM(Particle_Px[5], Particle_Py[5], Particle_Pz[5], GenType::M_mu);
+    nu1_TL.SetXYZM(Particle_Px[2], Particle_Py[2], Particle_Pz[2], 0.0);
+    nu2_TL.SetXYZM(Particle_Px[4], Particle_Py[4], Particle_Pz[4], 0.0);
+    Lepton4_TL = nu1_TL + Lept1_TL + nu2_TL + Lept2_TL;
+    DiLept_TL = Lept1_TL + Lept2_TL;
+    DiLept_mass = DiLept_TL.M();
+    Hmass = Lepton4_TL.M();
+  }else if((fabs(Particle_PID[2]) == GenType::ktauNeutrino && fabs(Particle_PID[3]) == GenType::kTau) && (fabs(Particle_PID[4]) == GenType::ktauNeutrino && fabs(Particle_PID[5]) == GenType::kTau))
+  {
+    isTauTau = true;
+    Lept1_TL.SetXYZM(Particle_Px[3], Particle_Py[3], Particle_Pz[3], GenType::M_mu);
+    Lept2_TL.SetXYZM(Particle_Px[5], Particle_Py[5], Particle_Pz[5], GenType::M_mu);
+    nu1_TL.SetXYZM(Particle_Px[2], Particle_Py[2], Particle_Pz[2], 0.0);
+    nu2_TL.SetXYZM(Particle_Px[4], Particle_Py[4], Particle_Pz[4], 0.0);
+    Lepton4_TL = nu1_TL + Lept1_TL + nu2_TL + Lept2_TL;
+    DiLept_TL = Lept1_TL + Lept2_TL;
+    DiLept_mass = DiLept_TL.M();
+    Hmass = Lepton4_TL.M();
+  }else{
+    cout<<"Not Same Flavor Event!"<<endl;
   }
   return 0;
 }

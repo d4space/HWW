@@ -24,6 +24,15 @@ void GGVvCtrPlt::Loop()
 
     fChain->GetEntry(i);
     Init4Event();
+    
+    //SameFlavor
+    if(mDirName == "SF_Hw1g2vvInt8TeV")
+    {
+      DumpSFparticles();
+      sfFillHist();
+      continue;
+    }
+
     DumpParticles();
     //nEvents Counting for All Channel in OnPeak, Shoulder and Tail
     if(Hmass > 0 && Hmass <= 140 ) nEvents_OnPeak_AllCh++;
@@ -379,6 +388,14 @@ int GGVvCtrPlt::InitHistogram()
   h_OnSh_ComCut		= new TH1D("h_OnSh_ComCut","h_OnSh_ComCut",10,MllBins);
   h_mllOnSh_ComCut	= new TH1D("h_mllOnSh_ComCut","h_mllOnSh_ComCut",10,MllBins);
   h_ptllOnSh_ComCut	= new TH1D("h_ptllOnSh_ComCut","h_ptllOnSh_ComCut",10,MllBins);
+  
+  //SameFlavor
+  h1_mH_mumu   = new TH1D("h1_mH_mumu",  "Higgs mass",200,0,1000);
+  h1_mH_elel   = new TH1D("h1_mH_elel",  "Higgs mass",200,0,1000);
+  h1_mH_tautau = new TH1D("h1_mH_tautau","Higgs mass",200,0,1000);
+  h2_mH_mll_mumu   = new TH2D("h2_mH_mll_mumu",  "Higgs mass vs DiLepton mass",100,0,1000,120,0,600);
+  h2_mH_mll_elel   = new TH2D("h2_mH_mll_elel",  "Higgs mass vs DiLepton mass",100,0,1000,120,0,600);
+  h2_mH_mll_tautau = new TH2D("h2_mH_mll_tautau","Higgs mass vs DiLepton mass",100,0,1000,120,0,600);
   return 0;
 }
 int GGVvCtrPlt::FillHistNoCut()
@@ -444,6 +461,21 @@ int GGVvCtrPlt::FillHist()
     h2_mH_mtH_mllCut->Fill(Hig_mass,HigT_mass,mTTW);
   }
   return 0;
+}
+//SameFlavor
+int GGVvCtrPlt::sfFillHist()
+{
+  if(isMuMu)
+  {
+    h1_mH_mumu->Fill(Hmass,mTTW);
+    h2_mH_mll_mumu->Fill(Hmass,DiLept_mass,mTTW);
+  }else if(isEleEle){
+    h1_mH_elel->Fill(Hmass,mTTW);
+    h2_mH_mll_tautau->Fill(Hmass,DiLept_mass,mTTW);
+  }else if(isTauTau){
+    h1_mH_tautau->Fill(Hmass,mTTW);
+    h2_mH_mll_elel->Fill(Hmass,DiLept_mass,mTTW);
+  }
 }
 int GGVvCtrPlt::InitVar()
 {
