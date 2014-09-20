@@ -30,6 +30,7 @@
 #include "chain_gg2vvHw25Cot8TeV.h"
 #include "chain_gg2vvHw25Sig8TeV.h"
 
+#include "chain_gg2vvHw25Int8TeV.h"
 #include "chain_gg2vvHw25SigShoulder.h"
 //===============
 
@@ -128,6 +129,9 @@ void SetupTree( TString sample, TChain* chains )
   }
   else if(sample == "gg2vvHw25Sig8TeV"){
     chain_gg2vvHw25Sig8TeV(chains);
+  }
+  else if(sample == "gg2vvHw25Int8TeV"){
+    chain_gg2vvHw25Int8TeV(chains);
   }
   else
   {

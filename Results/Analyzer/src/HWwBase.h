@@ -84,12 +84,13 @@ protected:
    virtual Int_t    LooseCut();
    virtual Int_t    SignalCutV1();
    virtual Int_t    SignalCutV2();
+   virtual Int_t    SignalCutV3();
 
    double 	CalcWeight();
    double 	CalcmWW();
    double mH;
-   double mllBins[61];
-   double ptllBins[31];
+   double mllBins[12];
+   double mthBins[12];
    double Nmllptll_OF0j[61][31];
    double Nmllptll_OF1j[61][31];
 };
@@ -154,6 +155,31 @@ HWwBase::HWwBase(TTree *HWwBaseTree,double lumiweight, TString SampleName_,TStri
   Cut = Cut_;
   RunOnMC = runOnMC;
   Init(HWwBaseTree);
+  mthBins[0]  = 80;
+  mthBins[1]  = 110;
+  mthBins[2]  = 140;
+  mthBins[3]  = 170;
+  mthBins[4]  = 200;
+  mthBins[5]  = 230;
+  mthBins[6]  = 260;
+  mthBins[7]  = 290;
+  mthBins[8]  = 320;
+  mthBins[9]  = 350;
+  mthBins[10] = 380;
+  mthBins[11] = 600;
+  
+  mllBins[0]  = 0;
+  mllBins[1]  = 45;
+  mllBins[2]  = 90;
+  mllBins[3]  = 145;
+  mllBins[4]  = 180;
+  mllBins[5]  = 225;
+  mllBins[6]  = 270;
+  mllBins[7]  = 315;
+  mllBins[8]  = 360;
+  mllBins[9]  = 405;
+  mllBins[10] = 450;
+  mllBins[11] = 600;
 }
 
 HWwBase::~HWwBase()

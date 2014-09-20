@@ -1,8 +1,8 @@
 import os
 import sys
 
-CutNames=['LooseCut','CommonCut']
-#CutNames=['CommonCut']
+#CutNames=['LooseCut','CommonCut']
+CutNames=['CommonCut']
 VarNames=['mth']
 DirName = "RecoPlts_mtH"
 cmd_string = "mkdir " + DirName

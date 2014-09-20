@@ -158,6 +158,43 @@ Int_t HWwBase::SignalCutV2()
 
   return 1;
 }
+//Optimized Cuts V3
+Int_t HWwBase::SignalCutV3()
+{
+  if (ch1*ch2 ==-1.){;}else{return -1;}
+  if (trigger==1.){;}else{return -1;}
+  if (pt1>20 && pt2>10){;}else{return -1;}
+  if (nextra==0){;}else{return -1;}
+  if (pfmet>20.){;}else{return -1;}
+  //if (mll>83.){;}else{return -1;}
+  if (mll>12.){;}else{return -1;}
+  if (zveto==1 || !sameflav){;}else{return -1;}
+  if (mpmet>20.&&
+      (!sameflav||
+	(
+	  (njet!=0||dymva1>0.88) &&
+	  (njet!=1||dymva1>0.84) &&
+	  (njet==0||njet==1||(pfmet>45.0))
+	)
+      )
+     ){;}else{return -1;}
+  if( njet == 0 ||  njet ==1 || (dphilljetjet < PI/180.*165 || !sameflav)){;}else{ return -1;}
+  if (bveto_mu==1){;}else{return -1;}
+  if (bveto_ip==1 && nbjettche==0){;}else{return -1;}
+  //if (ptll>10.){;}else{return -1;}
+  //if (mth>130.){;}else{return -1;}
+  if(!sameflav ||
+      (
+        (njet != 0 || dymva1 > 0.88 || mpmet> 35) &&
+        (njet != 1 || dymva1 > 0.84 || mpmet> 35) &&
+        (njet != 0 || dymva1 > 0.88) &&
+        (njet != 1 || dymva1 > 0.84) &&
+	(njet==0 || njet==1 || (pfmet > 45.0))
+      )
+    ){;}else{return -1;}
+
+  return 1;
+}
 Int_t HWwBase::CommonCut_Without_mll_ptll_Cut()
 {
   if (ch1*ch2 ==-1.){;}else{return -1;}
@@ -334,19 +371,19 @@ double HWwBase::CalcWeight()
     evtWeight = puW*baseW*effW*triggW*LumiW;
   }else if(SampleName == "gg2vvHw1SigOnPeak" || SampleName == "gg2vvHw1SigShoulder" || SampleName == "gg2vvHw1SigTail")
   {
-    evtWeight = 2.5*puW*baseW*effW*triggW*LumiW;
+    evtWeight = 2.1*puW*baseW*effW*triggW*LumiW;
   }else if(SampleName == "gg2vvHw1IntOnPeak" || SampleName == "gg2vvHw1IntShoulder" || SampleName == "gg2vvHw1IntTail")
   {
-    evtWeight = 2.5*puW*baseW*effW*triggW*LumiW;
+    evtWeight = 2.1*puW*baseW*effW*triggW*LumiW;
   }else if(SampleName == "gg2vvHw25CotHead" || SampleName == "gg2vvHw25CotTail")
   {
-    evtWeight = 2.5*puW*baseW*effW*triggW*LumiW;
+    evtWeight = 2.1*puW*baseW*effW*triggW*LumiW;
   }else if(SampleName == "gg2vvHw1Sig8TeV" || SampleName == "gg2vvHw1Int8TeV" || SampleName == "gg2vvHw25Cot8TeV")
   {
-    evtWeight = 2.5*puW*baseW*effW*triggW*LumiW; //Coeff. 2.5 is NLO/LO K-Factor
+    evtWeight = 2.1*puW*baseW*effW*triggW*LumiW; //Coeff. 2.1 is NLO/LO K-Factor
   }else if(SampleName == "gg2vvHw25Sig8TeV" || SampleName == "gg2vvHw25Int8TeV" || SampleName == "gg2vvHw25Cot8TeV")
   {
-    evtWeight = 2.5*puW*baseW*effW*triggW*LumiW; //Coeff. 2.5 is NLO/LO K-Factor
+    evtWeight = 2.1*puW*baseW*effW*triggW*LumiW; //Coeff. 2.1 is NLO/LO K-Factor
   }
   return evtWeight;
 }

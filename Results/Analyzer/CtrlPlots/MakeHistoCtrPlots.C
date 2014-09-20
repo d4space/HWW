@@ -16,8 +16,10 @@ void MakeHistoCtrPlots()
   //TString Cut = "Tight"; // Loose, Tight
   //string Cuts[]={"LooseCut","CommonCut"}; // Loose, Tight
   //string Cuts[]={"Loose"}; // Loose, Tight
-  //string Cuts[]={"CommonCut"}; // Loose, Tight
-  string Cuts[]={"SignalCutV2","SignalCutV2"}; // Optimized Cuts
+  string Cuts[]={"CommonCut"}; // Loose, Tight
+  //string Cuts[]={"SignalCutV2","SignalCutV2"}; // Optimized Cuts
+  //string Cuts[]={"SignalCutV3"}; // Optimized Cuts
+  //string Cuts[]={"OnShvsOffShCut"}; // Optimized Cuts
   //string Cuts[]={"NoCut","SignalCut"}; // Loose, Tight
   TString SampleName = "Data";
   // BaseName : Data, WJet, WW, Top, VVV, H125, DYll, DYtt, VV
@@ -43,7 +45,7 @@ for( int i(0); i < sizeof(Cuts)/sizeof(*Cuts);++i){
   SampleName = "WJet";
   HWwCtrPlt HWwCtrPltWJ(TC_WJet,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
   HWwCtrPltWJ.Loop();
-*/
+
 //ww========================================
   cout<<"WW===================="<<endl;
   RunOnMC = true;
@@ -52,7 +54,7 @@ for( int i(0); i < sizeof(Cuts)/sizeof(*Cuts);++i){
   SampleName = "WW";
   HWwCtrPlt HWwCtrPltWW(TC_WW,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
   HWwCtrPltWW.Loop();
-/*
+
 //top========================================
   cout<<"Top===================="<<endl;
   RunOnMC = true;
@@ -179,7 +181,7 @@ for( int i(0); i < sizeof(Cuts)/sizeof(*Cuts);++i){
   HWwCtrPlt HWwCtrPltgg2vvHw1IntTail(TC_gg2vvHw1IntTail,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
   HWwCtrPltgg2vvHw1IntTail.Loop();
 */
-
+/*
 //gg2vvHw1Sig8TeV========================================
   cout<<"gg2vvHw1Sig8TeV===================="<<endl;
   RunOnMC = true;
@@ -188,7 +190,7 @@ for( int i(0); i < sizeof(Cuts)/sizeof(*Cuts);++i){
   SampleName = "gg2vvHw1Sig8TeV";
   HWwCtrPlt HWwCtrPltgg2vvHw1Sig8TeV(TC_gg2vvHw1Sig8TeV,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
   HWwCtrPltgg2vvHw1Sig8TeV.Loop();
-
+*/
 //gg2vvHw1Int8TeV========================================
   cout<<"gg2vvHw1Int8TeV===================="<<endl;
   RunOnMC = true;
@@ -207,6 +209,7 @@ for( int i(0); i < sizeof(Cuts)/sizeof(*Cuts);++i){
   HWwCtrPlt HWwCtrPltgg2vvHw25Cot8TeV(TC_gg2vvHw25Cot8TeV,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
   HWwCtrPltgg2vvHw25Cot8TeV.Loop();
 
+/*
 //gg2vvHw25Sig8TeV========================================
   cout<<"gg2vvHw25Sig8TeV===================="<<endl;
   RunOnMC = true;
@@ -215,5 +218,15 @@ for( int i(0); i < sizeof(Cuts)/sizeof(*Cuts);++i){
   SampleName = "gg2vvHw25Sig8TeV";
   HWwCtrPlt HWwCtrPltgg2vvHw25Sig8TeV(TC_gg2vvHw25Sig8TeV,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
   HWwCtrPltgg2vvHw25Sig8TeV.Loop();
+*/
+
+//gg2vvHw25Int8TeV========================================
+  cout<<"gg2vvHw25Int8TeV===================="<<endl;
+  RunOnMC = true;
+  TChain *TC_gg2vvHw25Int8TeV  = new TChain("latino","");
+  SetupTree("gg2vvHw25Int8TeV",TC_gg2vvHw25Int8TeV);
+  SampleName = "gg2vvHw25Int8TeV";
+  HWwCtrPlt HWwCtrPltgg2vvHw25Int8TeV(TC_gg2vvHw25Int8TeV,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
+  HWwCtrPltgg2vvHw25Int8TeV.Loop();
 }
 }

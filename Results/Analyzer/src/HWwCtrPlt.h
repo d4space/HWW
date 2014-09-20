@@ -38,6 +38,7 @@ protected:
    int InitVar4Evt();
    int InitHistogram();
    int Fill_Histo();
+   int FillHisto();
    int Write_Histo();
 
    ofstream Fout;
@@ -97,10 +98,33 @@ protected:
    TH1D *h1_bveto_ip[4];
    TH1D *h1_nbjettche[4];
 
-   TH2D *h2_mllptll[4];
    TH2D *h2_mthmll[4];
+   TH2D *h2_mthptll[4];
+   TH2D *h2_mllptll[4];
    TH2D *h2_mthdphill[4];
    TH2D *h2_mlldphill[4];
+   TH2D *h2_mthmllBins[4];
+
+   //On-shell vs Off-shell
+   TH2D *h2_mthmll_OnSh[4];
+   TH2D *h2_mthptll_OnSh[4];
+   TH2D *h2_mllptll_OnSh[4];
+   TH1D *h1_mll_OnSh_mth_l130[4];
+   TH1D *h1_mll_OnSh_mth_g130[4];
+   TH1D *h1_mll_OnSh_mth_l120[4];
+   TH1D *h1_mll_OnSh_mth_g120[4];
+   TH1D *h1_mth_OnSh_mll_l83[4];
+   TH1D *h1_mth_OnSh_mll_g83[4];
+
+   TH2D *h2_mthmll_OffSh[4];
+   TH2D *h2_mthptll_OffSh[4];
+   TH2D *h2_mllptll_OffSh[4];
+   TH1D *h1_mll_OffSh_mth_l130[4];
+   TH1D *h1_mll_OffSh_mth_g130[4];
+   TH1D *h1_mll_OffSh_mth_l120[4];
+   TH1D *h1_mll_OffSh_mth_g120[4];
+   TH1D *h1_mth_OffSh_mll_l83[4];
+   TH1D *h1_mth_OffSh_mll_g83[4];
 };
 
 #endif

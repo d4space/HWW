@@ -28,14 +28,8 @@ void HWwCtrPlt::Loop()
     fChain->GetEntry(i);
     if (LooseCut() == 1) ncutLoose++;
 
-    if(SampleName == "gg2vvHw1Sig8TeV" || SampleName == "gg2vvHw1Int8TeV" || SampleName == "gg2vvHw25Cot8TeV")
-    //  mH = CalcmWW();
-      mH = mWW;
     if(SampleName == "H125")
-      mH = MHiggs;
-    //Checking genLvl Higgs mass
-    //if(mWW==mH){}else{Fout<<i<<setprecision(8)<<"\t"<<mWW<<"\t"<<mH<<endl;}
-    //Fout<<"nEvent: "<<i<<"\t"<<mWW<<endl;
+      mWW = MHiggs;
     if (pt1<=20)ncut1++;
     if (pt2<=10)ncut2++;
     if (nextra!=0)ncut3++;
@@ -58,82 +52,70 @@ void HWwCtrPlt::Loop()
     EvtWeight = CalcWeight();
     if(CommonCut_Without_mpmetCut() ==1)
       h1_mpmet_FOM[evtChannel] ->Fill(mpmet,EvtWeight);
-    
-    if(SampleName == "gg2vvHw1SigOnPeak" || SampleName == "gg2vvHw1SigShoulder" || SampleName == "gg2vvHw1SigTail")if(CommonCut_Without_mll_ptll_Cut() ==1)
-    {
-      if(OF0jCut() == 1){
-	Nmllptll_OF0j[0][0] += EvtWeight;
-	for(int imll(1);imll<=60;imll++)
-	{
-	  if(mll >= mllBins[imll]){
-	    for(int iptll(1);iptll<=30;iptll++)
-	    {
-	      if(ptll >= ptllBins[iptll]) Nmllptll_OF0j[imll][iptll] += EvtWeight;
-	    }
-	  }
-	}
-      }else if(OF1jCut() == 1){
-	Nmllptll_OF1j[0][0] += EvtWeight;
-	for(int imll(1);imll<=60;imll++)
-	{
-	  if(mll >= mllBins[imll]){
-	    for(int iptll(1);iptll<=30;iptll++)
-	    {
-	      if(ptll >= ptllBins[iptll]) Nmllptll_OF1j[imll][iptll] += EvtWeight;
-	    }
-	  }
-	}
-      }
-    }
 
     if( Cut == "LooseCut") if(LooseCut()  !=1)continue;
     if( Cut == "CommonCut")if(CommonCut() !=1)continue;
     if( Cut == "SignalCutV1")if(SignalCutV1() !=1)continue;
     if( Cut == "SignalCutV2")if(SignalCutV2() !=1)continue;
-    Nselect[0] ++;    Nselect[1] += EvtWeight;
-    if (SF0jCut() == 1)     {NselectSF0j[0] ++; NselectSF0j[1] += EvtWeight;}
-    else if (OF0jCut() == 1){NselectOF0j[0] ++; NselectOF0j[1] += EvtWeight;}
-    else if (SF1jCut() == 1){NselectSF1j[0] ++; NselectSF1j[1] += EvtWeight;}
-    else if (OF1jCut() == 1){NselectOF1j[0] ++; NselectOF1j[1] += EvtWeight;}
+    if( Cut == "SignalCutV3")if(SignalCutV3() !=1)continue;
+    Nselect[0] += EvtWeight;
+    if (OF0jCut() == 1){NselectOF0j[0] += EvtWeight;}
+    else if (OF1jCut() == 1){NselectOF1j[0] += EvtWeight;}
 
-    //if(SampleName == "H125" || SampleName == "gg2vvHw1SigOnPeak" || SampleName == "gg2vvHw1SigShoulder" || SampleName == "gg2vvHw1SigTail")
-    if(SampleName == "gg2vvHw1Int8TeV")
-    {
-      //if(mH>0 && mH<=160){
+    //if(mth<=130){
+    if(mth<=120 && mll<=50){
       if(mWW<=160){
-        Nselect[2] ++;         Nselect[3] += EvtWeight;
-	if (SF0jCut() == 1)     {NselectSF0j[2] ++; NselectSF0j[3] += EvtWeight;}
-	else if (OF0jCut() == 1){NselectOF0j[2] ++; NselectOF0j[3] += EvtWeight;}
-	else if (SF1jCut() == 1){NselectSF1j[2] ++; NselectSF1j[3] += EvtWeight;}
-	else if (OF1jCut() == 1){NselectOF1j[2] ++; NselectOF1j[3] += EvtWeight;}
+	if (OF0jCut() == 1){NselectOF0j[1] += EvtWeight;}
+	else if (OF1jCut() == 1){NselectOF1j[1] += EvtWeight;}
       }else if(mWW>160){
-        Nselect[4] ++;         Nselect[5] += EvtWeight;
-	if (SF0jCut() == 1)     {NselectSF0j[4] ++; NselectSF0j[5] += EvtWeight;}
-	else if (OF0jCut() == 1){NselectOF0j[4] ++; NselectOF0j[5] += EvtWeight;}
-	else if (SF1jCut() == 1){NselectSF1j[4] ++; NselectSF1j[5] += EvtWeight;}
-	else if (OF1jCut() == 1){NselectOF1j[4] ++; NselectOF1j[5] += EvtWeight;}
+	if (OF0jCut() == 1){NselectOF0j[2] += EvtWeight;}
+	else if (OF1jCut() == 1){NselectOF1j[2] += EvtWeight;}
+      }
+    //}else if(mth>130){
+    }else if(mll>50 || mth>120){
+      if(mWW<=160){
+	if (OF0jCut() == 1){NselectOF0j[3] += EvtWeight;}
+	else if (OF1jCut() == 1){NselectOF1j[3] += EvtWeight;}
+      }else if(mWW>160){
+	if (OF0jCut() == 1){NselectOF0j[4] += EvtWeight;}
+	else if (OF1jCut() == 1){NselectOF1j[4] += EvtWeight;}
       }
     }
     Fill_Histo();
+    //FillHisto();
   }
-  Fout<<"Weighted (Counted)"<<endl;
-  Fout<<"Nselected: "<<Nselect[1]<<" ("<<Nselect[0]<<")"<<endl;
-  Fout<<"Nselected mH<160: "<<Nselect[3]<<" ("<<Nselect[2]<<")"<<endl;
-  Fout<<"Nselected mH>160: "<<Nselect[5]<<" ("<<Nselect[4]<<")"<<endl;
-  Fout<<"NselectSF0j: "<<NselectSF0j[1]<<" ("<<NselectSF0j[0]<<")"<<endl;
-  Fout<<"NselectSF1j: "<<NselectSF1j[1]<<" ("<<NselectSF1j[0]<<")"<<endl;
-  Fout<<"NselectOF0j: "<<NselectOF0j[1]<<" ("<<NselectOF0j[0]<<")"<<endl;
-  Fout<<"NselectOF1j: "<<NselectOF1j[1]<<" ("<<NselectOF1j[0]<<")"<<endl;
-  Fout<<"NselectSF0j mH<160: "<<NselectSF0j[3]<<" ("<<NselectSF0j[2]<<")"<<endl;
-  Fout<<"NselectSF1j mH<160: "<<NselectSF1j[3]<<" ("<<NselectSF1j[2]<<")"<<endl;
-  Fout<<"NselectOF0j mH<160: "<<NselectOF0j[3]<<" ("<<NselectOF0j[2]<<")"<<endl;
-  Fout<<"NselectOF1j mH<160: "<<NselectOF1j[3]<<" ("<<NselectOF1j[2]<<")"<<endl;
-  Fout<<"NselectSF0j mH>160: "<<NselectSF0j[5]<<" ("<<NselectSF0j[4]<<")"<<endl;
-  Fout<<"NselectSF1j mH>160: "<<NselectSF1j[5]<<" ("<<NselectSF1j[4]<<")"<<endl;
-  Fout<<"NselectOF0j mH>160: "<<NselectOF0j[5]<<" ("<<NselectOF0j[4]<<")"<<endl;
-  Fout<<"NselectOF1j mH>160: "<<NselectOF1j[5]<<" ("<<NselectOF1j[4]<<")"<<endl;
-  Fout<<"NselectOF mH<160: "<<NselectOF0j[3]+NselectOF1j[3]<<" ("<<NselectOF0j[2]+NselectOF1j[2]<<")"<<endl;
-  Fout<<"NselectOF mH>160: "<<NselectOF0j[5]+NselectOF1j[5]<<" ("<<NselectOF0j[4]+NselectOF1j[4]<<")"<<endl;
+  //Fout<<"Weighted (Counted)"<<endl;
+  //Fout<<"Nselected: "<<Nselect[1]<<" ("<<Nselect[0]<<")"<<endl;
+  //Fout<<"Nselected mWW<160: "<<Nselect[3]<<" ("<<Nselect[2]<<")"<<endl;
+  //Fout<<"Nselected mWW>160: "<<Nselect[5]<<" ("<<Nselect[4]<<")"<<endl;
+  //Fout<<"NselectSF0j: "<<NselectSF0j[1]<<" ("<<NselectSF0j[0]<<")"<<endl;
+  //Fout<<"NselectSF1j: "<<NselectSF1j[1]<<" ("<<NselectSF1j[0]<<")"<<endl;
+  //Fout<<"NselectOF0j: "<<NselectOF0j[1]<<" ("<<NselectOF0j[0]<<")"<<endl;
+  //Fout<<"NselectOF1j: "<<NselectOF1j[1]<<" ("<<NselectOF1j[0]<<")"<<endl;
+  //Fout<<"NselectSF0j mWW<160: "<<NselectSF0j[3]<<" ("<<NselectSF0j[2]<<")"<<endl;
+  //Fout<<"NselectSF1j mWW<160: "<<NselectSF1j[3]<<" ("<<NselectSF1j[2]<<")"<<endl;
+  //Fout<<"NselectOF0j mWW<160: "<<NselectOF0j[3]<<" ("<<NselectOF0j[2]<<")"<<endl;
+  //Fout<<"NselectOF1j mWW<160: "<<NselectOF1j[3]<<" ("<<NselectOF1j[2]<<")"<<endl;
+  //Fout<<"NselectSF0j mWW>160: "<<NselectSF0j[5]<<" ("<<NselectSF0j[4]<<")"<<endl;
+  //Fout<<"NselectSF1j mWW>160: "<<NselectSF1j[5]<<" ("<<NselectSF1j[4]<<")"<<endl;
+  //Fout<<"NselectOF0j mWW>160: "<<NselectOF0j[5]<<" ("<<NselectOF0j[4]<<")"<<endl;
+  //Fout<<"NselectOF1j mWW>160: "<<NselectOF1j[5]<<" ("<<NselectOF1j[4]<<")"<<endl;
+  //Fout<<"NselectOF mWW<160: "<<NselectOF0j[3]+NselectOF1j[3]<<" ("<<NselectOF0j[2]+NselectOF1j[2]<<")"<<endl;
+  //Fout<<"NselectOF mWW>160: "<<NselectOF0j[5]+NselectOF1j[5]<<" ("<<NselectOF0j[4]+NselectOF1j[4]<<")"<<endl;
+  Fout<<"Weighted ( %)"<<endl;
+  Fout<<"Nselected: "<<Nselect[0]<<endl;
+  Fout<<"OF0j"<<endl;
+  Fout<<"NselectOF0j(before mth&mll Cut): "<<NselectOF0j[0]<<endl;
+  Fout<<"NselectOF0j mth<120,mll<50, mWW<160: "<<NselectOF0j[1]<<" ("<<100*NselectOF0j[1]/NselectOF0j[0]<<" %)"<<endl;
+  Fout<<"NselectOF0j mth<120,mll<50, mWW>160: "<<NselectOF0j[2]<<" ("<<100*NselectOF0j[2]/NselectOF0j[0]<<" %)"<<endl;
+  Fout<<"NselectOF0j mth>120,mll>50, mWW<160: "<<NselectOF0j[3]<<" ("<<100*NselectOF0j[3]/NselectOF0j[0]<<" %)"<<endl;
+  Fout<<"NselectOF0j mth>120,mll>50, mWW>160: "<<NselectOF0j[4]<<" ("<<100*NselectOF0j[4]/NselectOF0j[0]<<" %)"<<endl;
+  Fout<<"OF1j"<<endl;
+  Fout<<"NselectOF1j(before mth&mll Cut): "<<NselectOF1j[0]<<endl;
+  Fout<<"NselectOF1j mth<120,mll<50, mWW<160: "<<NselectOF1j[1]<<" ("<<100*NselectOF1j[1]/NselectOF1j[0]<<" %)"<<endl;
+  Fout<<"NselectOF1j mth<120,mll<50, mWW>160: "<<NselectOF1j[2]<<" ("<<100*NselectOF1j[2]/NselectOF1j[0]<<" %)"<<endl;
+  Fout<<"NselectOF1j mth>120,mll>50, mWW<160: "<<NselectOF1j[3]<<" ("<<100*NselectOF1j[3]/NselectOF1j[0]<<" %)"<<endl;
+  Fout<<"NselectOF1j mth>120,mll>50, mWW>160: "<<NselectOF1j[4]<<" ("<<100*NselectOF1j[4]/NselectOF1j[0]<<" %)"<<endl;
   Fout<<"Cut1: "<<ncut1<<endl;
   Fout<<"Cut2: "<<ncut2<<endl;
   Fout<<"Cut3: "<<ncut3<<endl;
@@ -146,16 +128,6 @@ void HWwCtrPlt::Loop()
   Fout<<"Cut10: "<<ncut10<<endl;
   Fout<<"Loose Cut: "<<ncutLoose<<endl;
 
-  if(SampleName == "gg2vvHw1SigOnPeak" || SampleName == "gg2vvHw1SigShoulder" || SampleName == "gg2vvHw1SigTail")
-    for(int i1(0); i1<61; i1++)
-    {
-      for(int i2(0); i2<31; i2++)
-      {
-	Fout<<i1<<", "<<i2<<" : "<<Nmllptll_OF0j[i1][i2]<<", "<<Nmllptll_OF1j[i1][i2]<<"\t["<<mllBins[i1]<<", "<<ptllBins[i2]<<"]"<<endl;
-	h2_mllptll[1]->SetBinContent(i1+1,i2+1,Nmllptll_OF0j[i1+1][i2+1]/Nmllptll_OF0j[0][0]);
-	h2_mllptll[3]->SetBinContent(i1+1,i2+1,Nmllptll_OF1j[i1+1][i2+1]/Nmllptll_OF1j[0][0]);
-      }
-    }
   // Usie one of the Write_Histo ro myFile->Write
   // Write_Histo: to write specific ones
   // myFile->Write ==> All
@@ -168,16 +140,15 @@ void HWwCtrPlt::Loop()
 }
 int HWwCtrPlt::Fill_Histo()
 {
-
   h1_channel[evtChannel] ->Fill(channel, EvtWeight); //channel 0,1,2,3 (mumu,elel,elmu,muel)
   h1_mll[evtChannel]     ->Fill(mll, EvtWeight);
   h1_dphill[evtChannel]  ->Fill(180./PI*fabs(dphill), EvtWeight);
   h1_mth[evtChannel]     ->Fill(mth, EvtWeight);
-  h1_mH[evtChannel]      ->Fill(mH,  EvtWeight);
-  if(mH<=160)
-    h1_mH_OnShell[evtChannel] ->Fill(mH,EvtWeight);
-  if(mH>160)
-    h1_mH_OffShell[evtChannel]->Fill(mH,EvtWeight);
+  h1_mH[evtChannel]      ->Fill(mWW,  EvtWeight);
+  if(mWW<=160)
+    h1_mH_OnShell[evtChannel] ->Fill(mWW,EvtWeight);
+  if(mWW>160)
+    h1_mH_OffShell[evtChannel]->Fill(mWW,EvtWeight);
   h1_charge1[evtChannel]->Fill(ch1, EvtWeight);
   h1_charge2[evtChannel]->Fill(ch2, EvtWeight);
   h1_trigger[evtChannel]->Fill(trigger, EvtWeight);
@@ -197,10 +168,72 @@ int HWwCtrPlt::Fill_Histo()
   h1_dymva1[evtChannel] ->Fill(dymva1,EvtWeight);
   h1_dphilljetjet[evtChannel] ->Fill(180./PI*fabs(dphilljetjet),EvtWeight);
   //if((leptonGenpid1 == GenType::kMuon && leptonGenpid2 == GenType::kElectron) || (leptonGenpid1 == GenType::kElectron && leptonGenpid2 == GenType::kMuon))
-  h2_mthmll[evtChannel] ->Fill(mth,mll,EvtWeight);
   h2_mthdphill[evtChannel] ->Fill(mth,180./PI*fabs(dphill),EvtWeight);
   h2_mlldphill[evtChannel] ->Fill(mll,180./PI*fabs(dphill),EvtWeight);
+  h2_mthmllBins[evtChannel] ->Fill(mth,mll,EvtWeight);
+  h2_mthmll[evtChannel]  ->Fill(mth,mll,EvtWeight);
+  h2_mthptll[evtChannel] ->Fill(mth,ptll,EvtWeight);
+  h2_mllptll[evtChannel] ->Fill(mll,ptll,EvtWeight);
+  if(mWW<160)
+    h2_mthmll_OnSh[evtChannel] ->Fill(mth,mll,EvtWeight);
+  if(mWW>=160)
+    h2_mthmll_OffSh[evtChannel]->Fill(mth,mll,EvtWeight);
+  return 0;
+}
+int HWwCtrPlt::FillHisto()
+{
+  //On-shell
+  if(mWW<160){
+    if(CommonCut() ==1){
+      h2_mthmll_OnSh[evtChannel] ->Fill(mth,mll,EvtWeight);
+      h2_mthptll_OnSh[evtChannel]->Fill(mth,ptll,EvtWeight);
+      h2_mllptll_OnSh[evtChannel]->Fill(mll,ptll,EvtWeight);
+      if(mth<=120 && mll<=50){
+	h1_mll_OnSh_mth_l120[evtChannel]->Fill(mll, EvtWeight);
+      }else if(mth>120 || mll>50){
+	h1_mll_OnSh_mth_g120[evtChannel]->Fill(mll, EvtWeight);
+      }
+      
+      if(mth<=130){
+	h1_mll_OnSh_mth_l130[evtChannel]->Fill(mll, EvtWeight);
+      }else if(mth>130){
+	h1_mll_OnSh_mth_g130[evtChannel]->Fill(mll, EvtWeight);
+      }
+      
+      if(mll<=83){
+	h1_mth_OnSh_mll_l83[evtChannel] ->Fill(mth, EvtWeight);
+      }else if(mll>83){
+	h1_mth_OnSh_mll_g83[evtChannel] ->Fill(mth, EvtWeight);
+      }
+    }
+  }
+  
+  //Off-shell
+  if(mWW>=160){
+    //if(CommonCut_Without_ptllCut() ==1){
+    if(CommonCut() ==1){
+      h2_mthmll_OffSh[evtChannel] ->Fill(mth,mll,EvtWeight);
+      h2_mthptll_OffSh[evtChannel]->Fill(mth,ptll,EvtWeight);
+      h2_mllptll_OffSh[evtChannel]->Fill(mll,ptll,EvtWeight);
+      if(mth<=120 && mll<=50){
+	h1_mll_OffSh_mth_l120[evtChannel]->Fill(mll, EvtWeight);
+      }else if(mth>120 || mll>50){
+	h1_mll_OffSh_mth_g120[evtChannel]->Fill(mll, EvtWeight);
+      }
 
+      if(mth<=130){
+	h1_mll_OffSh_mth_l130[evtChannel]->Fill(mll, EvtWeight);
+      }else if(mth>130){
+	h1_mll_OffSh_mth_g130[evtChannel]->Fill(mll, EvtWeight);
+      }
+
+      if(mll<=83){
+	h1_mth_OffSh_mll_l83[evtChannel] ->Fill(mth, EvtWeight);
+      }else if(mll>83){
+	h1_mth_OffSh_mll_g83[evtChannel] ->Fill(mth, EvtWeight);
+      }
+    }
+  }
   return 0;
 }
 int HWwCtrPlt::InitVar()
@@ -229,18 +262,6 @@ int HWwCtrPlt::InitVar()
   ncut10 = 0;
   ncutLoose = 0;
   //mH = 0;
-
-  for(int i1(0); i1<61; i1++)
-  {
-   mllBins[i1] = i1*5.;
-   if(i1<31)
-     ptllBins[i1] = i1*5.;
-    for(int i2(0); i2<31; i2++)
-    {
-      Nmllptll_OF0j[i1][i2] = 0;
-      Nmllptll_OF1j[i1][i2] = 0;
-    }
-  }
 
   return 0;
 }
@@ -292,10 +313,14 @@ int HWwCtrPlt::InitHistogram()
     h1_dphilljetjet[i] = new TH1D(histName,"Deltaphi between the dileptons and jets", 18, 0, 180);
     sprintf(histName, "h1_mpmet_FOM_%d",i);
     h1_mpmet_FOM[i] = new TH1D(histName,"Minimum proj. MET", 20, 0, 80);//F.O.M. study
-    sprintf(histName, "h2_mllptll_%d",i);
-    h2_mllptll[i] = new TH2D(histName,"mll vs ptll",60,0,300,30,0,150);//mll ptll cut study
+    sprintf(histName, "h2_mthmllBins_%d",i);
+    h2_mthmllBins[i] = new TH2D(histName,"mth vs mll",11,mthBins,11,mllBins);//mth vs mll fixed bins
     sprintf(histName, "h2_mthmll_%d",i);
     h2_mthmll[i] = new TH2D(histName,"mth vs mll",40,0,400,40,0,400);//mth vs mll
+    sprintf(histName, "h2_mthptll_%d",i);
+    h2_mthptll[i] = new TH2D(histName,"mth vs ptll",40,0,400,40,0,400);//mth vs ptll
+    sprintf(histName, "h2_mllptll_%d",i);
+    h2_mllptll[i] = new TH2D(histName,"mll vs ptll",40,0,400,40,0,400);//mll vs ptll
     sprintf(histName, "h2_mthdphill_%d",i);
     h2_mthdphill[i] = new TH2D(histName,"mth vs dphill",40,0,400,18,0,180);//mth vs dphill
     sprintf(histName, "h2_mlldphill_%d",i);
@@ -316,6 +341,45 @@ int HWwCtrPlt::InitHistogram()
     h1_mpmet[i] = new TH1D(histName,"Minimum proj. MET", 25, 0, 200);
     sprintf(histName, "h1_ppfmet_%d",i);
     h1_ppfmet[i] = new TH1D(histName,"Projected MET", 25, 0, 200);
+
+    //On-shell vs Off-shell
+    sprintf(histName, "h2_mthmll_OnSh_%d",i);
+    h2_mthmll_OnSh[i] = new TH2D(histName,"mth vs mll",40,0,400,40,0,400);//mth vs mll
+    sprintf(histName, "h2_mthptll_OnSh_%d",i);
+    h2_mthptll_OnSh[i] = new TH2D(histName,"mth vs ptll",40,0,400,40,0,400);//mth vs ptll
+    sprintf(histName, "h2_mllptll_OnSh_%d",i);
+    h2_mllptll_OnSh[i] = new TH2D(histName,"mll vs ptll",40,0,400,40,0,400);//mll vs ptll
+    sprintf(histName, "h1_mll_OnSh_mth_l130_%d",i);
+    h1_mll_OnSh_mth_l130[i] = new TH1D(histName,"Dilepton mass", 40, 0, 400);
+    sprintf(histName, "h1_mll_OnSh_mth_g130_%d",i);
+    h1_mll_OnSh_mth_g130[i] = new TH1D(histName,"Dilepton mass", 40, 0, 400);
+    sprintf(histName, "h1_mll_OnSh_mth_l120_%d",i);
+    h1_mll_OnSh_mth_l120[i] = new TH1D(histName,"Dilepton mass", 40, 0, 400);
+    sprintf(histName, "h1_mll_OnSh_mth_g120_%d",i);
+    h1_mll_OnSh_mth_g120[i] = new TH1D(histName,"Dilepton mass", 40, 0, 400);
+    sprintf(histName,"h1_mth_OnSh_mll_l83_%d",i);
+    h1_mth_OnSh_mll_l83[i] = new TH1D(histName,"Transverse Higgs mass",40,0,400);
+    sprintf(histName,"h1_mth_OnSh_mll_g83_%d",i);
+    h1_mth_OnSh_mll_g83[i] = new TH1D(histName,"Transverse Higgs mass",40,0,400);
+
+    sprintf(histName, "h2_mthmll_OffSh_%d",i);
+    h2_mthmll_OffSh[i] = new TH2D(histName,"mth vs mll",40,0,400,40,0,400);//mth vs mll
+    sprintf(histName, "h2_mthptll_OffSh_%d",i);
+    h2_mthptll_OffSh[i] = new TH2D(histName,"mth vs ptll",40,0,400,40,0,400);//mth vs ptll
+    sprintf(histName, "h2_mllptll_OffSh_%d",i);
+    h2_mllptll_OffSh[i] = new TH2D(histName,"mll vs ptll",40,0,400,40,0,400);//mll vs ptll
+    sprintf(histName, "h1_mll_OffSh_mth_l130_%d",i);
+    h1_mll_OffSh_mth_l130[i] = new TH1D(histName,"Dilepton mass", 40, 0, 400);
+    sprintf(histName, "h1_mll_OffSh_mth_g130_%d",i);
+    h1_mll_OffSh_mth_g130[i] = new TH1D(histName,"Dilepton mass", 40, 0, 400);
+    sprintf(histName, "h1_mll_OffSh_mth_l120_%d",i);
+    h1_mll_OffSh_mth_l120[i] = new TH1D(histName,"Dilepton mass", 40, 0, 400);
+    sprintf(histName, "h1_mll_OffSh_mth_g120_%d",i);
+    h1_mll_OffSh_mth_g120[i] = new TH1D(histName,"Dilepton mass", 40, 0, 400);
+    sprintf(histName,"h1_mth_OffSh_mll_l83_%d",i);
+    h1_mth_OffSh_mll_l83[i] = new TH1D(histName,"Transverse Higgs mass",40,0,400);
+    sprintf(histName,"h1_mth_OffSh_mll_g83_%d",i);
+    h1_mth_OffSh_mll_g83[i] = new TH1D(histName,"Transverse Higgs mass",40,0,400);
   }
   return 0;
 }
