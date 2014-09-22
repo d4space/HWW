@@ -1,17 +1,10 @@
 import os
 import sys
 
-#cmd_string = "root -l -q MakeHistoCtrPlots.C"
-#os.system(cmd_string)
-
-CutNames=['OnShvsOffShCut']
+CutNames=['CommonCut']
 #VarNames=['mthmll','mthptll','mllptll','mll','mth']
 DirNames=['SBI','SigInt']
-VarNames=['mll']
-#VarNames=['mthmll']
-#VarNames=['mth']
-#DirNames=['SigInt']
-#DirNames = ["SBI"]
+VarNames=['mthmll']
 cmd_string = "mkdir OnOffShell"
 os.system(cmd_string)
 for Cut in CutNames:
