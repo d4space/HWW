@@ -26,8 +26,8 @@ void twoDPlots(TString CutName, TString VarName, TString DirName){
 
   TFile *fww      = new TFile("WW/WW_"+CutName+".root");
   TFile *fSig     = new TFile("gg2vvHw1Sig8TeV/gg2vvHw1Sig8TeV_"+CutName+".root");
-  TFile *fSig_Hw25= new TFile("gg2vvHw25Sig8TeV/gg2vvHw25Sig8TeV_"+CutName+".root");
-  TFile *fSigBkgr = new TFile("gg2vvHw1Int8TeV/gg2vvHw1Int8TeV_"+CutName+".root");
+  //TFile *fSig_Hw25= new TFile("gg2vvHw25Sig8TeV/gg2vvHw25Sig8TeV_"+CutName+".root");
+  TFile *fSCI = new TFile("gg2vvHw1Int8TeV/gg2vvHw1Int8TeV_"+CutName+".root");
   TFile *fCot     = new TFile("gg2vvHw25Cot8TeV/gg2vvHw25Cot8TeV_"+CutName+".root");
 
   char tmpName[30];
@@ -67,7 +67,7 @@ void twoDPlots(TString CutName, TString VarName, TString DirName){
     sprintf(histName,"h2_sig_%d",i);
     h2_sig[i]= (TH2D*)fSig->Get(histNameOrg)->Clone(histName); h2_sig[i]->Sumw2();
     sprintf(histName,"h2_sig_bkgr_%d",i);
-    h2_sig_bkgr[i]= (TH2D*)fSigBkgr->Get(histNameOrg)->Clone(histName); h2_sig_bkgr[i]->Sumw2();
+    h2_sig_bkgr[i]= (TH2D*)fSCI->Get(histNameOrg)->Clone(histName); h2_sig_bkgr[i]->Sumw2();
     sprintf(histName,"h2_cot_%d",i);
     h2_cot[i]= (TH2D*)fCot->Get(histNameOrg)->Clone(histName); h2_cot[i]->Sumw2();
     sprintf(histName,"h2_sig_Hw25_%d",i);

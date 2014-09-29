@@ -8,9 +8,9 @@ void MakeHistoCtrPlots()
 //======================================
 // choose Mode and AnaChannel here  !!!
 //======================================
-  gSystem->CompileMacro("../src/HWwNT.C","k");
-  gSystem->CompileMacro("../src/HWwBase.C","k");
-  gSystem->CompileMacro("../src/HWwCtrPlt.C","k");
+  gSystem->CompileMacro("../AnaSrc/HWwNT.C","k");
+  gSystem->CompileMacro("../AnaSrc/HWwBase.C","k");
+  gSystem->CompileMacro("../AnaSrc/HWwCtrPlt.C","k");
 
   //TString Cut = "Loose"; // Loose, Tight
   //TString Cut = "Tight"; // Loose, Tight
@@ -27,6 +27,7 @@ void MakeHistoCtrPlots()
 
 for( int i(0); i < sizeof(Cuts)/sizeof(*Cuts);++i){
   cout<<"Cut is "<<Cuts[i]<<endl;
+
 /*
 //Data========================================
   cout<<"Data===================="<<endl;
@@ -109,23 +110,6 @@ for( int i(0); i < sizeof(Cuts)/sizeof(*Cuts);++i){
   HWwCtrPlt HWwCtrPltH125(TC_H125,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
   HWwCtrPltH125.Loop();
 */
-//gg2vvHw25========================================
-  //cout<<"gg2vvHw25===================="<<endl;
-  //RunOnMC = true;
-  //TChain *TC_gg2vvHw25  = new TChain("latino","");
-  //SetupTree("gg2vvHw25",TC_gg2vvHw25);
-  //SampleName = "gg2vvHw25";
-  //HWwCtrPlt HWwCtrPltgg2vvHw25(TC_gg2vvHw25,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
-  //HWwCtrPltgg2vvHw25.Loop();
-
-//gg2vvHw1========================================
-  //cout<<"gg2vvHw1===================="<<endl;
-  //RunOnMC = true;
-  //TChain *TC_gg2vvHw1  = new TChain("latino","");
-  //SetupTree("gg2vvHw1",TC_gg2vvHw1);
-  //SampleName = "gg2vvHw1";
-  //HWwCtrPlt HWwCtrPltgg2vvHw1(TC_gg2vvHw1,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
-  //HWwCtrPltgg2vvHw1.Loop();
 /*
 //gg2vvHw1SigOnPeak========================================
   cout<<"gg2vvHw1SigOnPeak===================="<<endl;
@@ -153,7 +137,8 @@ for( int i(0); i < sizeof(Cuts)/sizeof(*Cuts);++i){
   SampleName = "gg2vvHw1SigTail";
   HWwCtrPlt HWwCtrPltgg2vvHw1SigTail(TC_gg2vvHw1SigTail,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
   HWwCtrPltgg2vvHw1SigTail.Loop();
-
+*/
+  /**
 //gg2vvHw1IntOnPeak========================================
   cout<<"gg2vvHw1IntOnPeak===================="<<endl;
   RunOnMC = true;
@@ -181,7 +166,8 @@ for( int i(0); i < sizeof(Cuts)/sizeof(*Cuts);++i){
   HWwCtrPlt HWwCtrPltgg2vvHw1IntTail(TC_gg2vvHw1IntTail,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
   HWwCtrPltgg2vvHw1IntTail.Loop();
 */
-/*
+
+//*
 //gg2vvHw1Sig8TeV========================================
   cout<<"gg2vvHw1Sig8TeV===================="<<endl;
   RunOnMC = true;
@@ -190,7 +176,8 @@ for( int i(0); i < sizeof(Cuts)/sizeof(*Cuts);++i){
   SampleName = "gg2vvHw1Sig8TeV";
   HWwCtrPlt HWwCtrPltgg2vvHw1Sig8TeV(TC_gg2vvHw1Sig8TeV,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
   HWwCtrPltgg2vvHw1Sig8TeV.Loop();
-*/
+//*/
+//
 //gg2vvHw1Int8TeV========================================
   cout<<"gg2vvHw1Int8TeV===================="<<endl;
   RunOnMC = true;
@@ -219,7 +206,7 @@ for( int i(0); i < sizeof(Cuts)/sizeof(*Cuts);++i){
   HWwCtrPlt HWwCtrPltgg2vvHw25Sig8TeV(TC_gg2vvHw25Sig8TeV,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
   HWwCtrPltgg2vvHw25Sig8TeV.Loop();
 */
-
+/**
 //gg2vvHw25Int8TeV========================================
   cout<<"gg2vvHw25Int8TeV===================="<<endl;
   RunOnMC = true;
@@ -228,5 +215,6 @@ for( int i(0); i < sizeof(Cuts)/sizeof(*Cuts);++i){
   SampleName = "gg2vvHw25Int8TeV";
   HWwCtrPlt HWwCtrPltgg2vvHw25Int8TeV(TC_gg2vvHw25Int8TeV,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
   HWwCtrPltgg2vvHw25Int8TeV.Loop();
+  ***/
 }
 }
