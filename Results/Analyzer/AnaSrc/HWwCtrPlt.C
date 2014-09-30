@@ -9,6 +9,8 @@
 #include <TCanvas.h>
 #include <TSystem.h>
 
+#define OnOffShell 150
+
 void HWwCtrPlt::Loop()
 {
   gBenchmark->Start("HWwCtrPlt");
@@ -64,19 +66,19 @@ void HWwCtrPlt::Loop()
 
     //if(mth<=130){
     if(mth<=120 && mll<=50){
-      if(mWW<=160){
+      if(mWW<=OnOffShell){
 	if (OF0jCut() == 1){NselectOF0j[1] += EvtWeight;}
 	else if (OF1jCut() == 1){NselectOF1j[1] += EvtWeight;}
-      }else if(mWW>160){
+      }else if(mWW>OnOffShell){
 	if (OF0jCut() == 1){NselectOF0j[2] += EvtWeight;}
 	else if (OF1jCut() == 1){NselectOF1j[2] += EvtWeight;}
       }
     //}else if(mth>130){
     }else if(mll>50 || mth>120){
-      if(mWW<=160){
+      if(mWW<=OnOffShell){
 	if (OF0jCut() == 1){NselectOF0j[3] += EvtWeight;}
 	else if (OF1jCut() == 1){NselectOF1j[3] += EvtWeight;}
-      }else if(mWW>160){
+      }else if(mWW>OnOffShell){
 	if (OF0jCut() == 1){NselectOF0j[4] += EvtWeight;}
 	else if (OF1jCut() == 1){NselectOF1j[4] += EvtWeight;}
       }
@@ -86,36 +88,36 @@ void HWwCtrPlt::Loop()
   }
   //Fout<<"Weighted (Counted)"<<endl;
   //Fout<<"Nselected: "<<Nselect[1]<<" ("<<Nselect[0]<<")"<<endl;
-  //Fout<<"Nselected mWW<160: "<<Nselect[3]<<" ("<<Nselect[2]<<")"<<endl;
-  //Fout<<"Nselected mWW>160: "<<Nselect[5]<<" ("<<Nselect[4]<<")"<<endl;
+  //Fout<<"Nselected mWW<"<<OnOffShell<<": "<<Nselect[3]<<" ("<<Nselect[2]<<")"<<endl;
+  //Fout<<"Nselected mWW>"<<OnOffShell<<": "<<Nselect[5]<<" ("<<Nselect[4]<<")"<<endl;
   //Fout<<"NselectSF0j: "<<NselectSF0j[1]<<" ("<<NselectSF0j[0]<<")"<<endl;
   //Fout<<"NselectSF1j: "<<NselectSF1j[1]<<" ("<<NselectSF1j[0]<<")"<<endl;
   //Fout<<"NselectOF0j: "<<NselectOF0j[1]<<" ("<<NselectOF0j[0]<<")"<<endl;
   //Fout<<"NselectOF1j: "<<NselectOF1j[1]<<" ("<<NselectOF1j[0]<<")"<<endl;
-  //Fout<<"NselectSF0j mWW<160: "<<NselectSF0j[3]<<" ("<<NselectSF0j[2]<<")"<<endl;
-  //Fout<<"NselectSF1j mWW<160: "<<NselectSF1j[3]<<" ("<<NselectSF1j[2]<<")"<<endl;
-  //Fout<<"NselectOF0j mWW<160: "<<NselectOF0j[3]<<" ("<<NselectOF0j[2]<<")"<<endl;
-  //Fout<<"NselectOF1j mWW<160: "<<NselectOF1j[3]<<" ("<<NselectOF1j[2]<<")"<<endl;
-  //Fout<<"NselectSF0j mWW>160: "<<NselectSF0j[5]<<" ("<<NselectSF0j[4]<<")"<<endl;
-  //Fout<<"NselectSF1j mWW>160: "<<NselectSF1j[5]<<" ("<<NselectSF1j[4]<<")"<<endl;
-  //Fout<<"NselectOF0j mWW>160: "<<NselectOF0j[5]<<" ("<<NselectOF0j[4]<<")"<<endl;
-  //Fout<<"NselectOF1j mWW>160: "<<NselectOF1j[5]<<" ("<<NselectOF1j[4]<<")"<<endl;
-  //Fout<<"NselectOF mWW<160: "<<NselectOF0j[3]+NselectOF1j[3]<<" ("<<NselectOF0j[2]+NselectOF1j[2]<<")"<<endl;
-  //Fout<<"NselectOF mWW>160: "<<NselectOF0j[5]+NselectOF1j[5]<<" ("<<NselectOF0j[4]+NselectOF1j[4]<<")"<<endl;
+  //Fout<<"NselectSF0j mWW<"<<OnOffShell<<": "<<NselectSF0j[3]<<" ("<<NselectSF0j[2]<<")"<<endl;
+  //Fout<<"NselectSF1j mWW<"<<OnOffShell<<": "<<NselectSF1j[3]<<" ("<<NselectSF1j[2]<<")"<<endl;
+  //Fout<<"NselectOF0j mWW<"<<OnOffShell<<": "<<NselectOF0j[3]<<" ("<<NselectOF0j[2]<<")"<<endl;
+  //Fout<<"NselectOF1j mWW<"<<OnOffShell<<": "<<NselectOF1j[3]<<" ("<<NselectOF1j[2]<<")"<<endl;
+  //Fout<<"NselectSF0j mWW>"<<OnOffShell<<": "<<NselectSF0j[5]<<" ("<<NselectSF0j[4]<<")"<<endl;
+  //Fout<<"NselectSF1j mWW>"<<OnOffShell<<": "<<NselectSF1j[5]<<" ("<<NselectSF1j[4]<<")"<<endl;
+  //Fout<<"NselectOF0j mWW>"<<OnOffShell<<": "<<NselectOF0j[5]<<" ("<<NselectOF0j[4]<<")"<<endl;
+  //Fout<<"NselectOF1j mWW>"<<OnOffShell<<": "<<NselectOF1j[5]<<" ("<<NselectOF1j[4]<<")"<<endl;
+  //Fout<<"NselectOF mWW<"<<OnOffShell<<": "<<NselectOF0j[3]+NselectOF1j[3]<<" ("<<NselectOF0j[2]+NselectOF1j[2]<<")"<<endl;
+  //Fout<<"NselectOF mWW>"<<OnOffShell<<": "<<NselectOF0j[5]+NselectOF1j[5]<<" ("<<NselectOF0j[4]+NselectOF1j[4]<<")"<<endl;
   Fout<<"Weighted ( %)"<<endl;
   Fout<<"Nselected: "<<Nselect[0]<<endl;
   Fout<<"OF0j"<<endl;
   Fout<<"NselectOF0j(before mth&mll Cut): "<<NselectOF0j[0]<<endl;
-  Fout<<"NselectOF0j mth<120,mll<50, mWW<160: "<<NselectOF0j[1]<<" ("<<100*NselectOF0j[1]/NselectOF0j[0]<<" %)"<<endl;
-  Fout<<"NselectOF0j mth<120,mll<50, mWW>160: "<<NselectOF0j[2]<<" ("<<100*NselectOF0j[2]/NselectOF0j[0]<<" %)"<<endl;
-  Fout<<"NselectOF0j mth>120,mll>50, mWW<160: "<<NselectOF0j[3]<<" ("<<100*NselectOF0j[3]/NselectOF0j[0]<<" %)"<<endl;
-  Fout<<"NselectOF0j mth>120,mll>50, mWW>160: "<<NselectOF0j[4]<<" ("<<100*NselectOF0j[4]/NselectOF0j[0]<<" %)"<<endl;
+  Fout<<"NselectOF0j mth<120,mll<50, mWW<"<<OnOffShell<<": "<<NselectOF0j[1]<<" ("<<100*NselectOF0j[1]/NselectOF0j[0]<<" %)"<<endl;
+  Fout<<"NselectOF0j mth<120,mll<50, mWW>"<<OnOffShell<<": "<<NselectOF0j[2]<<" ("<<100*NselectOF0j[2]/NselectOF0j[0]<<" %)"<<endl;
+  Fout<<"NselectOF0j mth>120,mll>50, mWW<"<<OnOffShell<<": "<<NselectOF0j[3]<<" ("<<100*NselectOF0j[3]/NselectOF0j[0]<<" %)"<<endl;
+  Fout<<"NselectOF0j mth>120,mll>50, mWW>"<<OnOffShell<<": "<<NselectOF0j[4]<<" ("<<100*NselectOF0j[4]/NselectOF0j[0]<<" %)"<<endl;
   Fout<<"OF1j"<<endl;
   Fout<<"NselectOF1j(before mth&mll Cut): "<<NselectOF1j[0]<<endl;
-  Fout<<"NselectOF1j mth<120,mll<50, mWW<160: "<<NselectOF1j[1]<<" ("<<100*NselectOF1j[1]/NselectOF1j[0]<<" %)"<<endl;
-  Fout<<"NselectOF1j mth<120,mll<50, mWW>160: "<<NselectOF1j[2]<<" ("<<100*NselectOF1j[2]/NselectOF1j[0]<<" %)"<<endl;
-  Fout<<"NselectOF1j mth>120,mll>50, mWW<160: "<<NselectOF1j[3]<<" ("<<100*NselectOF1j[3]/NselectOF1j[0]<<" %)"<<endl;
-  Fout<<"NselectOF1j mth>120,mll>50, mWW>160: "<<NselectOF1j[4]<<" ("<<100*NselectOF1j[4]/NselectOF1j[0]<<" %)"<<endl;
+  Fout<<"NselectOF1j mth<120,mll<50, mWW<"<<OnOffShell<<": "<<NselectOF1j[1]<<" ("<<100*NselectOF1j[1]/NselectOF1j[0]<<" %)"<<endl;
+  Fout<<"NselectOF1j mth<120,mll<50, mWW>"<<OnOffShell<<": "<<NselectOF1j[2]<<" ("<<100*NselectOF1j[2]/NselectOF1j[0]<<" %)"<<endl;
+  Fout<<"NselectOF1j mth>120,mll>50, mWW<"<<OnOffShell<<": "<<NselectOF1j[3]<<" ("<<100*NselectOF1j[3]/NselectOF1j[0]<<" %)"<<endl;
+  Fout<<"NselectOF1j mth>120,mll>50, mWW>"<<OnOffShell<<": "<<NselectOF1j[4]<<" ("<<100*NselectOF1j[4]/NselectOF1j[0]<<" %)"<<endl;
   Fout<<"Cut1: "<<ncut1<<endl;
   Fout<<"Cut2: "<<ncut2<<endl;
   Fout<<"Cut3: "<<ncut3<<endl;
@@ -145,9 +147,9 @@ int HWwCtrPlt::Fill_Histo()
   h1_dphill[evtChannel]  ->Fill(180./PI*fabs(dphill), EvtWeight);
   h1_mth[evtChannel]     ->Fill(mth, EvtWeight);
   h1_mH[evtChannel]      ->Fill(mWW,  EvtWeight);
-  if(mWW<=160)
+  if(mWW<=OnOffShell)
     h1_mH_OnShell[evtChannel] ->Fill(mWW,EvtWeight);
-  if(mWW>160)
+  if(mWW> OnOffShell)
     h1_mH_OffShell[evtChannel]->Fill(mWW,EvtWeight);
   h1_charge1[evtChannel]->Fill(ch1, EvtWeight);
   h1_charge2[evtChannel]->Fill(ch2, EvtWeight);
@@ -174,16 +176,16 @@ int HWwCtrPlt::Fill_Histo()
   h2_mthmll[evtChannel]  ->Fill(mth,mll,EvtWeight);
   h2_mthptll[evtChannel] ->Fill(mth,ptll,EvtWeight);
   h2_mllptll[evtChannel] ->Fill(mll,ptll,EvtWeight);
-  if(mWW<160)
+  if(mWW< OnOffShell)
     h2_mthmll_OnSh[evtChannel] ->Fill(mth,mll,EvtWeight);
-  if(mWW>=160)
+  if(mWW>=OnOffShell)
     h2_mthmll_OffSh[evtChannel]->Fill(mth,mll,EvtWeight);
   return 0;
 }
 int HWwCtrPlt::FillHisto()
 {
   //On-shell
-  if(mWW<160){
+  if(mWW<OnOffShell){
     if(CommonCut() ==1){
       h2_mthmll_OnSh[evtChannel] ->Fill(mth,mll,EvtWeight);
       h2_mthptll_OnSh[evtChannel]->Fill(mth,ptll,EvtWeight);
@@ -209,7 +211,7 @@ int HWwCtrPlt::FillHisto()
   }
   
   //Off-shell
-  if(mWW>=160){
+  if(mWW>=OnOffShell){
     //if(CommonCut_Without_ptllCut() ==1){
     if(CommonCut() ==1){
       h2_mthmll_OffSh[evtChannel] ->Fill(mth,mll,EvtWeight);

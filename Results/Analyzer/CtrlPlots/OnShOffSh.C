@@ -16,7 +16,7 @@
 #include <TLine.h>
 #include <THStack.h>
 
-void OnShOffSh(TString CutName, TString VarName, TString DirName){
+void OnShOffSh(TString CutName, TString VarName, TString vSigBkgInt){
 
   TString ChannelName[4];
   ChannelName[0] = "sf0j";
@@ -38,16 +38,18 @@ void OnShOffSh(TString CutName, TString VarName, TString DirName){
   TH1D *h1_OffSh2[4];
 
   //2D histograms
-  TH2D *h2_SCIOnSh[4];
-  TH2D *h2_SCIOffSh[4];
-  TH2D *h2_cotOnSh[4];
-  TH2D *h2_cotOffSh[4];
+  TH2D *h2_OnSh[4]; // Basically SCI
+  TH2D *h2_OffSh[4]; // Basically SCI
+  TH2D *h2_SigOnSh[4];
+  TH2D *h2_SigOffSh[4];
+  TH2D *h2_CotOnSh[4];
+  TH2D *h2_CotOffSh[4];
 
   //Continuum
-  TH1D *h1_cotOnSh1[4];
-  TH1D *h1_cotOnSh2[4];
-  TH1D *h1_cotOffSh1[4];
-  TH1D *h1_cotOffSh2[4];
+  TH1D *h1_CotOnSh1[4];
+  TH1D *h1_CotOnSh2[4];
+  TH1D *h1_CotOffSh1[4];
+  TH1D *h1_CotOffSh2[4];
 
   //2D histograms
 
@@ -61,118 +63,142 @@ void OnShOffSh(TString CutName, TString VarName, TString DirName){
   for (int i(0);i<4;i++) {
     if(i == 0 || i == 2) continue;
     if(VarName == "mthmll"){
-      sprintf(histNameOrg,"h2_mthmll_OnSh_%d",i);
-      sprintf(histName,"h2_SCIOnSh_%d",i);
-      h2_SCIOnSh[i]= (TH2D*)fSCI->Get(histNameOrg)->Clone(histName);  h2_SCIOnSh[i]->Sumw2();
+      sprintf(histNameOrg,"h2_mthmll_OnSh_%d",i);// OnShell-----------
+
+      sprintf(histName,"h2_OnSh_%d",i);
+      h2_OnSh[i]= (TH2D*)fSCI->Get(histNameOrg)->Clone(histName);  h2_OnSh[i]->Sumw2();
+
+      sprintf(histName,"h2_SigOnSh_%d",i);
+      h2_SigOnSh[i]= (TH2D*)fSig->Get(histNameOrg)->Clone(histName);  h2_SigOnSh[i]->Sumw2();
       
-      sprintf(histName,"h2_cotOnSh_%d",i);
-      h2_cotOnSh[i]= (TH2D*)fCot->Get(histNameOrg)->Clone(histName);  h2_cotOnSh[i]->Sumw2();
+      sprintf(histName,"h2_CotOnSh_%d",i);
+      h2_CotOnSh[i]= (TH2D*)fCot->Get(histNameOrg)->Clone(histName);  h2_CotOnSh[i]->Sumw2();
       
-      sprintf(histNameOrg,"h2_mthmll_OffSh_%d",i);
-      sprintf(histName,"h2_SCIOffSh_%d",i);
-      h2_SCIOffSh[i]= (TH2D*)fSCI->Get(histNameOrg)->Clone(histName); h2_SCIOffSh[i]->Sumw2();
+      sprintf(histNameOrg,"h2_mthmll_OffSh_%d",i); // OffShell----------
+
+      sprintf(histName,"h2_OffSh_%d",i);
+      h2_OffSh[i]= (TH2D*)fSCI->Get(histNameOrg)->Clone(histName); h2_OffSh[i]->Sumw2();
+
+      sprintf(histName,"h2_SigOffSh_%d",i);
+      h2_SigOffSh[i]= (TH2D*)fSig->Get(histNameOrg)->Clone(histName); h2_SigOffSh[i]->Sumw2();
       
-      sprintf(histName,"h2_cotOffSh_%d",i);
-      h2_cotOffSh[i]= (TH2D*)fCot->Get(histNameOrg)->Clone(histName); h2_cotOffSh[i]->Sumw2();
+      sprintf(histName,"h2_CotOffSh_%d",i);
+      h2_CotOffSh[i]= (TH2D*)fCot->Get(histNameOrg)->Clone(histName); h2_CotOffSh[i]->Sumw2();
     }else if(VarName == "mthptll"){//HERE
       sprintf(histNameOrg,"h2_mthptll_OnSh_%d",i);
-      sprintf(histName,"h2_SCIOnSh_%d",i);
-      h2_SCIOnSh[i]= (TH2D*)fSCI->Get(histNameOrg)->Clone(histName);  h2_SCIOnSh[i]->Sumw2();
-      
-      sprintf(histName,"h2_cotOnSh_%d",i);
-      h2_cotOnSh[i]= (TH2D*)fCot->Get(histNameOrg)->Clone(histName);  h2_cotOnSh[i]->Sumw2();
-      
+
+      sprintf(histName,"h2_OnSh_%d",i);
+      h2_OnSh[i]= (TH2D*)fSCI->Get(histNameOrg)->Clone(histName);  h2_OnSh[i]->Sumw2();
+      sprintf(histName,"h2_SigOnSh_%d",i);
+      h2_SigOnSh[i]= (TH2D*)fSig->Get(histNameOrg)->Clone(histName);  h2_SigOnSh[i]->Sumw2();
+      sprintf(histName,"h2_CotOnSh_%d",i);
+      h2_CotOnSh[i]= (TH2D*)fCot->Get(histNameOrg)->Clone(histName);  h2_CotOnSh[i]->Sumw2();
       sprintf(histNameOrg,"h2_mthptll_OffSh_%d",i);
-      sprintf(histName,"h2_SCIOffSh_%d",i);
-      h2_SCIOffSh[i]= (TH2D*)fSCI->Get(histNameOrg)->Clone(histName); h2_SCIOffSh[i]->Sumw2();
-      
-      sprintf(histName,"h2_cotOffSh_%d",i);
-      h2_cotOffSh[i]= (TH2D*)fCot->Get(histNameOrg)->Clone(histName); h2_cotOffSh[i]->Sumw2();
+      sprintf(histName,"h2_OffSh_%d",i);
+      h2_OffSh[i]= (TH2D*)fSCI->Get(histNameOrg)->Clone(histName); h2_OffSh[i]->Sumw2();
+      sprintf(histName,"h2_SigOffSh_%d",i);
+      h2_SigOffSh[i]= (TH2D*)fSig->Get(histNameOrg)->Clone(histName); h2_SigOffSh[i]->Sumw2();
+      sprintf(histName,"h2_CotOffSh_%d",i);
+      h2_CotOffSh[i]= (TH2D*)fCot->Get(histNameOrg)->Clone(histName); h2_CotOffSh[i]->Sumw2();
     }else if(VarName == "mllptll"){//HERE
       sprintf(histNameOrg,"h2_mllptll_OnSh_%d",i);
-      sprintf(histName,"h2_SCIOnSh_%d",i);
-      h2_SCIOnSh[i]= (TH2D*)fSCI->Get(histNameOrg)->Clone(histName);  h2_SCIOnSh[i]->Sumw2();
-      
-      sprintf(histName,"h2_cotOnSh_%d",i);
-      h2_cotOnSh[i]= (TH2D*)fCot->Get(histNameOrg)->Clone(histName);  h2_cotOnSh[i]->Sumw2();
-      
+      sprintf(histName,"h2_OnSh_%d",i);
+      h2_OnSh[i]= (TH2D*)fSCI->Get(histNameOrg)->Clone(histName);  h2_OnSh[i]->Sumw2();
+      sprintf(histName,"h2_SigOnSh_%d",i);
+      h2_SigOnSh[i]= (TH2D*)fSig->Get(histNameOrg)->Clone(histName);  h2_SigOnSh[i]->Sumw2();
+      sprintf(histName,"h2_CotOnSh_%d",i);
+      h2_CotOnSh[i]= (TH2D*)fCot->Get(histNameOrg)->Clone(histName);  h2_CotOnSh[i]->Sumw2();
       sprintf(histNameOrg,"h2_mllptll_OffSh_%d",i);
-      sprintf(histName,"h2_SCIOffSh_%d",i);
-      h2_SCIOffSh[i]= (TH2D*)fSCI->Get(histNameOrg)->Clone(histName); h2_SCIOffSh[i]->Sumw2();
-      
-      sprintf(histName,"h2_cotOffSh_%d",i);
-      h2_cotOffSh[i]= (TH2D*)fCot->Get(histNameOrg)->Clone(histName); h2_cotOffSh[i]->Sumw2();
+      sprintf(histName,"h2_OffSh_%d",i);
+      h2_OffSh[i]= (TH2D*)fSCI->Get(histNameOrg)->Clone(histName); h2_OffSh[i]->Sumw2();
+      sprintf(histName,"h2_SigOffSh_%d",i);
+      h2_SigOffSh[i]= (TH2D*)fSig->Get(histNameOrg)->Clone(histName); h2_SigOffSh[i]->Sumw2();
+      sprintf(histName,"h2_CotOffSh_%d",i);
+      h2_CotOffSh[i]= (TH2D*)fCot->Get(histNameOrg)->Clone(histName); h2_CotOffSh[i]->Sumw2();
     }else if(VarName == "mll"){
       //sprintf(histNameOrg,"h1_mll_OnSh_mth_l130_%d",i);
       sprintf(histNameOrg,"h1_mll_OnSh_mth_l120_%d",i);
       sprintf(histName,"h1_OnSh1_%d",i);
       h1_OnSh1[i]= (TH1D*)fSCI->Get(histNameOrg)->Clone(histName); h1_OnSh1[i]->Sumw2();
       
-      sprintf(histName,"h1_cotOnSh1_%d",i);
-      h1_cotOnSh1[i]= (TH1D*)fCot->Get(histNameOrg)->Clone(histName); h1_cotOnSh1[i]->Sumw2();
+      sprintf(histName,"h1_CotOnSh1_%d",i);
+      h1_CotOnSh1[i]= (TH1D*)fCot->Get(histNameOrg)->Clone(histName); h1_CotOnSh1[i]->Sumw2();
       
       //sprintf(histNameOrg,"h1_mll_OnSh_mth_g130_%d",i);
       sprintf(histNameOrg,"h1_mll_OnSh_mth_g120_%d",i);
       sprintf(histName,"h1_OnSh2_%d",i);
       h1_OnSh2[i]= (TH1D*)fSCI->Get(histNameOrg)->Clone(histName); h1_OnSh2[i]->Sumw2();
       
-      sprintf(histName,"h1_cotOnSh2_%d",i);
-      h1_cotOnSh2[i]= (TH1D*)fCot->Get(histNameOrg)->Clone(histName); h1_cotOnSh2[i]->Sumw2();
+      sprintf(histName,"h1_CotOnSh2_%d",i);
+      h1_CotOnSh2[i]= (TH1D*)fCot->Get(histNameOrg)->Clone(histName); h1_CotOnSh2[i]->Sumw2();
       
       //sprintf(histNameOrg,"h1_mll_OffSh_mth_l130_%d",i);
       sprintf(histNameOrg,"h1_mll_OffSh_mth_l120_%d",i);
       sprintf(histName,"h1_OffSh1_%d",i);
       h1_OffSh1[i]= (TH1D*)fSCI->Get(histNameOrg)->Clone(histName); h1_OffSh1[i]->Sumw2();
       
-      sprintf(histName,"h1_cotOffSh1_%d",i);
-      h1_cotOffSh1[i]= (TH1D*)fCot->Get(histNameOrg)->Clone(histName); h1_cotOffSh1[i]->Sumw2();
+      sprintf(histName,"h1_CotOffSh1_%d",i);
+      h1_CotOffSh1[i]= (TH1D*)fCot->Get(histNameOrg)->Clone(histName); h1_CotOffSh1[i]->Sumw2();
       
       //sprintf(histNameOrg,"h1_mll_OffSh_mth_g130_%d",i);
       sprintf(histNameOrg,"h1_mll_OffSh_mth_g120_%d",i);
       sprintf(histName,"h1_OffSh2_%d",i);
       h1_OffSh2[i]= (TH1D*)fSCI->Get(histNameOrg)->Clone(histName); h1_OffSh2[i]->Sumw2();
       
-      sprintf(histName,"h1_cotOffSh2_%d",i);
-      h1_cotOffSh2[i]= (TH1D*)fCot->Get(histNameOrg)->Clone(histName); h1_cotOffSh2[i]->Sumw2();
+      sprintf(histName,"h1_CotOffSh2_%d",i);
+      h1_CotOffSh2[i]= (TH1D*)fCot->Get(histNameOrg)->Clone(histName); h1_CotOffSh2[i]->Sumw2();
     }else if(VarName == "mth"){
       sprintf(histNameOrg,"h1_mth_OnSh_mll_l83_%d",i);
       sprintf(histName,"h1_OnSh1_%d",i);
       h1_OnSh1[i]= (TH1D*)fSCI->Get(histNameOrg)->Clone(histName); h1_OnSh1[i]->Sumw2();
       
-      sprintf(histName,"h1_cotOnSh1_%d",i);
-      h1_cotOnSh1[i]= (TH1D*)fCot->Get(histNameOrg)->Clone(histName); h1_cotOnSh1[i]->Sumw2();
+      sprintf(histName,"h1_CotOnSh1_%d",i);
+      h1_CotOnSh1[i]= (TH1D*)fCot->Get(histNameOrg)->Clone(histName); h1_CotOnSh1[i]->Sumw2();
       
       sprintf(histNameOrg,"h1_mth_OnSh_mll_g83_%d",i);
       sprintf(histName,"h1_OnSh2_%d",i);
       h1_OnSh2[i]= (TH1D*)fSCI->Get(histNameOrg)->Clone(histName); h1_OnSh2[i]->Sumw2();
       
-      sprintf(histName,"h1_cotOnSh2_%d",i);
-      h1_cotOnSh2[i]= (TH1D*)fCot->Get(histNameOrg)->Clone(histName); h1_cotOnSh2[i]->Sumw2();
+      sprintf(histName,"h1_CotOnSh2_%d",i);
+      h1_CotOnSh2[i]= (TH1D*)fCot->Get(histNameOrg)->Clone(histName); h1_CotOnSh2[i]->Sumw2();
       
       sprintf(histNameOrg,"h1_mth_OffSh_mll_l83_%d",i);
       sprintf(histName,"h1_OffSh1_%d",i);
       h1_OffSh1[i]= (TH1D*)fSCI->Get(histNameOrg)->Clone(histName); h1_OffSh1[i]->Sumw2();
       
-      sprintf(histName,"h1_cotOffSh1_%d",i);
-      h1_cotOffSh1[i]= (TH1D*)fCot->Get(histNameOrg)->Clone(histName); h1_cotOffSh1[i]->Sumw2();
+      sprintf(histName,"h1_CotOffSh1_%d",i);
+      h1_CotOffSh1[i]= (TH1D*)fCot->Get(histNameOrg)->Clone(histName); h1_CotOffSh1[i]->Sumw2();
       
       sprintf(histNameOrg,"h1_mth_OffSh_mll_l83_%d",i);
       sprintf(histName,"h1_OffSh2_%d",i);
       h1_OffSh2[i]= (TH1D*)fSCI->Get(histNameOrg)->Clone(histName); h1_OffSh2[i]->Sumw2();
       
-      sprintf(histName,"h1_cotOffSh2_%d",i);
-      h1_cotOffSh2[i]= (TH1D*)fCot->Get(histNameOrg)->Clone(histName); h1_cotOffSh2[i]->Sumw2();
+      sprintf(histName,"h1_CotOffSh2_%d",i);
+      h1_CotOffSh2[i]= (TH1D*)fCot->Get(histNameOrg)->Clone(histName); h1_CotOffSh2[i]->Sumw2();
     }
     
-    if(DirName == "SigInt"){
+    if(vSigBkgInt == "SigInt"){
       if(VarName == "mll" || VarName == "mth"){
-	h1_OnSh1[i] ->Add(h1_cotOnSh1[i],-1);
-	h1_OnSh2[i] ->Add(h1_cotOnSh2[i],-1);
-	h1_OffSh1[i]->Add(h1_cotOffSh1[i],-1);
-	h1_OffSh2[i]->Add(h1_cotOffSh2[i],-1);
+	h1_OnSh1[i] ->Add(h1_CotOnSh1[i],-1);
+	h1_OnSh2[i] ->Add(h1_CotOnSh2[i],-1);
+	h1_OffSh1[i]->Add(h1_CotOffSh1[i],-1);
+	h1_OffSh2[i]->Add(h1_CotOffSh2[i],-1);
       }else if(VarName == "mthmll" || VarName == "mthptll" || VarName == "mllptll"){
-	h2_SCIOnSh[i]  ->Add(h2_cotOnSh[i],-1);
-	h2_SCIOffSh[i] ->Add(h2_cotOffSh[i],-1);
+	h2_OnSh[i]  ->Add(h2_CotOnSh[i],-1);
+	h2_OffSh[i] ->Add(h2_CotOffSh[i],-1);
+      }
+    }
+    else if(vSigBkgInt == "Int"){
+      if(VarName == "mll" || VarName == "mth"){
+	h1_OnSh1[i] ->Add(h1_CotOnSh1[i],-1);
+	h1_OnSh2[i] ->Add(h1_CotOnSh2[i],-1);
+	h1_OffSh1[i]->Add(h1_CotOffSh1[i],-1);
+	h1_OffSh2[i]->Add(h1_CotOffSh2[i],-1);
+      }else if(VarName == "mthmll" || VarName == "mthptll" || VarName == "mllptll"){
+	h2_OnSh[i]  ->Add(h2_CotOnSh[i],-1);
+	h2_OffSh[i] ->Add(h2_CotOffSh[i],-1);
+	h2_OnSh[i]  ->Add(h2_SigOnSh[i],-1);
+	h2_OffSh[i] ->Add(h2_SigOffSh[i],-1);
       }
     }
 
@@ -180,8 +206,10 @@ void OnShOffSh(TString CutName, TString VarName, TString DirName){
     
     gStyle->SetOptStat(0);
     TString dataName = "Hw1 S+B+I 8TeV";
-    if(DirName == "SigInt")
+    if(vSigBkgInt == "SigInt")
       dataName = "Hw1 S+I 8TeV";
+    if(vSigBkgInt == "Int")
+      dataName = "Hw1 Int 8TeV";
     
     TPaveText *tb0 = new TPaveText(.63,.7,.9,.87,"NDC");
     tb0->SetBorderSize(0);
@@ -251,36 +279,36 @@ void OnShOffSh(TString CutName, TString VarName, TString DirName){
     }
     
     if(VarName == "mthmll" || VarName == "mthptll" || VarName == "mllptll"){
-      h2_SCIOnSh[i] ->SetTitle("");
-      h2_SCIOffSh[i]->SetTitle("");
+      h2_OnSh[i] ->SetTitle("");
+      h2_OffSh[i]->SetTitle("");
 
-      h2_SCIOnSh[i]->GetXaxis()->SetTitle(xlabel);
-      h2_SCIOnSh[i]->GetYaxis()->SetTitle(ylabel);
-      h2_SCIOnSh[i]->GetYaxis()->SetTitleOffset(1.4);
-      h2_SCIOnSh[i]->GetXaxis()->SetTitleOffset(1.2);
+      h2_OnSh[i]->GetXaxis()->SetTitle(xlabel);
+      h2_OnSh[i]->GetYaxis()->SetTitle(ylabel);
+      h2_OnSh[i]->GetYaxis()->SetTitleOffset(1.4);
+      h2_OnSh[i]->GetXaxis()->SetTitleOffset(1.2);
       
       //h2_OnSh[i]->Draw("CONTZ");
-      h2_SCIOnSh[i]->Draw("COLZ");
+      h2_OnSh[i]->Draw("COLZ");
       tb0->Draw();
-      TString outName = "OnOffShell/"+DirName + "_OnShell_" + VarName + "_" + ChannelName[i] + ".png";
+      TString outName = "OnOffShell/"+vSigBkgInt + "_OnShell_" + VarName + "_" + ChannelName[i] + ".png";
       myCan->SaveAs(outName);
     
-      h2_SCIOffSh[i]->GetXaxis()->SetTitle(xlabel);
-      h2_SCIOffSh[i]->GetYaxis()->SetTitle(ylabel);
-      h2_SCIOffSh[i]->GetYaxis()->SetTitleOffset(1.4);
-      h2_SCIOffSh[i]->GetXaxis()->SetTitleOffset(1.2);
+      h2_OffSh[i]->GetXaxis()->SetTitle(xlabel);
+      h2_OffSh[i]->GetYaxis()->SetTitle(ylabel);
+      h2_OffSh[i]->GetYaxis()->SetTitleOffset(1.4);
+      h2_OffSh[i]->GetXaxis()->SetTitleOffset(1.2);
       
-      //h2_SCIOffSh[i]->Draw("CONTZ");
-      h2_SCIOffSh[i]->Draw("COLZ");
+      //h2_OffSh[i]->Draw("CONTZ");
+      h2_OffSh[i]->Draw("COLZ");
       tb1->Draw();
-      outName = "OnOffShell/"+DirName + "_OffShell_" + VarName + "_" + ChannelName[i] + ".png";
+      outName = "OnOffShell/"+vSigBkgInt + "_OffShell_" + VarName + "_" + ChannelName[i] + ".png";
       myCan->SaveAs(outName);
       
       //Overlap 2D histo
-      h2_SCIOffSh[i]->Draw("COLZ");
-      h2_SCIOnSh[i]->Draw("CONT1SAME");
+      h2_OffSh[i]->Draw("COLZ");
+      h2_OnSh[i]->Draw("CONT1SAME");
       tb2->Draw();
-      outName = "OnOffShell/"+DirName + "_OnOffShell_" + VarName + "_" + ChannelName[i] + ".png";
+      outName = "OnOffShell/"+vSigBkgInt + "_OnOffShell_" + VarName + "_" + ChannelName[i] + ".png";
       myCan->SaveAs(outName);
     }else if(VarName == "mll" || VarName == "mth"){
       h1_OnSh1[i] ->SetTitle("");
@@ -300,7 +328,7 @@ void OnShOffSh(TString CutName, TString VarName, TString DirName){
       h1_OnSh1[i]->GetXaxis()->SetTitleOffset(1.2);
       h1_OnSh1[i]->SetLineColor(kRed);
       h1_OnSh1[i]->SetLineWidth(2);
-      if(DirName == "SigInt")
+      if(vSigBkgInt == "SigInt")
 	h1_OnSh1[i]->SetMinimum(1.2*h1_OffSh1[i]->GetMinimum());
     
       h1_OffSh1[i]->GetXaxis()->SetTitle(xlabel);
@@ -332,10 +360,10 @@ void OnShOffSh(TString CutName, TString VarName, TString DirName){
 	txtbox3->Draw();
       
       Lgd0->Draw();
-      //TString outName = "OnOffShell/"+DirName + "_" + VarName + "_" + ChannelName[i] + "_mthLt130.png";
-      TString outName = "OnOffShell/"+DirName + "_" + VarName + "_" + ChannelName[i] + "_mthLt120.png";
+      //TString outName = "OnOffShell/"+vSigBkgInt + "_" + VarName + "_" + ChannelName[i] + "_mthLt130.png";
+      TString outName = "OnOffShell/"+vSigBkgInt + "_" + VarName + "_" + ChannelName[i] + "_mthLt120.png";
       if(VarName == "mth")
-	outName = "OnOffShell/"+DirName + "_" + VarName + "_" + ChannelName[i] + "_mllLt83.png";
+	outName = "OnOffShell/"+vSigBkgInt + "_" + VarName + "_" + ChannelName[i] + "_mllLt83.png";
       myCan->SaveAs(outName);
 
       sprintf(tmpName,"Events / %.1f GeV/c^{2}",h1_OnSh1[i]->GetBinWidth(1));
@@ -345,7 +373,7 @@ void OnShOffSh(TString CutName, TString VarName, TString DirName){
       h1_OnSh2[i]->GetXaxis()->SetTitleOffset(1.2);
       h1_OnSh2[i]->SetLineColor(kRed);
       h1_OnSh2[i]->SetLineWidth(2);
-      if(DirName == "SigInt")
+      if(vSigBkgInt == "SigInt")
 	h1_OnSh2[i]->SetMinimum(1.2*h1_OffSh2[i]->GetMinimum());
     
       h1_OffSh2[i]->GetXaxis()->SetTitle(xlabel);
@@ -377,10 +405,10 @@ void OnShOffSh(TString CutName, TString VarName, TString DirName){
 	txtbox4->Draw();
       
       Lgd1->Draw();
-      //outName = "OnOffShell/"+DirName + "_" + VarName + "_" + ChannelName[i] + "_mthGt130.png";
-      outName = "OnOffShell/"+DirName + "_" + VarName + "_" + ChannelName[i] + "_mthGt120.png";
+      //outName = "OnOffShell/"+vSigBkgInt + "_" + VarName + "_" + ChannelName[i] + "_mthGt130.png";
+      outName = "OnOffShell/"+vSigBkgInt + "_" + VarName + "_" + ChannelName[i] + "_mthGt120.png";
       if(VarName == "mth")
-	outName = "OnOffShell/"+DirName + "_" + VarName + "_" + ChannelName[i] + "_mllGt83.png";
+	outName = "OnOffShell/"+vSigBkgInt + "_" + VarName + "_" + ChannelName[i] + "_mllGt83.png";
       myCan->SaveAs(outName);
     }
     delete myCan;
