@@ -217,15 +217,15 @@ void OnShOffSh(TString CutName, TString VarName, TString vSigBkgInt){
     tb0->SetTextSize(0.04);
     tb0->AddText(dataName);
     tb0->AddText("CommonCut");
-    tb0->AddText(ChannelName[i]+",   mWW < 160");
+    tb0->AddText(ChannelName[i]+",   mWW < 150");
     
     TPaveText *tb1 = new TPaveText(.55,.7,.9,.87,"NDC");
     tb1->SetBorderSize(0);
     tb1->SetFillStyle(0);
     tb1->SetTextSize(0.04);
     tb1->AddText(dataName);
-    tb1->AddText("CommonCut w/o ptll cut");
-    tb1->AddText(ChannelName[i]+",   mWW > 160");
+    tb1->AddText("CommonCut");
+    tb1->AddText(ChannelName[i]+",   mWW > 150");
     
     TPaveText *tb2 = new TPaveText(.65,.7,.9,.87,"NDC");
     //tb2->SetBorderSize(0);
@@ -234,8 +234,8 @@ void OnShOffSh(TString CutName, TString VarName, TString vSigBkgInt){
     tb2->SetTextSize(0.03);
     tb2->AddText(dataName);
     tb2->AddText(ChannelName[i]);
-    tb2->AddText("CONT  mWW < 160");
-    tb2->AddText("COL   mWW > 160");
+    tb2->AddText("CONT  mWW < 150");
+    tb2->AddText("COL   mWW > 150");
     
     TPaveText *txtbox1 = new TPaveText(.63,.6,.9,.75,"NDC");
     txtbox1->SetBorderSize(0);
@@ -343,8 +343,8 @@ void OnShOffSh(TString CutName, TString VarName, TString vSigBkgInt){
       Lgd0->SetFillStyle(0);
       Lgd0->SetTextSize(0.03);
 
-      Lgd0->AddEntry(h1_OnSh1[i],"mWW < 160","l");
-      Lgd0->AddEntry(h1_OffSh1[i],"mWW > 160","l");
+      Lgd0->AddEntry(h1_OnSh1[i],"mWW < 150","l");
+      Lgd0->AddEntry(h1_OffSh1[i],"mWW > 150","l");
       
       if(h1_OnSh1[i]->GetMaximum() > h1_OffSh1[i]->GetMaximum())
       {
@@ -388,8 +388,8 @@ void OnShOffSh(TString CutName, TString VarName, TString vSigBkgInt){
       Lgd1->SetFillStyle(0);
       Lgd1->SetTextSize(0.03);
 
-      Lgd1->AddEntry(h1_OnSh2[i],"mWW < 160","l");
-      Lgd1->AddEntry(h1_OffSh2[i],"mWW > 160","l");
+      Lgd1->AddEntry(h1_OnSh2[i],"mWW < 150","l");
+      Lgd1->AddEntry(h1_OffSh2[i],"mWW > 150","l");
       
       if(h1_OnSh2[i]->GetMaximum() > h1_OffSh2[i]->GetMaximum())
       {
