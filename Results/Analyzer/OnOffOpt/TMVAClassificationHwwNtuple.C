@@ -151,7 +151,7 @@ void TMVAClassificationHwwNtuple( TString myMethodList = "" )
    TChain *S_Chain = new TChain("latino");
    TChain *C_Chain = new TChain("latino");
    TChain *SCI_Chain = new TChain("latino");
-   TChain *WW_Chain = new TChain("latino");
+   TChain *qqWW_Chain = new TChain("latino");
 
    S_Chain->Add("root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/HiggsWidth/gg2vv/latinogg2vv_Hw1_SigOnPeak_8TeV.root");
    S_Chain->Add("root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/HiggsWidth/gg2vv/latinogg2vv_Hw1_SigShoulder_8TeV.root");
@@ -162,15 +162,16 @@ void TMVAClassificationHwwNtuple( TString myMethodList = "" )
    C_Chain->Add("root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/HiggsWidth/gg2vv/latinogg2vv_Hw25_CotHead_8TeV.root");
    C_Chain->Add("root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/HiggsWidth/gg2vv/latinogg2vv_Hw25_CotTail_8TeV.root");
 
-   WW_Chain->Add("/afs/cern.ch/user/m/maiko/work/public/Tree/tree_skim_wwmin/nominals/latino_000_WWJets2LMad.root");
+   qqWW_Chain->Add("/afs/cern.ch/user/m/maiko/work/public/Tree/tree_skim_wwmin/nominals/latino_000_WWJets2LMad.root");
    
    // --- Register the training and test trees
 
    // You can add an arbitrary number of signal or background trees
-   //factory->AddSignalTree    ( SCI_Chain  );
-   //factory->AddBackgroundTree( WW_Chain );
+   factory->AddSignalTree    ( S_Chain  );
+   factory->AddBackgroundTree( qqWW_Chain );
+   factory->AddBackgroundTree( C_Chain );
    // Classification training and test data in ROOT tree format with signal and background events being located in the same tree
-   factory->SetInputTrees(SCI_Chain, GenOffCut, GenOnCut);
+   //factory->SetInputTrees(SCI_Chain, GenOffCut, GenOnCut);
    
    // To give different trees for training and testing, do as follows:
    //    factory->AddSignalTree( signalTrainingTree, signalTrainWeight, "Training" );
