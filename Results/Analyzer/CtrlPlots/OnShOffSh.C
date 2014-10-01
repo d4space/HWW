@@ -205,7 +205,7 @@ void OnShOffSh(TString CutName, TString VarName, TString vSigBkgInt){
     TCanvas *myCan = new TCanvas("myCan", "myCan", 900, 800);
     
     gStyle->SetOptStat(0);
-    TString dataName = "Hw1 S+B+I 8TeV";
+    TString dataName = "Hw1 S+C+I 8TeV";
     if(vSigBkgInt == "SigInt")
       dataName = "Hw1 S+I 8TeV";
     if(vSigBkgInt == "Int")
@@ -310,6 +310,40 @@ void OnShOffSh(TString CutName, TString VarName, TString vSigBkgInt){
       tb2->Draw();
       outName = "OnOffShell/"+vSigBkgInt + "_OnOffShell_" + VarName + "_" + ChannelName[i] + ".png";
       myCan->SaveAs(outName);
+
+      // Signal
+      h2_SigOnSh[i] ->SetTitle("");
+      h2_SigOffSh[i]->SetTitle("");
+
+      h2_SigOnSh[i]->GetXaxis()->SetTitle(xlabel);
+      h2_SigOnSh[i]->GetYaxis()->SetTitle(ylabel);
+      h2_SigOnSh[i]->GetYaxis()->SetTitleOffset(1.4);
+      h2_SigOnSh[i]->GetXaxis()->SetTitleOffset(1.2);
+      
+      //h2_OnSh[i]->Draw("CONTZ");
+      h2_SigOnSh[i]->Draw("COLZ");
+      tb0->Draw();
+      outName = "OnOffShell/Sig_OnShell_" + VarName + "_" + ChannelName[i] + ".png";
+      myCan->SaveAs(outName);
+    
+      h2_SigOffSh[i]->GetXaxis()->SetTitle(xlabel);
+      h2_SigOffSh[i]->GetYaxis()->SetTitle(ylabel);
+      h2_SigOffSh[i]->GetYaxis()->SetTitleOffset(1.4);
+      h2_SigOffSh[i]->GetXaxis()->SetTitleOffset(1.2);
+      
+      //h2_OffSh[i]->Draw("CONTZ");
+      h2_SigOffSh[i]->Draw("COLZ");
+      tb1->Draw();
+      outName = "OnOffShell/Sig_OffShell_" + VarName + "_" + ChannelName[i] + ".png";
+      myCan->SaveAs(outName);
+      
+      //Overlap 2D histo
+      h2_SigOffSh[i]->Draw("COLZ");
+      h2_SigOnSh[i]->Draw("CONT1SAME");
+      tb2->Draw();
+      outName = "OnOffShell/Sig_OnOffShell_" + VarName + "_" + ChannelName[i] + ".png";
+      myCan->SaveAs(outName);
+
     }else if(VarName == "mll" || VarName == "mth"){
       h1_OnSh1[i] ->SetTitle("");
       h1_OnSh2[i] ->SetTitle("");
