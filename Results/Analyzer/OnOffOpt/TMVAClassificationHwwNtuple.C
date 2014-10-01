@@ -108,17 +108,18 @@ void TMVAClassificationHwwNtuple( TString myMethodList = "" )
    TFile* outputFile = TFile::Open( outfileName, "RECREATE" );
 
    // For one variable
-   TMVA::Factory *factory = new TMVA::Factory( "TMVAClassification", outputFile,
-                                               "!V:!Silent:Color:DrawProgressBar:Transformations=I:AnalysisType=Classification" );
    //TMVA::Factory *factory = new TMVA::Factory( "TMVAClassification", outputFile,
-   //                                            "!V:!Silent:Color:DrawProgressBar:Transformations=I;D;P;G,D:AnalysisType=Classification" );
+   //                                            "!V:!Silent:Color:DrawProgressBar:Transformations=I:AnalysisType=Classification" );
+   // For Multiple Variables
+   TMVA::Factory *factory = new TMVA::Factory( "TMVAClassification", outputFile,
+                                               "!V:!Silent:Color:DrawProgressBar:Transformations=I;D;P;G,D:AnalysisType=Classification" );
    //factory->AddVariable( "pt1",                "LeadLepton pt", "", 'F' );
    //factory->AddVariable( "pt2",                "TailLepton pt", "", 'F' );
-   //factory->AddVariable( "pfmet",                "MissingEt", "", 'F' );
-   //factory->AddVariable( "mpmet",              "Minimum Proj. Met", "", 'F' );
-   //factory->AddVariable( "dphill",             "DeltPhiOfLepLep", "", 'F' );
-   factory->AddVariable( "mll",                "DiLepton Mass", "", 'F' );
-   //factory->AddVariable( "ptll",               "DiLepton pt", "", 'F' );
+   factory->AddVariable( "pfmet",                "MissingEt", "", 'F' );
+   factory->AddVariable( "mpmet",              "Minimum Proj. Met", "", 'F' );
+   factory->AddVariable( "dphill",             "DeltPhiOfLepLep", "", 'F' );
+   //factory->AddVariable( "mll",                "DiLepton Mass", "", 'F' );
+   factory->AddVariable( "ptll",               "DiLepton pt", "", 'F' );
    //
    // You can add so-called "Spectator variables", which are not used in the MVA training,
    // but will appear in the final "TestTree" produced by TMVA. This TestTree will contain the
@@ -184,7 +185,7 @@ void TMVAClassificationHwwNtuple( TString myMethodList = "" )
    //factory->PrepareTrainingAndTestTree( ChanCommOff,
    //                                     "nTrain_Signal=0:nTrain_Background=0:SplitMode=Random:NormMode=None:!V" );
                                         //"nTrain_Signal=0:nTrain_Background=0:SplitMode=Random:NormMode=NumEvents:!V";
-   factory->PrepareTrainingAndTestTree( ChanCommNoptll,
+   factory->PrepareTrainingAndTestTree( ChanCommOff,
                                         "nTrain_Signal=0:nTrain_Background=0:SplitMode=Random:NormMode=None:!V" );
    // ---- Book MVA methods
    //
