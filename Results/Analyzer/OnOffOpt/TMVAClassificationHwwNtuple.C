@@ -69,7 +69,7 @@ void TMVAClassificationHwwNtuple( TString myMethodList = "" )
    Use["CutsGA"]          = 0;
    Use["CutsSA"]          = 0;
    // 
-   Use["BDT"]             = 0; // uses Adaptive Boost
+   Use["BDT"]             = 1; // uses Adaptive Boost
    Use["BDTG"]            = 0; // uses Gradient Boost
    Use["BDTB"]            = 0; // uses Bagging
    Use["BDTD"]            = 0; // decorrelation + Adaptive Boost
