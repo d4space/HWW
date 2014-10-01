@@ -108,17 +108,18 @@ void TMVAClassificationHwwNtuple( TString myMethodList = "" )
    TFile* outputFile = TFile::Open( outfileName, "RECREATE" );
 
    // For one variable
-   TMVA::Factory *factory = new TMVA::Factory( "TMVAClassification", outputFile,
-                                               "!V:!Silent:Color:DrawProgressBar:Transformations=I:AnalysisType=Classification" );
    //TMVA::Factory *factory = new TMVA::Factory( "TMVAClassification", outputFile,
-   //                                            "!V:!Silent:Color:DrawProgressBar:Transformations=I;D;P;G,D:AnalysisType=Classification" );
+   //                                            "!V:!Silent:Color:DrawProgressBar:Transformations=I:AnalysisType=Classification" );
+   // For Multiple Variables
+   TMVA::Factory *factory = new TMVA::Factory( "TMVAClassification", outputFile,
+                                               "!V:!Silent:Color:DrawProgressBar:Transformations=I;D;P;G,D:AnalysisType=Classification" );
    //factory->AddVariable( "pt1",                "LeadLepton pt", "", 'F' );
    //factory->AddVariable( "pt2",                "TailLepton pt", "", 'F' );
-   //factory->AddVariable( "pfmet",                "MissingEt", "", 'F' );
-   //factory->AddVariable( "mpmet",              "Minimum Proj. Met", "", 'F' );
-   //factory->AddVariable( "dphill",             "DeltPhiOfLepLep", "", 'F' );
-   factory->AddVariable( "mll",                "DiLepton Mass", "", 'F' );
-   //factory->AddVariable( "ptll",               "DiLepton pt", "", 'F' );
+   factory->AddVariable( "pfmet",                "MissingEt", "", 'F' );
+   factory->AddVariable( "mpmet",              "Minimum Proj. Met", "", 'F' );
+   factory->AddVariable( "dphill",             "DeltPhiOfLepLep", "", 'F' );
+   //factory->AddVariable( "mll",                "DiLepton Mass", "", 'F' );
+   factory->AddVariable( "ptll",               "DiLepton pt", "", 'F' );
    //
    // You can add so-called "Spectator variables", which are not used in the MVA training,
    // but will appear in the final "TestTree" produced by TMVA. This TestTree will contain the
@@ -150,27 +151,28 @@ void TMVAClassificationHwwNtuple( TString myMethodList = "" )
    
    TChain *S_Chain = new TChain("latino");
    TChain *C_Chain = new TChain("latino");
-   TChain *SC_Chain = new TChain("latino");
-   TChain *WW_Chain = new TChain("latino");
+   TChain *SCI_Chain = new TChain("latino");
+   TChain *qqWW_Chain = new TChain("latino");
 
    S_Chain->Add("root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/HiggsWidth/gg2vv/latinogg2vv_Hw1_SigOnPeak_8TeV.root");
    S_Chain->Add("root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/HiggsWidth/gg2vv/latinogg2vv_Hw1_SigShoulder_8TeV.root");
    S_Chain->Add("root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/HiggsWidth/gg2vv/latinogg2vv_Hw1_SigTail_8TeV.root");
-   SC_Chain->Add("root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/HiggsWidth/gg2vv/latinogg2vv_Hw1_IntOnPeak_8TeV.root");
-   SC_Chain->Add("root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/HiggsWidth/gg2vv/latinogg2vv_Hw1_IntShoulder_8TeV.root");
-   SC_Chain->Add("root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/HiggsWidth/gg2vv/latinogg2vv_Hw1_IntTail_8TeV.root");
+   SCI_Chain->Add("root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/HiggsWidth/gg2vv/latinogg2vv_Hw1_IntOnPeak_8TeV.root");
+   SCI_Chain->Add("root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/HiggsWidth/gg2vv/latinogg2vv_Hw1_IntShoulder_8TeV.root");
+   SCI_Chain->Add("root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/HiggsWidth/gg2vv/latinogg2vv_Hw1_IntTail_8TeV.root");
    C_Chain->Add("root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/HiggsWidth/gg2vv/latinogg2vv_Hw25_CotHead_8TeV.root");
    C_Chain->Add("root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/HiggsWidth/gg2vv/latinogg2vv_Hw25_CotTail_8TeV.root");
 
-   WW_Chain->Add("/afs/cern.ch/user/m/maiko/work/public/Tree/tree_skim_wwmin/nominals/latino_000_WWJets2LMad.root");
+   qqWW_Chain->Add("/afs/cern.ch/user/m/maiko/work/public/Tree/tree_skim_wwmin/nominals/latino_000_WWJets2LMad.root");
    
    // --- Register the training and test trees
 
    // You can add an arbitrary number of signal or background trees
-   //factory->AddSignalTree    ( SC_Chain  );
-   //factory->AddBackgroundTree( WW_Chain );
+   factory->AddSignalTree    ( S_Chain  );
+   factory->AddBackgroundTree( qqWW_Chain );
+   factory->AddBackgroundTree( C_Chain );
    // Classification training and test data in ROOT tree format with signal and background events being located in the same tree
-   factory->SetInputTrees(SC_Chain, GenOffCut, GenOnCut);
+   //factory->SetInputTrees(SCI_Chain, GenOffCut, GenOnCut);
    
    // To give different trees for training and testing, do as follows:
    //    factory->AddSignalTree( signalTrainingTree, signalTrainWeight, "Training" );
@@ -183,7 +185,7 @@ void TMVAClassificationHwwNtuple( TString myMethodList = "" )
    //factory->PrepareTrainingAndTestTree( ChanCommOff,
    //                                     "nTrain_Signal=0:nTrain_Background=0:SplitMode=Random:NormMode=None:!V" );
                                         //"nTrain_Signal=0:nTrain_Background=0:SplitMode=Random:NormMode=NumEvents:!V";
-   factory->PrepareTrainingAndTestTree( ChanCommNoptll,
+   factory->PrepareTrainingAndTestTree( ChanCommOff,
                                         "nTrain_Signal=0:nTrain_Background=0:SplitMode=Random:NormMode=None:!V" );
    // ---- Book MVA methods
    //
@@ -231,5 +233,5 @@ void TMVAClassificationHwwNtuple( TString myMethodList = "" )
    delete factory;
 
    // Launch the GUI for the root macros
-   if (!gROOT->IsBatch()) TMVAGui( outfileName );
+   //if (!gROOT->IsBatch()) TMVAGui( outfileName );
 }
