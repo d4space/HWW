@@ -69,7 +69,7 @@ void TMVAClassificationHwwNtuple( TString myMethodList = "" )
    Use["CutsGA"]          = 0;
    Use["CutsSA"]          = 0;
    // 
-   Use["BDT"]             = 0; // uses Adaptive Boost
+   Use["BDT"]             = 1; // uses Adaptive Boost
    Use["BDTG"]            = 0; // uses Gradient Boost
    Use["BDTB"]            = 0; // uses Bagging
    Use["BDTD"]            = 0; // decorrelation + Adaptive Boost
@@ -107,18 +107,17 @@ void TMVAClassificationHwwNtuple( TString myMethodList = "" )
    TString outfileName( "TMVA.root" );
    TFile* outputFile = TFile::Open( outfileName, "RECREATE" );
 
-   // For one variable
-   TMVA::Factory *factory = new TMVA::Factory( "TMVAClassification", outputFile,
-                                               "!V:!Silent:Color:DrawProgressBar:Transformations=I:AnalysisType=Classification" );
    //TMVA::Factory *factory = new TMVA::Factory( "TMVAClassification", outputFile,
-   //                                            "!V:!Silent:Color:DrawProgressBar:Transformations=I;D;P;G,D:AnalysisType=Classification" );
+   //                                            "!V:!Silent:Color:DrawProgressBar:Transformations=I:AnalysisType=Classification" );
+   TMVA::Factory *factory = new TMVA::Factory( "TMVAClassification", outputFile,
+                                               "!V:!Silent:Color:DrawProgressBar:Transformations=I;D;P;G,D:AnalysisType=Classification" );
    //factory->AddVariable( "pt1",                "LeadLepton pt", "", 'F' );
    //factory->AddVariable( "pt2",                "TailLepton pt", "", 'F' );
    //factory->AddVariable( "pfmet",                "MissingEt", "", 'F' );
    //factory->AddVariable( "mpmet",              "Minimum Proj. Met", "", 'F' );
    //factory->AddVariable( "dphill",             "DeltPhiOfLepLep", "", 'F' );
    factory->AddVariable( "mll",                "DiLepton Mass", "", 'F' );
-   //factory->AddVariable( "ptll",               "DiLepton pt", "", 'F' );
+   factory->AddVariable( "ptll",               "DiLepton pt", "", 'F' );
    //
    // You can add so-called "Spectator variables", which are not used in the MVA training,
    // but will appear in the final "TestTree" produced by TMVA. This TestTree will contain the
@@ -126,7 +125,7 @@ void TMVAClassificationHwwNtuple( TString myMethodList = "" )
    //factory->AddSpectator( "spec1 := var1*2",  "Spectator 1", "units", 'F' );
    //factory->AddSpectator( "spec2 := var1*3",  "Spectator 2", "units", 'F' );
    //
-   //factory->AddSpectator( "mWW",                "Higgs Mass", "", 'F' );
+   factory->AddSpectator( "mWW",                "Higgs Mass", "", 'F' );
    factory->AddSpectator( "pt1",                "LeadLepton pt", "", 'F' );
    factory->AddSpectator( "pt2",                "TailLepton pt", "", 'F' );
    factory->AddSpectator( "pfmet",                "MissingEt", "", 'F' );
@@ -150,41 +149,40 @@ void TMVAClassificationHwwNtuple( TString myMethodList = "" )
    
    TChain *S_Chain = new TChain("latino");
    TChain *C_Chain = new TChain("latino");
-   TChain *SC_Chain = new TChain("latino");
    TChain *WW_Chain = new TChain("latino");
-
    S_Chain->Add("root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/HiggsWidth/gg2vv/latinogg2vv_Hw1_SigOnPeak_8TeV.root");
    S_Chain->Add("root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/HiggsWidth/gg2vv/latinogg2vv_Hw1_SigShoulder_8TeV.root");
    S_Chain->Add("root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/HiggsWidth/gg2vv/latinogg2vv_Hw1_SigTail_8TeV.root");
-   SC_Chain->Add("root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/HiggsWidth/gg2vv/latinogg2vv_Hw1_IntOnPeak_8TeV.root");
-   SC_Chain->Add("root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/HiggsWidth/gg2vv/latinogg2vv_Hw1_IntShoulder_8TeV.root");
-   SC_Chain->Add("root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/HiggsWidth/gg2vv/latinogg2vv_Hw1_IntTail_8TeV.root");
+
    C_Chain->Add("root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/HiggsWidth/gg2vv/latinogg2vv_Hw25_CotHead_8TeV.root");
    C_Chain->Add("root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/HiggsWidth/gg2vv/latinogg2vv_Hw25_CotTail_8TeV.root");
-
-   WW_Chain->Add("/afs/cern.ch/user/m/maiko/work/public/Tree/tree_skim_wwmin/nominals/latino_000_WWJets2LMad.root");
+   //SB_Chain->Add("root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/HiggsWidth/gg2vv/latinogg2vv_Hw1_IntOnPeak_8TeV.root");
+   //SB_Chain->Add("root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/HiggsWidth/gg2vv/latinogg2vv_Hw1_IntShoulder_8TeV.root");
+   //SB_Chain->Add("root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/HiggsWidth/gg2vv/latinogg2vv_Hw1_IntTail_8TeV.root");
    
    // --- Register the training and test trees
 
    // You can add an arbitrary number of signal or background trees
-   //factory->AddSignalTree    ( SC_Chain  );
-   //factory->AddBackgroundTree( WW_Chain );
+   //factory->AddSignalTree    ( S_Chain  );
+   //factory->AddBackgroundTree( C_Chain );
    // Classification training and test data in ROOT tree format with signal and background events being located in the same tree
-   factory->SetInputTrees(SC_Chain, GenOffCut, GenOnCut);
+   factory->SetInputTrees(S_Chain, GenOffCut, GenOnCut);
    
    // To give different trees for training and testing, do as follows:
    //    factory->AddSignalTree( signalTrainingTree, signalTrainWeight, "Training" );
    //    factory->AddSignalTree( signalTestTree,     signalTestWeight,  "Test" );
    
-   factory->SetWeightExpression          ("2.1*puW*baseW*effW*triggW*19.468");
-   //factory->SetSignalWeightExpression    ("2.1*puW*baseW*effW*triggW*19.468");
-   //factory->SetBackgroundWeightExpression("puW*baseW*effW*triggW*19.468");
+    
+   factory->SetWeightExpression    ("2.5*puW*baseW*effW*triggW*19.468");
+   //factory->SetSignalWeightExpression    ("2.5*puW*baseW*effW*triggW*19.468");
+   //factory->SetBackgroundWeightExpression("2.5*puW*baseW*effW*triggW*19.468");
 
-   //factory->PrepareTrainingAndTestTree( ChanCommOff,
-   //                                     "nTrain_Signal=0:nTrain_Background=0:SplitMode=Random:NormMode=None:!V" );
-                                        //"nTrain_Signal=0:nTrain_Background=0:SplitMode=Random:NormMode=NumEvents:!V";
    factory->PrepareTrainingAndTestTree( ChanCommNoptll,
                                         "nTrain_Signal=0:nTrain_Background=0:SplitMode=Random:NormMode=None:!V" );
+                                        //"nTrain_Signal=0:nTrain_Background=0:SplitMode=Random:NormMode=NumEvents:!V";
+   //factory->PrepareTrainingAndTestTree( mycuts, mycutb,
+   //                                     "nTrain_Signal=0:nTrain_Background=0:SplitMode=Random:NormMode=NumEvents:!V" );
+
    // ---- Book MVA methods
    //
    // Cut optimisation
@@ -231,5 +229,5 @@ void TMVAClassificationHwwNtuple( TString myMethodList = "" )
    delete factory;
 
    // Launch the GUI for the root macros
-   if (!gROOT->IsBatch()) TMVAGui( outfileName );
+   //if (!gROOT->IsBatch()) TMVAGui( outfileName );
 }
