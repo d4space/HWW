@@ -185,7 +185,7 @@ void TMVAClassificationHwwNtuple( TString myMethodList = "" )
    //factory->PrepareTrainingAndTestTree( ChanCommOff,
    //                                     "nTrain_Signal=0:nTrain_Background=0:SplitMode=Random:NormMode=None:!V" );
                                         //"nTrain_Signal=0:nTrain_Background=0:SplitMode=Random:NormMode=NumEvents:!V";
-   factory->PrepareTrainingAndTestTree( ChanCommOff,
+   factory->PrepareTrainingAndTestTree( ChanCommOff0J,
                                         "nTrain_Signal=0:nTrain_Background=0:SplitMode=Random:NormMode=None:!V" );
    // ---- Book MVA methods
    //
