@@ -56,13 +56,14 @@ void CtrPlots(TString CutName, TString VarName, TString DirName){
   TH1D *h125[4];
   TH1D *h_sig[4];
   TH1D *h_sig_bkgr[4];
+  TH1D *h_sbi[4];
   TH1D *h_cot[4];
   //TH1D *h_hw25[4];
   //TH1D *hw25[4];
   TH1D *hdiff[4];
   TH1D *hRatio[4];
   THStack *hs[4];
-
+  
   //=====================================
   //Looping for each Channel
   //=====================================
@@ -71,6 +72,7 @@ void CtrPlots(TString CutName, TString VarName, TString DirName){
   // 2 = "sf1j"
   // 3 = "of1j"
   for (int i(0);i<4;i++) {
+    if(i == 0 || i == 2) continue;
     TCanvas *myCan = new TCanvas("myCan","Can",800,800);
     myCan->cd();
     myCan->SetLogy();
@@ -209,6 +211,8 @@ void CtrPlots(TString CutName, TString VarName, TString DirName){
     
     //sprintf(histName,"hw25_%d",i);
     //hw25[i] = (TH1D*)h_hw25[i]->Clone(histName);
+    sprintf(histName,"h_sbi_%d",i);
+    h_sbi[i] = (TH1D*)h_sig_bkgr[i]->Clone(histName);
     
     h_wjets[i]->SetFillColor(kGray+1);
     h_ww[i]->SetFillColor(kCyan-8);
@@ -221,12 +225,14 @@ void CtrPlots(TString CutName, TString VarName, TString DirName){
     h125[i]->SetLineColor(kRed);
     h125[i]->SetLineWidth(2);
     
-    h_sig[i]->SetLineColor(kViolet);
-    //h_sig[i]->SetLineColor(kOrange-3);
+    //h_sig[i]->SetLineColor(kViolet);
+    h_sig[i]->SetLineColor(kOrange+3);
     h_sig[i]->SetLineWidth(2);
-    h_sig_bkgr[i]->SetLineColor(kBlue-3);
+    //h_sig_bkgr[i]->SetLineColor(kBlue-3);
+    h_sig_bkgr[i]->SetLineColor(kOrange+5);
     h_sig_bkgr[i]->SetLineWidth(2);
-    h_cot[i]->SetLineColor(kGreen+3);
+    h_sbi[i]->SetFillColor(kOrange+5);
+    h_cot[i]->SetLineColor(kOrange-5);
     h_cot[i]->SetLineWidth(2);
     
     //h_hw25[i]->SetFillColor(kViolet);
@@ -243,6 +249,7 @@ void CtrPlots(TString CutName, TString VarName, TString DirName){
     sprintf(histName,"hs_%d",i);
     hs[i] = new THStack(histName,histName);
     hs[i]->Add(h_ww[i]);
+    hs[i]->Add(h_sbi[i]);
     hs[i]->Add(hdy[i]);
     hs[i]->Add(h_top[i]);
     hs[i]->Add(h_vvv[i]);
@@ -250,7 +257,11 @@ void CtrPlots(TString CutName, TString VarName, TString DirName){
     hs[i]->Add(h_wjets[i]);
     //hs[i]->Add(h_h125[i]);
     //hs[i]->SetMaximum(1.5*(h_data[i]->GetMaximum()));
-    hs[i]->SetMaximum(2.*(hs[i]->GetMaximum()));
+    hs[i]->SetMaximum(5*(hs[i]->GetMaximum()));
+    if(VarName == "ptll" && i==3)
+      hs[i]->SetMaximum(25*(hs[i]->GetMaximum()));
+    if(VarName == "dphill")
+      hs[i]->SetMaximum(40*(hs[i]->GetMaximum()));
     hs[i]->SetTitle("");
 
     myCan->cd(1);
@@ -269,7 +280,7 @@ void CtrPlots(TString CutName, TString VarName, TString DirName){
     hs[i]->GetXaxis()->SetTitle("");
     hs[i]->GetXaxis()->SetLabelSize(0);
     
-    hs[i]->Draw("HIST");
+    //hs[i]->Draw("HIST");
     h_data[i]->Draw("E same");
     h125[i]->Draw("HIST SAME");
     h_sig[i]->Draw("HIST SAME");
@@ -278,7 +289,9 @@ void CtrPlots(TString CutName, TString VarName, TString DirName){
     //hw25[i]->Draw("HIST SAME");
     
     //sprintf(histName,ChannelName[i]+" "+CutName);
-    Lgd->SetHeader(ChannelName[i]+" "+CutName);
+    Lgd->SetHeader(ChannelName[i]);
+    //Lgd->SetHeader(ChannelName[i]+" "+CutName);
+    //Lgd->SetHeader(ChannelName[i]+",  "+"m_{ll}>83,  p_{T}^{ll}>10");
     //if (i==1)
     //  Lgd->SetHeader("0-jet e#mu");
     //if (i==3)
@@ -294,11 +307,12 @@ void CtrPlots(TString CutName, TString VarName, TString DirName){
     Lgd->AddEntry(h_ww[i],"WW","F");
     //Lgd->AddEntry(hw25[i],"Hw25SigOnPeak","l");
     //Lgd->AddEntry(h_sig[i],"Hw1gg2vvSig","l");
+    Lgd->AddEntry(h_sbi[i],"Hw1 S+C+I","F");
     Lgd->AddEntry(h_sig[i],"Hw1 Sig","l");
-    Lgd->AddEntry("","","");
-    Lgd->AddEntry(h_sig_bkgr[i],"Hw1 Sig+Bkgr","l");
-    Lgd->AddEntry("","","");
-    Lgd->AddEntry(h_cot[i],"Hw1 Cot","l");
+    //Lgd->AddEntry("","","");
+    Lgd->AddEntry(h_sig_bkgr[i],"Hw1 S+C+I","l");
+    //Lgd->AddEntry("","","");
+    Lgd->AddEntry(h_cot[i],"Hw25 Cot","l");
     Lgd->SetBorderSize(0);
     Lgd->SetFillStyle(0);
     Lgd->SetTextSize(0.03);
@@ -314,7 +328,8 @@ void CtrPlots(TString CutName, TString VarName, TString DirName){
     hdiff[i]->Add(hdy[i]);
     hdiff[i]->Add(h_vv[i]);
     hdiff[i]->Add(h_vvv[i]);
-    hdiff[i]->Add(h_h125[i]);
+    //hdiff[i]->Add(h_h125[i]);
+    hdiff[i]->Add(h_sig_bkgr[i]);
     sprintf(histName,"hRatio_%d",i);
     hRatio[i] = makeRatioHist(h_data[i],hdiff[i],histName);
     hRatio[i]->SetMarkerStyle(kFullCircle);
@@ -359,6 +374,7 @@ void CtrPlots(TString CutName, TString VarName, TString DirName){
     myCan->SaveAs(outFile);
 
     myCan->cd(1);
+    hs[i]->SetMinimum(0.3);
     myCan_1->SetLogy();
     myCan->Update();
     outFile = DirName + "/" + VarName + "_" + CutName + "_" + ChannelName[i] + "_Log.png";
