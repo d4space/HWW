@@ -99,11 +99,11 @@ int njet_mWW()
       err_powheg = 0.;
       err_sherpa = 0.;
       if(h1_gg2vv_mWW[i]->GetBinContent(j)>0.)
-	err_gg2vv  = sqrt(h1_gg2vv_mWW[i]->GetBinContent(j))*(h1_gg2vv_mWW[i]->GetBinContent(j)/h1_gg2vv_mWW_noW[i]->GetBinContent(j));
+	err_gg2vv  = sqrt(h1_gg2vv_mWW_noW[i]->GetBinContent(j))*(h1_gg2vv_mWW[i]->GetBinContent(j)/h1_gg2vv_mWW_noW[i]->GetBinContent(j));
       if(h1_powheg_mWW[i]->GetBinContent(j)>0.)
-	err_powheg = sqrt(h1_powheg_mWW[i]->GetBinContent(j))*(h1_powheg_mWW[i]->GetBinContent(j)/h1_powheg_mWW_noW[i]->GetBinContent(j));
+	err_powheg = sqrt(h1_powheg_mWW_noW[i]->GetBinContent(j))*(h1_powheg_mWW[i]->GetBinContent(j)/h1_powheg_mWW_noW[i]->GetBinContent(j));
       if(h1_sherpa_mWW[i]->GetBinContent(j)>0.)
-	err_sherpa = sqrt(h1_sherpa_mWW[i]->GetBinContent(j))*(h1_sherpa_mWW[i]->GetBinContent(j)/h1_sherpa_mWW_noW[i]->GetBinContent(j));
+	err_sherpa = sqrt(h1_sherpa_mWW_noW[i]->GetBinContent(j))*(h1_sherpa_mWW[i]->GetBinContent(j)/h1_sherpa_mWW_noW[i]->GetBinContent(j));
       h1_gg2vv_mWW[i]  -> SetBinError(j,err_gg2vv);
       h1_powheg_mWW[i] -> SetBinError(j,err_powheg);
       h1_sherpa_mWW[i] -> SetBinError(j,err_sherpa);
