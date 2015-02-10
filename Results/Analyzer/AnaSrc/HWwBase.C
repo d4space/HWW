@@ -333,6 +333,29 @@ Int_t HWwBase::LooseCut()
   //if (isSTA1 == 0 && isSTA2 == 0 && pt1>20 && pt2>10){;}else{return -1;}
   return 1;
 }
+//njet Study
+Int_t HWwBase::CommonCut_njet()
+{
+  if (!sameflav){;}else{return -1;}
+  if (ch1*ch2 ==-1.){;}else{return -1;}
+  if (trigger==1.){;}else{return -1;}
+  if (pt1>20 && pt2>20){;}else{return -1;}
+  if (mll>12.){;}else{return -1;}
+  if (zveto==1 || !sameflav){;}else{return -1;}
+  if(!sameflav ||
+      (
+        (njet != 0 || dymva1 > 0.88 || mpmet> 35) &&
+        (njet != 1 || dymva1 > 0.84 || mpmet> 35) &&
+        (njet != 0 || dymva1 > 0.88) &&
+        (njet != 1 || dymva1 > 0.84) &&
+	(njet==0 || njet==1 || (pfmet > 45.0))
+      )
+    ){;}else{return -1;}
+  if(njet==0 || njet==1 || (njet >= 2 && njet <= 3 && (jetpt3 <= 30 || !(jetpt3 > 30 && ( (jeteta1-jeteta3 > 0 && jeteta2-jeteta3 < 0) || (jeteta2-jeteta3 > 0 && jeteta1-jeteta3 < 0)))))){;}else{return -1;}
+  if ((nextra==0) * (bveto_mu && bveto_ip && nbjettche==0)){;}else{return -1;}
+
+  return 1;
+}
 double HWwBase::CalcWeight()
 {
   double evtWeight(1);
@@ -366,7 +389,7 @@ double HWwBase::CalcWeight()
   }else if(SampleName == "VVV")
   {
     evtWeight = puW*baseW*effW*triggW*LumiW;
-  }else if(SampleName == "H125")
+  }else if(SampleName == "H125" || SampleName == "POWHEG")
   {
     evtWeight = puW*baseW*effW*triggW*LumiW;
   }else if(SampleName == "gg2vvHw1SigOnPeak" || SampleName == "gg2vvHw1SigShoulder" || SampleName == "gg2vvHw1SigTail")
@@ -374,7 +397,10 @@ double HWwBase::CalcWeight()
     evtWeight = 2.1*puW*baseW*effW*triggW*LumiW;
   }else if(SampleName == "gg2vvHw1IntOnPeak" || SampleName == "gg2vvHw1IntShoulder" || SampleName == "gg2vvHw1IntTail")
   {
-    evtWeight = 2.1*puW*baseW*effW*triggW*LumiW;
+    evtWeight = puW*baseW*effW*triggW*LumiW;
+    if(njet == 0)evtWeight *= 13.3258/5.85323;  //njet Study: comment out this line 
+    if(njet == 1)evtWeight *= 5.78547/1.40855;  //njet Study: comment out this line
+    if(njet == 2)evtWeight *= 1.79911/0.195922; //njet Study: comment out this line
   }else if(SampleName == "gg2vvHw25CotHead" || SampleName == "gg2vvHw25CotTail")
   {
     evtWeight = 2.1*puW*baseW*effW*triggW*LumiW;

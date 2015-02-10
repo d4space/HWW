@@ -1,0 +1,5 @@
+1) njet_mWW.C will draw mWW distributions for POWHEG, gg2VV and Sherpa
+
+2) njet_mWW_Scale.C will draw njet distribution and Powheg/gg2VV and Powheg/Sherpa ration in mWW windows
+
+3) scalefit.C will fit scale factor depending on mWW

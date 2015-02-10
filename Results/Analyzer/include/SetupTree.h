@@ -32,6 +32,10 @@
 
 #include "chain_gg2vvHw25Int8TeV.h"
 #include "chain_gg2vvHw25SigShoulder.h"
+
+#include "chain_powheg.h"
+#include "chain_sherpaHw1Sig8TeV.h"
+
 //===============
 
 void SetupTree( TString sample, TChain* chains )
@@ -132,6 +136,12 @@ void SetupTree( TString sample, TChain* chains )
   }
   else if(sample == "gg2vvHw25Int8TeV"){
     chain_gg2vvHw25Int8TeV(chains);
+  }
+  else if( sample == "POWHEG"){
+    chain_powheg(chains);
+  }
+  else if(sample == "sherpaHw1Sig8TeV"){
+    chain_sherpaHw1Sig8TeV(chains);
   }
   else
   {
