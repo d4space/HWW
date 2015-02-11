@@ -1,0 +1,5 @@
+
+1) root -l -q MakeHistoCtrPlots.C
+2) python pupmet.py
+
+pupmet.C will draw pupmet distributions for 0, 1, >=2 and inclusive jet, electron-muon channel

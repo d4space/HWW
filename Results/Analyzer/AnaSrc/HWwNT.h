@@ -292,6 +292,7 @@ public :
    Float_t         phi3;
    Float_t         phi4;
    Float_t         ppfmet;
+   Float_t         pupmet;
    Float_t         predmet;
    Float_t         pt1;
    Float_t         pt2;
@@ -356,6 +357,8 @@ public :
    Float_t         puW;
    Float_t         baseW;
    Float_t         mWW;
+   Float_t         HwidthMVAbkg;
+   Float_t         HwidthMVAggH;
 
    // List of branches
    TBranch        *b_MHiggs;   //!
@@ -629,6 +632,7 @@ public :
    TBranch        *b_phi3;   //!
    TBranch        *b_phi4;   //!
    TBranch        *b_ppfmet;   //!
+   TBranch        *b_pupmet;   //!
    TBranch        *b_predmet;   //!
    TBranch        *b_pt1;   //!
    TBranch        *b_pt2;   //!
@@ -693,6 +697,8 @@ public :
    TBranch        *b_puW;   //!
    TBranch        *b_baseW;   //!
    TBranch        *b_mWW;   //!
+   TBranch        *b_HwidthMVAbkg;   //!
+   TBranch        *b_HwidthMVAggH;   //!
 
    HWwNT(TTree *tree=0);
    virtual ~HWwNT();
@@ -1048,6 +1054,7 @@ void HWwNT::Init(TTree *tree)
    fChain->SetBranchAddress("phi3", &phi3, &b_phi3);
    fChain->SetBranchAddress("phi4", &phi4, &b_phi4);
    fChain->SetBranchAddress("ppfmet", &ppfmet, &b_ppfmet);
+   fChain->SetBranchAddress("pupmet", &pupmet, &b_pupmet);
    fChain->SetBranchAddress("predmet", &predmet, &b_predmet);
    fChain->SetBranchAddress("pt1", &pt1, &b_pt1);
    fChain->SetBranchAddress("pt2", &pt2, &b_pt2);
@@ -1112,6 +1119,8 @@ void HWwNT::Init(TTree *tree)
    fChain->SetBranchAddress("puW", &puW, &b_puW);
    fChain->SetBranchAddress("baseW", &baseW, &b_baseW);
    fChain->SetBranchAddress("mWW", &mWW, &b_mWW);
+   fChain->SetBranchAddress("HwidthMVAbkg", &HwidthMVAbkg, &b_HwidthMVAbkg);
+   fChain->SetBranchAddress("HwidthMVAggH", &HwidthMVAggH, &b_HwidthMVAggH);
    Notify();
 }
 
