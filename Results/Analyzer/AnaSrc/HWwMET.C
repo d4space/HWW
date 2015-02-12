@@ -61,9 +61,9 @@ int HWwMET::Fill_Histo()
   if ((ch1*ch2 ==-1.) && !sameflav)
   {
     h1_pupmet[3]   -> Fill(pupmet, EvtWeight);
-    if(njet=0)
+    if(njet==0)
       h1_pupmet[0] -> Fill(pupmet, EvtWeight);
-    if(njet=1)
+    if(njet==1)
       h1_pupmet[1] -> Fill(pupmet, EvtWeight);
     if(njet>=2)
       h1_pupmet[2] -> Fill(pupmet, EvtWeight);
