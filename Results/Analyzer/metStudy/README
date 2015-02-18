@@ -1,5 +1,15 @@
+Met study
+
+Used Samples:
+WJetsToLNuMad, DYJetsToLL and ggToH125toWWTo2LAndTau2Nu
+
+How to run?
 
 1) root -l -q MakeHistoCtrPlots.C
-2) python pupmet.py
+2) python metStudy.py
+metStudy.C will draw 1D genMet, pfMet, pupMet, genMet_vs_pupMet and genMet_vs_pupMet TProfile distributions for 0, 1, >=2 and inclusive jet, electron-muon channel
 
+////////////////////////////////
+Backup
+python pupmet.py
 pupmet.C will draw pupmet distributions for 0, 1, >=2 and inclusive jet, electron-muon channel

@@ -60,13 +60,35 @@ int HWwMET::Fill_Histo()
 {
   if ((ch1*ch2 ==-1.) && !sameflav)
   {
-    h1_pupmet[3]   -> Fill(pupmet, EvtWeight);
+    h1_pupMet[3] -> Fill(pupmet, EvtWeight);
+    h1_genMet[3] -> Fill(metGenpt, EvtWeight);
+    h1_pfMet[3]  -> Fill(pfmet, EvtWeight);
+    h2_genMet_pupMet[3] -> Fill(metGenpt,pupmet,EvtWeight);
+    h2_genMet_pfMet[3]  -> Fill(metGenpt,pfmet,EvtWeight);
     if(njet==0)
-      h1_pupmet[0] -> Fill(pupmet, EvtWeight);
+    {
+      h1_pupMet[0] -> Fill(pupmet, EvtWeight);
+      h1_genMet[0] -> Fill(metGenpt, EvtWeight);
+      h1_pfMet[0]  -> Fill(pfmet, EvtWeight);
+      h2_genMet_pupMet[0] -> Fill(metGenpt,pupmet,EvtWeight);
+      h2_genMet_pfMet[0]  -> Fill(metGenpt,pfmet,EvtWeight);
+    }
     if(njet==1)
-      h1_pupmet[1] -> Fill(pupmet, EvtWeight);
+    {
+      h1_pupMet[1] -> Fill(pupmet, EvtWeight);
+      h1_genMet[1] -> Fill(metGenpt, EvtWeight);
+      h1_pfMet[1]  -> Fill(pfmet, EvtWeight);
+      h2_genMet_pupMet[1] -> Fill(metGenpt,pupmet,EvtWeight);
+      h2_genMet_pfMet[1]  -> Fill(metGenpt,pfmet,EvtWeight);
+    }
     if(njet>=2)
-      h1_pupmet[2] -> Fill(pupmet, EvtWeight);
+    {
+      h1_pupMet[2] -> Fill(pupmet, EvtWeight);
+      h1_genMet[2] -> Fill(metGenpt, EvtWeight);
+      h1_pfMet[2]  -> Fill(pfmet, EvtWeight);
+      h2_genMet_pupMet[2] -> Fill(metGenpt,pupmet,EvtWeight);
+      h2_genMet_pfMet[2]  -> Fill(metGenpt,pfmet,EvtWeight);
+    }
   }
 
   return 0;
@@ -91,8 +113,20 @@ int HWwMET::InitHistogram()
 
   for(int i(0); i<4; i++)
   {
-    sprintf(histName, "h1_pupmet_%d",i);
-    h1_pupmet[i] = new TH1D(histName,"PupMET", 15, 0, 150);
+    sprintf(histName, "h1_genMet_%d",i);
+    h1_genMet[i] = new TH1D(histName,"genMET", 8, 0, 80);
+    
+    sprintf(histName, "h1_pupMet_%d",i);
+    h1_pupMet[i] = new TH1D(histName,"pupMET", 12, 0, 120);
+    
+    sprintf(histName, "h1_pfMet_%d",i);
+    h1_pfMet[i] = new TH1D(histName,"pfMET", 12, 0, 120);
+    
+    sprintf(histName, "h2_genMet_pupMet_%d",i);
+    h2_genMet_pupMet[i] = new TH2D(histName,"genMet vs pupMET", 8,0,80,12,0,120);
+    
+    sprintf(histName, "h2_genMet_pfMet_%d",i);
+    h2_genMet_pfMet[i] = new TH2D(histName,"genMet vs pfMET", 8,0,80,12,0,120);
   }
 
   return 0;

@@ -43,7 +43,11 @@ protected:
    ofstream Fout;
    TFile *myFile;
    
-   TH1D *h1_pupmet[4];
+   TH1D *h1_pupMet[4];
+   TH1D *h1_genMet[4];
+   TH1D *h1_pfMet[4];
+   TH2D *h2_genMet_pupMet[4];
+   TH2D *h2_genMet_pfMet[4];
 };
 
 #endif

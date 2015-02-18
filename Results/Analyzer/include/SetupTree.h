@@ -37,6 +37,8 @@
 #include "chain_sherpaHw1Sig8TeV.h"
 
 #include "chain_WJetsToLNuMad.h"
+#include "chain_DYJetsToLL.h"
+#include "chain_ggToH125toWWTo2LAndTau2Nu.h"
 
 //===============
 
@@ -54,6 +56,12 @@ void SetupTree( TString sample, TChain* chains )
   }
   else if(sample == "WJetsToLNuMad"){
     chain_WJetsToLNuMad(chains);
+  }
+  else if(sample == "DYJetsToLL"){
+    chain_DYJetsToLL(chains);
+  }
+  else if(sample == "ggToH125toWWTo2LAndTau2Nu"){
+    chain_ggToH125toWWTo2LAndTau2Nu(chains);
   }
   else if(sample == "WW"){
     chain_ww(chains);
