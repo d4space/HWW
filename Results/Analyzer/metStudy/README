@@ -5,9 +5,24 @@ WJetsToLNuMad, DYJetsToLL and ggToH125toWWTo2LAndTau2Nu
 
 How to run?
 
-1) root -l -q MakeHistoCtrPlots.C
-2) python metStudy.py
+1) Change root files location for each Sample:
+
+$ cd HWW/Results/Analyzer/include
+$ vi chain_DYJetsToLL.h
+$ vi chain_WJetsToLNuMad.h
+$ vi chain_ggToH125toWWTo2LAndTau2Nu.h
+
+2) Make MET histograms root files:
+
+$ cd HWW/Results/Analyzer/metStudy
+$ root -l -q MakeHistoCtrPlots.C
+
+3) Edit metStudy.py file, following which plots need to draw (Sample, histogram and cut type) and draw MET distributions:
+
+$ python metStudy.py
+
 metStudy.C will draw 1D genMet, pfMet, pupMet, genMet_vs_pupMet and genMet_vs_pupMet TProfile distributions for 0, 1, >=2 and inclusive jet, electron-muon channel
+
 
 ////////////////////////////////
 Backup
