@@ -12,7 +12,8 @@ void MakeHistoCtrPlots()
   gSystem->CompileMacro("../AnaSrc/HWwBase.C","k");
   gSystem->CompileMacro("../AnaSrc/HWwMET.C","k");
 
-  string Cuts[]={"NoCut"};
+  string Cuts[]={"CommonCut"};
+  //string Cuts[]={"NoCut"};
   TString SampleName = "WJetsToLNuMad";
   bool RunOnMC = false;
 
@@ -20,6 +21,7 @@ void MakeHistoCtrPlots()
     cout<<"Cut is "<<Cuts[i]<<endl;
     
 //WJetsToLNuMad========================================
+/***
     cout<<"WJetsToLNuMad===================="<<endl;
     RunOnMC = true;
     TChain *TC_WJetsToLNuMad  = new TChain("latino","");
@@ -27,8 +29,10 @@ void MakeHistoCtrPlots()
     SampleName = "WJetsToLNuMad";
     HWwMET HWwMETWJetsToLNuMad(TC_WJetsToLNuMad,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
     HWwMETWJetsToLNuMad.Loop();
+    ***/
     
 //DYJetsToLL========================================
+///****
     cout<<"DYJetsToLL===================="<<endl;
     RunOnMC = true;
     TChain *TC_DYJetsToLL  = new TChain("latino","");
@@ -36,6 +40,7 @@ void MakeHistoCtrPlots()
     SampleName = "DYJetsToLL";
     HWwMET HWwMETDYJetsToLL(TC_DYJetsToLL,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
     HWwMETDYJetsToLL.Loop();
+    //***/
     
 //ggToH125toWWTo2LAndTau2Nu========================================
     cout<<"ggToH125toWWTo2LAndTau2Nu===================="<<endl;

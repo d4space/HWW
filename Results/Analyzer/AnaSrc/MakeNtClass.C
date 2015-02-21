@@ -3,6 +3,6 @@
   //myChain->Add("/terranova_1/HWW/tree_skim_wwmin/nominals/latino_036_DY10toLLMad.root");
   //myChain->MakeClass("HWwNT");
   //myChain->Add("/afs/cern.ch/user/j/jfernan2/public/forAndrea/latino_250_ggww1sm000140.root");
-  myChain->Add("/afs/cern.ch/user/m/maiko/work/public/Tree/tree_skim_wwmin/nominals/latino_2125_vbfToH125toWWTo2LAndTau2Nu.root");
-  myChain->MakeClass("HWwNT_MC");
+  myChain->Add("/terranova_1/HWWwidth/Phys14/gg2hPU40bx25/latino_stepB_latinosYieldSkim_MC_gg2hPU40bx25_wPUPPI.root");
+  myChain->MakeClass("HWwNT");
 }

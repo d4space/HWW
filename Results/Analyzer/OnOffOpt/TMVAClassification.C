@@ -137,7 +137,6 @@ void TMVAClassification( TString myMethodList = "" )
    Use["Category"]        = 1; // uses Category
 
    // ---------------------------------------------------------------
-
    std::cout << std::endl;
    std::cout << "==> Start TMVAClassification" << std::endl;
 
@@ -354,8 +353,6 @@ void TMVAClassification( TString myMethodList = "" )
      mTree[ipFile->first] = (TTree *)ipFile->second->Get("MVA");
      mWeight[ipFile->first] = 1.0;
    }
-
-   
 
    // CMS STATS:
    // signal weights are motivated by a naive branching ratio hypothesis 50%/25%/25%
