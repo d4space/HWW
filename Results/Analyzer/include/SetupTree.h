@@ -33,9 +33,13 @@
 #include "chain_gg2vvHw25Int8TeV.h"
 #include "chain_gg2vvHw25SigShoulder.h"
 
+//njet Study
 #include "chain_powheg.h"
 #include "chain_sherpaHw1Sig8TeV.h"
+#include "chain_powheg_vbf.h"
+#include "chain_phantom.h"
 
+//MET Study
 #include "chain_WJetsToLNuMad.h"
 #include "chain_DYJetsToLL.h"
 #include "chain_ggToH125toWWTo2LAndTau2Nu.h"
@@ -150,8 +154,15 @@ void SetupTree( TString sample, TChain* chains )
   else if(sample == "gg2vvHw25Int8TeV"){
     chain_gg2vvHw25Int8TeV(chains);
   }
+//njet Study
   else if( sample == "POWHEG"){
     chain_powheg(chains);
+  }
+  else if( sample == "POWHEG_VBF"){
+    chain_powheg_vbf(chains);
+  }
+  else if( sample == "phantom"){
+    chain_phantom(chains);
   }
   else if(sample == "sherpaHw1Sig8TeV"){
     chain_sherpaHw1Sig8TeV(chains);

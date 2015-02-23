@@ -445,6 +445,8 @@ public :
    UInt_t          run;
    UInt_t          lumi;
    UInt_t          event;
+   Float_t         mWW;
+   Float_t         MHiggs;
 
    // List of branches
    TBranch        *b_baseW;   //!
@@ -910,6 +912,8 @@ public :
    TBranch        *b_run;   //!
    TBranch        *b_lumi;   //!
    TBranch        *b_event;   //!
+   TBranch        *b_MHiggs;   //!
+   TBranch        *b_mWW;   //!
 
    HWwNT(TTree *tree=0);
    virtual ~HWwNT();
@@ -1486,6 +1490,8 @@ void HWwNT::Init(TTree *tree)
    fChain->SetBranchAddress("run", &run, &b_run);
    fChain->SetBranchAddress("lumi", &lumi, &b_lumi);
    fChain->SetBranchAddress("event", &event, &b_event);
+   fChain->SetBranchAddress("mWW", &mWW, &b_mWW);
+   fChain->SetBranchAddress("MHiggs", &MHiggs, &b_MHiggs);
    Notify();
 }
 

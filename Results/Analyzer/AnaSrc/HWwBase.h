@@ -82,6 +82,7 @@ protected:
    virtual Int_t    CommonCut_Without_ptllCut();
    virtual Int_t    CommonCut_Without_mpmetCut();
    virtual Int_t    CommonCut_njet();
+   virtual Int_t    CommonCut_VBFnjet();
    virtual Int_t    LooseCut();
    virtual Int_t    SignalCutV1();
    virtual Int_t    SignalCutV2();
@@ -94,6 +95,7 @@ protected:
    double mthBins[12];
    double Nmllptll_OF0j[61][31];
    double Nmllptll_OF1j[61][31];
+   double mWWBins[12];
 };
 #endif
 
@@ -181,6 +183,19 @@ HWwBase::HWwBase(TTree *HWwBaseTree,double lumiweight, TString SampleName_,TStri
   mllBins[9]  = 405;
   mllBins[10] = 450;
   mllBins[11] = 600;
+  
+  mWWBins[0]  = 130;
+  mWWBins[1]  = 200;
+  mWWBins[2]  = 300;
+  mWWBins[3]  = 400;
+  mWWBins[4]  = 500;
+  mWWBins[5]  = 600;
+  mWWBins[6]  = 700;
+  mWWBins[7]  = 800;
+  mWWBins[8]  = 900;
+  mWWBins[9]  = 1000;
+  mWWBins[10] = 1250;
+  mWWBins[11] = 1500;
 }
 
 HWwBase::~HWwBase()
