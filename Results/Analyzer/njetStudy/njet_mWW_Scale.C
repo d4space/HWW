@@ -29,20 +29,36 @@ void njet_mWW_Scale()
   TString OutDir = "mWW_sf_unweighted";
   gSystem->mkdir(OutDir);
   
-  TFile *f_phn;
+  TFile *f_phn_1;
+  TFile *f_phn_9;
+  TFile *f_phn_25;
   TFile *f_pow;
 
-  f_phn  = new TFile("phantom/phantom_CommonCut_VBFnjet.root");
+  f_phn_1  = new TFile("phantom_1/phantom_CommonCut_VBFnjet.root");
+  f_phn_9  = new TFile("phantom_9/phantom_CommonCut_VBFnjet.root");
+  f_phn_25 = new TFile("phantom_25/phantom_CommonCut_VBFnjet.root");
   f_pow   = new TFile("POWHEG_VBF/POWHEG_VBF_CommonCut_VBFnjet.root");
   //f_pow   = new TFile("POWHEG_VBF_reweighted/POWHEG_VBF_CommonCut_VBFnjet.root");
 
   //Histograms
+  TH1D* h1_njet_Off_Wevt_Phn_1[12];
+  TH1D* h1_njet_Off_Wevt_Phn_9[12];
+  TH1D* h1_njet_Off_Wevt_Phn_25[12];
   TH1D* h1_njet_Off_Wevt_Phn[12];
   TH1D* h1_njet_Off_Wevt_Pow[12];
+
   TH1D* h1_njet_Off_WevtPow2Gen_Phn[12];
+  TH1D* h1_njet_Off_WevtPow2Gen_Phn_1[12];
+  TH1D* h1_njet_Off_WevtPow2Gen_Phn_9[12];
+  TH1D* h1_njet_Off_WevtPow2Gen_Phn_25[12];
   TH1D* h1_njet_Off_WevtPow2Gen_Pow[12];
+
   TH1D* h1_njet_Off_noW_Phn[12];
+  TH1D* h1_njet_Off_noW_Phn_1[12];
+  TH1D* h1_njet_Off_noW_Phn_9[12];
+  TH1D* h1_njet_Off_noW_Phn_25[12];
   TH1D* h1_njet_Off_noW_Pow[12];
+
   TH1D* h1_reWeightFac[12];
   TH1D* h1_powheg_phantom[4];
 
@@ -73,8 +89,12 @@ void njet_mWW_Scale()
   {
     sprintf(tmpName, "h1_njet_Off_Wevt_%d",i);
     sprintf(histName,"h1_njet_Off_Wevt_Phn_%d",i);
-    h1_njet_Off_Wevt_Phn[i] = (TH1D*)f_phn->Get(tmpName)->Clone(histName);
-    h1_njet_Off_Wevt_Phn[i]->Sumw2();
+    h1_njet_Off_Wevt_Phn_1[i] = (TH1D*)f_phn_1->Get(tmpName)->Clone(histName);
+    h1_njet_Off_Wevt_Phn_1[i]->Sumw2();
+    h1_njet_Off_Wevt_Phn_9[i] = (TH1D*)f_phn_9->Get(tmpName)->Clone(histName);
+    h1_njet_Off_Wevt_Phn_9[i]->Sumw2();
+    h1_njet_Off_Wevt_Phn_25[i]= (TH1D*)f_phn_25->Get(tmpName)->Clone(histName);
+    h1_njet_Off_Wevt_Phn_25[i]->Sumw2();
     sprintf(histName,"h1_njet_Off_Wevt_Pow_%d",i);
     h1_njet_Off_Wevt_Pow[i] = (TH1D*)f_pow->Get(tmpName)->Clone(histName);
     h1_njet_Off_Wevt_Pow[i]->Sumw2();
