@@ -41,18 +41,22 @@ protected:
    int Fill_vbfHisto();
    int Write_Histo();
    double mWW;
+   double WevtPow2Gen;
 
    ofstream Fout;
    TFile *myFile;
    
-   TH1D *h1_njet_OffSh[12];
-   TH1D *h1_njet_OffSh_noWeight[12];
+   TH1D *h1_njet_Off_Wevt[12]; //11 for mWW>130 GeV
+   TH1D *h1_njet_Off_WevtPow2Gen[12];
+   TH1D *h1_njet_Off_noWeight[12];
    
-   TH1D *h1_mWW_OffSh[4];
-   TH1D *h1_mWW_OffSh_noWeight[4];
+   TH1D *h1_mWW_Off_Wevt[4]; // 3 for all
+   TH1D *h1_mWW_Off_WevtPow2Gen[4]; // 3 for all
+   TH1D *h1_mWW_Off_noWeight[4];
    
-   TH1D *h1_mWWbin_OffSh[4];
-   TH1D *h1_mWWbin_OffSh_noWeight[4];
+   TH1D *h1_mWWbin_Off_Wevt[4];
+   TH1D *h1_mWWbin_Off_WevtPow2Gen[4];
+   TH1D *h1_mWWbin_Off_noWeight[4];
    
    TH1D *h1_mww_off_CalcPowRew[5];
    TH1D *h1_mww_off_CalcPowRew_noWeight[5];
