@@ -236,8 +236,8 @@ int HWwNjetStudy::Fill_Histo()
   h1_mWWbin_Off_Wevt[3] 	-> Fill(mWW, EvtWeight);
   h1_mWWbin_Off_WevtPow2Gen[3] 	-> Fill(mWW, WevtPow2Gen);
   h1_mWWbin_Off_noWeight[3]	-> Fill(mWW);
-  h1_mjj[3]			-> Fill(mjj, EvtWeight);
-  h1_detajj[3]		-> Fill(detajj, EvtWeight);
+  h1_mjj[3]			-> Fill(mjj,    WevtPow2Gen);
+  h1_detajj[3]			-> Fill(detajj, WevtPow2Gen);
   
   if(njet==0){
     h1_mWW_Off_Wevt[0]		-> Fill(mWW, EvtWeight);
@@ -246,17 +246,17 @@ int HWwNjetStudy::Fill_Histo()
     h1_mWWbin_Off_Wevt[0]       -> Fill(mWW, EvtWeight);
     h1_mWWbin_Off_WevtPow2Gen[0]-> Fill(mWW, WevtPow2Gen);
     h1_mWWbin_Off_noWeight[0]   -> Fill(mWW);
-    h1_mjj[0]			-> Fill(mjj, EvtWeight);
-    h1_detajj[0]		-> Fill(detajj, EvtWeight);
+    h1_mjj[0]			-> Fill(mjj,    WevtPow2Gen);
+    h1_detajj[0]		-> Fill(detajj, WevtPow2Gen);
   }else if(njet==1){
     h1_mWW_Off_Wevt[1] 		-> Fill(mWW, EvtWeight);
     h1_mWW_Off_WevtPow2Gen[1] 	-> Fill(mWW, WevtPow2Gen);
     h1_mWW_Off_noWeight[1]	-> Fill(mWW);
     h1_mWWbin_Off_Wevt[1] 	-> Fill(mWW, EvtWeight);
     h1_mWWbin_Off_WevtPow2Gen[1]-> Fill(mWW, WevtPow2Gen);
-    h1_mWWbin_Off_noWeight[1]-> Fill(mWW);
-    h1_mjj[1]			-> Fill(mjj, EvtWeight);
-    h1_detajj[1]		-> Fill(detajj, EvtWeight);
+    h1_mWWbin_Off_noWeight[1]	-> Fill(mWW);
+    h1_mjj[1]			-> Fill(mjj,    WevtPow2Gen);
+    h1_detajj[1]		-> Fill(detajj, WevtPow2Gen);
   }else if(njet>=2){
     h1_mWW_Off_Wevt[2] 		-> Fill(mWW, EvtWeight);
     h1_mWW_Off_WevtPow2Gen[2] 	-> Fill(mWW, WevtPow2Gen);
@@ -264,8 +264,8 @@ int HWwNjetStudy::Fill_Histo()
     h1_mWWbin_Off_Wevt[2] 	-> Fill(mWW, EvtWeight);
     h1_mWWbin_Off_WevtPow2Gen[2]-> Fill(mWW, WevtPow2Gen);
     h1_mWWbin_Off_noWeight[2]   -> Fill(mWW);
-    h1_mjj[2]			-> Fill(mjj, EvtWeight);
-    h1_detajj[2]		-> Fill(detajj, EvtWeight);
+    h1_mjj[2]			-> Fill(mjj,    WevtPow2Gen);
+    h1_detajj[2]		-> Fill(detajj, WevtPow2Gen);
   }
   return 0;
 }
@@ -277,35 +277,35 @@ int HWwNjetStudy::Fill_vbfHisto()
     nnjet=3;
   
   //Fill mWW, mjj and detajj for each njet
-  h1_mww_off_CalcPowRew[4]              -> Fill(mWW,EvtWeight);
+  h1_mww_off_CalcPowRew[4]              -> Fill(mWW,WevtPow2Gen);
   h1_mww_off_CalcPowRew_noWeight[4]     -> Fill(mWW);
-  h1_mjj[4]				-> Fill(mjj, EvtWeight);
-  h1_detajj[4]				-> Fill(detajj, EvtWeight);
+  h1_mjj[4]				-> Fill(mjj, WevtPow2Gen);
+  h1_detajj[4]				-> Fill(detajj, WevtPow2Gen);
 
   if(njet==0)
   {
-    h1_mww_off_CalcPowRew[0]          	-> Fill(mWW,EvtWeight);
+    h1_mww_off_CalcPowRew[0]          	-> Fill(mWW,WevtPow2Gen);
     h1_mww_off_CalcPowRew_noWeight[0] 	-> Fill(mWW);
-    h1_mjj[0]				-> Fill(mjj, EvtWeight);
-    h1_detajj[0]			-> Fill(detajj, EvtWeight);
+    h1_mjj[0]				-> Fill(mjj, WevtPow2Gen);
+    h1_detajj[0]			-> Fill(detajj, WevtPow2Gen);
   }else if(njet==1)
   {
-    h1_mww_off_CalcPowRew[1]          	-> Fill(mWW,EvtWeight);
+    h1_mww_off_CalcPowRew[1]          	-> Fill(mWW,WevtPow2Gen);
     h1_mww_off_CalcPowRew_noWeight[1] 	-> Fill(mWW);
-    h1_mjj[1]				-> Fill(mjj, EvtWeight);
-    h1_detajj[1]			-> Fill(detajj, EvtWeight);
+    h1_mjj[1]				-> Fill(mjj, WevtPow2Gen);
+    h1_detajj[1]			-> Fill(detajj, WevtPow2Gen);
   }else if(njet==2)
   {
-    h1_mww_off_CalcPowRew[2]          	-> Fill(mWW,EvtWeight);
+    h1_mww_off_CalcPowRew[2]          	-> Fill(mWW,WevtPow2Gen);
     h1_mww_off_CalcPowRew_noWeight[2] 	-> Fill(mWW);
-    h1_mjj[2]				-> Fill(mjj, EvtWeight);
-    h1_detajj[2]			-> Fill(detajj, EvtWeight);
+    h1_mjj[2]				-> Fill(mjj, WevtPow2Gen);
+    h1_detajj[2]			-> Fill(detajj, WevtPow2Gen);
   }else if(njet>=3)
   {
-    h1_mww_off_CalcPowRew[3]          	-> Fill(mWW,EvtWeight);
+    h1_mww_off_CalcPowRew[3]          	-> Fill(mWW,WevtPow2Gen);
     h1_mww_off_CalcPowRew_noWeight[3] 	-> Fill(mWW);
-    h1_mjj[3]				-> Fill(mjj, EvtWeight);
-    h1_detajj[3]			-> Fill(detajj, EvtWeight);
+    h1_mjj[3]				-> Fill(mjj, WevtPow2Gen);
+    h1_detajj[3]			-> Fill(detajj, WevtPow2Gen);
   }
 
   //Fill njet for each mWW windows
