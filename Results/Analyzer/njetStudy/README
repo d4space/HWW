@@ -5,7 +5,7 @@
 3) scalefit.C will fit scale factor depending on mWW
 
 
-@@@@@@ According to sample, change HWwNT using Makeclass and change the next
+@@@@@@ According to sample, change HWwNT using Makeclass and change the next properly
 
 if(SampleName == "POWHEG" || SampleName == "POWHEG_VBF")
       //mWW = MHiggs;
