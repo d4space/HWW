@@ -56,7 +56,7 @@ protected:
    
    TH1D *h1_mjj[5];                 // 4 for jet inclusive
    TH1D *h1_detajj[5];              // 4 for jet inclusive
-
+};
 #endif
 
 #ifdef HWwNjetStudy_cxx
