@@ -38,9 +38,9 @@ protected:
    int InitVar4Evt();
    int InitHistogram();
    int Fill_Histo();
-   int Fill_vbfHisto();
    int Write_Histo();
    double WevtPow2Gen;
+   double nnjet;
 
    ofstream Fout;
    TFile *myFile;
@@ -49,20 +49,13 @@ protected:
    TH1D *h1_njet_Off_WevtPow2Gen[12];
    TH1D *h1_njet_Off_noWeight[12];
    
-   TH1D *h1_mWW_Off_Wevt[4]; // 3 for all
-   TH1D *h1_mWW_Off_WevtPow2Gen[4]; // 3 for all
-   TH1D *h1_mWW_Off_noWeight[4];
+   TH1D *h1_mWW_Off_Wevt[5];        // 4 for jet inclusive
+   TH1D *h1_mWW_Off_WevtPow2Gen[5]; // 4 for jet inclusive
+   TH1D *h1_mWW_Off_noWeight[5];    // 4 for jet inclusive
    
-   TH1D *h1_mWWbin_Off_Wevt[4];
-   TH1D *h1_mWWbin_Off_WevtPow2Gen[4];
-   TH1D *h1_mWWbin_Off_noWeight[4];
    
-   TH1D *h1_mww_off_CalcPowRew[5];
-   TH1D *h1_mww_off_CalcPowRew_noWeight[5];
-   
-   TH1D *h1_mjj[5];
-   TH1D *h1_detajj[5];
-};
+   TH1D *h1_mjj[5];                 // 4 for jet inclusive
+   TH1D *h1_detajj[5];              // 4 for jet inclusive
 
 #endif
 

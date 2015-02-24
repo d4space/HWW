@@ -23,25 +23,31 @@
 #include "TColor.h"
 #include "TLine.h"
 
-void CalcPowRew()
+void CalcPowRew2Phn()
 {
   //TString OutDir = "mWW_unweighted";
-  TString OutDir = "mWW_reweighted";
+  TString OutDir = "mWW_reweight_2Phn";
   gSystem->mkdir(OutDir);
   
   TFile *f_phn_1;
-  TFile *fname_powheg;
+  TFile *f_phn_9;
+  TFile *f_phn_25;
+  TFile *f_pow;
 
-  f_phn_1  = new TFile("phantom/phantom_CommonCut_VBFnjet.root");
-  //fname_powheg   = new TFile("POWHEG_VBF_unweighted/POWHEG_VBF_CommonCut_VBFnjet.root");
-  fname_powheg   = new TFile("POWHEG_VBF_reweighted/POWHEG_VBF_CommonCut_VBFnjet.root");
+  f_phn_1  = new TFile("phantom_1SM/phantom_CommonCut_VBFnjet.root");
+  f_phn_9  = new TFile("phantom_9SM/phantom_CommonCut_VBFnjet.root");
+  f_phn_25 = new TFile("phantom_25SM/phantom_CommonCut_VBFnjet.root");
+  f_pow    = new TFile("POWHEG_VBF/POWHEG_VBF_CommonCut_VBFnjet.root");
 
   char tmpName[50];
   char histName[50];
   char jetName[50];
 
   //Histograms
-  TH1D* h1_mWW_phantom[5];
+  TH1D* h1_mWW_phn[5];
+  TH1D* h1_mWW_phn_1[5];
+  TH1D* h1_mWW_phn_9[5];
+  TH1D* h1_mWW_phn_25[5];
   TH1D* h1_mWW_powheg[5];
   TH1D* h1_reWeightFac;
 
@@ -54,27 +60,27 @@ void CalcPowRew()
   //Read Histograms from root file
   for(int i(0);i<5;i++)
   {
-    sprintf(tmpName,"h1_mww_off_CalcPowRew_%d",i);
-    
-    sprintf(histName,"h1_mWW_phantom_%d",i);
-    h1_mWW_phantom[i] = (TH1D*)f_phn_1->Get(tmpName)->Clone(histName); h1_mWW_phantom[i]->Sumw2();
+    sprintf(tmpName, "h1_mWW_Phn1sm_%d",i);
+    sprintf(histName,"h1_mWW_phn_%d",i);
+    h1_mWW_phn_1[i] = (TH1D*)f_phn_1->Get(tmpName)->Clone(histName);
+    h1_mWW_phn[i]->Sumw2();
     
     sprintf(histName,"h1_mWW_powheg_%d",i);
-    h1_mWW_powheg[i] = (TH1D*)fname_powheg->Get(tmpName)->Clone(histName); h1_mWW_powheg[i]->Sumw2();
+    h1_mWW_powheg[i] = (TH1D*)f_pow->Get(tmpName)->Clone(histName); h1_mWW_powheg[i]->Sumw2();
   }
 
-  nTotalPha = h1_mWW_phantom[4] -> Integral();
+  nTotalPha = h1_mWW_phn[4] -> Integral();
   nTotalPow = h1_mWW_powheg[4]  -> Integral();
 
   //Normalization to Inclusive Total number
   for(int i(0);i<=4;i++)
   {
-    h1_mWW_phantom[i] -> Scale(1./nTotalPha);
+    h1_mWW_phn[i] -> Scale(1./nTotalPha);
     h1_mWW_powheg[i]  -> Scale(1./nTotalPow);
   }
   
   //Calculating reWeight Factor
-  h1_reWeightFac = (TH1D*)h1_mWW_phantom[4] -> Clone("h1_reWeightFac"); h1_reWeightFac->Sumw2();
+  h1_reWeightFac = (TH1D*)h1_mWW_phn[4] -> Clone("h1_reWeightFac"); h1_reWeightFac->Sumw2();
   h1_reWeightFac -> Divide(h1_mWW_powheg[4]);
 
   //Printout reWeight Factor
@@ -90,7 +96,7 @@ void CalcPowRew()
   {
     // Powheg reWeight
     //h1_mWW_powheg[i] -> Multiply(h1_reWeightFac);
-    cout<<i<<"-jet bin: "<<h1_mWW_powheg[i]->Integral()<<"\t"<<h1_mWW_phantom[i]->Integral()<<endl;
+    cout<<i<<"-jet bin: "<<h1_mWW_powheg[i]->Integral()<<"\t"<<h1_mWW_phn[i]->Integral()<<endl;
 
     sprintf(jetName,"(njet = %d)",i);
     if(i==3)
@@ -100,12 +106,12 @@ void CalcPowRew()
 
     //Phantom mWW distribution
     sprintf(histName,"mWW_phantom_njet_%d",i);
-    sprintf(tmpName,"Events / %.1f ",h1_mWW_phantom[i]->GetBinWidth(1));
+    sprintf(tmpName,"Events / %.1f ",h1_mWW_phn[i]->GetBinWidth(1));
     CPlot* plotmWW_phantom=new CPlot(histName,"","mWW","");
     plotmWW_phantom->setOutDir(OutDir);
-    plotmWW_phantom->AddHist1D(h1_mWW_phantom[i],"HIST",kBlack);
+    plotmWW_phantom->AddHist1D(h1_mWW_phn[i],"HIST",kBlack);
     plotmWW_phantom->SetLegend(0.63,0.84,0.88,0.92);
-    plotmWW_phantom->GetLegend()->AddEntry(h1_mWW_phantom[i],"Phantom Sig.","l");
+    plotmWW_phantom->GetLegend()->AddEntry(h1_mWW_phn[i],"Phantom Sig.","l");
     plotmWW_phantom->AddTextBox(jetName,0.6,0.92,0.92,0.95,0);
     plotmWW_phantom->SetXRange(0,1500);
     plotmWW_phantom->Draw(myCan,kTRUE,"png");
@@ -127,11 +133,11 @@ void CalcPowRew()
     sprintf(tmpName,"Events / %.1f ",h1_mWW_powheg[i]->GetBinWidth(1));
     CPlot* plotmWW_comp=new CPlot(histName,"","mWW","");
     plotmWW_comp->setOutDir(OutDir);
-    plotmWW_comp->AddHist1D(h1_mWW_phantom[i],"HIST",kBlue);
+    plotmWW_comp->AddHist1D(h1_mWW_phn[i],"HIST",kBlue);
     plotmWW_comp->AddHist1D(h1_mWW_powheg[i],"HIST",kRed);
     plotmWW_comp->SetLegend(0.63,0.76,0.88,0.92);
     plotmWW_comp->GetLegend()->AddEntry(h1_mWW_powheg[i],"POWHEG","l");
-    plotmWW_comp->GetLegend()->AddEntry(h1_mWW_phantom[i],"Phantom Sig.","l");
+    plotmWW_comp->GetLegend()->AddEntry(h1_mWW_phn[i],"Phantom Sig.","l");
     plotmWW_comp->AddTextBox(jetName,0.6,0.92,0.92,0.95,0);
     plotmWW_comp->SetXRange(0,1500);
     plotmWW_comp->Draw(myCan,kTRUE,"png");
