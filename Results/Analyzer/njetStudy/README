@@ -3,3 +3,12 @@
 2) njet_mWW_Scale.C will draw njet distribution and Powheg/gg2VV and Powheg/Sherpa ration in mWW windows
 
 3) scalefit.C will fit scale factor depending on mWW
+
+
+@@@@@@ According to sample, change HWwNT using Makeclass and change the next
+
+if(SampleName == "POWHEG" || SampleName == "POWHEG_VBF")
+      //mWW = MHiggs;
+          if(SampleName == "SHERPA")
+	        mWW = CalcmWW();
+

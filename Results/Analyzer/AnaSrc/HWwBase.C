@@ -27,29 +27,30 @@ void HWwBase::Loop()
 //Loose selection cuts
 Int_t HWwBase::SF0jCut()
 {
+
   if (ch1*ch2 ==-1.){;}else{return -1;}
-  if (!sameflav) return -1;
+  //if (!sameflav) return -1;
   if (njet != 0) return -1;
   return 1;
 }
 Int_t HWwBase::OF0jCut()
 {
   if (ch1*ch2 ==-1.){;}else{return -1;}
-  if (sameflav)  return -1;
+  //if (sameflav)  return -1;
   if (njet != 0) return -1;
   return 1;
 }
 Int_t HWwBase::SF1jCut()
 {
   if (ch1*ch2 ==-1.){;}else{return -1;}
-  if (!sameflav) return -1;
+  //if (!sameflav) return -1;
   if (njet != 1) return -1;
   return 1;
 }
 Int_t HWwBase::OF1jCut()
 {
   if (ch1*ch2 ==-1.){;}else{return -1;}
-  if (sameflav)  return -1;
+  //if (sameflav)  return -1;
   if (njet != 1) return -1;
   return 1;
 }
@@ -57,12 +58,13 @@ Int_t HWwBase::OF1jCut()
 Int_t HWwBase::CommonCut()
 {
   if (ch1*ch2 ==-1.){;}else{return -1;}
-  if (trigger==1.){;}else{return -1;}
+  //if (trigger==1.){;}else{return -1;}
   if (pt1>20 && pt2>10){;}else{return -1;}
-  if (nextra==0){;}else{return -1;}
-  if (pfmet>20.){;}else{return -1;}
+  //if (nextra==0){;}else{return -1;}
+  //if (pfmet>20.){;}else{return -1;}
   if (mll>12.){;}else{return -1;}
-  if (zveto==1 || !sameflav){;}else{return -1;}
+  //if (zveto==1 || !sameflav){;}else{return -1;}
+  /***
   if (mpmet>20.&&
       (!sameflav||
 	(
@@ -72,10 +74,12 @@ Int_t HWwBase::CommonCut()
 	)
       )
      ){;}else{return -1;}
-  if( njet == 0 ||  njet ==1 || (dphilljetjet < PI/180.*165 || !sameflav)){;}else{ return -1;}
-  if (bveto_mu==1){;}else{return -1;}
-  if (bveto_ip==1 && nbjettche==0){;}else{return -1;}
-  if (ptll>30.){;}else{return -1;}
+     ****/
+  //if( njet == 0 ||  njet ==1 || (dphilljetjet < PI/180.*165 || !sameflav)){;}else{ return -1;}
+  //if (bveto_mu==1){;}else{return -1;}
+  //if (bveto_ip==1 && nbjettche==0){;}else{return -1;}
+  //if (ptll>30.){;}else{return -1;}
+  /***
   if(!sameflav ||
       (
         (njet != 0 || dymva1 > 0.88 || mpmet> 35) &&
@@ -85,7 +89,7 @@ Int_t HWwBase::CommonCut()
 	(njet==0 || njet==1 || (pfmet > 45.0))
       )
     ){;}else{return -1;}
-
+    ****/
   return 1;
 }
 //Optimized Cuts V1 
@@ -97,7 +101,8 @@ Int_t HWwBase::SignalCutV1()
   if (nextra==0){;}else{return -1;}
   if (pfmet>20.){;}else{return -1;}
   if (mll>84){;}else{return -1;} //Optimized Cut
-  if (zveto==1 || !sameflav){;}else{return -1;}
+  //if (zveto==1 || !sameflav){;}else{return -1;}
+  /****
   if (mpmet>20.&&
       (!sameflav||
 	(
@@ -107,10 +112,12 @@ Int_t HWwBase::SignalCutV1()
 	)
       )
      ){;}else{return -1;}
-  if( njet == 0 ||  njet ==1 || (dphilljetjet < PI/180.*165 || !sameflav)){;}else{ return -1;}
+     ***/
+  //if( njet == 0 ||  njet ==1 || (dphilljetjet < PI/180.*165 || !sameflav)){;}else{ return -1;}
   if (bveto_mu==1){;}else{return -1;}
   if (bveto_ip==1 && nbjettche==0){;}else{return -1;}
   if (ptll>30.){;}else{return -1;}
+  /*****
   if(!sameflav ||
       (
         (njet != 0 || dymva1 > 0.88 || mpmet> 35) &&
@@ -120,6 +127,7 @@ Int_t HWwBase::SignalCutV1()
 	(njet==0 || njet==1 || (pfmet > 45.0))
       )
     ){;}else{return -1;}
+    *****/
 
   return 1;
 }
@@ -132,7 +140,8 @@ Int_t HWwBase::SignalCutV2()
   if (nextra==0){;}else{return -1;}
   if (pfmet>20.){;}else{return -1;}
   if (mll>82.6283){;}else{return -1;} //Optimized Cut
-  if (zveto==1 || !sameflav){;}else{return -1;}
+  //if (zveto==1 || !sameflav){;}else{return -1;}
+  /*****
   if (mpmet>20.&&
       (!sameflav||
 	(
@@ -142,10 +151,12 @@ Int_t HWwBase::SignalCutV2()
 	)
       )
      ){;}else{return -1;}
-  if( njet == 0 ||  njet ==1 || (dphilljetjet < PI/180.*165 || !sameflav)){;}else{ return -1;}
+     ***************/
+  //if( njet == 0 ||  njet ==1 || (dphilljetjet < PI/180.*165 || !sameflav)){;}else{ return -1;}
   if (bveto_mu==1){;}else{return -1;}
   if (bveto_ip==1 && nbjettche==0){;}else{return -1;}
   if (ptll>9.89954){;}else{return -1;} //Optimized Cut
+  /*********
   if(!sameflav ||
       (
         (njet != 0 || dymva1 > 0.88 || mpmet> 35) &&
@@ -155,6 +166,7 @@ Int_t HWwBase::SignalCutV2()
 	(njet==0 || njet==1 || (pfmet > 45.0))
       )
     ){;}else{return -1;}
+    ***************/
 
   return 1;
 }
@@ -168,7 +180,8 @@ Int_t HWwBase::SignalCutV3()
   if (pfmet>20.){;}else{return -1;}
   //if (mll>83.){;}else{return -1;}
   if (mll>12.){;}else{return -1;}
-  if (zveto==1 || !sameflav){;}else{return -1;}
+  //if (zveto==1 || !sameflav){;}else{return -1;}
+  /***************
   if (mpmet>20.&&
       (!sameflav||
 	(
@@ -178,11 +191,13 @@ Int_t HWwBase::SignalCutV3()
 	)
       )
      ){;}else{return -1;}
-  if( njet == 0 ||  njet ==1 || (dphilljetjet < PI/180.*165 || !sameflav)){;}else{ return -1;}
+     *************/
+  //if( njet == 0 ||  njet ==1 || (dphilljetjet < PI/180.*165 || !sameflav)){;}else{ return -1;}
   if (bveto_mu==1){;}else{return -1;}
   if (bveto_ip==1 && nbjettche==0){;}else{return -1;}
   //if (ptll>10.){;}else{return -1;}
   //if (mth>130.){;}else{return -1;}
+  /***************
   if(!sameflav ||
       (
         (njet != 0 || dymva1 > 0.88 || mpmet> 35) &&
@@ -192,6 +207,7 @@ Int_t HWwBase::SignalCutV3()
 	(njet==0 || njet==1 || (pfmet > 45.0))
       )
     ){;}else{return -1;}
+    ****************/
 
   return 1;
 }
@@ -203,7 +219,8 @@ Int_t HWwBase::CommonCut_Without_mll_ptll_Cut()
   if (nextra==0){;}else{return -1;}
   if (pfmet>20.){;}else{return -1;}
   //if (mll>12.){;}else{return -1;}
-  if (zveto==1 || !sameflav){;}else{return -1;}
+  //if (zveto==1 || !sameflav){;}else{return -1;}
+  /****************
   if (mpmet>20.&&
       (!sameflav||
 	(
@@ -213,10 +230,12 @@ Int_t HWwBase::CommonCut_Without_mll_ptll_Cut()
 	)
       )
      ){;}else{return -1;}
-  if( njet == 0 ||  njet ==1 || (dphilljetjet < PI/180.*165 || !sameflav)){;}else{ return -1;}
+     ******************/
+  //if( njet == 0 ||  njet ==1 || (dphilljetjet < PI/180.*165 || !sameflav)){;}else{ return -1;}
   if (bveto_mu==1){;}else{return -1;}
   if (bveto_ip==1 && nbjettche==0){;}else{return -1;}
   //if (ptll>30.){;}else{return -1;}
+  /***************
   if(!sameflav ||
       (
         (njet != 0 || dymva1 > 0.88 || mpmet> 35) &&
@@ -226,6 +245,7 @@ Int_t HWwBase::CommonCut_Without_mll_ptll_Cut()
 	(njet==0 || njet==1 || (pfmet > 45.0))
       )
     ){;}else{return -1;}
+    ****************/
 
   return 1;
 }
@@ -237,7 +257,8 @@ Int_t HWwBase::CommonCut_Without_mllCut()
   if (nextra==0){;}else{return -1;}
   if (pfmet>20.){;}else{return -1;}
   //if (mll>12.){;}else{return -1;}
-  if (zveto==1 || !sameflav){;}else{return -1;}
+  //if (zveto==1 || !sameflav){;}else{return -1;}
+  /*****
   if (mpmet>20.&&
       (!sameflav||
 	(
@@ -247,10 +268,12 @@ Int_t HWwBase::CommonCut_Without_mllCut()
 	)
       )
      ){;}else{return -1;}
-  if( njet == 0 ||  njet ==1 || (dphilljetjet < PI/180.*165 || !sameflav)){;}else{ return -1;}
+     ****/
+  //if( njet == 0 ||  njet ==1 || (dphilljetjet < PI/180.*165 || !sameflav)){;}else{ return -1;}
   if (bveto_mu==1){;}else{return -1;}
   if (bveto_ip==1 && nbjettche==0){;}else{return -1;}
   if (ptll>30.){;}else{return -1;}
+  /****
   if(!sameflav ||
       (
         (njet != 0 || dymva1 > 0.88 || mpmet> 35) &&
@@ -258,6 +281,7 @@ Int_t HWwBase::CommonCut_Without_mllCut()
 	(njet==0 || njet==1 || (pfmet > 45.0))
       )
     ){;}else{return -1;}
+    *****/
 
   return 1;
 }
@@ -269,7 +293,8 @@ Int_t HWwBase::CommonCut_Without_ptllCut()
   if (nextra==0){;}else{return -1;}
   if (pfmet>20.){;}else{return -1;}
   if (mll>12.){;}else{return -1;}
-  if (zveto==1 || !sameflav){;}else{return -1;}
+  //if (zveto==1 || !sameflav){;}else{return -1;}
+  /****
   if (mpmet>20.&&
       (!sameflav||
 	(
@@ -279,10 +304,12 @@ Int_t HWwBase::CommonCut_Without_ptllCut()
 	)
       )
      ){;}else{return -1;}
-  if( njet == 0 ||  njet ==1 || (dphilljetjet < PI/180.*165 || !sameflav)){;}else{ return -1;}
+     *****/
+  //if( njet == 0 ||  njet ==1 || (dphilljetjet < PI/180.*165 || !sameflav)){;}else{ return -1;}
   if (bveto_mu==1){;}else{return -1;}
   if (bveto_ip==1 && nbjettche==0){;}else{return -1;}
   //if (ptll>30.){;}else{return -1;}
+  /****
   if(!sameflav ||
       (
         (njet != 0 || dymva1 > 0.88 || mpmet> 35) &&
@@ -290,6 +317,7 @@ Int_t HWwBase::CommonCut_Without_ptllCut()
 	(njet==0 || njet==1 || (pfmet > 45.0))
       )
     ){;}else{return -1;}
+    ******/
 
   return 1;
 }
@@ -301,8 +329,9 @@ Int_t HWwBase::CommonCut_Without_mpmetCut()
   if (nextra==0){;}else{return -1;}
   if (pfmet>20.){;}else{return -1;}
   if (mll>12.){;}else{return -1;}
-  if (zveto==1 || !sameflav){;}else{return -1;}
+  //if (zveto==1 || !sameflav){;}else{return -1;}
   //if (mpmet>20.&&
+  /*****
   if (!sameflav||
 	(
 	  (njet!=0||dymva1>0.88) &&
@@ -311,10 +340,12 @@ Int_t HWwBase::CommonCut_Without_mpmetCut()
 	)
       //)
      ){;}else{return -1;}
-  if( njet == 0 ||  njet ==1 || (dphilljetjet < PI/180.*165 || !sameflav)){;}else{ return -1;}
+     *****/
+  //if( njet == 0 ||  njet ==1 || (dphilljetjet < PI/180.*165 || !sameflav)){;}else{ return -1;}
   if (bveto_mu==1){;}else{return -1;}
   if (bveto_ip==1 && nbjettche==0){;}else{return -1;}
   if (ptll>30.){;}else{return -1;}
+  /******
   if(!sameflav ||
       (
         //(njet != 0 || dymva1 > 0.88 || mpmet> 35) &&
@@ -324,6 +355,7 @@ Int_t HWwBase::CommonCut_Without_mpmetCut()
 	(njet==0 || njet==1 || (pfmet > 45.0))
       )
     ){;}else{return -1;}
+    *****/
 
   return 1;
 }
@@ -336,12 +368,13 @@ Int_t HWwBase::LooseCut()
 //njet Study
 Int_t HWwBase::CommonCut_njet()
 {
-  if (!sameflav){;}else{return -1;}
+  //if (!sameflav){;}else{return -1;}
   if (ch1*ch2 ==-1.){;}else{return -1;}
   if (trigger==1.){;}else{return -1;}
   if (pt1>20 && pt2>20){;}else{return -1;}
   if (mll>12.){;}else{return -1;}
-  if (zveto==1 || !sameflav){;}else{return -1;}
+  //if (zveto==1 || !sameflav){;}else{return -1;}
+  /*******
   if(!sameflav ||
       (
         (njet != 0 || dymva1 > 0.88 || mpmet> 35) &&
@@ -351,8 +384,37 @@ Int_t HWwBase::CommonCut_njet()
 	(njet==0 || njet==1 || (pfmet > 45.0))
       )
     ){;}else{return -1;}
+    ******/
   if(njet==0 || njet==1 || (njet >= 2 && njet <= 3 && (jetpt3 <= 30 || !(jetpt3 > 30 && ( (jeteta1-jeteta3 > 0 && jeteta2-jeteta3 < 0) || (jeteta2-jeteta3 > 0 && jeteta1-jeteta3 < 0)))))){;}else{return -1;}
   if ((nextra==0) * (bveto_mu && bveto_ip && nbjettche==0)){;}else{return -1;}
+
+  return 1;
+}
+//njet Study
+Int_t HWwBase::CommonCut_VBFnjet()
+{
+  //if (!sameflav){;}else{return -1;}
+  if (ch1*ch2 ==-1.){;}else{return -1;}
+  if (trigger==1.){;}else{return -1;}
+  if (pt1>20 && pt2>20){;}else{return -1;}
+  if (mll>12.){;}else{return -1;}
+  //if (zveto==1 || !sameflav){;}else{return -1;}
+  /*******
+  if(!sameflav ||
+      (
+        (njet != 0 || dymva1 > 0.88 || mpmet> 35) &&
+        (njet != 1 || dymva1 > 0.84 || mpmet> 35) &&
+        (njet != 0 || dymva1 > 0.88) &&
+        (njet != 1 || dymva1 > 0.84) &&
+	(njet==0 || njet==1 || (pfmet > 45.0))
+      )
+    ){;}else{return -1;}
+    ******/
+  //if(njet==0 || njet==1 || (njet >= 2 && njet <= 3 && (jetpt3 <= 30 || !(jetpt3 > 30 && ( (jeteta1-jeteta3 > 0 && jeteta2-jeteta3 < 0) || (jeteta2-jeteta3 > 0 && jeteta1-jeteta3 < 0)))))){;}else{return -1;}
+  if ((nextra==0) * (bveto_mu && bveto_ip && nbjettche==0)){;}else{return -1;}
+  if (njet>=2){;}else{return -1;}
+  if(((njet>=2)*(ptll>45 && (njet>=2 && njet<=3 && (jetpt3<=30 || !(jetpt3 > 30 && ( (jeteta1-jeteta3 > 0 && jeteta2-jeteta3 < 0) || (jeteta2-jeteta3 > 0 && jeteta1-jeteta3 < 0))))) && abs(eta1 - (jeteta1+jeteta2)/2)/detajj < 0.5 && abs(eta2 - (jeteta1+jeteta2)/2)/detajj < 0.5 && detajj>2.5 && mjj>500))){;}else{return -1;}
+    if (mjj>300){;}else{return -1;}
 
   return 1;
 }
@@ -377,19 +439,19 @@ double HWwBase::CalcWeight()
     if(njet == 1)evtWeight *= 1.11272;
   }else if(SampleName == "DYll")
   {
-    evtWeight = puW*baseW*effW*triggW*sameflav*LumiW;
+    //evtWeight = puW*baseW*effW*triggW*sameflav*LumiW;
     if(njet == 0) evtWeight *= 6.98418;
     if(njet == 1) evtWeight *= 3.73978;
   }else if(SampleName == "DYtt")
   {
-    evtWeight = puW*baseW*effW*triggW*(!sameflav)*LumiW;
+    //evtWeight = puW*baseW*effW*triggW*(!sameflav)*LumiW;
   }else if(SampleName == "VV")
   {
     evtWeight = puW*baseW*effW*triggW*(1+0.5*(dataset>=82&&dataset<=84))*LumiW;
   }else if(SampleName == "VVV")
   {
     evtWeight = puW*baseW*effW*triggW*LumiW;
-  }else if(SampleName == "H125" || SampleName == "POWHEG")
+  }else if(SampleName == "H125" || SampleName == "POWHEG" ||  SampleName == "POWHEG_VBF")
   {
     evtWeight = puW*baseW*effW*triggW*LumiW;
   }else if(SampleName == "gg2vvHw1SigOnPeak" || SampleName == "gg2vvHw1SigShoulder" || SampleName == "gg2vvHw1SigTail")
@@ -410,6 +472,9 @@ double HWwBase::CalcWeight()
   }else if(SampleName == "gg2vvHw25Sig8TeV" || SampleName == "gg2vvHw25Int8TeV" || SampleName == "gg2vvHw25Cot8TeV")
   {
     evtWeight = 2.1*puW*baseW*effW*triggW*LumiW; //Coeff. 2.1 is NLO/LO K-Factor
+  }else if(SampleName == "phantom")
+  {
+    evtWeight = puW*baseW*effW*triggW*LumiW*( 0.125*( (dataset == 160) || (dataset == 169) || (dataset == 176) || (dataset == 172)) - 0.250*( (dataset == 161) || (dataset == 175) || (dataset == 173) || (dataset == 170)) + 0.125*( (dataset == 162) || (dataset == 171) || (dataset == 174) || (dataset == 177)));
   }
   return evtWeight;
 }
@@ -421,6 +486,7 @@ double HWwBase::CalcmWW()
   TLorentzVector nu2_TL;
   TLorentzVector Lepton4_TL;
   double mHiggs(0);
+  /****************
   
   if((leptonGenpid1 == GenType::kElectron && leptonGenpid2 == GenType::kMuon) || (leptonGenpid1 == GenType::kMuon && leptonGenpid2 == GenType::kElectron))
   {
@@ -445,5 +511,6 @@ double HWwBase::CalcmWW()
       exit(-1);
     }
   }
+  ******/
   return mHiggs;
 }

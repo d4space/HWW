@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Tue Sep  2 22:54:00 2014 by ROOT version 5.34/09
+// Tue Feb 24 01:32:43 2015 by ROOT version 5.34/18
 // from TChain latino/
 //////////////////////////////////////////////////////////
 
@@ -21,7 +21,6 @@ public :
    Int_t           fCurrent; //!current Tree number in a TChain
 
    // Declaration of leaf types
-   Float_t         MHiggs;
    Float_t         bdt1;
    Float_t         bdt2;
    Float_t         bdt3;
@@ -292,7 +291,6 @@ public :
    Float_t         phi3;
    Float_t         phi4;
    Float_t         ppfmet;
-   Float_t         pupmet;
    Float_t         predmet;
    Float_t         pt1;
    Float_t         pt2;
@@ -358,10 +356,8 @@ public :
    Float_t         baseW;
    Float_t         mWW;
    Float_t         HwidthMVAbkg;
-   Float_t         HwidthMVAggH;
 
    // List of branches
-   TBranch        *b_MHiggs;   //!
    TBranch        *b_bdt1;   //!
    TBranch        *b_bdt2;   //!
    TBranch        *b_bdt3;   //!
@@ -632,7 +628,6 @@ public :
    TBranch        *b_phi3;   //!
    TBranch        *b_phi4;   //!
    TBranch        *b_ppfmet;   //!
-   TBranch        *b_pupmet;   //!
    TBranch        *b_predmet;   //!
    TBranch        *b_pt1;   //!
    TBranch        *b_pt2;   //!
@@ -698,7 +693,6 @@ public :
    TBranch        *b_baseW;   //!
    TBranch        *b_mWW;   //!
    TBranch        *b_HwidthMVAbkg;   //!
-   TBranch        *b_HwidthMVAggH;   //!
 
    HWwNT(TTree *tree=0);
    virtual ~HWwNT();
@@ -734,7 +728,7 @@ HWwNT::HWwNT(TTree *tree) : fChain(0)
       // The following code should be used if you want this class to access a chain
       // of trees.
       TChain * chain = new TChain("latino","");
-      chain->Add("root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshww/amassiro/HiggsWidth/gg2vv/latinogg2vv_Hw1_IntOnPeak_8TeV.root/latino");
+      chain->Add("latino_160_qqww1smEM_baseW.root/latino");
       tree = chain;
 #endif // SINGLE_TREE
 
@@ -783,7 +777,6 @@ void HWwNT::Init(TTree *tree)
    fCurrent = -1;
    fChain->SetMakeClass(1);
 
-   fChain->SetBranchAddress("MHiggs", &MHiggs, &b_MHiggs);
    fChain->SetBranchAddress("bdt1", &bdt1, &b_bdt1);
    fChain->SetBranchAddress("bdt2", &bdt2, &b_bdt2);
    fChain->SetBranchAddress("bdt3", &bdt3, &b_bdt3);
@@ -1054,7 +1047,6 @@ void HWwNT::Init(TTree *tree)
    fChain->SetBranchAddress("phi3", &phi3, &b_phi3);
    fChain->SetBranchAddress("phi4", &phi4, &b_phi4);
    fChain->SetBranchAddress("ppfmet", &ppfmet, &b_ppfmet);
-   fChain->SetBranchAddress("pupmet", &pupmet, &b_pupmet);
    fChain->SetBranchAddress("predmet", &predmet, &b_predmet);
    fChain->SetBranchAddress("pt1", &pt1, &b_pt1);
    fChain->SetBranchAddress("pt2", &pt2, &b_pt2);
@@ -1120,7 +1112,6 @@ void HWwNT::Init(TTree *tree)
    fChain->SetBranchAddress("baseW", &baseW, &b_baseW);
    fChain->SetBranchAddress("mWW", &mWW, &b_mWW);
    fChain->SetBranchAddress("HwidthMVAbkg", &HwidthMVAbkg, &b_HwidthMVAbkg);
-   fChain->SetBranchAddress("HwidthMVAggH", &HwidthMVAggH, &b_HwidthMVAggH);
    Notify();
 }
 

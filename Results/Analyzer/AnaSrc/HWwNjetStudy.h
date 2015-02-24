@@ -38,7 +38,9 @@ protected:
    int InitVar4Evt();
    int InitHistogram();
    int Fill_Histo();
+   int Fill_vbfHisto();
    int Write_Histo();
+   double mWW;
 
    ofstream Fout;
    TFile *myFile;
@@ -52,8 +54,11 @@ protected:
    TH1D *h1_mWWbin_OffSh[4];
    TH1D *h1_mWWbin_OffSh_noWeight[4];
    
-   TH1D *h1_mjj[4];
-   TH1D *h1_detajj[4];
+   TH1D *h1_mww_off_CalcPowRew[5];
+   TH1D *h1_mww_off_CalcPowRew_noWeight[5];
+   
+   TH1D *h1_mjj[5];
+   TH1D *h1_detajj[5];
 };
 
 #endif
