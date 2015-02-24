@@ -37,7 +37,9 @@
 #include "chain_powheg.h"
 #include "chain_sherpaHw1Sig8TeV.h"
 #include "chain_powheg_vbf.h"
-#include "chain_phantom.h"
+#include "chain_phantom_1SM.h"
+#include "chain_phantom_9SM.h"
+#include "chain_phantom_25SM.h"
 
 //MET Study
 #include "chain_WJetsToLNuMad.h"
@@ -161,8 +163,14 @@ void SetupTree( TString sample, TChain* chains )
   else if( sample == "POWHEG_VBF"){
     chain_powheg_vbf(chains);
   }
-  else if( sample == "phantom"){
-    chain_phantom(chains);
+  else if( sample == "phantom_1SM"){
+    chain_phantom_1SM(chains);
+  }
+  else if( sample == "phantom_9SM"){
+    chain_phantom_9SM(chains);
+  }
+  else if( sample == "phantom_25SM"){
+    chain_phantom_25SM(chains);
   }
   else if(sample == "sherpaHw1Sig8TeV"){
     chain_sherpaHw1Sig8TeV(chains);
