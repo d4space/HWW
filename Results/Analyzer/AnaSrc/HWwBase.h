@@ -90,6 +90,7 @@ protected:
 
    double 	CalcWeight();
    double 	CalcmWW();
+   //double mWW;
    double mH;
    double mllBins[12];
    double mthBins[12];

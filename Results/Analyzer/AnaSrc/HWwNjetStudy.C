@@ -27,9 +27,11 @@ void HWwNjetStudy::Loop()
     fChain->GetEntry(i);
 
     if(SampleName == "POWHEG" || SampleName == "POWHEG_VBF")
-      //mWW = MHiggs;
-    if(SampleName == "SHERPA")
-      mWW = CalcmWW();
+    {
+      //mWW = MHiggs; // Activate mWW at HWwBase.h
+    }
+    if(SampleName == "SHERPA")mWW = CalcmWW();
+
     if(mWW <= 130.) continue;
 
     EvtWeight = CalcWeight();

@@ -40,7 +40,6 @@ protected:
    int Fill_Histo();
    int Fill_vbfHisto();
    int Write_Histo();
-   double mWW;
    double WevtPow2Gen;
 
    ofstream Fout;
