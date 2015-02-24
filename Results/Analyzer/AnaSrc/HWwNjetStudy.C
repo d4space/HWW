@@ -20,7 +20,8 @@ void HWwNjetStudy::Loop()
   cout<<"LumiW: "<<LumiW<<endl;
   Fout<<"LumiW: "<<LumiW<<endl;
  
-  for (int i(0); i<Ntries;i++)
+  //for (int i(0); i<Ntries;i++)
+  for ( int i(0); i<100 ;i++ )
   {
     InitVar4Evt();
     evtCnt++;
@@ -219,6 +220,7 @@ void HWwNjetStudy::Loop()
   Fout.close();
   gBenchmark->Show("HWwNjetStudy");
 }
+
 int HWwNjetStudy::Fill_Histo()
 {
   if(mWW>130)
@@ -270,7 +272,6 @@ int HWwNjetStudy::Fill_Histo()
   return 0;
 }
   
-
 int HWwNjetStudy::InitVar()
 {
   TString FoutName = mResultDir+"/"+SampleName+"_"+Cut+".txt";
@@ -309,7 +310,6 @@ int HWwNjetStudy::InitHistogram()
 
     sprintf(histName, "h1_mWW_Off_noWeight_%d",i);
     h1_mWW_Off_noWeight[i] = new TH1D(histName,"mWW", 150, 0, 1500);
-
 
 
     sprintf(histName, "h1_mjj_%d",i);

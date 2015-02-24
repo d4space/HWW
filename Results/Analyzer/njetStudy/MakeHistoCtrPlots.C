@@ -19,7 +19,7 @@ void MakeHistoCtrPlots()
 
   for( int i(0); i < sizeof(Cuts)/sizeof(*Cuts);++i){
     cout<<"Cut is "<<Cuts[i]<<endl;
-/*    
+/******    
 //gg2vvHw1Sig8TeV========================================
     cout<<"gg2vvHw1Sig8TeV===================="<<endl;
     RunOnMC = true;
@@ -47,7 +47,7 @@ void MakeHistoCtrPlots()
     HWwNjetStudy HWwNjetStudyPOWHEG(TC_POWHEG,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
     HWwNjetStudyPOWHEG.Loop();
 ********/
-///****
+/****
 //phantom========================================
     cout<<"phantom===================="<<endl;
     RunOnMC = true;
@@ -67,7 +67,7 @@ void MakeHistoCtrPlots()
     HWwNjetStudy HWwNjetStudyphantom_25SM(TC_phantom_25SM,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
     HWwNjetStudyphantom_25SM.Loop();
 
-///***********/
+**********/
     /***********
 //POWHEG_VBF========================================
     cout<<"POWHEG_VBF===================="<<endl;
