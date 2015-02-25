@@ -90,7 +90,7 @@ protected:
 
    double 	CalcWeight();
    double 	CalcmWW();
-   //double mWW;
+   double mWW; // For POWHEG
    double mH;
    double mllBins[12];
    double mthBins[12];

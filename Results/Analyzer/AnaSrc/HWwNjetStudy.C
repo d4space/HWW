@@ -28,7 +28,7 @@ void HWwNjetStudy::Loop()
 
     if(SampleName == "POWHEG" || SampleName == "POWHEG_VBF")
     {
-      //mWW = MHiggs; // Activate mWW at HWwBase.h
+      mWW = MHiggs; // Activate mWW at HWwBase.h
     }
     if(SampleName == "SHERPA")mWW = CalcmWW();
 
@@ -441,13 +441,15 @@ int HWwNjetStudy::InitHistogram()
   for(int i(0); i<5; i++)
   {
     sprintf(histName, "h1_mWW_Off_Wevt_%d",i);
-    h1_mWW_Off_Wevt[i] = new TH1D(histName,"mWW", 150, 0, 1500);
+    h1_mWW_Off_Wevt[i] = new TH1D(histName,"mWW", 30, 0, 1500);
+    //h1_mWW_Off_Wevt[i] = new TH1D(histName,"mWW", 150, 0, 1500); // gg2Vv
 
     sprintf(histName, "h1_mWW_Off_WevtPow2Gen_%d",i);
-    h1_mWW_Off_WevtPow2Gen[i] = new TH1D(histName,"mWW", 150, 0, 1500);
+    h1_mWW_Off_WevtPow2Gen[i] = new TH1D(histName,"mWW", 30, 0, 1500);
 
     sprintf(histName, "h1_mWW_Off_noWeight_%d",i);
-    h1_mWW_Off_noWeight[i] = new TH1D(histName,"mWW", 150, 0, 1500);
+    h1_mWW_Off_noWeight[i] = new TH1D(histName,"mWW", 30, 0, 1500);
+    //h1_mWW_Off_noWeight[i] = new TH1D(histName,"mWW", 150, 0, 1500);
 
 
     sprintf(histName, "h1_mjj_%d",i);
