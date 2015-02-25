@@ -20,8 +20,7 @@ void HWwNjetStudy::Loop()
   cout<<"LumiW: "<<LumiW<<endl;
   Fout<<"LumiW: "<<LumiW<<endl;
  
-  //for (int i(0); i<Ntries;i++)
-  for ( int i(0); i<100 ;i++ )
+  for (int i(0); i<Ntries;i++)
   {
     InitVar4Evt();
     evtCnt++;
