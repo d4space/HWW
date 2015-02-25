@@ -162,7 +162,7 @@ void CalcPowRew2Phn()
   //Printout reWeight Factor
   for (int j(0);j<h1_reWeightFac->GetNbinsX();j++)
   {
-    cout<<"if(mWW > "<<j*10.<<" && mWW <= "<<10.*(j+1)<<") EvtWeight *="<<h1_reWeightFac->GetBinContent(j)<<";"<<endl;
+    cout<<"if(mWW > "<<j*50.<<" && mWW <= "<<50.*(j+1)<<") EvtWeight *="<<h1_reWeightFac->GetBinContent(j)<<";"<<endl;
   }
 
   //
