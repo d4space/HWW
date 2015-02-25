@@ -472,7 +472,7 @@ double HWwBase::CalcWeight()
   }else if(SampleName == "gg2vvHw25Sig8TeV" || SampleName == "gg2vvHw25Int8TeV" || SampleName == "gg2vvHw25Cot8TeV")
   {
     evtWeight = 2.1*puW*baseW*effW*triggW*LumiW; //Coeff. 2.1 is NLO/LO K-Factor
-  }else if(SampleName == "phantom")
+  }else if(SampleName == "phantom" || SampleName == "phantom_1SM" || SampleName == "phantom_9SM" || SampleName == "phantom_25SM")
   {
     evtWeight = puW*baseW*effW*triggW*LumiW*( 0.125*( (dataset == 160) || (dataset == 169) || (dataset == 176) || (dataset == 172)) - 0.250*( (dataset == 161) || (dataset == 175) || (dataset == 173) || (dataset == 170)) + 0.125*( (dataset == 162) || (dataset == 171) || (dataset == 174) || (dataset == 177)));
   }
