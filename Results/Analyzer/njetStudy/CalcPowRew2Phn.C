@@ -60,13 +60,23 @@ void CalcPowRew2Phn()
   //Read Histograms from root file
   for(int i(0);i<5;i++)
   {
-    sprintf(tmpName, "h1_mWW_Phn1sm_%d",i);
-    sprintf(histName,"h1_mWW_phn_%d",i);
-    h1_mWW_phn_1[i] = (TH1D*)f_phn_1->Get(tmpName)->Clone(histName);
-    h1_mWW_phn[i]->Sumw2();
+    sprintf(tmpName, "h1_mWW_Off_noWeight_%d",i);
+    sprintf(histName,"h1_mWW_phn_1sm_%d",i);
+    h1_mWW_phn_1sm[i] = (TH1D*)f_phn_1->Get(tmpName)->Clone(histName);
+    h1_mWW_phn_1sm[i]->Sumw2();
+    sprintf(histName,"h1_mWW_phn_9sm_%d",i);
+    h1_mWW_phn_9sm[i] = (TH1D*)f_phn_9->Get(tmpName)->Clone(histName);
+    h1_mWW_phn_9sm[i]->Sumw2();
+    sprintf(histName,"h1_mWW_phn_25sm_%d",i);
+    h1_mWW_phn_25sm[i] = (TH1D*)f_phn_25->Get(tmpName)->Clone(histName);
+    h1_mWW_phn_25sm[i]->Sumw2();
     
     sprintf(histName,"h1_mWW_powheg_%d",i);
-    h1_mWW_powheg[i] = (TH1D*)f_pow->Get(tmpName)->Clone(histName); h1_mWW_powheg[i]->Sumw2();
+    h1_mWW_pow[i] = (TH1D*)f_pow->Get(tmpName)->Clone(histName);
+    h1_mWW_pow[i]->Sumw2();
+
+    h1_mWW_phn_[i] = (TH1D*)f_phn_1->Get(tmpName)->Clone(histName);
+    h1_mWW_phn_[i]->Sumw2();
   }
 
   nTotalPha = h1_mWW_phn[4] -> Integral();
