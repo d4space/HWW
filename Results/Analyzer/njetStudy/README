@@ -8,6 +8,7 @@
 @@@@@@ According to sample, change HWwNT using Makeclass and change the next properly
 case1. HWwNT.h has mWW ===========================
 comment //double mWW at HWwBase.h
+At HWwNjetStudy.C -----
 if(SampleName == "POWHEG" || SampleName == "POWHEG_VBF")
       //mWW = MHiggs;
           if(SampleName == "SHERPA")
@@ -15,6 +16,7 @@ if(SampleName == "POWHEG" || SampleName == "POWHEG_VBF")
 
 case2. HWwNT.h has no mWW ===========================
 double mWW at HWwBase.h
+At HWwNjetStudy.C -----
 if(SampleName == "POWHEG" || SampleName == "POWHEG_VBF")
       mWW = MHiggs;
           if(SampleName == "SHERPA")
