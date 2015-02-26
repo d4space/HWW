@@ -28,7 +28,7 @@ void HWwNjetStudy::Loop()
 
     if(SampleName == "POWHEG" || SampleName == "POWHEG_VBF")
     {
-      //mWW = MHiggs; // Activate mWW at HWwBase.h
+      mWW = MHiggs; // Activate mWW at HWwBase.h
     }
     if(SampleName == "SHERPA")mWW = CalcmWW();
 
