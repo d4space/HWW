@@ -26,7 +26,7 @@
 void CalcPowRew2Phn()
 {
   //TString OutDir = "mWW_unweighted";
-  TString OutDir = "mWW_reweight_2Phn";
+  TString OutDir = "mWW_2Phn";
   gSystem->mkdir(OutDir);
   
   TFile *f_phn_1;
@@ -58,6 +58,7 @@ void CalcPowRew2Phn()
   TH1D* h1_mWW_Pow[5];
   TH1D* h1_mWW_Pow_noW[5];
   TH1D* h1_mWW_Pow_Wevt[5];
+  TH1D* h1_mWW_Pow_Wevt_norm[5];
 
   TH1D* h1_reWeightFac;
 
@@ -103,6 +104,8 @@ void CalcPowRew2Phn()
     sprintf(histName,"h1_mWW_Pow_Wevt_%d",i);
     h1_mWW_Pow_Wevt[i] = (TH1D*)f_pow->Get(tmpName)->Clone(histName);
     h1_mWW_Pow_Wevt[i]->Sumw2();
+    sprintf(histName,"h1_mWW_Pow_Wevt_norm_%d",i);
+    h1_mWW_Pow_Wevt_norm[i] = (TH1D*)h1_mWW_Pow_Wevt[i]->Clone(histName);
 
     sprintf(histName,"h1_mWW_Phn_Sg_Wevt_%d",i);
     h1_mWW_Phn_Sg_Wevt[i] = (TH1D*)h1_mWW_Phn_1_Wevt[i]->Clone(histName);
@@ -114,7 +117,7 @@ void CalcPowRew2Phn()
     //NttPhan_9_noW[i] = h1_mWW_Phn_9_noW[i]->Integral();
     //NttPhan_25_noW[i]= h1_mWW_Phn_25_noW[i]->Integral();
 
-    // Phantom Signal Extraction without Event Weight
+    // Phantom Signal Extraction without Event Weight histogram
     sprintf(histName,"h1_mWW_Phn_Sg_%d",i);
     h1_mWW_Phn_Sg[i] = (TH1D*) h1_mWW_Phn_1_noW[i]->Clone(histName);
     h1_mWW_Phn_Sg[i]->Sumw2();
@@ -125,6 +128,7 @@ void CalcPowRew2Phn()
     sprintf(histName,"h1_mWW_Pow_%d",i);
     h1_mWW_Pow[i] = (TH1D*) h1_mWW_Pow_noW[i]->Clone(histName);
 
+    // Calculation of factor which make the non-Weighted phantom signal to event weighted one for value and error both
     for(int bdx(1);bdx <= h1_mWW_Phn_Sg[i]->GetNbinsX();bdx++)
     {
       tmpV1 = h1_mWW_Phn_Sg_Wevt[i]->GetBinContent(bdx);
@@ -142,27 +146,64 @@ void CalcPowRew2Phn()
       h1_mWW_Pow[i]->SetBinContent(bdx,tmpV1);
       h1_mWW_Pow[i]->SetBinError(bdx,tmpE*tmpK);
     }
-    
   }
 
   double NttPhn = h1_mWW_Phn_Sg[4]->Integral();
   double NttPow = h1_mWW_Pow[4]   ->Integral();
 
   //Normalization to Inclusive Total number
-  for(int i(0);i<=4;i++)
+  TH1D* h1_mWW_Phn_Sg_Wevt_norm[5];
+  for(int i(0);i<5;i++)
   {
     h1_mWW_Phn_Sg[i]->Scale(1./NttPhn);
     h1_mWW_Pow[i]   ->Scale(1./NttPow);
+    h1_mWW_Pow_Wevt_norm[i]   ->Scale(1./NttPow*0.9);
+    sprintf(histName,"h1_mWW_Phn_Sg_Wevt_norm_%d",i);
+    h1_mWW_Phn_Sg_Wevt_norm[i] = (TH1D*)h1_mWW_Phn_Sg_Wevt[i]->Clone(histName);
+    h1_mWW_Phn_Sg_Wevt_norm[i]->Scale(1./NttPhn*0.5);
+
   }
+  CPlot *plt_Pow_All = new CPlot("Pow_All","","mWW","");
+  plt_Pow_All->setOutDir(OutDir);
+  plt_Pow_All->AddHist1D(h1_mWW_Pow[0],"HIST",kBlack);
+  plt_Pow_All->AddHist1D(h1_mWW_Pow[1],"HIST",kBlack);
+  plt_Pow_All->AddHist1D(h1_mWW_Pow[2],"HIST",kBlack);
+  plt_Pow_All->AddHist1D(h1_mWW_Pow[3],"HIST",kBlack);
+  plt_Pow_All->AddHist1D(h1_mWW_Pow[4],"HIST",kBlack);
+  plt_Pow_All->AddHist1D(h1_mWW_Pow_Wevt_norm[0],"HIST",kRed);
+  plt_Pow_All->AddHist1D(h1_mWW_Pow_Wevt_norm[1],"HIST",kRed);
+  plt_Pow_All->AddHist1D(h1_mWW_Pow_Wevt_norm[2],"HIST",kRed);
+  plt_Pow_All->AddHist1D(h1_mWW_Pow_Wevt_norm[3],"HIST",kRed);
+  plt_Pow_All->AddHist1D(h1_mWW_Pow_Wevt_norm[4],"HIST",kRed);
+  plt_Pow_All->Draw(myCan,kTRUE,"png");
+
+
+
+  CPlot *plt_Phn_All = new CPlot("Phn_All","","mWW","");
+  plt_Phn_All->setOutDir(OutDir);
+  //plt_Phn_All->AddHist1D(h1_mWW_Phn_1_Wevt[1],"HIST",kBlack);
+  //plt_Phn_All->AddHist1D(h1_mWW_Phn_1_Wevt[2],"HIST",kBlack);
+  //plt_Phn_All->AddHist1D(h1_mWW_Phn_1_Wevt[3],"HIST",kBlack);
+  //plt_Phn_All->AddHist1D(h1_mWW_Phn_1_Wevt[4],"HIST",kBlack);
+  plt_Phn_All->AddHist1D(h1_mWW_Phn_9_Wevt[1],"HIST",kRed);
+  plt_Phn_All->AddHist1D(h1_mWW_Phn_9_Wevt[2],"HIST",kRed);
+  plt_Phn_All->AddHist1D(h1_mWW_Phn_9_Wevt[3],"HIST",kRed);
+  plt_Phn_All->AddHist1D(h1_mWW_Phn_9_Wevt[4],"HIST",kRed);
+  //plt_Phn_All->AddHist1D(h1_mWW_Phn_25_Wevt[1],"HIST",kBlue);
+  //plt_Phn_All->AddHist1D(h1_mWW_Phn_25_Wevt[2],"HIST",kBlue);
+  //plt_Phn_All->AddHist1D(h1_mWW_Phn_25_Wevt[3],"HIST",kBlue);
+  //plt_Phn_All->AddHist1D(h1_mWW_Phn_25_Wevt[4],"HIST",kBlue);
+  plt_Phn_All->Draw(myCan,kTRUE,"png");
   
   //Calculating reWeight Factor
   h1_reWeightFac = (TH1D*) h1_mWW_Phn_Sg[4]-> Clone("h1_reWeightFac");h1_reWeightFac->Sumw2();
   h1_reWeightFac -> Divide(h1_mWW_Pow[4]);
 
   //Printout reWeight Factor
-  for (int j(0);j<h1_reWeightFac->GetNbinsX();j++)
+  // bin index start from 1 !!!
+  for (int j(1);j<=h1_reWeightFac->GetNbinsX();j++) 
   {
-    cout<<"if(mWW > "<<j*50.<<" && mWW <= "<<50.*(j+1)<<") EvtWeight *="<<h1_reWeightFac->GetBinContent(j)<<";"<<endl;
+    cout<<"if(mWW > "<<(j-1)*50.<<" && mWW <= "<<50.*j<<") EvtWeight *="<<h1_reWeightFac->GetBinContent(j)<<";"<<endl;
   }
 
   //
@@ -186,8 +227,10 @@ void CalcPowRew2Phn()
     CPlot* plotmWW_phantom=new CPlot(histName,"","mWW","");
     plotmWW_phantom->setOutDir(OutDir);
     plotmWW_phantom->AddHist1D(h1_mWW_Phn_Sg[i],"HIST",kBlack);
+    plotmWW_phantom->AddHist1D(h1_mWW_Phn_Sg_Wevt_norm[i],"HIST",kRed);
     plotmWW_phantom->SetLegend(0.63,0.84,0.88,0.92);
     plotmWW_phantom->GetLegend()->AddEntry(h1_mWW_Phn_Sg[i],"Phantom Sig.","l");
+    plotmWW_phantom->GetLegend()->AddEntry(h1_mWW_Phn_Sg_Wevt_norm[i],"Phantom Sig_Wevt","l");
     plotmWW_phantom->AddTextBox(jetName,0.6,0.92,0.92,0.95,0);
     plotmWW_phantom->SetXRange(0,1500);
     plotmWW_phantom->Draw(myCan,kTRUE,"png");
