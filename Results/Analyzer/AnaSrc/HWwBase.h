@@ -83,6 +83,7 @@ protected:
    virtual Int_t    CommonCut_Without_mpmetCut();
    virtual Int_t    CommonCut_njet();
    virtual Int_t    CommonCut_VBFnjet();
+   virtual Int_t    CommonCut_VBf_NoVetoCentralJet();
    virtual Int_t    LooseCut();
    virtual Int_t    SignalCutV1();
    virtual Int_t    SignalCutV2();

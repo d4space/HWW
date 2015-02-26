@@ -203,7 +203,7 @@ void CalcPowRew2Phn()
   // bin index start from 1 !!!
   for (int j(1);j<=h1_reWeightFac->GetNbinsX();j++) 
   {
-    cout<<"if(mWW > "<<(j-1)*50.<<" && mWW <= "<<50.*j<<") EvtWeight *="<<h1_reWeightFac->GetBinContent(j)<<";"<<endl;
+    cout<<"\t if(mWW > "<<(j-1)*50.<<" && mWW <= "<<50.*j<<")\t WevtPow2Gen= EvtWeight *"<<h1_reWeightFac->GetBinContent(j)<<";"<<endl;
   }
 
   //
