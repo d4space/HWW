@@ -195,35 +195,70 @@ void HWwNjetStudy::Loop()
       //
       //
       // WithVBfCut
-      if(             mWW <= 100)  WevtPow2Gen= EvtWeight *0;
-      if(mWW > 100 && mWW <= 150)  WevtPow2Gen= EvtWeight *0.0378106;
-      if(mWW > 150 && mWW <= 200)  WevtPow2Gen= EvtWeight *0.193764;
-      if(mWW > 200 && mWW <= 250)  WevtPow2Gen= EvtWeight *1.91155;
-      if(mWW > 250 && mWW <= 300)  WevtPow2Gen= EvtWeight *1.61777;
-      if(mWW > 300 && mWW <= 350)  WevtPow2Gen= EvtWeight *1.91598;
-      if(mWW > 350 && mWW <= 400)  WevtPow2Gen= EvtWeight *2.46773;
-      if(mWW > 400 && mWW <= 450)  WevtPow2Gen= EvtWeight *3.14148;
-      if(mWW > 450 && mWW <= 500)  WevtPow2Gen= EvtWeight *3.51853;
-      if(mWW > 500 && mWW <= 550)  WevtPow2Gen= EvtWeight *5.0784;
-      if(mWW > 550 && mWW <= 600)  WevtPow2Gen= EvtWeight *5.52486;
-      if(mWW > 600 && mWW <= 650)  WevtPow2Gen= EvtWeight *9.09672;
-      if(mWW > 650 && mWW <= 700)  WevtPow2Gen= EvtWeight *13.028;
-      if(mWW > 700 && mWW <= 750)  WevtPow2Gen= EvtWeight *16.6288;
-      if(mWW > 750 && mWW <= 800)  WevtPow2Gen= EvtWeight *20.2633;
-      if(mWW > 800 && mWW <= 850)  WevtPow2Gen= EvtWeight *21.7923;
-      if(mWW > 850 && mWW <= 900)  WevtPow2Gen= EvtWeight *22.4597;
-      if(mWW > 900 && mWW <= 950)  WevtPow2Gen= EvtWeight *29.4206;
-      if(mWW > 950 && mWW <= 1000) WevtPow2Gen= EvtWeight *45.3205;
-      if(mWW > 1000 && mWW <= 1050)WevtPow2Gen= EvtWeight *58.3006;
-      if(mWW > 1050 && mWW <= 1100)WevtPow2Gen= EvtWeight *68.2147;
-      if(mWW > 1100 && mWW <= 1150)WevtPow2Gen= EvtWeight *79.023;
-      if(mWW > 1150 && mWW <= 1200)WevtPow2Gen= EvtWeight *117.26;
-      if(mWW > 1200 && mWW <= 1250)WevtPow2Gen= EvtWeight *129.333;
-      if(mWW > 1250 && mWW <= 1300)WevtPow2Gen= EvtWeight *166.973;
-      if(mWW > 1300 && mWW <= 1350)WevtPow2Gen= EvtWeight *141.288;
-      if(mWW > 1350 && mWW <= 1400)WevtPow2Gen= EvtWeight *289.653;
-      if(mWW > 1400 && mWW <= 1450)WevtPow2Gen= EvtWeight *393.112;
-      if(mWW > 1450 && mWW <= 1500)WevtPow2Gen= EvtWeight *428.126;
+      //if(             mWW <= 100)  WevtPow2Gen= EvtWeight *0;
+      //if(mWW > 100 && mWW <= 150)  WevtPow2Gen= EvtWeight *0.0378106;
+      //if(mWW > 150 && mWW <= 200)  WevtPow2Gen= EvtWeight *0.193764;
+      //if(mWW > 200 && mWW <= 250)  WevtPow2Gen= EvtWeight *1.91155;
+      //if(mWW > 250 && mWW <= 300)  WevtPow2Gen= EvtWeight *1.61777;
+      //if(mWW > 300 && mWW <= 350)  WevtPow2Gen= EvtWeight *1.91598;
+      //if(mWW > 350 && mWW <= 400)  WevtPow2Gen= EvtWeight *2.46773;
+      //if(mWW > 400 && mWW <= 450)  WevtPow2Gen= EvtWeight *3.14148;
+      //if(mWW > 450 && mWW <= 500)  WevtPow2Gen= EvtWeight *3.51853;
+      //if(mWW > 500 && mWW <= 550)  WevtPow2Gen= EvtWeight *5.0784;
+      //if(mWW > 550 && mWW <= 600)  WevtPow2Gen= EvtWeight *5.52486;
+      //if(mWW > 600 && mWW <= 650)  WevtPow2Gen= EvtWeight *9.09672;
+      //if(mWW > 650 && mWW <= 700)  WevtPow2Gen= EvtWeight *13.028;
+      //if(mWW > 700 && mWW <= 750)  WevtPow2Gen= EvtWeight *16.6288;
+      //if(mWW > 750 && mWW <= 800)  WevtPow2Gen= EvtWeight *20.2633;
+      //if(mWW > 800 && mWW <= 850)  WevtPow2Gen= EvtWeight *21.7923;
+      //if(mWW > 850 && mWW <= 900)  WevtPow2Gen= EvtWeight *22.4597;
+      //if(mWW > 900 && mWW <= 950)  WevtPow2Gen= EvtWeight *29.4206;
+      //if(mWW > 950 && mWW <= 1000) WevtPow2Gen= EvtWeight *45.3205;
+      //if(mWW > 1000 && mWW <= 1050)WevtPow2Gen= EvtWeight *58.3006;
+      //if(mWW > 1050 && mWW <= 1100)WevtPow2Gen= EvtWeight *68.2147;
+      //if(mWW > 1100 && mWW <= 1150)WevtPow2Gen= EvtWeight *79.023;
+      //if(mWW > 1150 && mWW <= 1200)WevtPow2Gen= EvtWeight *117.26;
+      //if(mWW > 1200 && mWW <= 1250)WevtPow2Gen= EvtWeight *129.333;
+      //if(mWW > 1250 && mWW <= 1300)WevtPow2Gen= EvtWeight *166.973;
+      //if(mWW > 1300 && mWW <= 1350)WevtPow2Gen= EvtWeight *141.288;
+      //if(mWW > 1350 && mWW <= 1400)WevtPow2Gen= EvtWeight *289.653;
+      //if(mWW > 1400 && mWW <= 1450)WevtPow2Gen= EvtWeight *393.112;
+      //if(mWW > 1450 && mWW <= 1500)WevtPow2Gen= EvtWeight *428.126;
+      //
+      // VBF Cut without center jet veto
+	 if( mWW <= 100)	 WevtPow2Gen= EvtWeight *0;
+	 if(mWW > 100 && mWW <= 150)	 WevtPow2Gen= EvtWeight *0.0372618;
+	 if(mWW > 150 && mWW <= 200)	 WevtPow2Gen= EvtWeight *0.193659;
+	 if(mWW > 200 && mWW <= 250)	 WevtPow2Gen= EvtWeight *1.85815;
+	 if(mWW > 250 && mWW <= 300)	 WevtPow2Gen= EvtWeight *1.73352;
+	 if(mWW > 300 && mWW <= 350)	 WevtPow2Gen= EvtWeight *1.92232;
+	 if(mWW > 350 && mWW <= 400)	 WevtPow2Gen= EvtWeight *2.25595;
+	 if(mWW > 400 && mWW <= 450)	 WevtPow2Gen= EvtWeight *3.13837;
+	 if(mWW > 450 && mWW <= 500)	 WevtPow2Gen= EvtWeight *3.66799;
+	 if(mWW > 500 && mWW <= 550)	 WevtPow2Gen= EvtWeight *4.86068;
+	 if(mWW > 550 && mWW <= 600)	 WevtPow2Gen= EvtWeight *6.26024;
+	 if(mWW > 600 && mWW <= 650)	 WevtPow2Gen= EvtWeight *9.07783;
+	 if(mWW > 650 && mWW <= 700)	 WevtPow2Gen= EvtWeight *12.8086;
+	 if(mWW > 700 && mWW <= 750)	 WevtPow2Gen= EvtWeight *16.7139;
+	 if(mWW > 750 && mWW <= 800)	 WevtPow2Gen= EvtWeight *18.8401;
+	 if(mWW > 800 && mWW <= 850)	 WevtPow2Gen= EvtWeight *22.0173;
+	 if(mWW > 850 && mWW <= 900)	 WevtPow2Gen= EvtWeight *24.3131;
+	 if(mWW > 900 && mWW <= 950)	 WevtPow2Gen= EvtWeight *34.1954;
+	 if(mWW > 950 && mWW <= 1000)	 WevtPow2Gen= EvtWeight *47.3046;
+	 if(mWW > 1000 && mWW <= 1050)	 WevtPow2Gen= EvtWeight *58.556;
+	 if(mWW > 1050 && mWW <= 1100)	 WevtPow2Gen= EvtWeight *69.2101;
+	 if(mWW > 1100 && mWW <= 1150)	 WevtPow2Gen= EvtWeight *80.5022;
+	 if(mWW > 1150 && mWW <= 1200)	 WevtPow2Gen= EvtWeight *103.767;
+	 if(mWW > 1200 && mWW <= 1250)	 WevtPow2Gen= EvtWeight *133.35;
+	 if(mWW > 1250 && mWW <= 1300)	 WevtPow2Gen= EvtWeight *188.21;
+	 if(mWW > 1300 && mWW <= 1350)	 WevtPow2Gen= EvtWeight *166.798;
+	 if(mWW > 1350 && mWW <= 1400)	 WevtPow2Gen= EvtWeight *281.304;
+	 if(mWW > 1400 && mWW <= 1450)	 WevtPow2Gen= EvtWeight *418.985;
+	 if(mWW > 1450 && mWW <= 1500)	 WevtPow2Gen= EvtWeight *337.312;
+      //
+      //
+      //
+      //
       //
       // Without VBF Cut
       //if(             mWW <= 100)  WevtPow2Gen= EvtWeight *0;
