@@ -49,13 +49,13 @@ protected:
    TH1D *h1_njet_Off_WevtPow2Gen[12];
    TH1D *h1_njet_Off_noWeight[12];
    
-   TH1D *h1_mWW_Off_Wevt[5];        // 4 for jet inclusive
-   TH1D *h1_mWW_Off_WevtPow2Gen[5]; // 4 for jet inclusive
-   TH1D *h1_mWW_Off_noWeight[5];    // 4 for jet inclusive
+   TH1D *h1_mWW_Off_Wevt[6];        // 5 for jet inclusive
+   TH1D *h1_mWW_Off_WevtPow2Gen[6]; // 5 for jet inclusive
+   TH1D *h1_mWW_Off_noWeight[6];    // 5 for jet inclusive
    
    
-   TH1D *h1_mjj[5];                 // 4 for jet inclusive
-   TH1D *h1_detajj[5];              // 4 for jet inclusive
+   TH1D *h1_mjj[6];                 // 5 for jet inclusive
+   TH1D *h1_detajj[6];              // 5 for jet inclusive
 };
 #endif
 

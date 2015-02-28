@@ -13,8 +13,8 @@ void MakeHistoCtrPlots()
   gSystem->CompileMacro("../AnaSrc/HWwNjetStudy.C","k");
 
   //string Cuts[]={"CommonCut_njet"};
-  string Cuts[]={"CommonCut_VBf_NoVetoCentralJet"};
-  //string Cuts[]={"CommonCut_VBFnjet"};
+  //string Cuts[]={"CommonCut_VBf_NoVetoCentralJet"};
+  string Cuts[]={"CommonCut_VBFnjet"};
   TString SampleName = "Data";
   bool RunOnMC = false;
 
