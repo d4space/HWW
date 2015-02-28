@@ -305,7 +305,7 @@ void HWwNjetStudy::Loop()
     if( Cut == "CommonCut_VBFnjet" || Cut =="CommonCut_VBf_NoVetoCentralJet")
     {
       nnjet = njet;
-      if(njet>=3) nnjet = 3;
+      if(njet>=4) nnjet = 4;
     }
     // Fill Histogram ===========
     Fill_Histo();
@@ -338,11 +338,11 @@ int HWwNjetStudy::Fill_Histo()
     }
   }
   
-  h1_mWW_Off_Wevt[4] 		-> Fill(mWW, EvtWeight);
-  h1_mWW_Off_WevtPow2Gen[4] 	-> Fill(mWW, WevtPow2Gen);
-  h1_mWW_Off_noWeight[4]	-> Fill(mWW);
-  h1_mjj[4]			-> Fill(mjj,    WevtPow2Gen);
-  h1_detajj[4]			-> Fill(detajj, WevtPow2Gen);
+  h1_mWW_Off_Wevt[5] 		-> Fill(mWW, EvtWeight);
+  h1_mWW_Off_WevtPow2Gen[5] 	-> Fill(mWW, WevtPow2Gen);
+  h1_mWW_Off_noWeight[5]	-> Fill(mWW);
+  h1_mjj[5]			-> Fill(mjj,    WevtPow2Gen);
+  h1_detajj[5]			-> Fill(detajj, WevtPow2Gen);
   
   if(nnjet==0){
     h1_mWW_Off_Wevt[0]		-> Fill(mWW, EvtWeight);
@@ -368,6 +368,12 @@ int HWwNjetStudy::Fill_Histo()
     h1_mWW_Off_noWeight[3]	-> Fill(mWW);
     h1_mjj[3]			-> Fill(mjj,    WevtPow2Gen);
     h1_detajj[3]		-> Fill(detajj, WevtPow2Gen);
+  }else if(nnjet==4){
+    h1_mWW_Off_Wevt[4] 		-> Fill(mWW, EvtWeight);
+    h1_mWW_Off_WevtPow2Gen[4] 	-> Fill(mWW, WevtPow2Gen);
+    h1_mWW_Off_noWeight[4]	-> Fill(mWW);
+    h1_mjj[4]			-> Fill(mjj,    WevtPow2Gen);
+    h1_detajj[4]		-> Fill(detajj, WevtPow2Gen);
   }
   return 0;
 }
@@ -390,17 +396,17 @@ int HWwNjetStudy::InitHistogram()
   for(int i(0); i<12; i++)
   {
     sprintf(histName, "h1_njet_Off_Wevt_%d",i);
-    h1_njet_Off_Wevt[i] = new TH1D(histName,"Jet numbers in off-shell", 4, 0, 4);
+    h1_njet_Off_Wevt[i] = new TH1D(histName,"Jet numbers in off-shell", 5, 0, 5);
 
     sprintf(histName, "h1_njet_Off_WevtPow2Gen_%d",i);
-    h1_njet_Off_WevtPow2Gen[i] = new TH1D(histName,"Jet numbers in off-shell", 4, 0, 4);
+    h1_njet_Off_WevtPow2Gen[i] = new TH1D(histName,"Jet numbers in off-shell", 5, 0, 5);
 
     sprintf(histName, "h1_njet_Off_noWeight_%d",i);
-    h1_njet_Off_noWeight[i] = new TH1D(histName,"Jet numbers in off-shell", 4, 0, 4);
+    h1_njet_Off_noWeight[i] = new TH1D(histName,"Jet numbers in off-shell", 5, 0, 5);
   }
 
 
-  for(int i(0); i<5; i++)
+  for(int i(0); i<6; i++)
   {
     sprintf(histName, "h1_mWW_Off_Wevt_%d",i);
     h1_mWW_Off_Wevt[i] = new TH1D(histName,"mWW", 30, 0, 1500);
