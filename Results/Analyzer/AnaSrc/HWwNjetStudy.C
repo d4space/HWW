@@ -28,7 +28,7 @@ void HWwNjetStudy::Loop()
 
     if(SampleName == "POWHEG" || SampleName == "POWHEG_VBF")
     {
-      mWW = MHiggs; // Activate mWW at HWwBase.h
+      //mWW = MHiggs; // Activate mWW at HWwBase.h
     }
     if(SampleName == "SHERPA")mWW = CalcmWW();
 
@@ -194,7 +194,7 @@ void HWwNjetStudy::Loop()
       //
       //
       //
-      // With VBF cut
+      // WithVBfCut
       //if(             mWW <= 100)  WevtPow2Gen= EvtWeight *0;
       //if(mWW > 100 && mWW <= 150)  WevtPow2Gen= EvtWeight *0.0378106;
       //if(mWW > 150 && mWW <= 200)  WevtPow2Gen= EvtWeight *0.193764;
@@ -255,6 +255,7 @@ void HWwNjetStudy::Loop()
 	 if(mWW > 1350 && mWW <= 1400)	 WevtPow2Gen= EvtWeight *281.304;
 	 if(mWW > 1400 && mWW <= 1450)	 WevtPow2Gen= EvtWeight *418.985;
 	 if(mWW > 1450 && mWW <= 1500)	 WevtPow2Gen= EvtWeight *337.312;
+      //
       //
       //
       //
