@@ -297,17 +297,10 @@ void HWwNjetStudy::Loop()
     if( Cut == "CommonCut_njet")if(CommonCut_njet() !=1)continue;
     if( Cut == "CommonCut_VBFnjet")if(CommonCut_VBFnjet() !=1)continue;
     if( Cut == "CommonCut_VBf_NoVetoCentralJet")if(CommonCut_VBf_NoVetoCentralJet() !=1)continue;
+    if(mWW<130) continue;
 
-    if( Cut == "CommonCut_njet")
-    {
-      nnjet = njet;
-      if(njet>=2) nnjet = 2;
-    }
-    if( Cut == "CommonCut_VBFnjet" || Cut =="CommonCut_VBf_NoVetoCentralJet")
-    {
-      nnjet = njet;
-      if(njet>=4) nnjet = 4;
-    }
+    nnjet = njet;
+    if(njet>=NjetBin-1) nnjet = NjetBin-1;
     // Fill Histogram ===========
     Fill_Histo();
   }
@@ -324,12 +317,9 @@ void HWwNjetStudy::Loop()
 
 int HWwNjetStudy::Fill_Histo()
 {
-  if(mWW>130)
-  {
-    h1_njet_Off_Wevt[11] 	-> Fill(nnjet,EvtWeight);
-    h1_njet_Off_WevtPow2Gen[11]	-> Fill(nnjet,WevtPow2Gen);
-    h1_njet_Off_noWeight[11]	-> Fill(nnjet);
-  }
+  h1_njet_Off_Wevt[11] 	-> Fill(nnjet,EvtWeight);
+  h1_njet_Off_WevtPow2Gen[11]	-> Fill(nnjet,WevtPow2Gen);
+  h1_njet_Off_noWeight[11]	-> Fill(nnjet);
   for(int iBin(0);iBin<11;iBin++){
     if(mWW > mWWBins[iBin] && mWW <= mWWBins[iBin+1])
     {
@@ -339,43 +329,18 @@ int HWwNjetStudy::Fill_Histo()
     }
   }
   
-  h1_mWW_Off_Wevt[5] 		-> Fill(mWW, EvtWeight);
-  h1_mWW_Off_WevtPow2Gen[5] 	-> Fill(mWW, WevtPow2Gen);
-  h1_mWW_Off_noWeight[5]	-> Fill(mWW);
-  h1_mjj[5]			-> Fill(mjj,    WevtPow2Gen);
-  h1_detajj[5]			-> Fill(detajj, WevtPow2Gen);
+  h1_mWW_Off_Wevt[NjetBin] 		-> Fill(mWW, EvtWeight);
+  h1_mWW_Off_WevtPow2Gen[NjetBin] 	-> Fill(mWW, WevtPow2Gen);
+  h1_mWW_Off_noWeight[NjetBin]		-> Fill(mWW);
+  h1_mjj[NjetBin]			-> Fill(mjj,    WevtPow2Gen);
+  h1_detajj[NjetBin]			-> Fill(detajj, WevtPow2Gen);
   
-  if(nnjet==0){
-    h1_mWW_Off_Wevt[0]		-> Fill(mWW, EvtWeight);
-    h1_mWW_Off_WevtPow2Gen[0]	-> Fill(mWW, WevtPow2Gen);
-    h1_mWW_Off_noWeight[0]	-> Fill(mWW);
-    h1_mjj[0]			-> Fill(mjj,    WevtPow2Gen);
-    h1_detajj[0]		-> Fill(detajj, WevtPow2Gen);
-  }else if(nnjet==1){
-    h1_mWW_Off_Wevt[1] 		-> Fill(mWW, EvtWeight);
-    h1_mWW_Off_WevtPow2Gen[1] 	-> Fill(mWW, WevtPow2Gen);
-    h1_mWW_Off_noWeight[1]	-> Fill(mWW);
-    h1_mjj[1]			-> Fill(mjj,    WevtPow2Gen);
-    h1_detajj[1]		-> Fill(detajj, WevtPow2Gen);
-  }else if(nnjet==2){
-    h1_mWW_Off_Wevt[2] 		-> Fill(mWW, EvtWeight);
-    h1_mWW_Off_WevtPow2Gen[2] 	-> Fill(mWW, WevtPow2Gen);
-    h1_mWW_Off_noWeight[2]	-> Fill(mWW);
-    h1_mjj[2]			-> Fill(mjj,    WevtPow2Gen);
-    h1_detajj[2]		-> Fill(detajj, WevtPow2Gen);
-  }else if(nnjet==3){
-    h1_mWW_Off_Wevt[3] 		-> Fill(mWW, EvtWeight);
-    h1_mWW_Off_WevtPow2Gen[3] 	-> Fill(mWW, WevtPow2Gen);
-    h1_mWW_Off_noWeight[3]	-> Fill(mWW);
-    h1_mjj[3]			-> Fill(mjj,    WevtPow2Gen);
-    h1_detajj[3]		-> Fill(detajj, WevtPow2Gen);
-  }else if(nnjet==4){
-    h1_mWW_Off_Wevt[4] 		-> Fill(mWW, EvtWeight);
-    h1_mWW_Off_WevtPow2Gen[4] 	-> Fill(mWW, WevtPow2Gen);
-    h1_mWW_Off_noWeight[4]	-> Fill(mWW);
-    h1_mjj[4]			-> Fill(mjj,    WevtPow2Gen);
-    h1_detajj[4]		-> Fill(detajj, WevtPow2Gen);
-  }
+  h1_mWW_Off_Wevt[nnjet]		-> Fill(mWW, EvtWeight);
+  h1_mWW_Off_WevtPow2Gen[nnjet]		-> Fill(mWW, WevtPow2Gen);
+  h1_mWW_Off_noWeight[nnjet]		-> Fill(mWW);
+  h1_mjj[nnjet]				-> Fill(mjj,    WevtPow2Gen);
+  h1_detajj[nnjet]			-> Fill(detajj, WevtPow2Gen);
+
   return 0;
 }
   
@@ -407,7 +372,7 @@ int HWwNjetStudy::InitHistogram()
   }
 
 
-  for(int i(0); i<6; i++)
+  for(int i(0); i<NjetBin+1; i++)
   {
     sprintf(histName, "h1_mWW_Off_Wevt_%d",i);
     h1_mWW_Off_Wevt[i] = new TH1D(histName,"mWW", 30, 0, 1500);

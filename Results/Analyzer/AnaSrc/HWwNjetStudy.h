@@ -18,6 +18,8 @@
 #include <iomanip>
 
 #include "HWwBase.h"
+#include "NjetBin.h"
+
 // Header file for the classes stored in the TTree if any.
 
 // Fixed size dimensions of array or collections stored in the TTree if any.
@@ -40,7 +42,7 @@ protected:
    int Fill_Histo();
    int Write_Histo();
    double WevtPow2Gen;
-   double nnjet;
+   int nnjet;
 
    ofstream Fout;
    TFile *myFile;
@@ -49,13 +51,13 @@ protected:
    TH1D *h1_njet_Off_WevtPow2Gen[12];
    TH1D *h1_njet_Off_noWeight[12];
    
-   TH1D *h1_mWW_Off_Wevt[6];        // 5 for jet inclusive
-   TH1D *h1_mWW_Off_WevtPow2Gen[6]; // 5 for jet inclusive
-   TH1D *h1_mWW_Off_noWeight[6];    // 5 for jet inclusive
+   TH1D *h1_mWW_Off_Wevt[NjetBin+1];        // 5 for jet inclusive
+   TH1D *h1_mWW_Off_WevtPow2Gen[NjetBin+1]; // 5 for jet inclusive
+   TH1D *h1_mWW_Off_noWeight[NjetBin+1];    // 5 for jet inclusive
    
    
-   TH1D *h1_mjj[6];                 // 5 for jet inclusive
-   TH1D *h1_detajj[6];              // 5 for jet inclusive
+   TH1D *h1_mjj[NjetBin+1];                 // 5 for jet inclusive
+   TH1D *h1_detajj[NjetBin+1];              // 5 for jet inclusive
 };
 #endif
 
