@@ -210,6 +210,10 @@ int njet_mWW_Phn()
     h1_mWW_PowOvPhn[i] = (TH1D*) h1_mWW_Pow[i]->Clone(histName);
     h1_mWW_PowOvPhn[i]->Sumw2();
     if(i== 3 || i==4){
+      h1_mWW_PowOvPhn[i]->SetBinContent(1,0);
+      h1_mWW_PowOvPhn[i]->SetBinError(1,0);
+      h1_mWW_Phn_Sg[i]->SetBinContent(1,0);
+      h1_mWW_Phn_Sg[i]->SetBinError(1,0);
       h1_mWW_PowOvPhn[i]->SetBinContent(10,0);
       h1_mWW_PowOvPhn[i]->SetBinError(10,0);
       h1_mWW_Phn_Sg[i]->SetBinContent(10,0);
