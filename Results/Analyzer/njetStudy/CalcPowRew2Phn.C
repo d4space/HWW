@@ -23,7 +23,7 @@
 #include "TColor.h"
 #include "TLine.h"
 
-#define NjetBin 5 // 5 is inclusive total is 6: 0,....5
+#include "../AnaSrc/NjetBin.h"
 
 void CalcPowRew2Phn()
 {
