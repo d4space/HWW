@@ -23,7 +23,7 @@
 #include "TColor.h"
 #include "TLine.h"
 
-#define NjetBin 5 // 5 is all
+#define NjetBin 5 // 5 is inclusive total is 6: 0,....5
 
 void CalcPowRew2Phn()
 {
@@ -154,11 +154,11 @@ void CalcPowRew2Phn()
     }
   }
 
-  double NttPhn = h1_mWW_Phn_Sg[4]->Integral();
-  double NttPow = h1_mWW_Pow[4]   ->Integral();
+  double NttPhn = h1_mWW_Phn_Sg[NjetBin]->Integral(); //Inclusive
+  double NttPow = h1_mWW_Pow[NjetBin]   ->Integral();
 
   //Normalization to Inclusive Total number
-  TH1D* h1_mWW_Phn_Sg_Wevt_norm[5];
+  TH1D* h1_mWW_Phn_Sg_Wevt_norm[NjetBin+1];
   for(int i(0);i<NjetBin+1;i++)
   {
     h1_mWW_Phn_Sg[i]->Scale(1./NttPhn);
