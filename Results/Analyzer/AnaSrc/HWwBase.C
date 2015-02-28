@@ -398,6 +398,7 @@ Int_t HWwBase::CommonCut_VBFnjet()
   if (trigger==1.){;}else{return -1;}
   if (pt1>20 && pt2>20){;}else{return -1;}
   if (mll>12.){;}else{return -1;}
+  if (mjj>300){;}else{return -1;}
   //if (zveto==1 || !sameflav){;}else{return -1;}
   /*******
   if(!sameflav ||
@@ -412,9 +413,19 @@ Int_t HWwBase::CommonCut_VBFnjet()
     ******/
   //if(njet==0 || njet==1 || (njet >= 2 && njet <= 3 && (jetpt3 <= 30 || !(jetpt3 > 30 && ( (jeteta1-jeteta3 > 0 && jeteta2-jeteta3 < 0) || (jeteta2-jeteta3 > 0 && jeteta1-jeteta3 < 0)))))){;}else{return -1;}
   if ((nextra==0) * (bveto_mu && bveto_ip && nbjettche==0)){;}else{return -1;}
-  if (njet>=2){;}else{return -1;}
-  if(((njet>=2)*(ptll>45 && (njet>=2 && njet<=3 && (jetpt3<=30 || !(jetpt3 > 30 && ( (jeteta1-jeteta3 > 0 && jeteta2-jeteta3 < 0) || (jeteta2-jeteta3 > 0 && jeteta1-jeteta3 < 0))))) && abs(eta1 - (jeteta1+jeteta2)/2)/detajj < 0.5 && abs(eta2 - (jeteta1+jeteta2)/2)/detajj < 0.5 && detajj>2.5 && mjj>500))){;}else{return -1;}
-    if (mjj>300){;}else{return -1;}
+  if(ptll>45){;}else return -1;
+  if(njet>=2 && njet<=3){;}else return -1; 
+  if(njet==3)
+  {
+    if(jetpt3<=30 || !(jetpt3 > 30 && ( (jeteta1-jeteta3 > 0 && jeteta2-jeteta3 < 0) || (jeteta2-jeteta3 > 0 && jeteta1-jeteta3 < 0)))){;}
+    else return -1;
+  }
+  if(njet>=2)
+  {
+    if(abs(eta1 - (jeteta1+jeteta2)/2)/detajj < 0.5 && abs(eta2 - (jeteta1+jeteta2)/2)/detajj < 0.5){;}else return -1;
+  }
+  if(detajj>2.5){;}else return -1;
+  if( mjj>500){;}else{return -1;}
 
   return 1;
 }
@@ -425,6 +436,7 @@ Int_t HWwBase::CommonCut_VBf_NoVetoCentralJet()
   if (trigger==1.){;}else{return -1;}
   if (pt1>20 && pt2>20){;}else{return -1;}
   if (mll>12.){;}else{return -1;}
+  if (mjj>300){;}else{return -1;}
   //if (zveto==1 || !sameflav){;}else{return -1;}
   /*******
   if(!sameflav ||
@@ -441,7 +453,6 @@ Int_t HWwBase::CommonCut_VBf_NoVetoCentralJet()
   if ((nextra==0) * (bveto_mu && bveto_ip && nbjettche==0)){;}else{return -1;}
   if (njet>=2){;}else{return -1;}
   if(((njet>=2)*(ptll>45 && abs(eta1 - (jeteta1+jeteta2)/2)/detajj < 0.5 && abs(eta2 - (jeteta1+jeteta2)/2)/detajj < 0.5 && detajj>2.5 && mjj>500))){;}else{return -1;}
-  if (mjj>300){;}else{return -1;}
 
   return 1;
 }
