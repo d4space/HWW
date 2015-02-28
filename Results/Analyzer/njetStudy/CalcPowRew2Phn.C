@@ -23,6 +23,8 @@
 #include "TColor.h"
 #include "TLine.h"
 
+#define NjetBin 5 // 5 is all
+
 void CalcPowRew2Phn()
 {
   //TString OutDir = "mWW_unweighted";
@@ -34,10 +36,10 @@ void CalcPowRew2Phn()
   TFile *f_phn_25;
   TFile *f_pow;
 
-  f_phn_1  = new TFile("phantom_1SM/phantom_1SM_CommonCut_VBf_NoVetoCentralJet.root");
-  f_phn_9  = new TFile("phantom_9SM/phantom_9SM_CommonCut_VBf_NoVetoCentralJet.root");
-  f_phn_25 = new TFile("phantom_25SM/phantom_25SM_CommonCut_VBf_NoVetoCentralJet.root");
-  f_pow    = new TFile("POWHEG_VBF/POWHEG_VBF_CommonCut_VBf_NoVetoCentralJet.root");
+  f_phn_1  = new TFile("phantom_1SM/phantom_1SM_CommonCut_VBFnJet.root");
+  f_phn_9  = new TFile("phantom_9SM/phantom_9SM_CommonCut_VBFnJet.root");
+  f_phn_25 = new TFile("phantom_25SM/phantom_25SM_CommonCut_VBFnjet.root");
+  f_pow    = new TFile("POWHEG_VBF/POWHEG_VBF_CommonCut_VBFnjet.root");
   //f_phn_1  = new TFile("phantom_1SM/phantom_1SM_CommonCut_VBFnjet.root");
   //f_phn_9  = new TFile("phantom_9SM/phantom_9SM_CommonCut_VBFnjet.root");
   //f_phn_25 = new TFile("phantom_25SM/phantom_25SM_CommonCut_VBFnjet.root");
@@ -48,21 +50,21 @@ void CalcPowRew2Phn()
   char jetName[50];
 
   //Histograms
-  TH1D* h1_mWW_Phn_Sg[5];
+  TH1D* h1_mWW_Phn_Sg[NjetBin+1];
 
-  TH1D* h1_mWW_Phn_1_noW[5];
-  TH1D* h1_mWW_Phn_9_noW[5];
-  TH1D* h1_mWW_Phn_25_noW[5];
+  TH1D* h1_mWW_Phn_1_noW[NjetBin+1];
+  TH1D* h1_mWW_Phn_9_noW[NjetBin+1];
+  TH1D* h1_mWW_Phn_25_noW[NjetBin+1];
 
-  TH1D* h1_mWW_Phn_1_Wevt[5];
-  TH1D* h1_mWW_Phn_9_Wevt[5];
-  TH1D* h1_mWW_Phn_25_Wevt[5];
-  TH1D* h1_mWW_Phn_Sg_Wevt[5];
+  TH1D* h1_mWW_Phn_1_Wevt[NjetBin+1];
+  TH1D* h1_mWW_Phn_9_Wevt[NjetBin+1];
+  TH1D* h1_mWW_Phn_25_Wevt[NjetBin+1];
+  TH1D* h1_mWW_Phn_Sg_Wevt[NjetBin+1];
 
-  TH1D* h1_mWW_Pow[5];
-  TH1D* h1_mWW_Pow_noW[5];
-  TH1D* h1_mWW_Pow_Wevt[5];
-  TH1D* h1_mWW_Pow_Wevt_norm[5];
+  TH1D* h1_mWW_Pow[NjetBin+1];
+  TH1D* h1_mWW_Pow_noW[NjetBin+1];
+  TH1D* h1_mWW_Pow_Wevt[NjetBin+1];
+  TH1D* h1_mWW_Pow_Wevt_norm[NjetBin+1];
 
   TH1D* h1_reWeightFac;
 
@@ -75,7 +77,7 @@ void CalcPowRew2Phn()
   TCanvas *myCan = MakeCanvas("myCan", "myCan", 900, 800);
 
   //Read Histograms from root file
-  for(int i(0);i<5;i++) // Index for jet-multiplicity 4 for all
+  for(int i(0);i<NjetBin+1;i++) // Index for jet-multiplicity NjetBin for all
   {
     // Take noWeighted
     sprintf(tmpName, "h1_mWW_Off_noWeight_%d",i);
@@ -157,7 +159,7 @@ void CalcPowRew2Phn()
 
   //Normalization to Inclusive Total number
   TH1D* h1_mWW_Phn_Sg_Wevt_norm[5];
-  for(int i(0);i<5;i++)
+  for(int i(0);i<NjetBin+1;i++)
   {
     h1_mWW_Phn_Sg[i]->Scale(1./NttPhn);
     h1_mWW_Pow[i]   ->Scale(1./NttPow);
@@ -174,11 +176,13 @@ void CalcPowRew2Phn()
   plt_Pow_All->AddHist1D(h1_mWW_Pow[2],"HIST",kBlack);
   plt_Pow_All->AddHist1D(h1_mWW_Pow[3],"HIST",kBlack);
   plt_Pow_All->AddHist1D(h1_mWW_Pow[4],"HIST",kBlack);
+  plt_Pow_All->AddHist1D(h1_mWW_Pow[5],"HIST",kBlack);
   plt_Pow_All->AddHist1D(h1_mWW_Pow_Wevt_norm[0],"HIST",kRed);
   plt_Pow_All->AddHist1D(h1_mWW_Pow_Wevt_norm[1],"HIST",kRed);
   plt_Pow_All->AddHist1D(h1_mWW_Pow_Wevt_norm[2],"HIST",kRed);
   plt_Pow_All->AddHist1D(h1_mWW_Pow_Wevt_norm[3],"HIST",kRed);
   plt_Pow_All->AddHist1D(h1_mWW_Pow_Wevt_norm[4],"HIST",kRed);
+  plt_Pow_All->AddHist1D(h1_mWW_Pow_Wevt_norm[5],"HIST",kRed);
   plt_Pow_All->Draw(myCan,kTRUE,"png");
 
 
@@ -193,6 +197,7 @@ void CalcPowRew2Phn()
   plt_Phn_All->AddHist1D(h1_mWW_Phn_9_Wevt[2],"HIST",kRed);
   plt_Phn_All->AddHist1D(h1_mWW_Phn_9_Wevt[3],"HIST",kRed);
   plt_Phn_All->AddHist1D(h1_mWW_Phn_9_Wevt[4],"HIST",kRed);
+  plt_Phn_All->AddHist1D(h1_mWW_Phn_9_Wevt[5],"HIST",kRed);
   //plt_Phn_All->AddHist1D(h1_mWW_Phn_25_Wevt[1],"HIST",kBlue);
   //plt_Phn_All->AddHist1D(h1_mWW_Phn_25_Wevt[2],"HIST",kBlue);
   //plt_Phn_All->AddHist1D(h1_mWW_Phn_25_Wevt[3],"HIST",kBlue);
@@ -200,8 +205,8 @@ void CalcPowRew2Phn()
   plt_Phn_All->Draw(myCan,kTRUE,"png");
   
   //Calculating reWeight Factor
-  h1_reWeightFac = (TH1D*) h1_mWW_Phn_Sg[4]-> Clone("h1_reWeightFac");h1_reWeightFac->Sumw2();
-  h1_reWeightFac -> Divide(h1_mWW_Pow[4]);
+  h1_reWeightFac = (TH1D*) h1_mWW_Phn_Sg[NjetBin]-> Clone("h1_reWeightFac");h1_reWeightFac->Sumw2();
+  h1_reWeightFac -> Divide(h1_mWW_Pow[NjetBin]);
 
   //Printout reWeight Factor
   // bin index start from 1 !!!
@@ -213,16 +218,16 @@ void CalcPowRew2Phn()
   //
   //Plot reWeighted Histograms
   //
-  for(int i(0);i<5;i++)
+  for(int i(0);i<NjetBin+1;i++)
   {
     // Powheg reWeight
     //h1_mWW_powheg[i] -> Multiply(h1_reWeightFac);
     //cout<<i<<"-jet bin: "<<h1_mWW_powheg[i]->Integral()<<"\t"<<h1_mWW_phn[i]->Integral()<<endl;
 
     sprintf(jetName,"(njet = %d)",i);
-    if(i==3)
-      sprintf(jetName,"(njet #geq 3)");
-    if(i==4)
+    if(i==NjetBin-1)
+      sprintf(jetName,"(njet #geq %d)",i);
+    if(i==NjetBin)
       sprintf(jetName,"(Inclusive jet bins)");
 
     //Phantom mWW distribution
