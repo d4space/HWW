@@ -171,37 +171,28 @@ void CalcPowRew2Phn()
   }
   CPlot *plt_Pow_All = new CPlot("Pow_All","","mWW","");
   plt_Pow_All->setOutDir(OutDir);
-  plt_Pow_All->AddHist1D(h1_mWW_Pow[0],"HIST",kBlack);
-  plt_Pow_All->AddHist1D(h1_mWW_Pow[1],"HIST",kBlack);
-  plt_Pow_All->AddHist1D(h1_mWW_Pow[2],"HIST",kBlack);
-  plt_Pow_All->AddHist1D(h1_mWW_Pow[3],"HIST",kBlack);
-  plt_Pow_All->AddHist1D(h1_mWW_Pow[4],"HIST",kBlack);
-  plt_Pow_All->AddHist1D(h1_mWW_Pow[5],"HIST",kBlack);
-  plt_Pow_All->AddHist1D(h1_mWW_Pow_Wevt_norm[0],"HIST",kRed);
-  plt_Pow_All->AddHist1D(h1_mWW_Pow_Wevt_norm[1],"HIST",kRed);
-  plt_Pow_All->AddHist1D(h1_mWW_Pow_Wevt_norm[2],"HIST",kRed);
-  plt_Pow_All->AddHist1D(h1_mWW_Pow_Wevt_norm[3],"HIST",kRed);
-  plt_Pow_All->AddHist1D(h1_mWW_Pow_Wevt_norm[4],"HIST",kRed);
-  plt_Pow_All->AddHist1D(h1_mWW_Pow_Wevt_norm[5],"HIST",kRed);
+  for(int k(0);k<=NjetBin;k++){
+    plt_Pow_All->AddHist1D(h1_mWW_Pow[k],"HIST",kBlack);
+    plt_Pow_All->AddHist1D(h1_mWW_Pow_Wevt_norm[k],"HIST",kRed);
+  }
   plt_Pow_All->Draw(myCan,kTRUE,"png");
 
 
 
   CPlot *plt_Phn_All = new CPlot("Phn_All","","mWW","");
   plt_Phn_All->setOutDir(OutDir);
+  for(int k(0);k<= NjetBin;k++)
+  {
   //plt_Phn_All->AddHist1D(h1_mWW_Phn_1_Wevt[1],"HIST",kBlack);
   //plt_Phn_All->AddHist1D(h1_mWW_Phn_1_Wevt[2],"HIST",kBlack);
   //plt_Phn_All->AddHist1D(h1_mWW_Phn_1_Wevt[3],"HIST",kBlack);
   //plt_Phn_All->AddHist1D(h1_mWW_Phn_1_Wevt[4],"HIST",kBlack);
-  plt_Phn_All->AddHist1D(h1_mWW_Phn_9_Wevt[1],"HIST",kRed);
-  plt_Phn_All->AddHist1D(h1_mWW_Phn_9_Wevt[2],"HIST",kRed);
-  plt_Phn_All->AddHist1D(h1_mWW_Phn_9_Wevt[3],"HIST",kRed);
-  plt_Phn_All->AddHist1D(h1_mWW_Phn_9_Wevt[4],"HIST",kRed);
-  plt_Phn_All->AddHist1D(h1_mWW_Phn_9_Wevt[5],"HIST",kRed);
+    plt_Phn_All->AddHist1D(h1_mWW_Phn_9_Wevt[k],"HIST",kRed);
   //plt_Phn_All->AddHist1D(h1_mWW_Phn_25_Wevt[1],"HIST",kBlue);
   //plt_Phn_All->AddHist1D(h1_mWW_Phn_25_Wevt[2],"HIST",kBlue);
   //plt_Phn_All->AddHist1D(h1_mWW_Phn_25_Wevt[3],"HIST",kBlue);
   //plt_Phn_All->AddHist1D(h1_mWW_Phn_25_Wevt[4],"HIST",kBlue);
+  }
   plt_Phn_All->Draw(myCan,kTRUE,"png");
   
   //Calculating reWeight Factor
