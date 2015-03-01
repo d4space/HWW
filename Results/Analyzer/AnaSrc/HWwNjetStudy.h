@@ -57,8 +57,6 @@ protected:
    TH1D *h1_mWW_Off_Wevt[NjetBin+1];        // 5 for jet inclusive
    TH1D *h1_mWW_Off_WevtPow2Gen[NjetBin+1]; // 5 for jet inclusive
    TH1D *h1_mWW_Off_noWeight[NjetBin+1];    // 5 for jet inclusive
-   
-   
    TH1D *h1_mjj[NjetBin+1];                 // 5 for jet inclusive
    TH1D *h1_detajj[NjetBin+1];              // 5 for jet inclusive
 
@@ -66,8 +64,6 @@ protected:
    TH1D *h1_mWW_Off_Wevt_NoCut[NjetBin+1];        // 5 for jet inclusive
    TH1D *h1_mWW_Off_WevtPow2Gen_NoCut[NjetBin+1]; // 5 for jet inclusive
    TH1D *h1_mWW_Off_noWeight_NoCut[NjetBin+1];    // 5 for jet inclusive
-   
-   
    TH1D *h1_mjj_NoCut[NjetBin+1];                 // 5 for jet inclusive
    TH1D *h1_detajj_NoCut[NjetBin+1];              // 5 for jet inclusive
 };
@@ -215,21 +211,26 @@ int HWwNjetStudy::InitHistogram()
     sprintf(histName, "h1_mWW_Off_Wevt_%d",i);
     h1_mWW_Off_Wevt[i] = new TH1D(histName,"mWW", 30, 0, 1500);
     //h1_mWW_Off_Wevt[i] = new TH1D(histName,"mWW", 150, 0, 1500); // gg2Vv
-
     sprintf(histName, "h1_mWW_Off_WevtPow2Gen_%d",i);
     h1_mWW_Off_WevtPow2Gen[i] = new TH1D(histName,"mWW", 30, 0, 1500);
-
     sprintf(histName, "h1_mWW_Off_noWeight_%d",i);
     h1_mWW_Off_noWeight[i] = new TH1D(histName,"mWW", 30, 0, 1500);
-    //h1_mWW_Off_noWeight[i] = new TH1D(histName,"mWW", 150, 0, 1500);
-
-
+    //h1_mWW_Off_noWeight[i] = new TH1D(histName,"mWW", 150, 0, 1500); //gg2VV
     sprintf(histName, "h1_mjj_%d",i);
     h1_mjj[i] = new TH1D(histName,"mjj", 20, 0, 2000);
-
     sprintf(histName, "h1_detajj_%d",i);
     h1_detajj[i] = new TH1D(histName,"detajj", 16, 0, 8);
     
+    sprintf(histName, "h1_mWW_Off_Wevt_NoCut_%d",i);
+    h1_mWW_Off_Wevt_NoCut[i] = new TH1D(histName,"mWW", 30, 0, 1500);
+    sprintf(histName, "h1_mWW_Off_WevtPow2Gen_NoCut_%d",i);
+    h1_mWW_Off_WevtPow2Gen_NoCut[i] = new TH1D(histName,"mWW", 30, 0, 1500);
+    sprintf(histName, "h1_mWW_Off_noWeight_NoCut_%d",i);
+    h1_mWW_Off_noWeight_NoCut[i] = new TH1D(histName,"mWW", 30, 0, 1500);
+    sprintf(histName, "h1_mjj_NoCut_%d",i);
+    h1_mjj_NoCut[i] = new TH1D(histName,"mjj", 20, 0, 2000);
+    sprintf(histName, "h1_detajj_NoCut_%d",i);
+    h1_detajj_NoCut[i] = new TH1D(histName,"detajj", 16, 0, 8);
     
   }
   return 0;
