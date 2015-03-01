@@ -25,6 +25,9 @@ void HWwNjetStudy::Loop()
     InitVar4Evt();
     evtCnt++;
     fChain->GetEntry(i);
+    //=================================================
+    // Calculation of Weight============================
+    //=================================================
 
     if(SampleName == "POWHEG" || SampleName == "POWHEG_VBF")
     {
@@ -38,16 +41,23 @@ void HWwNjetStudy::Loop()
     
     if(SampleName == "POWHEG") Calc_Pow_Weight();
     if(SampleName == "POWHEG_VBF") Calc_Pow_Vbf_Weight();
+    //====================================================
+    // number of Jet 
+    //====================================================
+    nnjet = njet;
+    if(njet>=NjetBin-1) nnjet = NjetBin-1;
 
+    if(njet>=2 && njet<=3){;}else continue;
     Fill_BeforeCut();
+    //====================================================
+    //Cuts 
+    //====================================================
 
     if( Cut == "CommonCut_njet")if(CommonCut_njet() !=1)continue;
     if( Cut == "CommonCut_VBFnjet")if(CommonCut_VBFnjet() !=1)continue;
     if( Cut == "CommonCut_VBf_NoVetoCentralJet")if(CommonCut_VBf_NoVetoCentralJet() !=1)continue;
     if(mWW<130) continue;
 
-    nnjet = njet;
-    if(njet>=NjetBin-1) nnjet = NjetBin-1;
     // Fill Histogram ===========
     Fill_Histo();
   }
