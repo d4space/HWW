@@ -36,8 +36,8 @@ void HWwNjetStudy::Loop()
 
     EvtWeight = CalcWeight();
     
-    if(SampleName == "POWHEG") CalcPowWeight();
-    if(SampleName == "POWHEG_VBF") CalcPowVbfWeight();
+    if(SampleName == "POWHEG") Calc_Pow_Weight();
+    if(SampleName == "POWHEG_VBF") Calc_Pow_Vbf_Weight();
 
     Fill_BeforeCut();
 

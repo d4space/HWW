@@ -42,7 +42,8 @@ protected:
    int Fill_Histo();
    int Fill_BeforeCut();
    int Write_Histo();
-   void CalcPowVbfWeight();
+   void Calc_Pow_Vbf_Weight();
+   void Calc_Pow_Weight();
    double WevtPow2Gen;
    int nnjet;
 
@@ -233,7 +234,7 @@ int HWwNjetStudy::InitHistogram()
   }
   return 0;
 }
-void HWwNjetStudy::CalcPowVbfWeight()
+void HWwNjetStudy::Calc_Pow_Vbf_Weight()
 {
       //if(mWW <= 130)               WevtPow2Gen= EvtWeight *0;
       //if(mWW > 130 && mWW <= 200)  WevtPow2Gen= EvtWeight *0.153388;
@@ -441,7 +442,7 @@ void HWwNjetStudy::CalcPowVbfWeight()
       
       //
 }
-void HWwNjetStudy::CalcPowWeight()
+void HWwNjetStudy::Calc_Pow_Weight()
 {
       //Step1 reweighting Powheg to gg2VV
       if(mWW > 130 && mWW <= 140)WevtPow2Gen= EvtWeight *0;
