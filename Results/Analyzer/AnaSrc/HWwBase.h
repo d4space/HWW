@@ -21,6 +21,8 @@
 #include "HWwNT.h"
 #include "../../../Utils/const.h"
 #include <TLorentzVector.h>
+
+#include "NjetBin.h"
 // Header file for the classes stored in the TTree if any.
 
 // Fixed size dimensions of array or collections stored in the TTree if any.
@@ -91,7 +93,7 @@ protected:
 
    double 	CalcWeight();
    double 	CalcmWW();
-#if SAMPLE == "POWHEG_VBF"
+#if SAMPLE == 3
    double mWW; // For POWHEG
 #endif
    double mH;

@@ -9,6 +9,8 @@
 #include <TCanvas.h>
 #include <TSystem.h>
 
+#include "NjetBin.h"
+
 void HWwNjetStudy::Loop()
 {
   gBenchmark->Start("HWwNjetStudy");
@@ -31,7 +33,7 @@ void HWwNjetStudy::Loop()
 
     if(SampleName == "POWHEG" || SampleName == "POWHEG_VBF")
     {
-#if SAMPLE == "POWHEG_VBF"
+#if SAMPLE == 3
       mWW = MHiggs; 
 #endif
     }
@@ -48,11 +50,14 @@ void HWwNjetStudy::Loop()
     //====================================================
     nnjet = njet;
     if(njet>=NjetBin-1) nnjet = NjetBin-1;
-
+#if NjetBin == 5
     if(njet>=3){;}else continue;
-    //if(njet>=2 && njet<=3){;}else continue;
+#endif
+
+#if NjetBin == 4
+    if(njet>=2 && njet<=3){;}else continue;
+#endif
     if(CommonCut_njet() !=1)continue;
-    if(mWW<130) continue;
 
     Fill_BeforeCut();
     //====================================================
