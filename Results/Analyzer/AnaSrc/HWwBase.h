@@ -91,7 +91,13 @@ protected:
 
    double 	CalcWeight();
    double 	CalcmWW();
+<<<<<<< HEAD
    double mWW; // For POWHEG
+=======
+#if SAMPLE == "POWHEG_VBF"
+   double mWW; // For POWHEG
+#endif
+>>>>>>> 1c65f6e1601999258522700ea07f41348bba62e8
    double mH;
    double mllBins[12];
    double mthBins[12];
