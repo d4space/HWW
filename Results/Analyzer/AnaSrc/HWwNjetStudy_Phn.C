@@ -47,7 +47,8 @@ void HWwNjetStudy::Loop()
     nnjet = njet;
     if(njet>=NjetBin-1) nnjet = NjetBin-1;
 
-    if(njet>=2 && njet<=3){;}else continue;
+    if( njet>=3){;}else continue;
+    //if(njet>=2 && njet<=3){;}else continue;
     if(CommonCut_njet() !=1)continue;
     Fill_BeforeCut();
     //====================================================

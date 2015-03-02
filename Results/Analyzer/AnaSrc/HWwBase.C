@@ -400,7 +400,7 @@ Int_t HWwBase::CommonCut_VBFnjet()
   if (mll>12.){;}else{return -1;}
   if (mjj>300){;}else{return -1;}
   //if(njet>=3){;}else return -1; 
-  if(njet>=2 && njet<=3){;}else return -1; 
+  //if(njet>=2 && njet<=3){;}else return -1; 
   if( mjj>500){;}else{return -1;}
   //if (zveto==1 || !sameflav){;}else{return -1;}
   /*******
