@@ -31,7 +31,7 @@ void HWwNjetStudy::Loop()
 
     if(SampleName == "POWHEG" || SampleName == "POWHEG_VBF")
     {
-      //mWW = MHiggs; // Activate mWW at HWwBase.h
+      mWW = MHiggs; // Activate mWW at HWwBase.h
     }
     if(SampleName == "SHERPA")mWW = CalcmWW();
 
@@ -48,11 +48,11 @@ void HWwNjetStudy::Loop()
     if(njet>=NjetBin-1) nnjet = NjetBin-1;
 
     if(njet>=2 && njet<=3){;}else continue;
+    if(CommonCut_njet() !=1)continue;
     Fill_BeforeCut();
     //====================================================
     //Cuts 
     //====================================================
-
     if( Cut == "CommonCut_njet")if(CommonCut_njet() !=1)continue;
     if( Cut == "CommonCut_VBFnjet")if(CommonCut_VBFnjet() !=1)continue;
     if( Cut == "CommonCut_VBf_NoVetoCentralJet")if(CommonCut_VBf_NoVetoCentralJet() !=1)continue;
@@ -72,3 +72,4 @@ void HWwNjetStudy::Loop()
   gBenchmark->Show("HWwNjetStudy");
 }
 
+  
