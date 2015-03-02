@@ -50,6 +50,8 @@ void HWwNjetStudy::Loop()
     if(njet>=3){;}else continue;
     //if(njet>=2 && njet<=3){;}else continue;
     if(CommonCut_njet() !=1)continue;
+    if(mWW<130) continue;
+
     Fill_BeforeCut();
     //====================================================
     //Cuts 
@@ -57,7 +59,6 @@ void HWwNjetStudy::Loop()
     if( Cut == "CommonCut_njet")if(CommonCut_njet() !=1)continue;
     if( Cut == "CommonCut_VBFnjet")if(CommonCut_VBFnjet() !=1)continue;
     if( Cut == "CommonCut_VBf_NoVetoCentralJet")if(CommonCut_VBf_NoVetoCentralJet() !=1)continue;
-    if(mWW<130) continue;
 
     // Fill Histogram ===========
     Fill_Histo();
