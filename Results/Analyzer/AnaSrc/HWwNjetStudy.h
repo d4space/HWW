@@ -50,9 +50,9 @@ protected:
    ofstream Fout;
    TFile *myFile;
    
-   TH1D *h1_23vs34;
-   TH1D *h1_23vs34_Wevt;
-   TH1D *h1_23vs34_WevtPow2Gen;
+   TH1D *h1_23vsInv;
+   TH1D *h1_23vsInv_Wevt;
+   TH1D *h1_23vsInv_WevtPow2Gen;
 
    TH1D *h1_njet_Off_Wevt[12]; //11 for mWW>130 GeV
    TH1D *h1_njet_Off_WevtPow2Gen[12];
@@ -198,12 +198,12 @@ int HWwNjetStudy::InitHistogram()
   myFile = new TFile(mResultDir+"/"+SampleName+"_"+Cut+".root","RECREATE");
   char histName[30];
 
-  sprintf(histName, "h1_23vs34");
-  h1_23vs34 = new TH1D(histName,"h1_23vs34", 2, 0, 2);
-  sprintf(histName, "h1_23vs34_Wevt");
-  h1_23vs34_Wevt = new TH1D(histName,"h1_23vs34_Wevt", 2, 0, 2);
-  sprintf(histName, "h1_23vs34_WevtPow2Gen");
-  h1_23vs34_WevtPow2Gen = new TH1D(histName,"h1_23vs34_WevtPow2Gen", 2, 0, 2);
+  sprintf(histName, "h1_23vsInv");
+  h1_23vsInv = new TH1D(histName,"h1_23vsInv", 2, 0, 2);
+  sprintf(histName, "h1_23vsInv_Wevt");
+  h1_23vsInv_Wevt = new TH1D(histName,"h1_23vsInv_Wevt", 2, 0, 2);
+  sprintf(histName, "h1_23vsInv_WevtPow2Gen");
+  h1_23vsInv_WevtPow2Gen = new TH1D(histName,"h1_23vsInv_WevtPow2Gen", 2, 0, 2);
 
 
   for(int i(0); i<12; i++)

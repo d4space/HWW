@@ -41,7 +41,7 @@
 
 int CutFlow()
 {
-  TString OutDir = "CutFlow";
+  TString OutDir = "CutFlow23Inv";
   //TString OutDir = "mWW_reweighted_step1";
   gSystem->mkdir(OutDir);
   
@@ -60,6 +60,7 @@ int CutFlow()
   char jetName[50];
   char Yield[50];
 
+  TCanvas *myCan = MakeCanvas("myCan", "myCan", 900, 800);
   //++++++++++++++++++++++++++++
   //Histograms
   //++++++++++++++++++++++++++++
@@ -72,14 +73,68 @@ int CutFlow()
   TH1D* h1_mWW_Phn_9_Wevt_NoCut[NjetBin+1];
   TH1D* h1_mWW_Phn_25_Wevt_NoCut[NjetBin+1];
   TH1D* h1_mWW_Phn_Sg_Wevt_NoCut[NjetBin+1];
+
+  TH1D* h1_23vsInv_Phn_1_Wevt;
+  TH1D* h1_23vsInv_Phn_9_Wevt;
+  TH1D* h1_23vsInv_Phn_25_Wevt;
+  TH1D* h1_23vsInv_Phn_Sg_Wevt;
   // Powheg------------------------
   TH1D* h1_mWW_Pow_Wevt[NjetBin+1];
   TH1D* h1_mWW_Pow_Wevt_NoCut[NjetBin+1];
   TH1D* h1_mWW_Pow_WevtPow2Gen[NjetBin+1];
   TH1D* h1_mWW_Pow_WevtPow2Gen_NoCut[NjetBin+1];
 
+  TH1D* h1_23vsInv_Pow_Wevt;
+  TH1D* h1_23vsInv_Pow_WevtPow2Gen;
 
-  TCanvas *myCan = MakeCanvas("myCan", "myCan", 900, 800);
+
+
+  sprintf(tmpName, "h1_23vs34_Wevt");
+  sprintf(histName,"h1_23vsInv_Phn1_Wevt");
+  h1_23vsInv_Phn_1_Wevt = (TH1D*)f_phn_1->Get(tmpName)->Clone(histName);
+  h1_23vsInv_Phn_1_Wevt->Sumw2();
+  sprintf(histName,"h1_23vsInv_Phn9_Wevt");
+  h1_23vsInv_Phn_9_Wevt = (TH1D*)f_phn_9->Get(tmpName)->Clone(histName);
+  h1_23vsInv_Phn_9_Wevt->Sumw2();
+  sprintf(histName,"h1_23vsInv_Phn25_Wevt");
+  h1_23vsInv_Phn_25_Wevt = (TH1D*)f_phn_25->Get(tmpName)->Clone(histName);
+  h1_23vsInv_Phn_25_Wevt->Sumw2();
+  h1_23vsInv_Phn_Sg_Wevt=(TH1D*)h1_23vsInv_Phn_1_Wevt->Clone("h1_23vsInv_Phn_Sg_Wevt");
+  h1_23vsInv_Phn_Sg_Wevt->Add(h1_23vsInv_Phn_9_Wevt);
+  h1_23vsInv_Phn_Sg_Wevt->Add(h1_23vsInv_Phn_25_Wevt);
+  sprintf(histName,"h1_23vsInv_Pow_WevtPow2Gen");
+  h1_23vsInv_Pow_WevtPow2Gen=(TH1D*)f_pow->Get(tmpName)->Clone(histName);
+
+  double integralX;
+  integralX=h1_23vsInv_Phn_Sg_Wevt->Integral();
+  h1_23vsInv_Phn_Sg_Wevt->Scale(1./integralX);
+  h1_23vsInv_Phn_Sg_Wevt->SetMinimum(0);
+  integralX=h1_23vsInv_Pow_WevtPow2Gen->Integral();
+  h1_23vsInv_Pow_WevtPow2Gen->Scale(1./integralX);
+  h1_23vsInv_Pow_WevtPow2Gen->SetMinimum(0);
+
+  double powBin1 = h1_23vsInv_Pow_WevtPow2Gen->GetBinContent(1);
+  double powBin2 = h1_23vsInv_Pow_WevtPow2Gen->GetBinContent(2);
+  double phnBin1 = h1_23vsInv_Phn_Sg_Wevt->GetBinContent(1);
+  double phnBin2 = h1_23vsInv_Phn_Sg_Wevt->GetBinContent(2);
+
+  char texBoxContentPow[50];
+  sprintf(texBoxContentPow,"Pow: %5.4f,  %5.4f",powBin1, powBin2);
+  char texBoxContentPhn[50];
+  sprintf(texBoxContentPhn,"Phn: %5.4f,  %5.4f",phnBin1, phnBin2);
+
+  sprintf(histName,"Njet=23vsInverse");
+  //sprintf(tmpName,"Events / %.1f ",h1_mWW_Pow[i]->GetBinWidth(1));
+  CPlot* plt_23vsInv=new CPlot(histName,"","njet23/GtEq2!centVeto","");
+  plt_23vsInv->setOutDir(OutDir);
+  plt_23vsInv->AddHist1D(h1_23vsInv_Pow_WevtPow2Gen,"HIST",kBlue);
+  plt_23vsInv->AddHist1D(h1_23vsInv_Phn_Sg_Wevt,"HIST",kRed);
+  plt_23vsInv->SetLegend(0.63,0.26,0.88,0.42);
+  plt_23vsInv->GetLegend()->AddEntry(h1_23vsInv_Pow_WevtPow2Gen,"POWHEG","l");
+  plt_23vsInv->GetLegend()->AddEntry(h1_23vsInv_Phn_Sg_Wevt,"Phantom","l");
+  plt_23vsInv->AddTextBox(texBoxContentPow,0.2,0.52,0.42,0.65,0);
+  plt_23vsInv->AddTextBox(texBoxContentPhn,0.5,0.52,0.82,0.65,0);
+  plt_23vsInv->Draw(myCan,kTRUE,"png");
   
   for(int i(0);i<NjetBin+1;i++)
   {

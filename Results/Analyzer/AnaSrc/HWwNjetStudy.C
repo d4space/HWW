@@ -61,15 +61,15 @@ void HWwNjetStudy::Loop()
     // Test for 23 and >=2
     if( CommonCut_VBFnjet() ==1 && (njet==2 || njet==3) )
     {
-      h1_23vs34->Fill(0.);
-      h1_23vs34_Wevt->Fill(0.,EvtWeight);
-      h1_23vs34_WevtPow2Gen->Fill(0.,WevtPow2Gen);
+      h1_23vsInv->Fill(0.);
+      h1_23vsInv_Wevt->Fill(0.,EvtWeight);
+      h1_23vsInv_WevtPow2Gen->Fill(0.,WevtPow2Gen);
     }
     if(CommonCut_VBFnjetInverse() ==1 && njet>= 2)
     {
-      h1_23vs34->Fill(1.);
-      h1_23vs34_Wevt->Fill(1.,EvtWeight);
-      h1_23vs34_WevtPow2Gen->Fill(1.,WevtPow2Gen);
+      h1_23vsInv->Fill(1.);
+      h1_23vsInv_Wevt->Fill(1.,EvtWeight);
+      h1_23vsInv_WevtPow2Gen->Fill(1.,WevtPow2Gen);
     }
 
     //-------------------------------
