@@ -51,12 +51,28 @@ void HWwNjetStudy::Loop()
     nnjet = njet;
     if(njet>=NjetBin-1) nnjet = NjetBin-1;
 #if NjetBin == 5
-    if(njet>=3){;}else continue;
+    //if(njet>=3){;}else continue; comment out for 23 jet >= 2 comparison
 #endif
 
 #if NjetBin == 4
-    if(njet>=2 && njet<=3){;}else continue;
+    //if(njet>=2 && njet<=3){;}else continue;
 #endif
+
+    // Test for 23 and >=2
+    if( CommonCut_VBFnjet() ==1 && (njet==2 || njet==3) )
+    {
+      h1_23vs34->Fill(0.);
+      h1_23vs34_Wevt->Fill(0.,EvtWeight);
+      h1_23vs34_WevtPow2Gen->Fill(0.,WevtPow2Gen);
+    }
+    if(CommonCut_VBFnjetInverse() ==1 && njet>= 2)
+    {
+      h1_23vs34->Fill(1.);
+      h1_23vs34_Wevt->Fill(1.,EvtWeight);
+      h1_23vs34_WevtPow2Gen->Fill(1.,WevtPow2Gen);
+    }
+
+    //-------------------------------
     if(CommonCut_njet() !=1)continue;
 
     Fill_BeforeCut();
