@@ -88,8 +88,7 @@ int CutFlow()
   TH1D* h1_23vsInv_Pow_WevtPow2Gen;
 
 
-
-  sprintf(tmpName, "h1_23vs34_Wevt");
+  sprintf(tmpName, "h1_23vsInv_Wevt");
   sprintf(histName,"h1_23vsInv_Phn1_Wevt");
   h1_23vsInv_Phn_1_Wevt = (TH1D*)f_phn_1->Get(tmpName)->Clone(histName);
   h1_23vsInv_Phn_1_Wevt->Sumw2();
@@ -105,6 +104,15 @@ int CutFlow()
   sprintf(histName,"h1_23vsInv_Pow_WevtPow2Gen");
   h1_23vsInv_Pow_WevtPow2Gen=(TH1D*)f_pow->Get(tmpName)->Clone(histName);
 
+
+  // bin2 - bin1
+  double powBin1 = h1_23vsInv_Pow_WevtPow2Gen->GetBinContent(1);
+  double powBin2 = h1_23vsInv_Pow_WevtPow2Gen->GetBinContent(2);
+  double phnBin1 = h1_23vsInv_Phn_Sg_Wevt->GetBinContent(1);
+  double phnBin2 = h1_23vsInv_Phn_Sg_Wevt->GetBinContent(2);
+  h1_23vsInv_Pow_WevtPow2Gen->SetBinContent(2,powBin2-powBin1);
+  h1_23vsInv_Phn_Sg_Wevt    ->SetBinContent(2,phnBin2-phnBin1);
+  // Normalize
   double integralX;
   integralX=h1_23vsInv_Phn_Sg_Wevt->Integral();
   h1_23vsInv_Phn_Sg_Wevt->Scale(1./integralX);
@@ -113,27 +121,22 @@ int CutFlow()
   h1_23vsInv_Pow_WevtPow2Gen->Scale(1./integralX);
   h1_23vsInv_Pow_WevtPow2Gen->SetMinimum(0);
 
-  double powBin1 = h1_23vsInv_Pow_WevtPow2Gen->GetBinContent(1);
-  double powBin2 = h1_23vsInv_Pow_WevtPow2Gen->GetBinContent(2);
-  double phnBin1 = h1_23vsInv_Phn_Sg_Wevt->GetBinContent(1);
-  double phnBin2 = h1_23vsInv_Phn_Sg_Wevt->GetBinContent(2);
 
-  char texBoxContentPow[50];
-  sprintf(texBoxContentPow,"Pow: %5.4f,  %5.4f",powBin1, powBin2);
-  char texBoxContentPhn[50];
-  sprintf(texBoxContentPhn,"Phn: %5.4f,  %5.4f",phnBin1, phnBin2);
-
+  //char texBoxContentPow[50];
+  //sprintf(texBoxContentPow,"Pow: %5.4f,  %5.4f",powBin1, powBin2);
+  //char texBoxContentPhn[50];
+  //sprintf(texBoxContentPhn,"Phn: %5.4f,  %5.4f",phnBin1, phnBin2);
   sprintf(histName,"Njet=23vsInverse");
   //sprintf(tmpName,"Events / %.1f ",h1_mWW_Pow[i]->GetBinWidth(1));
-  CPlot* plt_23vsInv=new CPlot(histName,"","njet23/GtEq2!centVeto","");
+  CPlot* plt_23vsInv=new CPlot(histName,"","Njet 2||3 w/o centJet     Njet#geq2 w/ centJet","Normalized");
   plt_23vsInv->setOutDir(OutDir);
   plt_23vsInv->AddHist1D(h1_23vsInv_Pow_WevtPow2Gen,"HIST",kBlue);
   plt_23vsInv->AddHist1D(h1_23vsInv_Phn_Sg_Wevt,"HIST",kRed);
-  plt_23vsInv->SetLegend(0.63,0.26,0.88,0.42);
+  plt_23vsInv->SetLegend(0.63,0.56,0.88,0.72);
   plt_23vsInv->GetLegend()->AddEntry(h1_23vsInv_Pow_WevtPow2Gen,"POWHEG","l");
   plt_23vsInv->GetLegend()->AddEntry(h1_23vsInv_Phn_Sg_Wevt,"Phantom","l");
-  plt_23vsInv->AddTextBox(texBoxContentPow,0.2,0.52,0.42,0.65,0);
-  plt_23vsInv->AddTextBox(texBoxContentPhn,0.5,0.52,0.82,0.65,0);
+  //plt_23vsInv->AddTextBox(texBoxContentPow,0.2,0.52,0.42,0.65,0);
+  //plt_23vsInv->AddTextBox(texBoxContentPhn,0.5,0.52,0.82,0.65,0);
   plt_23vsInv->Draw(myCan,kTRUE,"png");
   
   for(int i(0);i<NjetBin+1;i++)
@@ -334,6 +337,5 @@ int CutFlow()
     plt_Phn->Draw(myCan,kTRUE,"png");
 
   }
-
   return 0;
 }
