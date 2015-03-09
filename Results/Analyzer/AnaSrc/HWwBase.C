@@ -405,7 +405,7 @@ Int_t HWwBase::CommonCut_VBFnjet()
   //if (mjj>300){;}else{return -1;}
   //
   //TODO for the test==============================================
-  //if( mjj>500){;}else{return -1;}
+  if( mjj>500){;}else{return -1;}
   // End: for the test ============================================
   //if (zveto==1 || !sameflav){;}else{return -1;}
   /*******
@@ -431,7 +431,7 @@ Int_t HWwBase::CommonCut_VBFnjet()
     if(abs(eta1 - (jeteta1+jeteta2)/2)/detajj < 0.5 && abs(eta2 - (jeteta1+jeteta2)/2)/detajj < 0.5){;}else return -1;
   }
   //TODO for the test
-  //if(detajj>2.5){;}else return -1;
+  if(detajj>2.5){;}else return -1;
 
   return 1;
 }
@@ -447,7 +447,7 @@ Int_t HWwBase::CommonCut_VBFnjetWoCentJetVeto()
   //if(njet>=2 && njet<=3){;}else return -1; 
   //if (mjj>300){;}else{return -1;}
   //TODO for the test==============================================
-  //if( mjj>500){;}else{return -1;}
+  if( mjj>500){;}else{return -1;}
   //End for the test==============================================
   //if (zveto==1 || !sameflav){;}else{return -1;}
   /*******
@@ -473,7 +473,7 @@ Int_t HWwBase::CommonCut_VBFnjetWoCentJetVeto()
     if(abs(eta1 - (jeteta1+jeteta2)/2)/detajj < 0.5 && abs(eta2 - (jeteta1+jeteta2)/2)/detajj < 0.5){;}else return -1;
   }
   //TODO for the test
-  //if(detajj>2.5){;}else return -1;
+  if(detajj>2.5){;}else return -1;
 
   return 1;
 }
