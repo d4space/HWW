@@ -18,6 +18,7 @@
 #include "TCanvas.h"
 #include "TColor.h"
 #include "TLine.h"
+#include "TGraphErrors.h"
 
 #include "RooRealVar.h"
 #include "RooPoisson.h"
@@ -78,12 +79,19 @@ int CutFlow()
   TH1D* h1_23vsInv_Phn_9_Wevt;
   TH1D* h1_23vsInv_Phn_25_Wevt;
   TH1D* h1_23vsInv_Phn_Sg_Wevt;
+  TH1D* h1_23vsInv_Phn_1;
+  TH1D* h1_23vsInv_Phn_9;
+  TH1D* h1_23vsInv_Phn_25;
+  TH1D* h1_23vsInv_Phn_Sg;
+  TH1D* h1_23vsInv_Phn_Sg_Err;
   // Powheg------------------------
   TH1D* h1_mWW_Pow_Wevt[NjetBin+1];
   TH1D* h1_mWW_Pow_Wevt_NoCut[NjetBin+1];
   TH1D* h1_mWW_Pow_WevtPow2Gen[NjetBin+1];
   TH1D* h1_mWW_Pow_WevtPow2Gen_NoCut[NjetBin+1];
 
+  TH1D* h1_23vsInv_Pow;
+  TH1D* h1_23vsInv_Pow_Err;
   TH1D* h1_23vsInv_Pow_Wevt;
   TH1D* h1_23vsInv_Pow_WevtPow2Gen;
 
@@ -104,22 +112,96 @@ int CutFlow()
   sprintf(histName,"h1_23vsInv_Pow_WevtPow2Gen");
   h1_23vsInv_Pow_WevtPow2Gen=(TH1D*)f_pow->Get(tmpName)->Clone(histName);
 
+  sprintf(tmpName, "h1_23vsInv");
+  sprintf(histName,"h1_23vsInv_Phn1");
+  h1_23vsInv_Phn_1 = (TH1D*)f_phn_1->Get(tmpName)->Clone(histName);
+  h1_23vsInv_Phn_1->Sumw2();
+  sprintf(histName,"h1_23vsInv_Phn9");
+  h1_23vsInv_Phn_9 = (TH1D*)f_phn_9->Get(tmpName)->Clone(histName);
+  h1_23vsInv_Phn_9->Sumw2();
+  sprintf(histName,"h1_23vsInv_Phn25");
+  h1_23vsInv_Phn_25 = (TH1D*)f_phn_25->Get(tmpName)->Clone(histName);
+  h1_23vsInv_Phn_25->Sumw2();
+  h1_23vsInv_Phn_Sg=(TH1D*)h1_23vsInv_Phn_1->Clone("h1_23vsInv_Phn_Sg");
+  h1_23vsInv_Phn_Sg->Scale(0.125);
+  h1_23vsInv_Phn_Sg->Add(h1_23vsInv_Phn_9, -0.250);
+  h1_23vsInv_Phn_Sg->Add(h1_23vsInv_Phn_25, 0.125);
+  sprintf(histName,"h1_23vsInv_Pow");
+  h1_23vsInv_Pow=(TH1D*)f_pow->Get(tmpName)->Clone(histName);
+
+  //Error calculation
+  h1_23vsInv_Pow_Err=(TH1D*)h1_23vsInv_Pow_WevtPow2Gen->Clone("h1_23vsInv_Pow_Err");
+  h1_23vsInv_Phn_Sg_Err=(TH1D*)h1_23vsInv_Phn_Sg->Clone("h1_23vsInv_Phn_Sg_Err");
+
+  double X_Phn_Wevt[2], X_Phn[2], X_Pow_WevtPow2Gen[2], X_Pow[2], tmpK;
+  for(int bdx(1);bdx <=2;bdx++)
+  {
+    X_Phn_Wevt[bdx-1] = h1_23vsInv_Phn_Sg_Wevt->GetBinContent(bdx);
+    X_Phn[bdx-1]      = h1_23vsInv_Phn_Sg->GetBinContent(bdx);
+    tmpK  = X_Phn_Wevt[bdx-1]/X_Phn[bdx-1];
+    h1_23vsInv_Phn_Sg_Err->SetBinContent(bdx, X_Phn_Wevt[bdx-1]);
+    h1_23vsInv_Phn_Sg_Err->SetBinError(bdx, tmpK* TMath::Sqrt(X_Phn[bdx-1]));
+
+    X_Pow_WevtPow2Gen[bdx-1] = h1_23vsInv_Pow_WevtPow2Gen->GetBinContent(bdx);
+    X_Pow[bdx-1]             = h1_23vsInv_Pow->GetBinContent(bdx);
+    tmpK   = X_Pow_WevtPow2Gen[bdx-1]/X_Pow[bdx-1];
+
+    h1_23vsInv_Pow_Err->SetBinContent(bdx,X_Pow_WevtPow2Gen[bdx-1]);
+    h1_23vsInv_Pow_Err->SetBinError(bdx,tmpK*TMath::Sqrt(X_Pow[bdx-1]));
+  }
+
+
 
   // bin2 - bin1
-  double powBin1 = h1_23vsInv_Pow_WevtPow2Gen->GetBinContent(1);
-  double powBin2 = h1_23vsInv_Pow_WevtPow2Gen->GetBinContent(2);
-  double phnBin1 = h1_23vsInv_Phn_Sg_Wevt->GetBinContent(1);
-  double phnBin2 = h1_23vsInv_Phn_Sg_Wevt->GetBinContent(2);
-  h1_23vsInv_Pow_WevtPow2Gen->SetBinContent(2,powBin2-powBin1);
-  h1_23vsInv_Phn_Sg_Wevt    ->SetBinContent(2,phnBin2-phnBin1);
+  double powBin1     = h1_23vsInv_Pow_Err->GetBinContent(1);
+  double powBin1_Err = h1_23vsInv_Pow_Err->GetBinError(1);
+  double powBin2     = h1_23vsInv_Pow_Err->GetBinContent(2);
+  double powBin2_Err = h1_23vsInv_Pow_Err->GetBinError(2);
+  double phnBin1     = h1_23vsInv_Phn_Sg_Err->GetBinContent(1);
+  double phnBin1_Err = h1_23vsInv_Phn_Sg_Err->GetBinError(1);
+  double phnBin2     = h1_23vsInv_Phn_Sg_Err->GetBinContent(2);
+  double phnBin2_Err = h1_23vsInv_Phn_Sg_Err->GetBinError(2);
+  h1_23vsInv_Pow_Err->SetBinContent(2,powBin2-powBin1);
+  tmpK = (X_Pow_WevtPow2Gen[1]-X_Pow_WevtPow2Gen[0])/(X_Pow[1]-X_Pow[0]);
+  h1_23vsInv_Pow_Err->SetBinError(2,tmpK*TMath::Sqrt(X_Pow[1]-X_Pow[0]));
+  h1_23vsInv_Phn_Sg_Err    ->SetBinContent(2,phnBin2-phnBin1);
+  tmpK = (X_Phn_Wevt[1]-X_Phn_Wevt[0])/(X_Phn[1]-X_Phn[0]);
+  h1_23vsInv_Phn_Sg_Err    ->SetBinError(2,tmpK* TMath::Sqrt(X_Phn[1]-X_Phn[0]));
+
   // Normalize
   double integralX;
-  integralX=h1_23vsInv_Phn_Sg_Wevt->Integral();
-  h1_23vsInv_Phn_Sg_Wevt->Scale(1./integralX);
-  h1_23vsInv_Phn_Sg_Wevt->SetMinimum(0);
-  integralX=h1_23vsInv_Pow_WevtPow2Gen->Integral();
-  h1_23vsInv_Pow_WevtPow2Gen->Scale(1./integralX);
-  h1_23vsInv_Pow_WevtPow2Gen->SetMinimum(0);
+  integralX=h1_23vsInv_Phn_Sg_Err->Integral();
+  h1_23vsInv_Phn_Sg_Err->Scale(1./integralX);
+  h1_23vsInv_Phn_Sg_Err->SetMinimum(0);
+  integralX=h1_23vsInv_Pow_Err->Integral();
+  h1_23vsInv_Pow_Err->Scale(1./integralX);
+  h1_23vsInv_Pow_Err->SetMinimum(0);
+
+  double x[2] ={0.5, 1.5};
+  double x_E[2] = {0.5, 0.5};
+  double pow_y[2], pow_ye[2];
+  double phn_y[2], phn_ye[2];
+  for(int k(0);k<2;k++)
+  {
+    phn_y[k]  = h1_23vsInv_Phn_Sg_Err->GetBinContent(k+1);
+    phn_ye[k] = h1_23vsInv_Phn_Sg_Err->GetBinError(k+1);
+    pow_y[k]  = h1_23vsInv_Pow_Err->GetBinContent(k+1);
+    pow_ye[k] = h1_23vsInv_Pow_Err->GetBinError(k+1);
+  }
+  TGraphErrors *gr_powErr = new TGraphErrors(2, x, pow_y, x_E, pow_ye);
+  TGraphErrors *gr_phnErr = new TGraphErrors(2, x, phn_y, x_E, phn_ye);
+
+  //TColor *colBlue = gROOT->GetColor(kBlue);
+  //TColor *colRed = gROOT->GetColor(kRed);
+  //colBlue->SetAlpha(0.1);
+  //colRed->SetAlpha(0.1);
+
+  gr_powErr->SetFillColor(kBlue);
+  gr_phnErr->SetFillColor(kRed);
+  gr_powErr->Draw("Ap"); //5
+  gr_phnErr->Draw("Apsame");
+  myCan->SaveAs("hahaha.png");
+
 
 
   //char texBoxContentPow[50];
@@ -130,11 +212,11 @@ int CutFlow()
   //sprintf(tmpName,"Events / %.1f ",h1_mWW_Pow[i]->GetBinWidth(1));
   CPlot* plt_23vsInv=new CPlot(histName,"","Njet 2||3 w/o centJet     Njet#geq2 w/ centJet","Normalized");
   plt_23vsInv->setOutDir(OutDir);
-  plt_23vsInv->AddHist1D(h1_23vsInv_Pow_WevtPow2Gen,"HIST",kBlue);
-  plt_23vsInv->AddHist1D(h1_23vsInv_Phn_Sg_Wevt,"HIST",kRed);
+  plt_23vsInv->AddHist1D(h1_23vsInv_Pow_Err,"e3",kBlue);
+  plt_23vsInv->AddHist1D(h1_23vsInv_Phn_Sg_Err,"e3",kRed);
   plt_23vsInv->SetLegend(0.63,0.56,0.88,0.72);
-  plt_23vsInv->GetLegend()->AddEntry(h1_23vsInv_Pow_WevtPow2Gen,"POWHEG","l");
-  plt_23vsInv->GetLegend()->AddEntry(h1_23vsInv_Phn_Sg_Wevt,"Phantom","l");
+  plt_23vsInv->GetLegend()->AddEntry(h1_23vsInv_Pow_Err,"POWHEG","l");
+  plt_23vsInv->GetLegend()->AddEntry(h1_23vsInv_Phn_Sg_Err,"Phantom","l");
   //plt_23vsInv->AddTextBox(texBoxContentPow,0.2,0.52,0.42,0.65,0);
   //plt_23vsInv->AddTextBox(texBoxContentPhn,0.5,0.52,0.82,0.65,0);
   plt_23vsInv->Draw(myCan,kTRUE,"png");
@@ -177,7 +259,6 @@ int CutFlow()
     sprintf(histName,"h1_mWW_Pow_WevtPow2Gen_NoCut_%d",i);
     h1_mWW_Pow_WevtPow2Gen_NoCut[i] = (TH1D*)f_pow->Get(tmpName)->Clone(histName);
     h1_mWW_Pow_WevtPow2Gen_NoCut[i]->Sumw2();
-
 
 
     // Phantom Signal Extraction without Event Weight histogram
