@@ -154,8 +154,8 @@ int CutFlow_23Inv()
 
     h1_23vsInv_Pow_Err->SetBinContent(bdx,X_Pow_WevtPow2Gen[bdx-1]);
     h1_23vsInv_Pow_Err->SetBinError(bdx,tmpK*TMath::Sqrt(X_Pow[bdx-1]));
+    cout<<"bin: "<<bdx<<"Phn Evet: "<<X_Phn[bdx-1]<<" Pow: Evt: "<<X_Pow[bdx-1]<<endl;
   }
-
 
 
   // bin2 - bin1

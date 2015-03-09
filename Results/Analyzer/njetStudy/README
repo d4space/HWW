@@ -8,9 +8,10 @@
 2. run AnaSrc/PhantomPack.sh (PowVBfPack.sh)
 3. change MakeHistoCtrPlots.C then root -l M...
 4. python CalcPowRew.py then get scale, then write them in to HWwNjetStudy.h
-5. AnaSrc/PowVBfPack.sh
+5. AnaSrc/PowVBfPack.sh, NjetBin.h, MakeHistoCtrPlots.C ==> modify
 6. root -l MakeHistoCtrPlots.C
 7. njet_mWW.py
+8. root -l CutFlow_23Inv.C for efficiency
 8. not working? error ==> NAN, then set them 0 at njet_mWW_Phn.C
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
