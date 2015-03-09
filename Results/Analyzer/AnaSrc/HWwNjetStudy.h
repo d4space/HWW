@@ -394,37 +394,40 @@ void HWwNjetStudy::Calc_Pow_Vbf_Weight()
 	if(mWW > 1400 && mWW <= 1450)	 WevtPow2Gen= EvtWeight *95.808;
 	if(mWW > 1450 && mWW <= 1500)	 WevtPow2Gen= EvtWeight *0;
 #endif
+
+#if REWEIGHT == 3
       //
       //mjj 300 njet 2.3
-	// if(             mWW <= 100)	 WevtPow2Gen= EvtWeight *0;
-	// if(mWW > 100 && mWW <= 150)	 WevtPow2Gen= EvtWeight *0.0447568;
-	// if(mWW > 150 && mWW <= 200)	 WevtPow2Gen= EvtWeight *0.21264;
-	// if(mWW > 200 && mWW <= 250)	 WevtPow2Gen= EvtWeight *2.06641;
-	// if(mWW > 250 && mWW <= 300)	 WevtPow2Gen= EvtWeight *1.70796;
-	// if(mWW > 300 && mWW <= 350)	 WevtPow2Gen= EvtWeight *2.14422;
-	// if(mWW > 350 && mWW <= 400)	 WevtPow2Gen= EvtWeight *2.54918;
-	// if(mWW > 400 && mWW <= 450)	 WevtPow2Gen= EvtWeight *3.55034;
-	// if(mWW > 450 && mWW <= 500)	 WevtPow2Gen= EvtWeight *4.07274;
-	// if(mWW > 500 && mWW <= 550)	 WevtPow2Gen= EvtWeight *5.06353;
-	// if(mWW > 550 && mWW <= 600)	 WevtPow2Gen= EvtWeight *5.83332;
-	// if(mWW > 600 && mWW <= 650)	 WevtPow2Gen= EvtWeight *10.2089;
-	// if(mWW > 650 && mWW <= 700)	 WevtPow2Gen= EvtWeight *14.0521;
-	// if(mWW > 700 && mWW <= 750)	 WevtPow2Gen= EvtWeight *18.4153;
-	// if(mWW > 750 && mWW <= 800)	 WevtPow2Gen= EvtWeight *21.496;
-	// if(mWW > 800 && mWW <= 850)	 WevtPow2Gen= EvtWeight *25.2915;
-	// if(mWW > 850 && mWW <= 900)	 WevtPow2Gen= EvtWeight *26.266;
-	// if(mWW > 900 && mWW <= 950)	 WevtPow2Gen= EvtWeight *31.7399;
-	// if(mWW > 950 && mWW <= 1000)	 WevtPow2Gen= EvtWeight *50.2364;
-	// if(mWW > 1000 && mWW <= 1050)	 WevtPow2Gen= EvtWeight *61.6709;
-	// if(mWW > 1050 && mWW <= 1100)	 WevtPow2Gen= EvtWeight *72.9291;
-	// if(mWW > 1100 && mWW <= 1150)	 WevtPow2Gen= EvtWeight *86.5085;
-	// if(mWW > 1150 && mWW <= 1200)	 WevtPow2Gen= EvtWeight *141.137;
-	// if(mWW > 1200 && mWW <= 1250)	 WevtPow2Gen= EvtWeight *146.798;
-	// if(mWW > 1250 && mWW <= 1300)	 WevtPow2Gen= EvtWeight *171.091;
-	// if(mWW > 1300 && mWW <= 1350)	 WevtPow2Gen= EvtWeight *154.853;
-	// if(mWW > 1350 && mWW <= 1400)	 WevtPow2Gen= EvtWeight *314.15;
-	// if(mWW > 1400 && mWW <= 1450)	 WevtPow2Gen= EvtWeight *418.172;
-	// if(mWW > 1450 && mWW <= 1500)	 WevtPow2Gen= EvtWeight *456.45;
+	 if(             mWW <= 100)	 WevtPow2Gen= EvtWeight *0;
+	 if(mWW > 100 && mWW <= 150)	 WevtPow2Gen= EvtWeight *0.0447568;
+	 if(mWW > 150 && mWW <= 200)	 WevtPow2Gen= EvtWeight *0.21264;
+	 if(mWW > 200 && mWW <= 250)	 WevtPow2Gen= EvtWeight *2.06641;
+	 if(mWW > 250 && mWW <= 300)	 WevtPow2Gen= EvtWeight *1.70796;
+	 if(mWW > 300 && mWW <= 350)	 WevtPow2Gen= EvtWeight *2.14422;
+	 if(mWW > 350 && mWW <= 400)	 WevtPow2Gen= EvtWeight *2.54918;
+	 if(mWW > 400 && mWW <= 450)	 WevtPow2Gen= EvtWeight *3.55034;
+	 if(mWW > 450 && mWW <= 500)	 WevtPow2Gen= EvtWeight *4.07274;
+	 if(mWW > 500 && mWW <= 550)	 WevtPow2Gen= EvtWeight *5.06353;
+	 if(mWW > 550 && mWW <= 600)	 WevtPow2Gen= EvtWeight *5.83332;
+	 if(mWW > 600 && mWW <= 650)	 WevtPow2Gen= EvtWeight *10.2089;
+	 if(mWW > 650 && mWW <= 700)	 WevtPow2Gen= EvtWeight *14.0521;
+	 if(mWW > 700 && mWW <= 750)	 WevtPow2Gen= EvtWeight *18.4153;
+	 if(mWW > 750 && mWW <= 800)	 WevtPow2Gen= EvtWeight *21.496;
+	 if(mWW > 800 && mWW <= 850)	 WevtPow2Gen= EvtWeight *25.2915;
+	 if(mWW > 850 && mWW <= 900)	 WevtPow2Gen= EvtWeight *26.266;
+	 if(mWW > 900 && mWW <= 950)	 WevtPow2Gen= EvtWeight *31.7399;
+	 if(mWW > 950 && mWW <= 1000)	 WevtPow2Gen= EvtWeight *50.2364;
+	 if(mWW > 1000 && mWW <= 1050)	 WevtPow2Gen= EvtWeight *61.6709;
+	 if(mWW > 1050 && mWW <= 1100)	 WevtPow2Gen= EvtWeight *72.9291;
+	 if(mWW > 1100 && mWW <= 1150)	 WevtPow2Gen= EvtWeight *86.5085;
+	 if(mWW > 1150 && mWW <= 1200)	 WevtPow2Gen= EvtWeight *141.137;
+	 if(mWW > 1200 && mWW <= 1250)	 WevtPow2Gen= EvtWeight *146.798;
+	 if(mWW > 1250 && mWW <= 1300)	 WevtPow2Gen= EvtWeight *171.091;
+	 if(mWW > 1300 && mWW <= 1350)	 WevtPow2Gen= EvtWeight *154.853;
+	 if(mWW > 1350 && mWW <= 1400)	 WevtPow2Gen= EvtWeight *314.15;
+	 if(mWW > 1400 && mWW <= 1450)	 WevtPow2Gen= EvtWeight *418.172;
+	 if(mWW > 1450 && mWW <= 1500)	 WevtPow2Gen= EvtWeight *456.45;
+#endif
 	//
 	// mjj 300 njet >=3
       

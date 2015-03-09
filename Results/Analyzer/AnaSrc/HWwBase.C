@@ -403,7 +403,10 @@ Int_t HWwBase::CommonCut_VBFnjet()
   //if(njet>=3){;}else return -1; 
   //if(njet>=2 && njet<=3){;}else return -1; 
   //if (mjj>300){;}else{return -1;}
-  if( mjj>500){;}else{return -1;}
+  //
+  //TODO for the test==============================================
+  //if( mjj>500){;}else{return -1;}
+  // End: for the test ============================================
   //if (zveto==1 || !sameflav){;}else{return -1;}
   /*******
   if(!sameflav ||
@@ -442,7 +445,9 @@ Int_t HWwBase::CommonCut_VBFnjetWoCentJetVeto()
   //if(njet>=3){;}else return -1; 
   //if(njet>=2 && njet<=3){;}else return -1; 
   //if (mjj>300){;}else{return -1;}
-  if( mjj>500){;}else{return -1;}
+  //TODO for the test==============================================
+  //if( mjj>500){;}else{return -1;}
+  //End for the test==============================================
   //if (zveto==1 || !sameflav){;}else{return -1;}
   /*******
   if(!sameflav ||
