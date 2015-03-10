@@ -58,11 +58,15 @@ protected:
    TH1D *h1_njet_Off_WevtPow2Gen[12];
    TH1D *h1_njet_Off_noWeight[12];
    
-   TH1D *h1_mWW_Off_Wevt[NjetBin+1];        // 5 for jet inclusive
-   TH1D *h1_mWW_Off_WevtPow2Gen[NjetBin+1]; // 5 for jet inclusive
-   TH1D *h1_mWW_Off_noWeight[NjetBin+1];    // 5 for jet inclusive
-   TH1D *h1_mjj[NjetBin+1];                 // 5 for jet inclusive
-   TH1D *h1_detajj[NjetBin+1];              // 5 for jet inclusive
+   TH1D *h1_mWW_Off_Wevt[NjetBin+1];        // NjetBin for jet inclusive
+   TH1D *h1_mWW_Off_WevtPow2Gen[NjetBin+1]; // NjetBin for jet inclusive
+   TH1D *h1_mWW_Off_noWeight[NjetBin+1];    // NjetBin for jet inclusive
+   TH1D *h1_mjj_NoW[NjetBin+1];                 // NjetBin for jet inclusive
+   TH1D *h1_mjj_Wevt[NjetBin+1];                 // NjetBin for jet inclusive
+   TH1D *h1_mjj_WevtPow2Gen[NjetBin+1];                 // NjetBin for jet inclusive
+   TH1D *h1_detajj_NoW[NjetBin+1];              // NjetBin for jet inclusive
+   TH1D *h1_detajj_Wevt[NjetBin+1];              // NjetBin for jet inclusive
+   TH1D *h1_detajj_WevtPow2Gen[NjetBin+1];              // NjetBin for jet inclusive
 
    
    TH1D *h1_mWW_Off_Wevt_NoCut[NjetBin+1];        // 5 for jet inclusive
@@ -153,8 +157,12 @@ int HWwNjetStudy::Fill_Histo()
   h1_mWW_Off_Wevt[NjetBin] 		-> Fill(mWW, EvtWeight);
   h1_mWW_Off_WevtPow2Gen[NjetBin] 	-> Fill(mWW, WevtPow2Gen);
   h1_mWW_Off_noWeight[NjetBin]		-> Fill(mWW);
-  h1_mjj[NjetBin]			-> Fill(mjj,    WevtPow2Gen);
-  h1_detajj[NjetBin]			-> Fill(detajj, WevtPow2Gen);
+  h1_mjj_NoW[NjetBin]			-> Fill(mjj);
+  h1_mjj_Wevt[NjetBin]			-> Fill(mjj, EvtWeight);
+  h1_mjj_WevtPow2Gen[NjetBin]		-> Fill(mjj, WevtPow2Gen);
+  h1_detajj_NoW[NjetBin]		-> Fill(detajj);
+  h1_detajj_Wevt[NjetBin]		-> Fill(detajj, EvtWeight);
+  h1_detajj_WevtPow2Gen[NjetBin]	-> Fill(detajj, WevtPow2Gen);
   
  // Fill bin dependent 
   h1_mWW_Off_Wevt[nnjet]		-> Fill(mWW, EvtWeight);
@@ -229,10 +237,18 @@ int HWwNjetStudy::InitHistogram()
     sprintf(histName, "h1_mWW_Off_noWeight_%d",i);
     h1_mWW_Off_noWeight[i] = new TH1D(histName,"mWW", 30, 0, 1500);
     //h1_mWW_Off_noWeight[i] = new TH1D(histName,"mWW", 150, 0, 1500); //gg2VV
-    sprintf(histName, "h1_mjj_%d",i);
-    h1_mjj[i] = new TH1D(histName,"mjj", 20, 0, 2000);
-    sprintf(histName, "h1_detajj_%d",i);
-    h1_detajj[i] = new TH1D(histName,"detajj", 16, 0, 8);
+    sprintf(histName, "h1_mjj_NoW_%d",i);
+    h1_mjj_NoW[i] = new TH1D(histName,"mjj_NoW", 20, 0, 2000);
+    sprintf(histName, "h1_mjj_Wevt_%d",i);
+    h1_mjj_Wevt[i] = new TH1D(histName,"mjj_Wevt", 20, 0, 2000);
+    sprintf(histName, "h1_mjj_WevtPow2Gen_%d",i);
+    h1_mjj_WevtPow2Gen[i] = new TH1D(histName,"mjj_WevtPow2Gen", 20, 0, 2000);
+    sprintf(histName, "h1_detajj_NoW_%d",i);
+    h1_detajj_NoW[i] = new TH1D(histName,"detajj_NoW", 16, 0, 8);
+    sprintf(histName, "h1_detajj_Wevt_%d",i);
+    h1_detajj_Wevt[i] = new TH1D(histName,"detajj_Wevt", 16, 0, 8);
+    sprintf(histName, "h1_detajj_WevtPow2Gen_%d",i);
+    h1_detajj_WevtPow2Gen[i] = new TH1D(histName,"detajj_WevtPow2Gen", 16, 0, 8);
     
     sprintf(histName, "h1_mWW_Off_Wevt_NoCut_%d",i);
     h1_mWW_Off_Wevt_NoCut[i] = new TH1D(histName,"mWW", 30, 0, 1500);
