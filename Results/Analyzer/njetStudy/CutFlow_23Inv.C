@@ -115,6 +115,8 @@ int CutFlow_23Inv()
   h1_23vsInv_Phn_Sg_Wevt=(TH1D*)h1_23vsInv_Phn_1_Wevt->Clone("h1_23vsInv_Phn_Sg_Wevt");
   h1_23vsInv_Phn_Sg_Wevt->Add(h1_23vsInv_Phn_9_Wevt);
   h1_23vsInv_Phn_Sg_Wevt->Add(h1_23vsInv_Phn_25_Wevt);
+
+  sprintf(tmpName, "h1_23vsInv_WevtPow2Gen");
   sprintf(histName,"h1_23vsInv_Pow_WevtPow2Gen");
   h1_23vsInv_Pow_WevtPow2Gen=(TH1D*)f_pow->Get(tmpName)->Clone(histName);
 
