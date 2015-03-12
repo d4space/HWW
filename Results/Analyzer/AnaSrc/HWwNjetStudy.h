@@ -168,8 +168,12 @@ int HWwNjetStudy::Fill_Histo()
   h1_mWW_Off_Wevt[nnjet]		-> Fill(mWW, EvtWeight);
   h1_mWW_Off_WevtPow2Gen[nnjet]		-> Fill(mWW, WevtPow2Gen);
   h1_mWW_Off_noWeight[nnjet]		-> Fill(mWW);
-  h1_mjj[nnjet]				-> Fill(mjj,    WevtPow2Gen);
-  h1_detajj[nnjet]			-> Fill(detajj, WevtPow2Gen);
+  h1_mjj_NoW[nnjet]			-> Fill(mjj);
+  h1_mjj_Wevt[nnjet] 			-> Fill(mjj,    EvtWeight);
+  h1_mjj_WevtPow2Gen[nnjet]		-> Fill(mjj,    WevtPow2Gen);
+  h1_detajj_NoW[nnjet]			-> Fill(detajj);
+  h1_detajj_Wevt[nnjet]			-> Fill(detajj, EvtWeight);
+  h1_detajj_WevtPow2Gen[nnjet]		-> Fill(detajj, WevtPow2Gen);
   
   return 0;
 }

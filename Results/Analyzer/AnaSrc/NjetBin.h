@@ -5,4 +5,4 @@
 #define SAMPLE 3
 
 //#define REWEIGHT MJJ500NJ23 = 1   MJJ500NJ34 =2 mjj300nj23 = 3
-#define REWEIGHT 3
+#define REWEIGHT 1

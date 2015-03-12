@@ -65,13 +65,14 @@ void HWwNjetStudy::Loop()
       h1_23vsInv_Wevt->Fill(0.,EvtWeight);
       h1_23vsInv_WevtPow2Gen->Fill(0.,WevtPow2Gen);
     }
-    if(CommonCut_VBFnjetWoCentJetVeto() ==1 && (njet>= 2 || njet ==3))
+    if(CommonCut_VBFnjetWoCentJetVeto() ==1 && (njet== 2 || njet ==3))
     {
       h1_23vsInv->Fill(1.);
       h1_23vsInv_Wevt->Fill(1.,EvtWeight);
       h1_23vsInv_WevtPow2Gen->Fill(1.,WevtPow2Gen);
     }
 
+    if(!(njet== 2 || njet ==3))continue;
     //-------------------------------
     if(CommonCut_njet() !=1)continue;
 
