@@ -72,7 +72,8 @@ void HWwNjetStudy::Loop()
       h1_23vsInv_WevtPow2Gen->Fill(1.,WevtPow2Gen);
     }
 
-    if(!(njet== 2 || njet ==3))continue;
+    //if( njet > 3)continue;
+    //if(!(njet== 2 || njet ==3))continue;
     //-------------------------------
     if(CommonCut_njet() !=1)continue;
 

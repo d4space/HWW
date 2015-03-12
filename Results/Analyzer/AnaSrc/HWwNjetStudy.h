@@ -74,6 +74,15 @@ protected:
    TH1D *h1_mWW_Off_noWeight_NoCut[NjetBin+1];    // 5 for jet inclusive
    TH1D *h1_mjj_NoCut[NjetBin+1];                 // 5 for jet inclusive
    TH1D *h1_detajj_NoCut[NjetBin+1];              // 5 for jet inclusive
+
+   TH1D *h1_Njet_NoW;
+   TH1D *h1_Njet_Wevt;
+   TH1D *h1_Njet_WevtPow2Gen;
+
+   TH1D *h1_Njet_NoW_NoCut;
+   TH1D *h1_Njet_Wevt_NoCut;
+   TH1D *h1_Njet_WevtPow2Gen_NoCut;
+
 };
 #endif
 
@@ -174,11 +183,19 @@ int HWwNjetStudy::Fill_Histo()
   h1_detajj_NoW[nnjet]			-> Fill(detajj);
   h1_detajj_Wevt[nnjet]			-> Fill(detajj, EvtWeight);
   h1_detajj_WevtPow2Gen[nnjet]		-> Fill(detajj, WevtPow2Gen);
+
+  h1_Njet_NoW->Fill(nnjet);
+  h1_Njet_Wevt->Fill(nnjet, EvtWeight);
+  h1_Njet_WevtPow2Gen->Fill(nnjet, WevtPow2Gen);
   
   return 0;
 }
 int HWwNjetStudy::Fill_BeforeCut()
 {
+  h1_Njet_NoW_NoCut->Fill(nnjet);
+  h1_Njet_Wevt_NoCut->Fill(nnjet, EvtWeight);
+  h1_Njet_WevtPow2Gen_NoCut->Fill(nnjet, WevtPow2Gen);
+
   // Fill inclusive
   h1_mWW_Off_Wevt_NoCut[NjetBin] 		-> Fill(mWW, EvtWeight);
   h1_mWW_Off_WevtPow2Gen_NoCut[NjetBin] 	-> Fill(mWW, WevtPow2Gen);
@@ -217,6 +234,18 @@ int HWwNjetStudy::InitHistogram()
   sprintf(histName, "h1_23vsInv_WevtPow2Gen");
   h1_23vsInv_WevtPow2Gen = new TH1D(histName,"h1_23vsInv_WevtPow2Gen", 2, 0, 2);
 
+  sprintf(histName, "h1_Njet_NoW");
+  h1_Njet_NoW = new TH1D(histName,"h1_Njet_NoW", 3, 0, 3);
+  sprintf(histName, "h1_Njet_Wevt");
+  h1_Njet_Wevt = new TH1D(histName,"h1_Njet_Wevt", 3, 0, 3);
+  sprintf(histName, "h1_Njet_WevtPow2Gen");
+  h1_Njet_WevtPow2Gen = new TH1D(histName,"h1_Njet_WevtPow2Gen", 3, 0, 3);
+  sprintf(histName, "h1_Njet_NoW_NoCut");
+  h1_Njet_NoW_NoCut = new TH1D(histName,"h1_Njet_NoW_NoCut", 3, 0, 3);
+  sprintf(histName, "h1_Njet_Wevt_NoCut");
+  h1_Njet_Wevt_NoCut = new TH1D(histName,"h1_Njet_Wevt_NoCut", 3, 0, 3);
+  sprintf(histName, "h1_Njet_WevtPow2Gen_NoCut");
+  h1_Njet_WevtPow2Gen_NoCut = new TH1D(histName,"h1_Njet_WevtPow2Gen_NoCut", 3, 0, 3);
 
   for(int i(0); i<12; i++)
   {
