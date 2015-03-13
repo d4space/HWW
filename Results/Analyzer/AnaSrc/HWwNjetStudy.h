@@ -235,17 +235,17 @@ int HWwNjetStudy::InitHistogram()
   h1_23vsInv_WevtPow2Gen = new TH1D(histName,"h1_23vsInv_WevtPow2Gen", 2, 0, 2);
 
   sprintf(histName, "h1_Njet_NoW");
-  h1_Njet_NoW = new TH1D(histName,"h1_Njet_NoW", 3, 0, 3);
+  h1_Njet_NoW = new TH1D(histName,"h1_Njet_NoW", NjetBin, 0, NjetBin);
   sprintf(histName, "h1_Njet_Wevt");
-  h1_Njet_Wevt = new TH1D(histName,"h1_Njet_Wevt", 3, 0, 3);
+  h1_Njet_Wevt = new TH1D(histName,"h1_Njet_Wevt", NjetBin, 0, NjetBin);
   sprintf(histName, "h1_Njet_WevtPow2Gen");
-  h1_Njet_WevtPow2Gen = new TH1D(histName,"h1_Njet_WevtPow2Gen", 3, 0, 3);
+  h1_Njet_WevtPow2Gen = new TH1D(histName,"h1_Njet_WevtPow2Gen", NjetBin, 0, NjetBin);
   sprintf(histName, "h1_Njet_NoW_NoCut");
-  h1_Njet_NoW_NoCut = new TH1D(histName,"h1_Njet_NoW_NoCut", 3, 0, 3);
+  h1_Njet_NoW_NoCut = new TH1D(histName,"h1_Njet_NoW_NoCut", NjetBin, 0, NjetBin);
   sprintf(histName, "h1_Njet_Wevt_NoCut");
-  h1_Njet_Wevt_NoCut = new TH1D(histName,"h1_Njet_Wevt_NoCut", 3, 0, 3);
+  h1_Njet_Wevt_NoCut = new TH1D(histName,"h1_Njet_Wevt_NoCut", NjetBin, 0, NjetBin);
   sprintf(histName, "h1_Njet_WevtPow2Gen_NoCut");
-  h1_Njet_WevtPow2Gen_NoCut = new TH1D(histName,"h1_Njet_WevtPow2Gen_NoCut", 3, 0, 3);
+  h1_Njet_WevtPow2Gen_NoCut = new TH1D(histName,"h1_Njet_WevtPow2Gen_NoCut", NjetBin, 0, NjetBin);
 
   for(int i(0); i<12; i++)
   {
