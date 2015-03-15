@@ -344,7 +344,7 @@ void HWwNjetStudy::Calc_Pow_Vbf_Weight()
 	 if(mWW > 1300 && mWW <= 1350)	 WevtPow2Gen= EvtWeight *195.304;
 	 if(mWW > 1350 && mWW <= 1400)	 WevtPow2Gen= EvtWeight *346.506;
 	 if(mWW > 1400 && mWW <= 1450)	 WevtPow2Gen= EvtWeight *335.477;
-	 if(mWW > 1450 && mWW <= 1500)	 WevtPow2Gen= EvtWeight *471.055;
+	 if(mWW > 1450 )	 WevtPow2Gen= EvtWeight *471.055;
 #endif
       //
       // VBF Cut without center jet veto
