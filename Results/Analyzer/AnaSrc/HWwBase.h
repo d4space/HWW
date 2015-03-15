@@ -79,6 +79,7 @@ protected:
    virtual Int_t    SF1jCut();
    virtual Int_t    OF1jCut();
    virtual Int_t    CommonCut();
+   virtual Int_t    CentJetVetoCut();
    virtual Int_t    CommonCut_Without_mll_ptll_Cut();
    virtual Int_t    CommonCut_Without_mllCut();
    virtual Int_t    CommonCut_Without_ptllCut();
