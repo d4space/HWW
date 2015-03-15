@@ -48,8 +48,10 @@ void HWwNjetStudy::Loop()
     //====================================================
     // number of Jet 
     //====================================================
+    if( njet == 3)if(!CentJetVetoCut()) njet = 2; //Andrea
     nnjet = njet;
-    if(njet>=NjetBin-1) nnjet = NjetBin-1;
+
+    if(njet>NjetBin-1) nnjet = NjetBin-1;
 #if NjetBin == 5
     //if(njet>=3){;}else continue; comment out for 23 jet >= 2 comparison
 #endif
