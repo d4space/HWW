@@ -263,12 +263,12 @@ int HWwNjetStudy::InitHistogram()
   for(int i(0); i<NjetBin+1; i++)
   {
     sprintf(histName, "h1_mWW_Off_Wevt_%d",i);
-    h1_mWW_Off_Wevt[i] = new TH1D(histName,"mWW", 30, 0, 1500);
+    h1_mWW_Off_Wevt[i] = new TH1D(histName,"mWW", 125, 125, 1500);
     //h1_mWW_Off_Wevt[i] = new TH1D(histName,"mWW", 150, 0, 1500); // gg2Vv
     sprintf(histName, "h1_mWW_Off_WevtPow2Gen_%d",i);
-    h1_mWW_Off_WevtPow2Gen[i] = new TH1D(histName,"mWW", 30, 0, 1500);
+    h1_mWW_Off_WevtPow2Gen[i] = new TH1D(histName,"mWW", 125, 0, 1500);
     sprintf(histName, "h1_mWW_Off_noWeight_%d",i);
-    h1_mWW_Off_noWeight[i] = new TH1D(histName,"mWW", 30, 0, 1500);
+    h1_mWW_Off_noWeight[i] = new TH1D(histName,"mWW", 125, 0, 1500);
     //h1_mWW_Off_noWeight[i] = new TH1D(histName,"mWW", 150, 0, 1500); //gg2VV
     sprintf(histName, "h1_mjj_NoW_%d",i);
     h1_mjj_NoW[i] = new TH1D(histName,"mjj_NoW", 20, 0, 2000);
@@ -284,11 +284,11 @@ int HWwNjetStudy::InitHistogram()
     h1_detajj_WevtPow2Gen[i] = new TH1D(histName,"detajj_WevtPow2Gen", 16, 0, 8);
     
     sprintf(histName, "h1_mWW_Off_Wevt_NoCut_%d",i);
-    h1_mWW_Off_Wevt_NoCut[i] = new TH1D(histName,"mWW", 30, 0, 1500);
+    h1_mWW_Off_Wevt_NoCut[i] = new TH1D(histName,"mWW", 125, 0, 1500);
     sprintf(histName, "h1_mWW_Off_WevtPow2Gen_NoCut_%d",i);
-    h1_mWW_Off_WevtPow2Gen_NoCut[i] = new TH1D(histName,"mWW", 30, 0, 1500);
+    h1_mWW_Off_WevtPow2Gen_NoCut[i] = new TH1D(histName,"mWW", 125, 0, 1500);
     sprintf(histName, "h1_mWW_Off_noWeight_NoCut_%d",i);
-    h1_mWW_Off_noWeight_NoCut[i] = new TH1D(histName,"mWW", 30, 0, 1500);
+    h1_mWW_Off_noWeight_NoCut[i] = new TH1D(histName,"mWW", 125, 0, 1500);
     sprintf(histName, "h1_mjj_NoCut_%d",i);
     h1_mjj_NoCut[i] = new TH1D(histName,"mjj", 20, 0, 2000);
     sprintf(histName, "h1_detajj_NoCut_%d",i);
@@ -316,35 +316,35 @@ void HWwNjetStudy::Calc_Pow_Vbf_Weight()
       //
 #if REWEIGHT == 1
       //VBF ctVeto mjj500 nj2,3
-      if(             mWW <= 100)  WevtPow2Gen= EvtWeight *0;
-      if(mWW > 100 && mWW <= 150)  WevtPow2Gen= EvtWeight *0.0378106;
-      if(mWW > 150 && mWW <= 200)  WevtPow2Gen= EvtWeight *0.193764;
-      if(mWW > 200 && mWW <= 250)  WevtPow2Gen= EvtWeight *1.91155;
-      if(mWW > 250 && mWW <= 300)  WevtPow2Gen= EvtWeight *1.61777;
-      if(mWW > 300 && mWW <= 350)  WevtPow2Gen= EvtWeight *1.91598;
-      if(mWW > 350 && mWW <= 400)  WevtPow2Gen= EvtWeight *2.46773;
-      if(mWW > 400 && mWW <= 450)  WevtPow2Gen= EvtWeight *3.14148;
-      if(mWW > 450 && mWW <= 500)  WevtPow2Gen= EvtWeight *3.51853;
-      if(mWW > 500 && mWW <= 550)  WevtPow2Gen= EvtWeight *5.0784;
-      if(mWW > 550 && mWW <= 600)  WevtPow2Gen= EvtWeight *5.52486;
-      if(mWW > 600 && mWW <= 650)  WevtPow2Gen= EvtWeight *9.09672;
-      if(mWW > 650 && mWW <= 700)  WevtPow2Gen= EvtWeight *13.028;
-      if(mWW > 700 && mWW <= 750)  WevtPow2Gen= EvtWeight *16.6288;
-      if(mWW > 750 && mWW <= 800)  WevtPow2Gen= EvtWeight *20.2633;
-      if(mWW > 800 && mWW <= 850)  WevtPow2Gen= EvtWeight *21.7923;
-      if(mWW > 850 && mWW <= 900)  WevtPow2Gen= EvtWeight *22.4597;
-      if(mWW > 900 && mWW <= 950)  WevtPow2Gen= EvtWeight *29.4206;
-      if(mWW > 950 && mWW <= 1000) WevtPow2Gen= EvtWeight *45.3205;
-      if(mWW > 1000 && mWW <= 1050)WevtPow2Gen= EvtWeight *58.3006;
-      if(mWW > 1050 && mWW <= 1100)WevtPow2Gen= EvtWeight *68.2147;
-      if(mWW > 1100 && mWW <= 1150)WevtPow2Gen= EvtWeight *79.023;
-      if(mWW > 1150 && mWW <= 1200)WevtPow2Gen= EvtWeight *117.26;
-      if(mWW > 1200 && mWW <= 1250)WevtPow2Gen= EvtWeight *129.333;
-      if(mWW > 1250 && mWW <= 1300)WevtPow2Gen= EvtWeight *166.973;
-      if(mWW > 1300 && mWW <= 1350)WevtPow2Gen= EvtWeight *141.288;
-      if(mWW > 1350 && mWW <= 1400)WevtPow2Gen= EvtWeight *289.653;
-      if(mWW > 1400 && mWW <= 1450)WevtPow2Gen= EvtWeight *393.112;
-      if(mWW > 1450 && mWW <= 1500)WevtPow2Gen= EvtWeight *428.126;
+	 if(		mWW <= 100)	 WevtPow2Gen= EvtWeight *0;
+	 if(mWW > 100 && mWW <= 150)	 WevtPow2Gen= EvtWeight *0.0418126;
+	 if(mWW > 150 && mWW <= 200)	 WevtPow2Gen= EvtWeight *0.210307;
+	 if(mWW > 200 && mWW <= 250)	 WevtPow2Gen= EvtWeight *1.64134;
+	 if(mWW > 250 && mWW <= 300)	 WevtPow2Gen= EvtWeight *1.70327;
+	 if(mWW > 300 && mWW <= 350)	 WevtPow2Gen= EvtWeight *1.56271;
+	 if(mWW > 350 && mWW <= 400)	 WevtPow2Gen= EvtWeight *2.4727;
+	 if(mWW > 400 && mWW <= 450)	 WevtPow2Gen= EvtWeight *3.24999;
+	 if(mWW > 450 && mWW <= 500)	 WevtPow2Gen= EvtWeight *4.07541;
+	 if(mWW > 500 && mWW <= 550)	 WevtPow2Gen= EvtWeight *5.08077;
+	 if(mWW > 550 && mWW <= 600)	 WevtPow2Gen= EvtWeight *5.76298;
+	 if(mWW > 600 && mWW <= 650)	 WevtPow2Gen= EvtWeight *10.3782;
+	 if(mWW > 650 && mWW <= 700)	 WevtPow2Gen= EvtWeight *15.1779;
+	 if(mWW > 700 && mWW <= 750)	 WevtPow2Gen= EvtWeight *17.9417;
+	 if(mWW > 750 && mWW <= 800)	 WevtPow2Gen= EvtWeight *22.1407;
+	 if(mWW > 800 && mWW <= 850)	 WevtPow2Gen= EvtWeight *25.4304;
+	 if(mWW > 850 && mWW <= 900)	 WevtPow2Gen= EvtWeight *32.7655;
+	 if(mWW > 900 && mWW <= 950)	 WevtPow2Gen= EvtWeight *39.5896;
+	 if(mWW > 950 && mWW <= 1000)	 WevtPow2Gen= EvtWeight *51.8971;
+	 if(mWW > 1000 && mWW <= 1050)	 WevtPow2Gen= EvtWeight *62.8216;
+	 if(mWW > 1050 && mWW <= 1100)	 WevtPow2Gen= EvtWeight *85.5219;
+	 if(mWW > 1100 && mWW <= 1150)	 WevtPow2Gen= EvtWeight *104.269;
+	 if(mWW > 1150 && mWW <= 1200)	 WevtPow2Gen= EvtWeight *123.683;
+	 if(mWW > 1200 && mWW <= 1250)	 WevtPow2Gen= EvtWeight *158.762;
+	 if(mWW > 1250 && mWW <= 1300)	 WevtPow2Gen= EvtWeight *176.622;
+	 if(mWW > 1300 && mWW <= 1350)	 WevtPow2Gen= EvtWeight *195.304;
+	 if(mWW > 1350 && mWW <= 1400)	 WevtPow2Gen= EvtWeight *346.506;
+	 if(mWW > 1400 && mWW <= 1450)	 WevtPow2Gen= EvtWeight *335.477;
+	 if(mWW > 1450 && mWW <= 1500)	 WevtPow2Gen= EvtWeight *471.055;
 #endif
       //
       // VBF Cut without center jet veto
