@@ -39,8 +39,8 @@ void HWwNjetStudy::Loop()
     }
     if(SampleName == "SHERPA")mWW = CalcmWW();
 
-    if(mWW <= 130.+13) continue;
-    //if(mWW <= 130.) continue;
+    //if(mWW <= 130.+13) continue;
+    if(mWW <= 130.) continue;
 
     EvtWeight = CalcWeight();
     
@@ -50,10 +50,10 @@ void HWwNjetStudy::Loop()
     //====================================================
     // number of Jet 
     //====================================================
-    if( njet == 3)if(!CentJetVetoCut()) njet = 2; //Andrea
+    if( njet == 3)if(CentJetVetoCut()) njet = 2; //Andrea
     nnjet = njet;
 
-    if(njet>NjetBin-1) nnjet = NjetBin-1;
+    //if(njet>NjetBin-1) nnjet = NjetBin-1;
 
 
 #if NjetBin == 5

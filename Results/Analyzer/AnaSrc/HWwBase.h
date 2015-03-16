@@ -161,6 +161,7 @@ HWwBase::HWwBase(TTree *HWwBaseTree,double lumiweight, TString SampleName_,TStri
     exit(-1);
   }
   cout<<"HWwBase.h: initializing =================="<<endl;
+  cout<<"Cut is "<<Cut_<<endl;
   LumiW = lumiweight;
   SampleName = SampleName_;
   mResultDir = SampleName_;
