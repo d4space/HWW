@@ -163,6 +163,7 @@ int HWwNjetStudy::Fill_Histo()
   }
 
   // Fill inclusive
+  if( nnjet < NjetBin){
   h1_mWW_Off_Wevt[NjetBin] 		-> Fill(mWW, EvtWeight);
   h1_mWW_Off_WevtPow2Gen[NjetBin] 	-> Fill(mWW, WevtPow2Gen);
   h1_mWW_Off_noWeight[NjetBin]		-> Fill(mWW);
@@ -172,6 +173,7 @@ int HWwNjetStudy::Fill_Histo()
   h1_detajj_NoW[NjetBin]		-> Fill(detajj);
   h1_detajj_Wevt[NjetBin]		-> Fill(detajj, EvtWeight);
   h1_detajj_WevtPow2Gen[NjetBin]	-> Fill(detajj, WevtPow2Gen);
+  }
   
  // Fill bin dependent 
   h1_mWW_Off_Wevt[nnjet]		-> Fill(mWW, EvtWeight);
