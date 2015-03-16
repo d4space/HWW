@@ -24,6 +24,7 @@ void HWwNjetStudy::Loop()
  
   for (int i(0); i<Ntries;i++)
   {
+    if( i%100000 == 0)cout<<"processing: "<<i<<"th event"<<endl;
     InitVar4Evt();
     evtCnt++;
     fChain->GetEntry(i);
