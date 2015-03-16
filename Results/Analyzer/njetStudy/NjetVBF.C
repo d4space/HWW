@@ -121,8 +121,7 @@ int NjetVBF()
   h1_Njet_Phn_Sg_Wevt=(TH1D*)h1_Njet_Phn_1_Wevt->Clone(histName);
   h1_Njet_Phn_Sg_Wevt->Add(h1_Njet_Phn_9_Wevt);
   h1_Njet_Phn_Sg_Wevt->Add(h1_Njet_Phn_25_Wevt);
-  h1_Njet_Phn_Sg_Wevt->Draw("hist");
-/*******************
+  //h1_Njet_Phn_Sg_Wevt->Draw("hist");
 
   sprintf(tmpName, "h1_Njet_Wevt_NoCut");
   sprintf(histName,"h1_Njet_Phn1_Wevt_NoCut");
@@ -313,6 +312,5 @@ int NjetVBF()
   myLeg2->Draw();
   sprintf(tmpName, "/NjetVBF3BinsNoCut.pdf");
   myCan->SaveAs(OutDir+tmpName);
-  ******************/
   return 0;
 }
