@@ -452,9 +452,7 @@ Int_t HWwBase::CommonCut_VBFnjetWoCentJetVeto()
   //if(njet>=3){;}else return -1; 
   //if(njet>=2 && njet<=3){;}else return -1; 
   //if (mjj>300){;}else{return -1;}
-  //TODO for the test==============================================
-  if( mjj>500){;}else{return -1;}
-  //End for the test==============================================
+  //
   //if (zveto==1 || !sameflav){;}else{return -1;}
   /*******
   if(!sameflav ||
@@ -469,17 +467,18 @@ Int_t HWwBase::CommonCut_VBFnjetWoCentJetVeto()
     ******/
   //if(njet==0 || njet==1 || (njet >= 2 && njet <= 3 && (jetpt3 <= 30 || !(jetpt3 > 30 && ( (jeteta1-jeteta3 > 0 && jeteta2-jeteta3 < 0) || (jeteta2-jeteta3 > 0 && jeteta1-jeteta3 < 0)))))){;}else{return -1;}
   if(ptll>45){;}else return -1;
-  //if(njet==3)
-  //{
-  //  if(jetpt3<=30 || !(jetpt3 > 30 && ( (jeteta1-jeteta3 > 0 && jeteta2-jeteta3 < 0) || (jeteta2-jeteta3 > 0 && jeteta1-jeteta3 < 0)))){;}
-  //  else return -1;
-  //}
-  if(njet>=2)
-  {
+
+  if(njet > 1){
+    if( mjj>500){;}else{return -1;}
+    //if(njet==3)
+    //{
+    //  if(jetpt3<=30 || !(jetpt3 > 30 && ( (jeteta1-jeteta3 > 0 && jeteta2-jeteta3 < 0) || (jeteta2-jeteta3 > 0 && jeteta1-jeteta3 < 0)))){;}
+    //  else return -1;
+    //}
     if(abs(eta1 - (jeteta1+jeteta2)/2)/detajj < 0.5 && abs(eta2 - (jeteta1+jeteta2)/2)/detajj < 0.5){;}else return -1;
-  }
   //TODO for the test
-  if(detajj>2.5){;}else return -1;
+    if(detajj>2.5){;}else return -1;
+  }
 
   return 1;
 }

@@ -39,12 +39,13 @@ void HWwNjetStudy::Loop()
     }
     if(SampleName == "SHERPA")mWW = CalcmWW();
 
-    if(mWW <= 130.) continue;
+    if(mWW <= 140.) continue;
 
     EvtWeight = CalcWeight();
     
     if(SampleName == "POWHEG") Calc_Pow_Weight();
     if(SampleName == "POWHEG_VBF") Calc_Pow_Vbf_Weight();
+
     //====================================================
     // number of Jet 
     //====================================================
