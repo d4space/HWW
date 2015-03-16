@@ -51,6 +51,9 @@ void HWwNjetStudy::Loop()
     //====================================================
     // number of Jet 
     //====================================================
+    //
+    if(njet == 0)if(mWW < 500) continue; // Phantom strange
+
     if( njet == 3)if(CentJetVetoCut()) njet = 2; //Andrea
     nnjet = njet;
 

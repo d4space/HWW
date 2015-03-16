@@ -118,6 +118,7 @@ void CalcPowRew2Phn()
     h1_mWW_Phn_Sg_Wevt[i]->Add(h1_mWW_Phn_9_Wevt[i]);
     h1_mWW_Phn_Sg_Wevt[i]->Add(h1_mWW_Phn_25_Wevt[i]);
 
+
     // Total number before signal extraction
     //NttPhan_1_noW[i] = h1_mWW_Phn_1_noW[i]->Integral();
     //NttPhan_9_noW[i] = h1_mWW_Phn_9_noW[i]->Integral();
@@ -267,5 +268,12 @@ void CalcPowRew2Phn()
   plotmWW_ReW->setOutDir(OutDir);
   plotmWW_ReW->AddHist1D(h1_reWeightFac,"e",kBlack);
   plotmWW_ReW->Draw(myCan,kTRUE,"png");
+
+  sprintf(tmpName, "h1_mWW_Off_WevtPow2Gen_%d",NjetBin);
+  sprintf(histName,"h1_mWW_pow_WevtPow2Gen_%d",NjetBin);
+  TH1D *h1_mWW_Pow_WevtPow2Gen_4 = (TH1D*)f_pow->Get(tmpName)->Clone(histName);
+  //h1_mWW_Pow_WevtPow2Gen_4->Draw();
+  h1_mWW_Phn_Sg_Wevt[NjetBin]->Draw();
+  
 }
 
