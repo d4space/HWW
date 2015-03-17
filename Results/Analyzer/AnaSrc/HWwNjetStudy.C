@@ -57,7 +57,7 @@ void HWwNjetStudy::Loop()
     if( njet == 3)if(CentJetVetoCut()) njet = 2; //Andrea
     nnjet = njet;
 
-    //if(njet>NjetBin-1) nnjet = NjetBin-1;
+    if(njet>NjetBin-1) nnjet = NjetBin-1;
 
 
 #if NjetBin == 5

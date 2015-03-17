@@ -163,7 +163,7 @@ int HWwNjetStudy::Fill_Histo()
   }
 
   // Fill inclusive
-  if( nnjet < NjetBin){
+//  if( nnjet < NjetBin){
   h1_mWW_Off_Wevt[NjetBin] 		-> Fill(mWW, EvtWeight);
   h1_mWW_Off_WevtPow2Gen[NjetBin] 	-> Fill(mWW, WevtPow2Gen);
   h1_mWW_Off_noWeight[NjetBin]		-> Fill(mWW);
@@ -173,7 +173,7 @@ int HWwNjetStudy::Fill_Histo()
   h1_detajj_NoW[NjetBin]		-> Fill(detajj);
   h1_detajj_Wevt[NjetBin]		-> Fill(detajj, EvtWeight);
   h1_detajj_WevtPow2Gen[NjetBin]	-> Fill(detajj, WevtPow2Gen);
-  }
+//  }
   
  // Fill bin dependent 
   h1_mWW_Off_Wevt[nnjet]		-> Fill(mWW, EvtWeight);
@@ -199,13 +199,13 @@ int HWwNjetStudy::Fill_BeforeCut()
   h1_Njet_WevtPow2Gen_NoCut->Fill(nnjet, WevtPow2Gen);
 
   // Fill inclusive
-  if( nnjet < NjetBin){
+  //if( nnjet < NjetBin){
   h1_mWW_Off_Wevt_NoCut[NjetBin] 		-> Fill(mWW, EvtWeight);
   h1_mWW_Off_WevtPow2Gen_NoCut[NjetBin] 	-> Fill(mWW, WevtPow2Gen);
   h1_mWW_Off_noWeight_NoCut[NjetBin]		-> Fill(mWW);
   h1_mjj_NoCut[NjetBin]			-> Fill(mjj,    WevtPow2Gen);
   h1_detajj_NoCut[NjetBin]			-> Fill(detajj, WevtPow2Gen);
-  }
+  //}
  // Fill bin dependent 
   h1_mWW_Off_Wevt_NoCut[nnjet]		-> Fill(mWW, EvtWeight);
   h1_mWW_Off_WevtPow2Gen_NoCut[nnjet]		-> Fill(mWW, WevtPow2Gen);
