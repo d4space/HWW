@@ -79,6 +79,6 @@ void MakeHistoCtrPlots()
     SampleName = "POWHEG_VBF";
     HWwNjetStudy HWwNjetStudyPOWHEG_VBF(TC_POWHEG_VBF,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
     HWwNjetStudyPOWHEG_VBF.Loop();
-//***********/
+//**********/
   }
 }
