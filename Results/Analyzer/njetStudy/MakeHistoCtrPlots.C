@@ -48,7 +48,7 @@ void MakeHistoCtrPlots()
     HWwNjetStudy HWwNjetStudyPOWHEG(TC_POWHEG,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
     HWwNjetStudyPOWHEG.Loop();
 ********/
-//****
+/****
 //phantom========================================
     cout<<"phantom===================="<<endl;
     RunOnMC = true;
@@ -69,8 +69,8 @@ void MakeHistoCtrPlots()
     HWwNjetStudy HWwNjetStudyphantom_25SM(TC_phantom_25SM,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
     HWwNjetStudyphantom_25SM.Loop();
 
-//*******/
-/***********
+******/
+//***********
 //POWHEG_VBF========================================
     cout<<"POWHEG_VBF===================="<<endl;
     RunOnMC = true;
@@ -79,6 +79,6 @@ void MakeHistoCtrPlots()
     SampleName = "POWHEG_VBF";
     HWwNjetStudy HWwNjetStudyPOWHEG_VBF(TC_POWHEG_VBF,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
     HWwNjetStudyPOWHEG_VBF.Loop();
-*********/
+//*********/
   }
 }
