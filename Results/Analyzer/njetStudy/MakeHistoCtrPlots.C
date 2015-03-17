@@ -53,21 +53,21 @@ void MakeHistoCtrPlots()
     cout<<"phantom===================="<<endl;
     RunOnMC = true;
 
-    //TChain *TC_phantom_1SM  = new TChain("latino","");
-    //SetupTree("phantom_1SM",TC_phantom_1SM);
-    //SampleName = "phantom_1SM";
-    //HWwNjetStudy HWwNjetStudyphantom_1SM(TC_phantom_1SM,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
-    //HWwNjetStudyphantom_1SM.Loop();
+    TChain *TC_phantom_1SM  = new TChain("latino","");
+    SetupTree("phantom_1SM",TC_phantom_1SM);
+    SampleName = "phantom_1SM";
+    HWwNjetStudy HWwNjetStudyphantom_1SM(TC_phantom_1SM,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
+    HWwNjetStudyphantom_1SM.Loop();
     //TChain *TC_phantom_9SM  = new TChain("latino","");
     //SetupTree("phantom_9SM",TC_phantom_9SM);
     //SampleName = "phantom_9SM";
     //HWwNjetStudy HWwNjetStudyphantom_9SM(TC_phantom_9SM,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
     //HWwNjetStudyphantom_9SM.Loop();
-    TChain *TC_phantom_25SM  = new TChain("latino","");
-    SetupTree("phantom_25SM",TC_phantom_25SM);
-    SampleName = "phantom_25SM";
-    HWwNjetStudy HWwNjetStudyphantom_25SM(TC_phantom_25SM,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
-    HWwNjetStudyphantom_25SM.Loop();
+    //TChain *TC_phantom_25SM  = new TChain("latino","");
+    //SetupTree("phantom_25SM",TC_phantom_25SM);
+    //SampleName = "phantom_25SM";
+    //HWwNjetStudy HWwNjetStudyphantom_25SM(TC_phantom_25SM,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
+    //HWwNjetStudyphantom_25SM.Loop();
 
 ******/
 //***********
