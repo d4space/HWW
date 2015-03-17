@@ -191,8 +191,8 @@ int njet_mWW_Phn()
     if(i==NjetBin)
       sprintf(jetName,"(Inclusive jet bins)");
 
-    h1_mWW_Phn_Sg[i]->SetMinimum(-0.007);
-    h1_mWW_Pow[i]->SetMinimum(-0.007);
+    //h1_mWW_Phn_Sg[i]->SetMinimum(-0.007);
+    //h1_mWW_Pow[i]->SetMinimum(-0.007);
 
     // Plots
     //Powheg Phantom comparison after step 1
