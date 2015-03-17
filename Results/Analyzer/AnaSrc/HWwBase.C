@@ -368,7 +368,7 @@ Int_t HWwBase::LooseCut()
 //njet Study
 Int_t HWwBase::CommonCut_njet()
 {
-  //if (!sameflav){;}else{return -1;}
+  if (!sameflav){;}else{return -1;}
   if (ch1*ch2 ==-1.){;}else{return -1;}
   if (trigger==1.){;}else{return -1;}
   if (pt1>20 && pt2>20){;}else{return -1;}
@@ -396,7 +396,7 @@ Int_t HWwBase::CommonCut_njet()
 //njet Study
 Int_t HWwBase::CommonCut_VBFnjet()
 {
-  //if (!sameflav){;}else{return -1;}
+  if (!sameflav){;}else{return -1;}
   if (ch1*ch2 ==-1.){;}else{return -1;}
   if (trigger==1.){;}else{return -1;}
   if (pt1>20 && pt2>20){;}else{return -1;}
