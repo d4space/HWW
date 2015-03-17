@@ -4,5 +4,5 @@
 //#define SAMPLE POWHEG_VBF = 3, Phantom 4
 #define SAMPLE 3
 
-//#define REWEIGHT MJJ500NJ23 = 1   MJJ500NJ34 =2 mjj300nj23 = 3
-#define REWEIGHT 1
+//#define REWEIGHT MJJ500NJ23 = 1   MJJ500NJ34 =2 mjj300nj23 = 3 NjetBin4=4
+#define REWEIGHT 4

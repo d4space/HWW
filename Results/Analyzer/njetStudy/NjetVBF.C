@@ -291,7 +291,7 @@ int NjetVBF()
   myLeg->AddEntry(gr_powErr,"PowhegVBfCut","f");
   myLeg->AddEntry(gr_phnErr,"PhntomVBfCut","f");
   myLeg->Draw();
-  sprintf(tmpName, "/NjetVBF3Bins.pdf");
+  sprintf(tmpName, "/NjetVBF4Bins.pdf");
   myCan->SaveAs(OutDir+tmpName);
   myCan->Clear();
 
@@ -310,7 +310,7 @@ int NjetVBF()
   myLeg2->AddEntry(gr_powErr_NoCut,"PowhegNoCut","f");
   myLeg2->AddEntry(gr_phnErr_NoCut,"PhntomNoCut","f");
   myLeg2->Draw();
-  sprintf(tmpName, "/NjetVBF3BinsNoCut.pdf");
+  sprintf(tmpName, "/NjetVBF4BinsNoCut.pdf");
   myCan->SaveAs(OutDir+tmpName);
   return 0;
 }
