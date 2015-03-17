@@ -191,17 +191,22 @@ int njet_mWW_Phn()
     if(i==NjetBin)
       sprintf(jetName,"(Inclusive jet bins)");
 
+    h1_mWW_Phn_Sg[i]->SetMinimum(-0.007);
+    h1_mWW_Pow[i]->SetMinimum(-0.007);
+
     // Plots
     //Powheg Phantom comparison after step 1
     sprintf(histName,"Phantom_Powheg_mWW_comp_%d",i);
     sprintf(tmpName,"Events / %.1f ",h1_mWW_Pow[i]->GetBinWidth(1));
     CPlot* plotmWW_comp=new CPlot(histName,"","mWW","");
     plotmWW_comp->setOutDir(OutDir);
-    plotmWW_comp->AddHist1D(h1_mWW_Phn_Sg[i],"HIST",kBlue);
-    plotmWW_comp->AddHist1D(h1_mWW_Pow[i],"HIST",kRed);
+    plotmWW_comp->setOutDir(OutDir);
+    plotmWW_comp->AddHist1D(h1_mWW_Phn_Sg[i],"e",kBlue);
+    //plotmWW_comp->AddHist1D(h1_mWW_Phn_Sg[i],"HIST",kBlue);
+    plotmWW_comp->AddHist1D(h1_mWW_Pow[i],"e",kRed);
     plotmWW_comp->SetLegend(0.63,0.76,0.88,0.92);
-    plotmWW_comp->GetLegend()->AddEntry(h1_mWW_Pow[i],"POWHEG","l");
-    plotmWW_comp->GetLegend()->AddEntry(h1_mWW_Phn_Sg[i],"Phn Sig.","l");
+    plotmWW_comp->GetLegend()->AddEntry(h1_mWW_Pow[i],"POWHEG","pl");
+    plotmWW_comp->GetLegend()->AddEntry(h1_mWW_Phn_Sg[i],"Phn Sig.","pl");
     plotmWW_comp->AddTextBox(jetName,0.6,0.92,0.92,0.95,0);
     plotmWW_comp->Draw(myCan,kTRUE,"png");
 
