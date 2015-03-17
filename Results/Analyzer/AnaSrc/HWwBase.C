@@ -606,7 +606,9 @@ double HWwBase::CalcWeight()
   {
     //cout<<SampleName<<endl;
     //cout<<"dataset: "<<dataset<<endl;
-    evtWeight = puW*baseW*effW*triggW*LumiW*( 0.125*( (dataset == 160) || (dataset == 169) || (dataset == 176) || (dataset == 172)) - 0.250*( (dataset == 161) || (dataset == 175) || (dataset == 173) || (dataset == 170)) + 0.125*( (dataset == 162) || (dataset == 171) || (dataset == 174) || (dataset == 177)));
+    // only baseW for the test
+    evtWeight = baseW*LumiW*( 0.125*( (dataset == 160) || (dataset == 169) || (dataset == 176) || (dataset == 172)) - 0.250*( (dataset == 161) || (dataset == 175) || (dataset == 173) || (dataset == 170)) + 0.125*( (dataset == 162) || (dataset == 171) || (dataset == 174) || (dataset == 177)));
+    //evtWeight = puW*baseW*effW*triggW*LumiW*( 0.125*( (dataset == 160) || (dataset == 169) || (dataset == 176) || (dataset == 172)) - 0.250*( (dataset == 161) || (dataset == 175) || (dataset == 173) || (dataset == 170)) + 0.125*( (dataset == 162) || (dataset == 171) || (dataset == 174) || (dataset == 177)));
   }
   return evtWeight;
 }
