@@ -158,14 +158,21 @@ int njet_mWW_Phn()
       tmpV1 = h1_mWW_Phn_Sg_Wevt[i]->GetBinContent(bdx);
       tmpV2 = h1_mWW_Phn_Sg[i]->GetBinContent(bdx);
       tmpE  = h1_mWW_Phn_Sg[i]->GetBinError(bdx);
-      tmpK  = tmpV1/tmpV2;
+      if(tmpV2 == 0)
+      {
+	tmpK=0;
+      }else{tmpK   = tmpV1/tmpV2;}
       h1_mWW_Phn_Sg[i]->SetBinContent(bdx, tmpV1);
       h1_mWW_Phn_Sg[i]->SetBinError(bdx, tmpE*tmpK);
 
       tmpV1 = h1_mWW_Pow_WevtPow2Gen[i]->GetBinContent(bdx);
       tmpV2 = h1_mWW_Pow_noW[i]->GetBinContent(bdx);
       tmpE  = h1_mWW_Pow_noW[i]->GetBinError(bdx);
-      tmpK   = tmpV1/tmpV2;
+      if(tmpV2 == 0)
+      {
+	tmpK=0;
+      }else{tmpK   = tmpV1/tmpV2;}
+      
 
       h1_mWW_Pow[i]->SetBinContent(bdx,tmpV1);
       h1_mWW_Pow[i]->SetBinError(bdx,tmpE*tmpK);
@@ -174,7 +181,8 @@ int njet_mWW_Phn()
   double Ntt_Phn = h1_mWW_Phn_Sg[NjetBin]->Integral();
   double Ntt_Pow = h1_mWW_Pow[NjetBin]->Integral();
   TH1D* h1_mWW_PowOvPhn[NjetBin+1];
-  for(int i(0);i<NjetBin+1;i++)
+  for(int i(3);i<NjetBin;i++)
+  //for(int i(0);i<NjetBin+1;i++)
   {
  
     //Normalize Histograms
@@ -193,6 +201,7 @@ int njet_mWW_Phn()
 
     //h1_mWW_Phn_Sg[i]->SetMinimum(-0.007);
     //h1_mWW_Pow[i]->SetMinimum(-0.007);
+    //h1_mWW_Pow[i]->Draw();
 
     // Plots
     //Powheg Phantom comparison after step 1
