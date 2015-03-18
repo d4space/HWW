@@ -389,7 +389,7 @@ Int_t HWwBase::CommonCut_njet()
   //if(njet==0 || njet==1 || (njet >= 2 && njet <= 3 && (jetpt3 <= 30 || !(jetpt3 > 30 && ( (jeteta1-jeteta3 > 0 && jeteta2-jeteta3 < 0) || (jeteta2-jeteta3 > 0 && jeteta1-jeteta3 < 0)))))){;}else{return -1;}
   if ((nextra==0) * (bveto_mu && bveto_ip && nbjettche==0)){;}else{return -1;}
 
-  if(ptll>45){;}else return -1;
+  //if(ptll>45){;}else return -1;
 
   return 1;
 }
@@ -419,9 +419,9 @@ Int_t HWwBase::CommonCut_VBFnjet()
     ){;}else{return -1;}
     ******/
   //if(njet==0 || njet==1 || (njet >= 2 && njet <= 3 && (jetpt3 <= 30 || !(jetpt3 > 30 && ( (jeteta1-jeteta3 > 0 && jeteta2-jeteta3 < 0) || (jeteta2-jeteta3 > 0 && jeteta1-jeteta3 < 0)))))){;}else{return -1;}
-  if(ptll>45){;}else return -1;
 
   if(njet > 1){
+    if( ptll>45){;}else return -1;
     if( mjj>500){;}else{return -1;}
     if(njet==3)
     {
@@ -432,7 +432,6 @@ Int_t HWwBase::CommonCut_VBFnjet()
   //TODO for the test
     if(detajj>2.5){;}else return -1;
   }
-
   return 1;
 }
 Int_t HWwBase::CentJetVetoCut()

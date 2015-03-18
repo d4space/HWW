@@ -264,10 +264,43 @@ int NjetVBF()
   TGraphErrors *gr_phnErr = new TGraphErrors(NjetBin, NjetX, Njet_Phn_Wevt       , NjetX_err, Njet_Phn_Wevt_Err);
   TGraphErrors *gr_powErr_NoCut = new TGraphErrors(NjetBin, NjetX, Njet_Pow_WevtPow2Gen_NoCut, NjetX_err, Njet_Pow_WevtPow2Gen_Err_NoCut);
   TGraphErrors *gr_phnErr_NoCut = new TGraphErrors(NjetBin, NjetX, Njet_Phn_Wevt_NoCut       , NjetX_err, Njet_Phn_Wevt_Err_NoCut);
-  for(int i(0);i<3;i++)
+  ofstream Fout;
+  TString FoutName = OutDir+"/"+"NjetBin4.txt";
+  Fout.open(FoutName);
+  Fout<<"Before Cut ================================"<<endl;
+  Fout<<"<<<<< Phantom >>>>>"<<endl;
+  for(int i(0);i<NjetBin;i++)
   {
-    cout<<"Phn NoCut: "<<Njet_Phn_Wevt_NoCut[i]<<"+"<<Njet_Phn_Wevt_Err_NoCut[i]<<endl;
+    cout<<i<<" jet: "<<Njet_Phn_Wevt_NoCut[i]<<"+"<<Njet_Phn_Wevt_Err_NoCut[i]<<endl;
+    Fout<<i<<" jet: "<<Njet_Phn_Wevt_NoCut[i]<<"+"<<Njet_Phn_Wevt_Err_NoCut[i]<<endl;
   }
+  Fout<<"<<<<< Powheg_VBF >>>>>"<<endl;
+  for(int i(0);i<NjetBin;i++)
+  {
+    cout<<i<<" jet: "<<Njet_Pow_WevtPow2Gen_NoCut[i]<<"+"<<Njet_Pow_WevtPow2Gen_Err_NoCut[i]<<endl;
+    Fout<<i<<" jet: "<<Njet_Pow_WevtPow2Gen_NoCut[i]<<"+"<<Njet_Pow_WevtPow2Gen_Err_NoCut[i]<<endl;
+  }
+  Fout<<"After Cut ================================"<<endl;
+  Fout<<"<<<<< Phantom >>>>>"<<endl;
+  for(int i(0);i<NjetBin;i++)
+  {
+    cout<<i<<" jet: "<<Njet_Phn_Wevt[i]<<"+"<<Njet_Phn_Wevt_Err[i]<<endl;
+    Fout<<i<<" jet: "<<Njet_Phn_Wevt[i]<<"+"<<Njet_Phn_Wevt_Err[i]<<endl;
+  }
+  Fout<<"<<<<< Powheg_VBF >>>>>"<<endl;
+  for(int i(0);i<NjetBin;i++)
+  {
+    cout<<i<<" jet: "<<Njet_Pow_WevtPow2Gen[i]<<"+"<<Njet_Pow_WevtPow2Gen_Err[i]<<endl;
+    Fout<<i<<" jet: "<<Njet_Pow_WevtPow2Gen[i]<<"+"<<Njet_Pow_WevtPow2Gen_Err[i]<<endl;
+  }
+  Fout<<"<<<<< (Phntom -Powheg_VBF)/PowHeg >>>>>"<<endl;
+  for(int i(0);i<NjetBin;i++)
+  {
+    cout<<i<<" jet: "<<(Njet_Phn_Wevt[i]-Njet_Pow_WevtPow2Gen[i])/Njet_Pow_WevtPow2Gen[i]<<endl;
+    Fout<<i<<" jet: "<<(Njet_Phn_Wevt[i]-Njet_Pow_WevtPow2Gen[i])/Njet_Pow_WevtPow2Gen[i]<<endl;
+  }
+
+  Fout.close();
 
   TColor *colBlue = gROOT->GetColor(kBlue);
   TColor *colRed = gROOT->GetColor(kRed);
