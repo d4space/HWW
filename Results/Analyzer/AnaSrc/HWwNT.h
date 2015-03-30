@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Wed Feb 18 22:02:07 2015 by ROOT version 5.34/14
+// Mon Mar 30 23:53:39 2015 by ROOT version 5.34/14
 // from TChain latino/
 //////////////////////////////////////////////////////////
 
@@ -144,70 +144,7 @@ public :
    Float_t         jetPhM5;
    Float_t         jetPhM6;
    Float_t         jetPhM7;
-   Float_t         jetQCRMScand1;
-   Float_t         jetQCRMScand2;
-   Float_t         jetQCRMScand3;
-   Float_t         jetQCRMScand4;
-   Float_t         jetQCRMScand5;
-   Float_t         jetQCRMScand6;
-   Float_t         jetQCRMScand7;
-   Float_t         jetQCRmax1;
-   Float_t         jetQCRmax2;
-   Float_t         jetQCRmax3;
-   Float_t         jetQCRmax4;
-   Float_t         jetQCRmax5;
-   Float_t         jetQCRmax6;
-   Float_t         jetQCRmax7;
-   Float_t         jetQCaxis11;
-   Float_t         jetQCaxis12;
-   Float_t         jetQCaxis13;
-   Float_t         jetQCaxis14;
-   Float_t         jetQCaxis15;
-   Float_t         jetQCaxis16;
-   Float_t         jetQCaxis17;
-   Float_t         jetQCaxis21;
-   Float_t         jetQCaxis22;
-   Float_t         jetQCaxis23;
-   Float_t         jetQCaxis24;
-   Float_t         jetQCaxis25;
-   Float_t         jetQCaxis26;
-   Float_t         jetQCaxis27;
-   Float_t         jetQCptD1;
-   Float_t         jetQCptD2;
-   Float_t         jetQCptD3;
-   Float_t         jetQCptD4;
-   Float_t         jetQCptD5;
-   Float_t         jetQCptD6;
-   Float_t         jetQCptD7;
-   Float_t         jetRMScand1;
-   Float_t         jetRMScand2;
-   Float_t         jetRMScand3;
-   Float_t         jetRMScand4;
-   Float_t         jetRMScand5;
-   Float_t         jetRMScand6;
-   Float_t         jetRMScand7;
    Float_t         jetRho;
-   Float_t         jetRmax1;
-   Float_t         jetRmax2;
-   Float_t         jetRmax3;
-   Float_t         jetRmax4;
-   Float_t         jetRmax5;
-   Float_t         jetRmax6;
-   Float_t         jetRmax7;
-   Float_t         jetaxis11;
-   Float_t         jetaxis12;
-   Float_t         jetaxis13;
-   Float_t         jetaxis14;
-   Float_t         jetaxis15;
-   Float_t         jetaxis16;
-   Float_t         jetaxis17;
-   Float_t         jetaxis21;
-   Float_t         jetaxis22;
-   Float_t         jetaxis23;
-   Float_t         jetaxis24;
-   Float_t         jetaxis25;
-   Float_t         jetaxis26;
-   Float_t         jetaxis27;
    Float_t         jetbjpb1;
    Float_t         jetbjpb2;
    Float_t         jetbjpb3;
@@ -257,13 +194,6 @@ public :
    Float_t         jetpt5;
    Float_t         jetpt6;
    Float_t         jetpt7;
-   Float_t         jetptD1;
-   Float_t         jetptD2;
-   Float_t         jetptD3;
-   Float_t         jetptD4;
-   Float_t         jetptD5;
-   Float_t         jetptD6;
-   Float_t         jetptD7;
    Float_t         jetptd1;
    Float_t         jetptd2;
    Float_t         jetptd3;
@@ -354,7 +284,9 @@ public :
    Float_t         pfmet;
    Float_t         pfmetMEtSig;
    Float_t         pfmetSignificance;
+   Float_t         pfmetdn;
    Float_t         pfmetphi;
+   Float_t         pfmetup;
    Float_t         phi1;
    Float_t         phi2;
    Float_t         phi3;
@@ -380,23 +312,33 @@ public :
    vector<float>   *std_vector_jetGen_eta;
    vector<float>   *std_vector_jetGen_phi;
    vector<float>   *std_vector_jetGen_pt;
+   vector<float>   *std_vector_jet_HadronFlavour;
+   vector<float>   *std_vector_jet_PartonFlavour;
+   vector<float>   *std_vector_jet_QGRMScand;
+   vector<float>   *std_vector_jet_QGRmax;
+   vector<float>   *std_vector_jet_QGaxis1;
+   vector<float>   *std_vector_jet_QGaxis2;
+   vector<float>   *std_vector_jet_QGlikelihood;
    vector<float>   *std_vector_jet_eta;
    vector<float>   *std_vector_jet_phi;
    vector<float>   *std_vector_jet_pt;
    vector<float>   *std_vector_lepton_BestTrackdxy;
    vector<float>   *std_vector_lepton_BestTrackdz;
+   vector<float>   *std_vector_lepton_Chi2LocalPos;
    vector<float>   *std_vector_lepton_NTkLayers;
+   vector<float>   *std_vector_lepton_NValidFractInTrk;
    vector<float>   *std_vector_lepton_NValidHitsInTrk;
    vector<float>   *std_vector_lepton_NValidHitsSATrk;
    vector<float>   *std_vector_lepton_NValidPixelHitsInTrk;
    vector<float>   *std_vector_lepton_NormChi2GTrk;
    vector<float>   *std_vector_lepton_NumOfMatchedStations;
-   vector<float>   *std_vector_lepton_StaRelChi2;
+   vector<float>   *std_vector_lepton_SegCompatibilty;
    vector<float>   *std_vector_lepton_TrkKink;
    vector<float>   *std_vector_lepton_chargedHadronIso;
    vector<float>   *std_vector_lepton_chargedParticleIso;
    vector<float>   *std_vector_lepton_eta;
    vector<float>   *std_vector_lepton_id;
+   vector<float>   *std_vector_lepton_isTightMuon;
    vector<float>   *std_vector_lepton_neutralHadronIso;
    vector<float>   *std_vector_lepton_phi;
    vector<float>   *std_vector_lepton_photonIso;
@@ -405,6 +347,9 @@ public :
    vector<float>   *std_vector_puppijet_eta;
    vector<float>   *std_vector_puppijet_phi;
    vector<float>   *std_vector_puppijet_pt;
+   vector<float>   *std_vector_tau_eta;
+   vector<float>   *std_vector_tau_phi;
+   vector<float>   *std_vector_tau_pt;
    Float_t         tightmu;
    Float_t         triggAW;
    Float_t         triggBW;
@@ -416,7 +361,17 @@ public :
    Double_t        fCoordinates_fY;
    Double_t        fCoordinates_fZ;
    Double_t        fCoordinates_fT;
-
+ //ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > *v_jet2;
+ //ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > *v_jet3;
+ //ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > *v_jet4;
+ //ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > *v_lepton1;
+ //ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > *v_lepton2;
+ //ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > *v_lepton3;
+ //ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > *v_lepton4;
+ //ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > *v_photon1;
+ //ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > *v_photon1id;
+ //ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > *v_photon2;
+ //ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<double> > *v_photon3;
    Float_t         worstJetLepPt;
    Float_t         yll;
    Float_t         itpu;
@@ -445,8 +400,6 @@ public :
    UInt_t          run;
    UInt_t          lumi;
    UInt_t          event;
-   Float_t         mWW;
-   Float_t         MHiggs;
 
    // List of branches
    TBranch        *b_baseW;   //!
@@ -569,70 +522,7 @@ public :
    TBranch        *b_jetPhM5;   //!
    TBranch        *b_jetPhM6;   //!
    TBranch        *b_jetPhM7;   //!
-   TBranch        *b_jetQCRMScand1;   //!
-   TBranch        *b_jetQCRMScand2;   //!
-   TBranch        *b_jetQCRMScand3;   //!
-   TBranch        *b_jetQCRMScand4;   //!
-   TBranch        *b_jetQCRMScand5;   //!
-   TBranch        *b_jetQCRMScand6;   //!
-   TBranch        *b_jetQCRMScand7;   //!
-   TBranch        *b_jetQCRmax1;   //!
-   TBranch        *b_jetQCRmax2;   //!
-   TBranch        *b_jetQCRmax3;   //!
-   TBranch        *b_jetQCRmax4;   //!
-   TBranch        *b_jetQCRmax5;   //!
-   TBranch        *b_jetQCRmax6;   //!
-   TBranch        *b_jetQCRmax7;   //!
-   TBranch        *b_jetQCaxis11;   //!
-   TBranch        *b_jetQCaxis12;   //!
-   TBranch        *b_jetQCaxis13;   //!
-   TBranch        *b_jetQCaxis14;   //!
-   TBranch        *b_jetQCaxis15;   //!
-   TBranch        *b_jetQCaxis16;   //!
-   TBranch        *b_jetQCaxis17;   //!
-   TBranch        *b_jetQCaxis21;   //!
-   TBranch        *b_jetQCaxis22;   //!
-   TBranch        *b_jetQCaxis23;   //!
-   TBranch        *b_jetQCaxis24;   //!
-   TBranch        *b_jetQCaxis25;   //!
-   TBranch        *b_jetQCaxis26;   //!
-   TBranch        *b_jetQCaxis27;   //!
-   TBranch        *b_jetQCptD1;   //!
-   TBranch        *b_jetQCptD2;   //!
-   TBranch        *b_jetQCptD3;   //!
-   TBranch        *b_jetQCptD4;   //!
-   TBranch        *b_jetQCptD5;   //!
-   TBranch        *b_jetQCptD6;   //!
-   TBranch        *b_jetQCptD7;   //!
-   TBranch        *b_jetRMScand1;   //!
-   TBranch        *b_jetRMScand2;   //!
-   TBranch        *b_jetRMScand3;   //!
-   TBranch        *b_jetRMScand4;   //!
-   TBranch        *b_jetRMScand5;   //!
-   TBranch        *b_jetRMScand6;   //!
-   TBranch        *b_jetRMScand7;   //!
    TBranch        *b_jetRho;   //!
-   TBranch        *b_jetRmax1;   //!
-   TBranch        *b_jetRmax2;   //!
-   TBranch        *b_jetRmax3;   //!
-   TBranch        *b_jetRmax4;   //!
-   TBranch        *b_jetRmax5;   //!
-   TBranch        *b_jetRmax6;   //!
-   TBranch        *b_jetRmax7;   //!
-   TBranch        *b_jetaxis11;   //!
-   TBranch        *b_jetaxis12;   //!
-   TBranch        *b_jetaxis13;   //!
-   TBranch        *b_jetaxis14;   //!
-   TBranch        *b_jetaxis15;   //!
-   TBranch        *b_jetaxis16;   //!
-   TBranch        *b_jetaxis17;   //!
-   TBranch        *b_jetaxis21;   //!
-   TBranch        *b_jetaxis22;   //!
-   TBranch        *b_jetaxis23;   //!
-   TBranch        *b_jetaxis24;   //!
-   TBranch        *b_jetaxis25;   //!
-   TBranch        *b_jetaxis26;   //!
-   TBranch        *b_jetaxis27;   //!
    TBranch        *b_jetbjpb1;   //!
    TBranch        *b_jetbjpb2;   //!
    TBranch        *b_jetbjpb3;   //!
@@ -682,13 +572,6 @@ public :
    TBranch        *b_jetpt5;   //!
    TBranch        *b_jetpt6;   //!
    TBranch        *b_jetpt7;   //!
-   TBranch        *b_jetptD1;   //!
-   TBranch        *b_jetptD2;   //!
-   TBranch        *b_jetptD3;   //!
-   TBranch        *b_jetptD4;   //!
-   TBranch        *b_jetptD5;   //!
-   TBranch        *b_jetptD6;   //!
-   TBranch        *b_jetptD7;   //!
    TBranch        *b_jetptd1;   //!
    TBranch        *b_jetptd2;   //!
    TBranch        *b_jetptd3;   //!
@@ -779,7 +662,9 @@ public :
    TBranch        *b_pfmet;   //!
    TBranch        *b_pfmetMEtSig;   //!
    TBranch        *b_pfmetSignificance;   //!
+   TBranch        *b_pfmetdn;   //!
    TBranch        *b_pfmetphi;   //!
+   TBranch        *b_pfmetup;   //!
    TBranch        *b_phi1;   //!
    TBranch        *b_phi2;   //!
    TBranch        *b_phi3;   //!
@@ -805,23 +690,33 @@ public :
    TBranch        *b_std_vector_jetGen_eta;   //!
    TBranch        *b_std_vector_jetGen_phi;   //!
    TBranch        *b_std_vector_jetGen_pt;   //!
+   TBranch        *b_std_vector_jet_HadronFlavour;   //!
+   TBranch        *b_std_vector_jet_PartonFlavour;   //!
+   TBranch        *b_std_vector_jet_QGRMScand;   //!
+   TBranch        *b_std_vector_jet_QGRmax;   //!
+   TBranch        *b_std_vector_jet_QGaxis1;   //!
+   TBranch        *b_std_vector_jet_QGaxis2;   //!
+   TBranch        *b_std_vector_jet_QGlikelihood;   //!
    TBranch        *b_std_vector_jet_eta;   //!
    TBranch        *b_std_vector_jet_phi;   //!
    TBranch        *b_std_vector_jet_pt;   //!
    TBranch        *b_std_vector_lepton_BestTrackdxy;   //!
    TBranch        *b_std_vector_lepton_BestTrackdz;   //!
+   TBranch        *b_std_vector_lepton_Chi2LocalPos;   //!
    TBranch        *b_std_vector_lepton_NTkLayers;   //!
+   TBranch        *b_std_vector_lepton_NValidFractInTrk;   //!
    TBranch        *b_std_vector_lepton_NValidHitsInTrk;   //!
    TBranch        *b_std_vector_lepton_NValidHitsSATrk;   //!
    TBranch        *b_std_vector_lepton_NValidPixelHitsInTrk;   //!
    TBranch        *b_std_vector_lepton_NormChi2GTrk;   //!
    TBranch        *b_std_vector_lepton_NumOfMatchedStations;   //!
-   TBranch        *b_std_vector_lepton_StaRelChi2;   //!
+   TBranch        *b_std_vector_lepton_SegCompatibilty;   //!
    TBranch        *b_std_vector_lepton_TrkKink;   //!
    TBranch        *b_std_vector_lepton_chargedHadronIso;   //!
    TBranch        *b_std_vector_lepton_chargedParticleIso;   //!
    TBranch        *b_std_vector_lepton_eta;   //!
    TBranch        *b_std_vector_lepton_id;   //!
+   TBranch        *b_std_vector_lepton_isTightMuon;   //!
    TBranch        *b_std_vector_lepton_neutralHadronIso;   //!
    TBranch        *b_std_vector_lepton_phi;   //!
    TBranch        *b_std_vector_lepton_photonIso;   //!
@@ -830,6 +725,9 @@ public :
    TBranch        *b_std_vector_puppijet_eta;   //!
    TBranch        *b_std_vector_puppijet_phi;   //!
    TBranch        *b_std_vector_puppijet_pt;   //!
+   TBranch        *b_std_vector_tau_eta;   //!
+   TBranch        *b_std_vector_tau_phi;   //!
+   TBranch        *b_std_vector_tau_pt;   //!
    TBranch        *b_tightmu;   //!
    TBranch        *b_triggAW;   //!
    TBranch        *b_triggBW;   //!
@@ -912,8 +810,6 @@ public :
    TBranch        *b_run;   //!
    TBranch        *b_lumi;   //!
    TBranch        *b_event;   //!
-   TBranch        *b_MHiggs;   //!
-   TBranch        *b_mWW;   //!
 
    HWwNT(TTree *tree=0);
    virtual ~HWwNT();
@@ -949,7 +845,7 @@ HWwNT::HWwNT(TTree *tree) : fChain(0)
       // The following code should be used if you want this class to access a chain
       // of trees.
       TChain * chain = new TChain("latino","");
-      chain->Add("/terranova_1/HWWwidth/Phys14/gg2hPU40bx25/latino_stepB_latinosYieldSkim_MC_gg2hPU40bx25_wPUPPI.root/latino");
+      chain->Add("/terranova_1/HWWwidth/Phys14/DYPU30bx50/latino_stepB_latinosYieldSkim_MC_DYPU30bx50_wPUPPI.root/latino");
       tree = chain;
 #endif // SINGLE_TREE
 
@@ -996,23 +892,33 @@ void HWwNT::Init(TTree *tree)
    std_vector_jetGen_eta = 0;
    std_vector_jetGen_phi = 0;
    std_vector_jetGen_pt = 0;
+   std_vector_jet_HadronFlavour = 0;
+   std_vector_jet_PartonFlavour = 0;
+   std_vector_jet_QGRMScand = 0;
+   std_vector_jet_QGRmax = 0;
+   std_vector_jet_QGaxis1 = 0;
+   std_vector_jet_QGaxis2 = 0;
+   std_vector_jet_QGlikelihood = 0;
    std_vector_jet_eta = 0;
    std_vector_jet_phi = 0;
    std_vector_jet_pt = 0;
    std_vector_lepton_BestTrackdxy = 0;
    std_vector_lepton_BestTrackdz = 0;
+   std_vector_lepton_Chi2LocalPos = 0;
    std_vector_lepton_NTkLayers = 0;
+   std_vector_lepton_NValidFractInTrk = 0;
    std_vector_lepton_NValidHitsInTrk = 0;
    std_vector_lepton_NValidHitsSATrk = 0;
    std_vector_lepton_NValidPixelHitsInTrk = 0;
    std_vector_lepton_NormChi2GTrk = 0;
    std_vector_lepton_NumOfMatchedStations = 0;
-   std_vector_lepton_StaRelChi2 = 0;
+   std_vector_lepton_SegCompatibilty = 0;
    std_vector_lepton_TrkKink = 0;
    std_vector_lepton_chargedHadronIso = 0;
    std_vector_lepton_chargedParticleIso = 0;
    std_vector_lepton_eta = 0;
    std_vector_lepton_id = 0;
+   std_vector_lepton_isTightMuon = 0;
    std_vector_lepton_neutralHadronIso = 0;
    std_vector_lepton_phi = 0;
    std_vector_lepton_photonIso = 0;
@@ -1021,6 +927,9 @@ void HWwNT::Init(TTree *tree)
    std_vector_puppijet_eta = 0;
    std_vector_puppijet_phi = 0;
    std_vector_puppijet_pt = 0;
+   std_vector_tau_eta = 0;
+   std_vector_tau_phi = 0;
+   std_vector_tau_pt = 0;
    // Set branch addresses and branch pointers
    if (!tree) return;
    fChain = tree;
@@ -1147,70 +1056,7 @@ void HWwNT::Init(TTree *tree)
    fChain->SetBranchAddress("jetPhM5", &jetPhM5, &b_jetPhM5);
    fChain->SetBranchAddress("jetPhM6", &jetPhM6, &b_jetPhM6);
    fChain->SetBranchAddress("jetPhM7", &jetPhM7, &b_jetPhM7);
-   fChain->SetBranchAddress("jetQCRMScand1", &jetQCRMScand1, &b_jetQCRMScand1);
-   fChain->SetBranchAddress("jetQCRMScand2", &jetQCRMScand2, &b_jetQCRMScand2);
-   fChain->SetBranchAddress("jetQCRMScand3", &jetQCRMScand3, &b_jetQCRMScand3);
-   fChain->SetBranchAddress("jetQCRMScand4", &jetQCRMScand4, &b_jetQCRMScand4);
-   fChain->SetBranchAddress("jetQCRMScand5", &jetQCRMScand5, &b_jetQCRMScand5);
-   fChain->SetBranchAddress("jetQCRMScand6", &jetQCRMScand6, &b_jetQCRMScand6);
-   fChain->SetBranchAddress("jetQCRMScand7", &jetQCRMScand7, &b_jetQCRMScand7);
-   fChain->SetBranchAddress("jetQCRmax1", &jetQCRmax1, &b_jetQCRmax1);
-   fChain->SetBranchAddress("jetQCRmax2", &jetQCRmax2, &b_jetQCRmax2);
-   fChain->SetBranchAddress("jetQCRmax3", &jetQCRmax3, &b_jetQCRmax3);
-   fChain->SetBranchAddress("jetQCRmax4", &jetQCRmax4, &b_jetQCRmax4);
-   fChain->SetBranchAddress("jetQCRmax5", &jetQCRmax5, &b_jetQCRmax5);
-   fChain->SetBranchAddress("jetQCRmax6", &jetQCRmax6, &b_jetQCRmax6);
-   fChain->SetBranchAddress("jetQCRmax7", &jetQCRmax7, &b_jetQCRmax7);
-   fChain->SetBranchAddress("jetQCaxis11", &jetQCaxis11, &b_jetQCaxis11);
-   fChain->SetBranchAddress("jetQCaxis12", &jetQCaxis12, &b_jetQCaxis12);
-   fChain->SetBranchAddress("jetQCaxis13", &jetQCaxis13, &b_jetQCaxis13);
-   fChain->SetBranchAddress("jetQCaxis14", &jetQCaxis14, &b_jetQCaxis14);
-   fChain->SetBranchAddress("jetQCaxis15", &jetQCaxis15, &b_jetQCaxis15);
-   fChain->SetBranchAddress("jetQCaxis16", &jetQCaxis16, &b_jetQCaxis16);
-   fChain->SetBranchAddress("jetQCaxis17", &jetQCaxis17, &b_jetQCaxis17);
-   fChain->SetBranchAddress("jetQCaxis21", &jetQCaxis21, &b_jetQCaxis21);
-   fChain->SetBranchAddress("jetQCaxis22", &jetQCaxis22, &b_jetQCaxis22);
-   fChain->SetBranchAddress("jetQCaxis23", &jetQCaxis23, &b_jetQCaxis23);
-   fChain->SetBranchAddress("jetQCaxis24", &jetQCaxis24, &b_jetQCaxis24);
-   fChain->SetBranchAddress("jetQCaxis25", &jetQCaxis25, &b_jetQCaxis25);
-   fChain->SetBranchAddress("jetQCaxis26", &jetQCaxis26, &b_jetQCaxis26);
-   fChain->SetBranchAddress("jetQCaxis27", &jetQCaxis27, &b_jetQCaxis27);
-   fChain->SetBranchAddress("jetQCptD1", &jetQCptD1, &b_jetQCptD1);
-   fChain->SetBranchAddress("jetQCptD2", &jetQCptD2, &b_jetQCptD2);
-   fChain->SetBranchAddress("jetQCptD3", &jetQCptD3, &b_jetQCptD3);
-   fChain->SetBranchAddress("jetQCptD4", &jetQCptD4, &b_jetQCptD4);
-   fChain->SetBranchAddress("jetQCptD5", &jetQCptD5, &b_jetQCptD5);
-   fChain->SetBranchAddress("jetQCptD6", &jetQCptD6, &b_jetQCptD6);
-   fChain->SetBranchAddress("jetQCptD7", &jetQCptD7, &b_jetQCptD7);
-   fChain->SetBranchAddress("jetRMScand1", &jetRMScand1, &b_jetRMScand1);
-   fChain->SetBranchAddress("jetRMScand2", &jetRMScand2, &b_jetRMScand2);
-   fChain->SetBranchAddress("jetRMScand3", &jetRMScand3, &b_jetRMScand3);
-   fChain->SetBranchAddress("jetRMScand4", &jetRMScand4, &b_jetRMScand4);
-   fChain->SetBranchAddress("jetRMScand5", &jetRMScand5, &b_jetRMScand5);
-   fChain->SetBranchAddress("jetRMScand6", &jetRMScand6, &b_jetRMScand6);
-   fChain->SetBranchAddress("jetRMScand7", &jetRMScand7, &b_jetRMScand7);
    fChain->SetBranchAddress("jetRho", &jetRho, &b_jetRho);
-   fChain->SetBranchAddress("jetRmax1", &jetRmax1, &b_jetRmax1);
-   fChain->SetBranchAddress("jetRmax2", &jetRmax2, &b_jetRmax2);
-   fChain->SetBranchAddress("jetRmax3", &jetRmax3, &b_jetRmax3);
-   fChain->SetBranchAddress("jetRmax4", &jetRmax4, &b_jetRmax4);
-   fChain->SetBranchAddress("jetRmax5", &jetRmax5, &b_jetRmax5);
-   fChain->SetBranchAddress("jetRmax6", &jetRmax6, &b_jetRmax6);
-   fChain->SetBranchAddress("jetRmax7", &jetRmax7, &b_jetRmax7);
-   fChain->SetBranchAddress("jetaxis11", &jetaxis11, &b_jetaxis11);
-   fChain->SetBranchAddress("jetaxis12", &jetaxis12, &b_jetaxis12);
-   fChain->SetBranchAddress("jetaxis13", &jetaxis13, &b_jetaxis13);
-   fChain->SetBranchAddress("jetaxis14", &jetaxis14, &b_jetaxis14);
-   fChain->SetBranchAddress("jetaxis15", &jetaxis15, &b_jetaxis15);
-   fChain->SetBranchAddress("jetaxis16", &jetaxis16, &b_jetaxis16);
-   fChain->SetBranchAddress("jetaxis17", &jetaxis17, &b_jetaxis17);
-   fChain->SetBranchAddress("jetaxis21", &jetaxis21, &b_jetaxis21);
-   fChain->SetBranchAddress("jetaxis22", &jetaxis22, &b_jetaxis22);
-   fChain->SetBranchAddress("jetaxis23", &jetaxis23, &b_jetaxis23);
-   fChain->SetBranchAddress("jetaxis24", &jetaxis24, &b_jetaxis24);
-   fChain->SetBranchAddress("jetaxis25", &jetaxis25, &b_jetaxis25);
-   fChain->SetBranchAddress("jetaxis26", &jetaxis26, &b_jetaxis26);
-   fChain->SetBranchAddress("jetaxis27", &jetaxis27, &b_jetaxis27);
    fChain->SetBranchAddress("jetbjpb1", &jetbjpb1, &b_jetbjpb1);
    fChain->SetBranchAddress("jetbjpb2", &jetbjpb2, &b_jetbjpb2);
    fChain->SetBranchAddress("jetbjpb3", &jetbjpb3, &b_jetbjpb3);
@@ -1260,13 +1106,6 @@ void HWwNT::Init(TTree *tree)
    fChain->SetBranchAddress("jetpt5", &jetpt5, &b_jetpt5);
    fChain->SetBranchAddress("jetpt6", &jetpt6, &b_jetpt6);
    fChain->SetBranchAddress("jetpt7", &jetpt7, &b_jetpt7);
-   fChain->SetBranchAddress("jetptD1", &jetptD1, &b_jetptD1);
-   fChain->SetBranchAddress("jetptD2", &jetptD2, &b_jetptD2);
-   fChain->SetBranchAddress("jetptD3", &jetptD3, &b_jetptD3);
-   fChain->SetBranchAddress("jetptD4", &jetptD4, &b_jetptD4);
-   fChain->SetBranchAddress("jetptD5", &jetptD5, &b_jetptD5);
-   fChain->SetBranchAddress("jetptD6", &jetptD6, &b_jetptD6);
-   fChain->SetBranchAddress("jetptD7", &jetptD7, &b_jetptD7);
    fChain->SetBranchAddress("jetptd1", &jetptd1, &b_jetptd1);
    fChain->SetBranchAddress("jetptd2", &jetptd2, &b_jetptd2);
    fChain->SetBranchAddress("jetptd3", &jetptd3, &b_jetptd3);
@@ -1357,7 +1196,9 @@ void HWwNT::Init(TTree *tree)
    fChain->SetBranchAddress("pfmet", &pfmet, &b_pfmet);
    fChain->SetBranchAddress("pfmetMEtSig", &pfmetMEtSig, &b_pfmetMEtSig);
    fChain->SetBranchAddress("pfmetSignificance", &pfmetSignificance, &b_pfmetSignificance);
+   fChain->SetBranchAddress("pfmetdn", &pfmetdn, &b_pfmetdn);
    fChain->SetBranchAddress("pfmetphi", &pfmetphi, &b_pfmetphi);
+   fChain->SetBranchAddress("pfmetup", &pfmetup, &b_pfmetup);
    fChain->SetBranchAddress("phi1", &phi1, &b_phi1);
    fChain->SetBranchAddress("phi2", &phi2, &b_phi2);
    fChain->SetBranchAddress("phi3", &phi3, &b_phi3);
@@ -1383,23 +1224,33 @@ void HWwNT::Init(TTree *tree)
    fChain->SetBranchAddress("std_vector_jetGen_eta", &std_vector_jetGen_eta, &b_std_vector_jetGen_eta);
    fChain->SetBranchAddress("std_vector_jetGen_phi", &std_vector_jetGen_phi, &b_std_vector_jetGen_phi);
    fChain->SetBranchAddress("std_vector_jetGen_pt", &std_vector_jetGen_pt, &b_std_vector_jetGen_pt);
+   fChain->SetBranchAddress("std_vector_jet_HadronFlavour", &std_vector_jet_HadronFlavour, &b_std_vector_jet_HadronFlavour);
+   fChain->SetBranchAddress("std_vector_jet_PartonFlavour", &std_vector_jet_PartonFlavour, &b_std_vector_jet_PartonFlavour);
+   fChain->SetBranchAddress("std_vector_jet_QGRMScand", &std_vector_jet_QGRMScand, &b_std_vector_jet_QGRMScand);
+   fChain->SetBranchAddress("std_vector_jet_QGRmax", &std_vector_jet_QGRmax, &b_std_vector_jet_QGRmax);
+   fChain->SetBranchAddress("std_vector_jet_QGaxis1", &std_vector_jet_QGaxis1, &b_std_vector_jet_QGaxis1);
+   fChain->SetBranchAddress("std_vector_jet_QGaxis2", &std_vector_jet_QGaxis2, &b_std_vector_jet_QGaxis2);
+   fChain->SetBranchAddress("std_vector_jet_QGlikelihood", &std_vector_jet_QGlikelihood, &b_std_vector_jet_QGlikelihood);
    fChain->SetBranchAddress("std_vector_jet_eta", &std_vector_jet_eta, &b_std_vector_jet_eta);
    fChain->SetBranchAddress("std_vector_jet_phi", &std_vector_jet_phi, &b_std_vector_jet_phi);
    fChain->SetBranchAddress("std_vector_jet_pt", &std_vector_jet_pt, &b_std_vector_jet_pt);
    fChain->SetBranchAddress("std_vector_lepton_BestTrackdxy", &std_vector_lepton_BestTrackdxy, &b_std_vector_lepton_BestTrackdxy);
    fChain->SetBranchAddress("std_vector_lepton_BestTrackdz", &std_vector_lepton_BestTrackdz, &b_std_vector_lepton_BestTrackdz);
+   fChain->SetBranchAddress("std_vector_lepton_Chi2LocalPos", &std_vector_lepton_Chi2LocalPos, &b_std_vector_lepton_Chi2LocalPos);
    fChain->SetBranchAddress("std_vector_lepton_NTkLayers", &std_vector_lepton_NTkLayers, &b_std_vector_lepton_NTkLayers);
+   fChain->SetBranchAddress("std_vector_lepton_NValidFractInTrk", &std_vector_lepton_NValidFractInTrk, &b_std_vector_lepton_NValidFractInTrk);
    fChain->SetBranchAddress("std_vector_lepton_NValidHitsInTrk", &std_vector_lepton_NValidHitsInTrk, &b_std_vector_lepton_NValidHitsInTrk);
    fChain->SetBranchAddress("std_vector_lepton_NValidHitsSATrk", &std_vector_lepton_NValidHitsSATrk, &b_std_vector_lepton_NValidHitsSATrk);
    fChain->SetBranchAddress("std_vector_lepton_NValidPixelHitsInTrk", &std_vector_lepton_NValidPixelHitsInTrk, &b_std_vector_lepton_NValidPixelHitsInTrk);
    fChain->SetBranchAddress("std_vector_lepton_NormChi2GTrk", &std_vector_lepton_NormChi2GTrk, &b_std_vector_lepton_NormChi2GTrk);
    fChain->SetBranchAddress("std_vector_lepton_NumOfMatchedStations", &std_vector_lepton_NumOfMatchedStations, &b_std_vector_lepton_NumOfMatchedStations);
-   fChain->SetBranchAddress("std_vector_lepton_StaRelChi2", &std_vector_lepton_StaRelChi2, &b_std_vector_lepton_StaRelChi2);
+   fChain->SetBranchAddress("std_vector_lepton_SegCompatibilty", &std_vector_lepton_SegCompatibilty, &b_std_vector_lepton_SegCompatibilty);
    fChain->SetBranchAddress("std_vector_lepton_TrkKink", &std_vector_lepton_TrkKink, &b_std_vector_lepton_TrkKink);
    fChain->SetBranchAddress("std_vector_lepton_chargedHadronIso", &std_vector_lepton_chargedHadronIso, &b_std_vector_lepton_chargedHadronIso);
    fChain->SetBranchAddress("std_vector_lepton_chargedParticleIso", &std_vector_lepton_chargedParticleIso, &b_std_vector_lepton_chargedParticleIso);
    fChain->SetBranchAddress("std_vector_lepton_eta", &std_vector_lepton_eta, &b_std_vector_lepton_eta);
    fChain->SetBranchAddress("std_vector_lepton_id", &std_vector_lepton_id, &b_std_vector_lepton_id);
+   fChain->SetBranchAddress("std_vector_lepton_isTightMuon", &std_vector_lepton_isTightMuon, &b_std_vector_lepton_isTightMuon);
    fChain->SetBranchAddress("std_vector_lepton_neutralHadronIso", &std_vector_lepton_neutralHadronIso, &b_std_vector_lepton_neutralHadronIso);
    fChain->SetBranchAddress("std_vector_lepton_phi", &std_vector_lepton_phi, &b_std_vector_lepton_phi);
    fChain->SetBranchAddress("std_vector_lepton_photonIso", &std_vector_lepton_photonIso, &b_std_vector_lepton_photonIso);
@@ -1408,6 +1259,9 @@ void HWwNT::Init(TTree *tree)
    fChain->SetBranchAddress("std_vector_puppijet_eta", &std_vector_puppijet_eta, &b_std_vector_puppijet_eta);
    fChain->SetBranchAddress("std_vector_puppijet_phi", &std_vector_puppijet_phi, &b_std_vector_puppijet_phi);
    fChain->SetBranchAddress("std_vector_puppijet_pt", &std_vector_puppijet_pt, &b_std_vector_puppijet_pt);
+   fChain->SetBranchAddress("std_vector_tau_eta", &std_vector_tau_eta, &b_std_vector_tau_eta);
+   fChain->SetBranchAddress("std_vector_tau_phi", &std_vector_tau_phi, &b_std_vector_tau_phi);
+   fChain->SetBranchAddress("std_vector_tau_pt", &std_vector_tau_pt, &b_std_vector_tau_pt);
    fChain->SetBranchAddress("tightmu", &tightmu, &b_tightmu);
    fChain->SetBranchAddress("triggAW", &triggAW, &b_triggAW);
    fChain->SetBranchAddress("triggBW", &triggBW, &b_triggBW);
@@ -1490,8 +1344,6 @@ void HWwNT::Init(TTree *tree)
    fChain->SetBranchAddress("run", &run, &b_run);
    fChain->SetBranchAddress("lumi", &lumi, &b_lumi);
    fChain->SetBranchAddress("event", &event, &b_event);
-   fChain->SetBranchAddress("mWW", &mWW, &b_mWW);
-   fChain->SetBranchAddress("MHiggs", &MHiggs, &b_MHiggs);
    Notify();
 }
 
