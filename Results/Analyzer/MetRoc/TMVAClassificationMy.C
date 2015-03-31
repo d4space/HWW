@@ -197,8 +197,8 @@ void TMVAClassificationMy( TString myMethodList = "" )
 
    //factory->AddVariable( "mHig",                "Higgs Mass", "", 'F' );
    //factory->AddVariable( "pfmet",                "PF Met", "", 'F' );
-   //factory->AddVariable( "pupmet",               "PUPPI Met", "", 'F' );
-   factory->AddVariable( "trkmet",               "Trk Met", "", 'F' );
+   factory->AddVariable( "pupmet",               "PUPPI Met", "", 'F' );
+   //factory->AddVariable( "trkmet",               "Trk Met", "", 'F' );
    //
    // You can add so-called "Spectator variables", which are not used in the MVA training,
    // but will appear in the final "TestTree" produced by TMVA. This TestTree will contain the
