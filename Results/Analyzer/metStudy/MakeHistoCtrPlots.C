@@ -41,7 +41,7 @@ void MakeHistoCtrPlots()
     HWwMET HWwMETDYJetsToLL(TC_DYJetsToLL,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
     HWwMETDYJetsToLL.Loop();
     //***/
-/***************    
+//***************    
 //ggToH125toWWTo2LAndTau2Nu========================================
     cout<<"ggToH125toWWTo2LAndTau2Nu===================="<<endl;
     RunOnMC = true;
@@ -51,6 +51,6 @@ void MakeHistoCtrPlots()
     HWwMET HWwMETggToH125toWWTo2LAndTau2Nu(TC_ggToH125toWWTo2LAndTau2Nu,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
     HWwMETggToH125toWWTo2LAndTau2Nu.Loop();
 
-******************/
+//******************/
   }
 }

@@ -213,22 +213,18 @@ void TMVAClassificationMy( TString myMethodList = "" )
    // (it is also possible to use ASCII format as input -> see TMVA Users Guide)
    //TString fname = "./tmva_class_example.root";
    TString fname = "/terranova_1/HWWwidth/Phys14/gg2hPU40bx25/latino_stepB_latinosYieldSkim_MC_gg2hPU40bx25_wPUPPI.root";
-   
    if (gSystem->AccessPathName( fname ))  // file does not exist in local directory
      exit(-1);
       //gSystem->Exec("wget http://root.cern.ch/files/tmva_class_example.root");
-   
    TFile *SigInput = TFile::Open( fname );
-   
    std::cout << "--- TMVAClassification  : Using Sig input file: " << SigInput->GetName() << std::endl;
+
+
    fname = "/terranova_1/HWWwidth/Phys14/DYPU30bx50/latino_stepB_latinosYieldSkim_MC_DYPU30bx50_wPUPPI.root";
-   
    if (gSystem->AccessPathName( fname ))  // file does not exist in local directory
      exit(-1);
       //gSystem->Exec("wget http://root.cern.ch/files/tmva_class_example.root");
-   
    TFile *BkgInput = TFile::Open( fname );
-   
    std::cout << "--- TMVAClassification  : Using Bkg input file: " << BkgInput->GetName() << std::endl;
    
    // --- Register the training and test trees
