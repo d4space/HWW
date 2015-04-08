@@ -214,7 +214,7 @@ void TMVAClassificationMy( TString myMethodList = "" )
    //TString fname = "./tmva_class_example.root";
    //
    // ======================================
-   // Signal and Backgroun
+   // Signal and Backgroun Samples
    // ======================================
    //
    TString fname = "/terranova_1/HWWwidth/Phys14/gg2hPU40bx25/latino_stepB_latinosYieldSkim_MC_gg2hPU40bx25_wPUPPI.root";
