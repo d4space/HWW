@@ -15,7 +15,7 @@ int ROC()
   TCanvas *myCan = new TCanvas("myCan","Can",800,800);
   CPlot* Plot_ROC = new CPlot("ROC","ggH vs. DY","SigEffi","BkgRej");
   //CPlot* Plot_MET = new CPlot(fileName,titleName,"MET[GeV]",Ytitle);
-  Plot_ROC->setOutDir(".");
+  Plot_ROC->setOutDir("./plots");
   Plot_ROC->AddHist1D(hROcPf,"HIST",kRed);
   Plot_ROC->AddHist1D(hROcPup,"HIST",kBlue);
   Plot_ROC->AddHist1D(hROcTrk,"HIST",kGreen);
@@ -23,7 +23,7 @@ int ROC()
   Plot_ROC->GetLegend()->AddEntry(hROcPf,"PF","l");
   Plot_ROC->GetLegend()->AddEntry(hROcPup,"PUPPI","l");
   Plot_ROC->GetLegend()->AddEntry(hROcTrk,"Trk","l");
-  Plot_ROC->Draw(myCan,kTRUE,"png");
+  Plot_ROC->Draw(myCan,kTRUE,"pdf");
 
   return 0;
 }

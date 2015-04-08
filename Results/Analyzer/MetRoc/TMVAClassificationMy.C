@@ -197,8 +197,8 @@ void TMVAClassificationMy( TString myMethodList = "" )
 
    //factory->AddVariable( "mHig",                "Higgs Mass", "", 'F' );
    //factory->AddVariable( "pfmet",                "PF Met", "", 'F' );
-   factory->AddVariable( "pupmet",               "PUPPI Met", "", 'F' );
-   //factory->AddVariable( "trkmet",               "Trk Met", "", 'F' );
+   //factory->AddVariable( "pupmet",               "PUPPI Met", "", 'F' );
+   factory->AddVariable( "trkmet",               "Trk Met", "", 'F' );
    //
    // You can add so-called "Spectator variables", which are not used in the MVA training,
    // but will appear in the final "TestTree" produced by TMVA. This TestTree will contain the
@@ -212,6 +212,11 @@ void TMVAClassificationMy( TString myMethodList = "" )
    // Read training and test data
    // (it is also possible to use ASCII format as input -> see TMVA Users Guide)
    //TString fname = "./tmva_class_example.root";
+   //
+   // ======================================
+   // Signal and Backgroun
+   // ======================================
+   //
    TString fname = "/terranova_1/HWWwidth/Phys14/gg2hPU40bx25/latino_stepB_latinosYieldSkim_MC_gg2hPU40bx25_wPUPPI.root";
    if (gSystem->AccessPathName( fname ))  // file does not exist in local directory
      exit(-1);
