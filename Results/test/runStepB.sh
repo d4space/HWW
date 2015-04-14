@@ -16,7 +16,9 @@
 #------------------------------------------------
 gg2hPU40bx25=file:/d3/scratch/khakim/RunII/miniAODsamples/Phys14DR/1125_ggToH125toWWTo2LAndTau2Nu_PU40bx25/F42379EA-1880-E411-8CDC-00266CFFA768.root
 
-gg2hPU20bx25=file:/d3/scratch/khakim/RunII/miniAODsamples/Phys14DR/1125_ggToH125toWWTo2LAndTau2Nu_PU20bx25/08CFEF83-586C-E411-8D7C-002590A2CCF2.root
+gg2hPU20bx25=file:/d3/scratch/khakim/RunII/miniAODsamples/Phys14DR/3125_ggToH125toWWTo2LAndTau2Nu_PU20bx25/08CFEF83-586C-E411-8D7C-002590A2CCF2.root
+
+gg2hPU30bx50=file:/d3/scratch/khakim/RunII/miniAODsamples/Phys14DR/4125_ggToH125toWWTo2LAndTau2Nu_AVE30bx50/440AA9AF-9988-E411-9786-00266CFFA038.root
 
 DYJetsToLLPU30bx50=file:/d3/scratch/khakim/RunII/miniAODsamples/Phys14DR/037_DY50toLLMad50ns_AVE30bx50/0080FDC4-5A8B-E411-AA4A-00259073E4F0.root
 
@@ -24,7 +26,9 @@ DYJetsToLLPU4bx50=file:/d3/scratch/khakim/RunII/miniAODsamples/Phys14DR/038_DY50
 
 DYJetsToLLPU20bx25=file:/d3/scratch/khakim/RunII/miniAODsamples/Phys14DR/039_DY50toLLMad25ns_PU20bx25/0432E62A-7A6C-E411-87BB-002590DB92A8.root
 
-WJet2LNPU4bx50=file:/d3/scratch/khakim/RunII/miniAODsamples/Phys14DR/080_WJetsToLNuMad_PU4bx50/001E43FE-4470-E411-8DC5-0025905A60CE.root
+WJet2LNPU4bx50=file:/d3/scratch/khakim/RunII/miniAODsamples/Phys14DR/080_WJetsToLNuMad50ns_PU4bx50/001E43FE-4470-E411-8DC5-0025905A60CE.root
+
+WJet2LNPU20bx25=file:/d3/scratch/khakim/RunII/miniAODsamples/Phys14DR/081_WJetsToLNuMad25ns_PU20bx25/02215B44-2D70-E411-90A3-0025905A60B8.root
 #------------------------------------------------
 
 
