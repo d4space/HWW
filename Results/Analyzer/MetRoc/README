@@ -1,0 +1,11 @@
+vi TMVAClassificationMy.C
+factory->AddVariable( "pfmet",               "PF Met", "", 'F' );
+
+root -l TMVAClassificationMy.C
+mv TMVA.root TMVA_pfmet.root
+mv TMVA.root TMVA_pupmet.root
+mv TMVA.root TMVA_trkmet.root
+
+For gui
+root -l "TMVAGui.C(\"TMVA_pfmet.root\")"
+

@@ -2,8 +2,8 @@ import os
 import sys
 
 CutNames=['CommonCut']
-#sampleName = ['DYJetsToLL']
-sampleName = ['ggToH125toWWTo2LAndTau2Nu','DYJetsToLL']
+sampleName = ['DYJetsToLL']
+#sampleName = ['ggToH125toWWTo2LAndTau2Nu','DYJetsToLL']
 #sampleName = ['ggToH125toWWTo2LAndTau2Nu']
 #sampleName = ['WJetsToLNuMad','DYJetsToLL','ggToH125toWWTo2LAndTau2Nu']
 #VarName=['pupMet','pfMet','genMet','genMet_pupMet','genMet_pfMet']
