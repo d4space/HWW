@@ -140,9 +140,9 @@ vector<float>   *std_vector_leptonGen_mpid;
 vector<float>   *std_vector_leptonGen_mstatus;
 
 //------------------------------------------------------------------------------
-// MakeGenHistoScript
+// MakeMetHistoScript
 //------------------------------------------------------------------------------
-void MakeGenHistoScript(TString theSample)
+void MakeMetHistoScript(TString theSample)
 {
   TH1::SetDefaultSumw2();
 

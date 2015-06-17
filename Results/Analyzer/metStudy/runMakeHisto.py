@@ -8,7 +8,7 @@ SAMPLES = ['ggWWto2L']
 
 # Loop
 for SAMPLE in SAMPLES:
-  cmd_string = "root -l -b -q MakeGenHistoScript.C\(\\\"%s\\\"\)" %(SAMPLE)
+  cmd_string = "root -l -b -q MakeMetHistoScript.C\(\\\"%s\\\"\)" %(SAMPLE)
   os.system(cmd_string)
   
   cmd_string = "rm -f *.d *.so"
