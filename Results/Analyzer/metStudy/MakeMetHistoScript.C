@@ -7,8 +7,6 @@
 #include <iomanip>
 #include <iostream>
 
-typedef ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double> > LorentzVector;
-
 // Constants
 //------------------------------------------------------------------------------
 const Double_t luminosity = 19.365;
@@ -140,12 +138,11 @@ vector<float>   *std_vector_leptonGen_status;
 vector<float>   *std_vector_leptonGen_pt;
 vector<float>   *std_vector_leptonGen_mpid;
 vector<float>   *std_vector_leptonGen_mstatus;
-LorentzVector   *v_jet1=0;
 
 //------------------------------------------------------------------------------
-// MakeGenHistoScript
+// MakeMetHistoScript
 //------------------------------------------------------------------------------
-void MakeGenHistoScript(TString theSample)
+void MakeMetHistoScript(TString theSample)
 {
   TH1::SetDefaultSumw2();
 
@@ -182,7 +179,6 @@ void MakeGenHistoScript(TString theSample)
   // Input files
   //----------------------------------------------------------------------------
   TString filesPath = "/d3/scratch/khakim/RunII/LatinosTrees/";
-  //TString filesPath = "/d3/scratch/khakim/RunII/LatinosTrees/";
 
   TChain* tree = new TChain("latino", "latino");
 
@@ -206,9 +202,6 @@ void MakeGenHistoScript(TString theSample)
     tree->Add(filesPath + "WW_PU20bx25_V2/latino_stepB_MC_WW_20.root");
     tree->Add(filesPath + "WW_PU20bx25_V2/latino_stepB_MC_WW_7.root");
     tree->Add(filesPath + "WW_PU20bx25_V2/latino_stepB_MC_WW_9.root");
-  }
-  else if(theSample == "WWTo2L2Nu50ns"){
-    tree->Add("/u/user/salee/Latino/CMSSW_7_4_4/src/LatinoTrees/AnalysisStep/test/latino_stepB_latinosYieldSkim_MC_WWTo2L2Nu50ns_wPUPPI_numEvent200.root");
   }
   else{
     return;
@@ -235,7 +228,6 @@ void MakeGenHistoScript(TString theSample)
   tree->SetBranchAddress("neutrinoGenpid2", &neutrinoGenpid2);
   tree->SetBranchAddress("neutrinoGenpid3", &neutrinoGenpid3);
   tree->SetBranchAddress("event",           &event);
-  tree->SetBranchAddress("v_jet1",          &v_jet1);       // jet1 4-vector
   tree->SetBranchAddress("std_vector_leptonGen_pid",    &std_vector_leptonGen_pid);
   tree->SetBranchAddress("std_vector_leptonGen_status", &std_vector_leptonGen_status);
   tree->SetBranchAddress("std_vector_leptonGen_pt",     &std_vector_leptonGen_pt);
@@ -246,20 +238,15 @@ void MakeGenHistoScript(TString theSample)
   // Loop
   //----------------------------------------------------------------------------
   //for (int ievent=0; ievent<tree->GetEntries(); ievent++)
-  for (int ievent=0; ievent<3; ievent++)
+  for (int ievent=0; ievent<10; ievent++)
   {
     tree->GetEntry(ievent);
-    printf("Jet1(vector), pt=%.1f\n",v_jet1->Pt());
 
     printf("=============== Event %d ===============\n",event);
-    printf("Index\tPID\tStatus\t\tmPID\tmStatus\tpT\n");
+    printf("\nIndex\tmPID\tmStatus\t\tPID\tStatus\tpT\n");
     printf("==========================================\n");
     for (UInt_t igen=0; igen<std_vector_leptonGen_pt->size(); igen++){
-      printf("%d\t%.f\t%.f\t\t%.f\t%.f\t%.3f\n",
-	  igen,
-	  (*std_vector_leptonGen_pid)[igen],(*std_vector_leptonGen_status)[igen],
-	  (*std_vector_leptonGen_mpid)[igen],(*std_vector_leptonGen_mstatus)[igen],
-	  (*std_vector_leptonGen_pt)[igen]);
+      printf("%d\t%.f\t%.f\t\t%.f\t%.f\t%.0f\n", igen,(*std_vector_leptonGen_mpid)[igen],(*std_vector_leptonGen_mstatus)[igen],(*std_vector_leptonGen_pid)[igen],(*std_vector_leptonGen_status)[igen],(*std_vector_leptonGen_pt)[igen]);
     }
     evtWeight = 1.0;
 
