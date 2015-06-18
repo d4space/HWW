@@ -142,7 +142,7 @@ vector<float>   *std_vector_leptonGen_mstatus;
 //------------------------------------------------------------------------------
 // MakeMetHistoScript
 //------------------------------------------------------------------------------
-void MakeMetHistoScript(TString theSample)
+void MakeGenHistoScript(TString theSample)
 {
   TH1::SetDefaultSumw2();
 
@@ -179,6 +179,7 @@ void MakeMetHistoScript(TString theSample)
   // Input files
   //----------------------------------------------------------------------------
   TString filesPath = "/d3/scratch/khakim/RunII/LatinosTrees/";
+  //TString filesPath = "/d3/scratch/khakim/RunII/LatinosTrees/";
 
   TChain* tree = new TChain("latino", "latino");
 
@@ -202,6 +203,9 @@ void MakeMetHistoScript(TString theSample)
     tree->Add(filesPath + "WW_PU20bx25_V2/latino_stepB_MC_WW_20.root");
     tree->Add(filesPath + "WW_PU20bx25_V2/latino_stepB_MC_WW_7.root");
     tree->Add(filesPath + "WW_PU20bx25_V2/latino_stepB_MC_WW_9.root");
+  }
+  else if(theSample == "WWTo2L2Nu50ns"){
+    tree->Add("/u/user/salee/Latino/CMSSW_7_4_4/src/LatinoTrees/AnalysisStep/test/latino_stepB_latinosYieldSkim_MC_WWTo2L2Nu50ns_wPUPPI_numEvent200.root");
   }
   else{
     return;
@@ -238,15 +242,19 @@ void MakeMetHistoScript(TString theSample)
   // Loop
   //----------------------------------------------------------------------------
   //for (int ievent=0; ievent<tree->GetEntries(); ievent++)
-  for (int ievent=0; ievent<10; ievent++)
+  for (int ievent=0; ievent<3; ievent++)
   {
     tree->GetEntry(ievent);
 
     printf("=============== Event %d ===============\n",event);
-    printf("\nIndex\tmPID\tmStatus\t\tPID\tStatus\tpT\n");
+    printf("Index\tPID\tStatus\t\tmPID\tmStatus\tpT\n");
     printf("==========================================\n");
     for (UInt_t igen=0; igen<std_vector_leptonGen_pt->size(); igen++){
-      printf("%d\t%.f\t%.f\t\t%.f\t%.f\t%.0f\n", igen,(*std_vector_leptonGen_mpid)[igen],(*std_vector_leptonGen_mstatus)[igen],(*std_vector_leptonGen_pid)[igen],(*std_vector_leptonGen_status)[igen],(*std_vector_leptonGen_pt)[igen]);
+      printf("%d\t%.f\t%.f\t\t%.f\t%.f\t%.3f\n",
+	  igen,
+	  (*std_vector_leptonGen_pid)[igen],(*std_vector_leptonGen_status)[igen],
+	  (*std_vector_leptonGen_mpid)[igen],(*std_vector_leptonGen_mstatus)[igen],
+	  (*std_vector_leptonGen_pt)[igen]);
     }
     evtWeight = 1.0;
 
