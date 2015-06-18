@@ -7,6 +7,8 @@
 #include <iomanip>
 #include <iostream>
 
+typedef ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double> > LorentzVector;
+
 // Constants
 //------------------------------------------------------------------------------
 const Double_t luminosity = 19.365;
@@ -138,6 +140,7 @@ vector<float>   *std_vector_leptonGen_status;
 vector<float>   *std_vector_leptonGen_pt;
 vector<float>   *std_vector_leptonGen_mpid;
 vector<float>   *std_vector_leptonGen_mstatus;
+LorentzVector   *v_jet1=0;
 
 //------------------------------------------------------------------------------
 // MakeGenHistoScript
@@ -228,6 +231,7 @@ void MakeGenHistoScript(TString theSample)
   tree->SetBranchAddress("neutrinoGenpid2", &neutrinoGenpid2);
   tree->SetBranchAddress("neutrinoGenpid3", &neutrinoGenpid3);
   tree->SetBranchAddress("event",           &event);
+  tree->SetBranchAddress("v_jet1",          &v_jet1);       // jet1 4-vector
   tree->SetBranchAddress("std_vector_leptonGen_pid",    &std_vector_leptonGen_pid);
   tree->SetBranchAddress("std_vector_leptonGen_status", &std_vector_leptonGen_status);
   tree->SetBranchAddress("std_vector_leptonGen_pt",     &std_vector_leptonGen_pt);
@@ -241,6 +245,7 @@ void MakeGenHistoScript(TString theSample)
   for (int ievent=0; ievent<10; ievent++)
   {
     tree->GetEntry(ievent);
+    printf("Jet1(vector), pt=%.1f\n",v_jet1->Pt());
 
     printf("=============== Event %d ===============\n",event);
     printf("\nIndex\tmPID\tmStatus\t\tPID\tStatus\tpT\n");
