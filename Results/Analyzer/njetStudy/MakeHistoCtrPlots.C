@@ -12,9 +12,9 @@ void MakeHistoCtrPlots()
   gSystem->CompileMacro("../AnaSrc/HWwBase.C","k");
   gSystem->CompileMacro("../AnaSrc/HWwNjetStudy.C","k");
 
-  //string Cuts[]={"CommonCut_njet"};
+  string Cuts[]={"CommonCut_njet"};  // For gg2VV POWHEG njet correction factor
   //string Cuts[]={"CommonCut_VBf_NoVetoCentralJet"};
-  string Cuts[]={"CommonCut_VBFnjet"};
+  //string Cuts[]={"CommonCut_VBFnjet"};
   TString SampleName = "Data";
   bool RunOnMC = false;
 
@@ -29,7 +29,8 @@ void MakeHistoCtrPlots()
     SampleName = "gg2vvHw1Sig8TeV";
     HWwNjetStudy HWwNjetStudygg2vvHw1Sig8TeV(TC_gg2vvHw1Sig8TeV,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
     HWwNjetStudygg2vvHw1Sig8TeV.Loop();
-
+***/
+/**
 //sherpaHw1Sig8TeV========================================
     cout<<"sherpaHw1Sig8TeV===================="<<endl;
     RunOnMC = true;
@@ -38,7 +39,8 @@ void MakeHistoCtrPlots()
     SampleName = "SHERPA";
     HWwNjetStudy HWwNjetStudysherpaHw1Sig8TeV(TC_sherpaHw1Sig8TeV,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
     HWwNjetStudysherpaHw1Sig8TeV.Loop();
-
+**/
+//**
 //POWHEG========================================
     cout<<"POWHEG===================="<<endl;
     RunOnMC = true;
@@ -47,7 +49,7 @@ void MakeHistoCtrPlots()
     SampleName = "POWHEG";
     HWwNjetStudy HWwNjetStudyPOWHEG(TC_POWHEG,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
     HWwNjetStudyPOWHEG.Loop();
-********/
+//********/
 /****
 //phantom========================================
     cout<<"phantom===================="<<endl;
@@ -70,7 +72,7 @@ void MakeHistoCtrPlots()
     HWwNjetStudyphantom_25SM.Loop();
 
 ******/
-//***********
+/***********
 //POWHEG_VBF========================================
     cout<<"POWHEG_VBF===================="<<endl;
     RunOnMC = true;
@@ -79,6 +81,6 @@ void MakeHistoCtrPlots()
     SampleName = "POWHEG_VBF";
     HWwNjetStudy HWwNjetStudyPOWHEG_VBF(TC_POWHEG_VBF,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
     HWwNjetStudyPOWHEG_VBF.Loop();
-//*********/
+*********/
   }
 }

@@ -4,6 +4,7 @@
 
 3) scalefit.C will fit scale factor depending on mWW
 
+Manual To run
 1. change bin, sample at  AnsSrc/NjetBin.h NjetBin is the inclusive jet bin number
 2. run AnaSrc/PhantomPack.sh (PowVBfPack.sh)
 3. change MakeHistoCtrPlots.C then root -l M...
