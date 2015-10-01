@@ -31,7 +31,6 @@
 #include "chain_gg2vvHw25Sig8TeV.h"
 
 #include "chain_gg2vvHw25Int8TeV.h"
-#include "chain_gg2vvHw25SigShoulder.h"
 
 //njet Study
 #include "chain_powheg.h"
@@ -125,9 +124,6 @@ void SetupTree( TString sample, TChain* chains )
   }
   else if(sample == "gg2vvHw25SigOnPeak"){
     chain_gg2vvHw25SigOnPeak(chains);
-  }
-  else if(sample == "gg2vvHw25SigShoulder"){
-    chain_gg2vvHw25SigShoulder(chains);
   }
   else if(sample == "gg2vvHw25SigTail"){
     chain_gg2vvHw25SigTail(chains);
