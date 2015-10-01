@@ -17,6 +17,7 @@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @@@@@@@@@@@@   OLD @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+hahaha
 
 @@@@@@ According to sample, change HWwNT using Makeclass and change the next properly
 case1. HWwNT.h has mWW ===========================
@@ -34,3 +35,9 @@ if(SampleName == "POWHEG" || SampleName == "POWHEG_VBF")
       mWW = MHiggs;
           if(SampleName == "SHERPA")
 	        mWW = CalcmWW();
+
+##########################################
+#Work History
+##########################################
+lxplus: WorkSpace/private/Latino/CMSSW_7_3_0/src/HWW/Results/Analyzer/njetStudy
+
