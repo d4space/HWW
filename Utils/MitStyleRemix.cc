@@ -5,15 +5,15 @@
 #include "MitStyleRemix.hh"
 
 void MitStyleRemix() {
-  const char* author   = "$Author: sangilpark $$";
-  const char* modified = "$Modified by ksung $$";
-  printf(" MIT root style REMIX(%s,%s).\n",author,modified);
+  const char* author   = "$Author: SangEun $$";
+  const char* modified = "$Modified by SangEun $$";
+  printf(" Modified MIT root style REMIX(%s,%s).\n",author,modified);
   printf("\n");
   printf(" Use: MakeCanvas(name,title)\n");
-  printf("      InitSubPad(pad,nPad)\n");
+  //printf("      InitSubPad(pad,nPad)\n");
   printf("      InitHist(hist,xTitle,yTitle,color)\n");
   printf("\n");
-  SetStyle();
+  //SetStyle();
 }
 
 TCanvas* MakeCanvas(const char* name, const char *title, int dX, int dY)
@@ -42,18 +42,18 @@ TCanvas* MakeCanvas(const char* name, const char *title, int dX, int dY)
   return canvas;
 }
 
-void InitSubPad(TPad* pad, int i)
-{
-  //printf("Pad: %p, index: %d\n",pad,i);
-
-  pad->cd(i);
-  TPad *tmpPad = (TPad*) pad->GetPad(i);
-  tmpPad->SetLeftMargin  (0.18);
-  tmpPad->SetTopMargin   (0.05);
-  tmpPad->SetRightMargin (0.07);
-  tmpPad->SetBottomMargin(0.15);
-  return;
-}
+//void InitSubPad(TPad* pad, int i)
+//{
+//  //printf("Pad: %p, index: %d\n",pad,i);
+//
+//  pad->cd(i);
+//  TPad *tmpPad = (TPad*) pad->GetPad(i);
+//  tmpPad->SetLeftMargin  (0.18);
+//  tmpPad->SetTopMargin   (0.05);
+//  tmpPad->SetRightMargin (0.07);
+//  tmpPad->SetBottomMargin(0.15);
+//  return;
+//}
 
 void InitHist(TH1 *hist, const char *xtit, const char *ytit, EColor color)
 {
