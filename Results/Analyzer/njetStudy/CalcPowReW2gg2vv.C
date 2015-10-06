@@ -58,8 +58,8 @@ void CalcPowReW2gg2vv()
   for(int i(0);i<NjBin+1;i++)
   {
     
-    // Take noWeighted
-    sprintf(tmpName, "h1_mWW_Off_noWeight_%d",i);
+    // Take Weighted
+    sprintf(tmpName, "h1_mWW_Off_Wevt_%d",i);
     sprintf(histName,"h1_mWW_gg2vv_%d",i);
     h1_mWW_gg2vv[i] = (TH1D*)F_gg2vv->Get(tmpName)->Clone(histName);
     h1_mWW_gg2vv[i]->Sumw2();

@@ -44,7 +44,7 @@ void HWwNjetStudy::Loop()
     if(SampleName == "SHERPA")mWW = CalcmWW();
 
     //if(mWW <= 130.+13) continue;
-    if(mWW <= 130.) continue;
+    //if(mWW <= 130.) continue;
 
     EvtWeight = CalcWeight();
     
