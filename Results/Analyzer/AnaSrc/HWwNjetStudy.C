@@ -37,6 +37,9 @@ void HWwNjetStudy::Loop()
 #if SAMPLE == 3
       mWW = MHiggs; 
 #endif
+#if SAMPLE == 1
+      mWW = MHiggs; 
+#endif
     }
     if(SampleName == "SHERPA")mWW = CalcmWW();
 

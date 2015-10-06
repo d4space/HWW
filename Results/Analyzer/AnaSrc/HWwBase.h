@@ -97,6 +97,9 @@ protected:
    double 	CalcWeight();
    double 	CalcmWW();
 #if SAMPLE == 3
+   double mWW; // For POWHEG_VBF
+#endif
+#if SAMPLE == 1
    double mWW; // For POWHEG
 #endif
    double mH;

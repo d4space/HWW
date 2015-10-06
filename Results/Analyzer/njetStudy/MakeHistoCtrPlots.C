@@ -20,7 +20,7 @@ void MakeHistoCtrPlots()
 
   for( int i(0); i < sizeof(Cuts)/sizeof(*Cuts);++i){
     cout<<"Cut is "<<Cuts[i]<<endl;
-/******    
+//******    
 //gg2vvHw1Sig8TeV========================================
     cout<<"gg2vvHw1Sig8TeV===================="<<endl;
     RunOnMC = true;
@@ -29,7 +29,7 @@ void MakeHistoCtrPlots()
     SampleName = "gg2vvHw1Sig8TeV";
     HWwNjetStudy HWwNjetStudygg2vvHw1Sig8TeV(TC_gg2vvHw1Sig8TeV,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
     HWwNjetStudygg2vvHw1Sig8TeV.Loop();
-***/
+//***/
 /**
 //sherpaHw1Sig8TeV========================================
     cout<<"sherpaHw1Sig8TeV===================="<<endl;
@@ -40,7 +40,7 @@ void MakeHistoCtrPlots()
     HWwNjetStudy HWwNjetStudysherpaHw1Sig8TeV(TC_sherpaHw1Sig8TeV,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
     HWwNjetStudysherpaHw1Sig8TeV.Loop();
 **/
-//**
+/**
 //POWHEG========================================
     cout<<"POWHEG===================="<<endl;
     RunOnMC = true;
@@ -49,7 +49,7 @@ void MakeHistoCtrPlots()
     SampleName = "POWHEG";
     HWwNjetStudy HWwNjetStudyPOWHEG(TC_POWHEG,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
     HWwNjetStudyPOWHEG.Loop();
-//********/
+********/
 /****
 //phantom========================================
     cout<<"phantom===================="<<endl;
