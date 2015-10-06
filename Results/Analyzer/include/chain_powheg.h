@@ -1,5 +1,15 @@
 void chain_powheg( TChain *chains)
 {
+  //chains->Add("/d3/scratch/khakim/LatinosTrees/tree_skim_all_hwidth/nominals/latino_1110_ggToH110toWWTo2LAndTau2Nu.root");
+  //chains->Add("/d3/scratch/khakim/LatinosTrees/tree_skim_all_hwidth/nominals/latino_1115_ggToH115toWWTo2LAndTau2Nu.root");
+  //chains->Add("/d3/scratch/khakim/LatinosTrees/tree_skim_all_hwidth/nominals/latino_1120_ggToH120toWWTo2LAndTau2Nu.root");
+  chains->Add("/d3/scratch/khakim/LatinosTrees/tree_skim_all_hwidth/nominals/latino_1125_ggToH125toWWTo2LAndTau2Nu.root");
+  chains->Add("/d3/scratch/khakim/LatinosTrees/tree_skim_all_hwidth/nominals/latino_1130_ggToH130toWWTo2LAndTau2Nu.root");
+  chains->Add("/d3/scratch/khakim/LatinosTrees/tree_skim_all_hwidth/nominals/latino_1135_ggToH135toWWTo2LAndTau2Nu.root");
+  chains->Add("/d3/scratch/khakim/LatinosTrees/tree_skim_all_hwidth/nominals/latino_1140_ggToH140toWWTo2LAndTau2Nu.root");
+  chains->Add("/d3/scratch/khakim/LatinosTrees/tree_skim_all_hwidth/nominals/latino_1145_ggToH145toWWTo2LAndTau2Nu.root");
+  chains->Add("/d3/scratch/khakim/LatinosTrees/tree_skim_all_hwidth/nominals/latino_1150_ggToH150toWWTo2LAndTau2Nu.root");
+  chains->Add("/d3/scratch/khakim/LatinosTrees/tree_skim_all_hwidth/nominals/latino_1155_ggToH155toWWTo2LAndTau2Nu.root");
   chains->Add("/d3/scratch/khakim/LatinosTrees/tree_skim_all_hwidth/nominals/latino_1160_ggToH160toWWTo2LAndTau2Nu.root");
   chains->Add("/d3/scratch/khakim/LatinosTrees/tree_skim_all_hwidth/nominals/latino_1170_ggToH170toWWTo2LAndTau2Nu.root");
   chains->Add("/d3/scratch/khakim/LatinosTrees/tree_skim_all_hwidth/nominals/latino_1180_ggToH180toWWTo2LAndTau2Nu.root");
@@ -7,7 +17,14 @@ void chain_powheg( TChain *chains)
   chains->Add("/d3/scratch/khakim/LatinosTrees/tree_skim_all_hwidth/nominals/latino_1200_ggToH200toWWTo2LAndTau2Nu.root");
   chains->Add("/d3/scratch/khakim/LatinosTrees/tree_skim_all_hwidth/nominals/latino_1250_ggToH250toWWTo2LAndTau2Nu.root");
   chains->Add("/d3/scratch/khakim/LatinosTrees/tree_skim_all_hwidth/nominals/latino_1300_ggToH300toWWTo2LAndTau2Nu.root");
+  chains->Add("/d3/scratch/khakim/LatinosTrees/tree_skim_all_hwidth/nominals/latino_1350_ggToH350toWWTo2LAndTau2Nu.root");
   chains->Add("/d3/scratch/khakim/LatinosTrees/tree_skim_all_hwidth/nominals/latino_1400_ggToH400toWWTo2LAndTau2Nu.root");
+  chains->Add("/d3/scratch/khakim/LatinosTrees/tree_skim_all_hwidth/nominals/latino_1450_ggToH450toWWTo2LAndTau2Nu.root");
   chains->Add("/d3/scratch/khakim/LatinosTrees/tree_skim_all_hwidth/nominals/latino_1500_ggToH500toWWTo2LAndTau2Nu.root");
+  chains->Add("/d3/scratch/khakim/LatinosTrees/tree_skim_all_hwidth/nominals/latino_1550_ggToH550toWWTo2LAndTau2Nu.root");
   chains->Add("/d3/scratch/khakim/LatinosTrees/tree_skim_all_hwidth/nominals/latino_1600_ggToH600toWWTo2LAndTau2Nu.root");
+  chains->Add("/d3/scratch/khakim/LatinosTrees/tree_skim_all_hwidth/nominals/latino_1700_ggToH700toWWTo2LAndTau2Nu.root");
+  chains->Add("/d3/scratch/khakim/LatinosTrees/tree_skim_all_hwidth/nominals/latino_1800_ggToH800toWWTo2LAndTau2Nu.root");
+  chains->Add("/d3/scratch/khakim/LatinosTrees/tree_skim_all_hwidth/nominals/latino_1900_ggToH900toWWTo2LAndTau2Nu.root");
+  chains->Add("/d3/scratch/khakim/LatinosTrees/tree_skim_all_hwidth/nominals/latino_2000_ggToH1000toWWTo2LAndTau2Nu.root");
 }
