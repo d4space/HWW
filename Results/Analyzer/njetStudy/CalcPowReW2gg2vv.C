@@ -26,15 +26,18 @@
 #define NjBin 3 // Nbin is inclusive bin
 void CalcPowReW2gg2vv()
 {
+  ofstream Fout;
   //TString OutDir = "mWW_unweighted";
   TString OutDir = "CalcPowReW2gg2vv";
   gSystem->mkdir(OutDir);
+  TString FoutName = OutDir+"/"+"CalcPowReW2gg2vv.txt";
+  Fout.open(FoutName);
   
   TFile *F_gg2vv;
-  TFile *F_powheg;
+  TFile *F_pow;
 
-  F_gg2vv   = new TFile("POWHEG/POWHEG_CommonCut_njet.root");
-  F_pow     = new TFile("gg2vvHw1Sig8TeV/gg2vvHw1Sig8TeV_CommonCut_njet.root");
+  F_pow   = new TFile("POWHEG/POWHEG_CommonCut_njet.root");
+  F_gg2vv = new TFile("gg2vvHw1Sig8TeV/gg2vvHw1Sig8TeV_CommonCut_njet.root");
 
   char tmpName[50];
   char histName[50];
@@ -76,18 +79,19 @@ void CalcPowReW2gg2vv()
     h1_mWW_powheg[i]-> Scale(1./nTotalPOW);
   }
   
-  //Calculating reWeight Factor
-  h1_reWeightFac = (TH1D*)h1_mWW_gg2vv[4] -> Clone("h1_reWeightFac"); h1_reWeightFac->Sumw2();
-  h1_reWeightFac -> Divide(h1_mWW_powheg[4]);
+  //Calculating reWeight Factor of mWW with jet-inclusive
+  h1_reWeightFac = (TH1D*)h1_mWW_gg2vv[NjBin] -> Clone("h1_reWeightFac"); h1_reWeightFac->Sumw2();
+  h1_reWeightFac -> Divide(h1_mWW_powheg[NjBin]);
 
   //Printout reWeight Factor
   for (int j(1);j<=h1_reWeightFac->GetNbinsX();j++)
   {
-    cout<<"if(mWW > "<<j*100.<<" && mWW <= "<<100.*(j+1)<<") EvtWeight *="<<h1_reWeightFac->GetBinContent(j)<<";"<<endl;
+    cout<<"if(mWW > "<<(j-1)*10.<<" && mWW <= "<<j*10.<<") EvtWeight *="<<h1_reWeightFac->GetBinContent(j)<<";"<<endl;
+    Fout<<"if(mWW > "<<(j-1)*10.<<" && mWW <= "<<j*10.<<") EvtWeight *="<<h1_reWeightFac->GetBinContent(j)<<";"<<endl;
   }
 
   //
-  //Plot reWeighted Histograms
+  //Plot Histograms
   //
   for(int i(0);i<NjBin+1;i++)
   {
@@ -108,7 +112,7 @@ void CalcPowReW2gg2vv()
     plotmWW_gg2vv->setOutDir(OutDir);
     plotmWW_gg2vv->AddHist1D(h1_mWW_gg2vv[i],"HIST",kBlack);
     plotmWW_gg2vv->SetLegend(0.63,0.84,0.88,0.92);
-    plotmWW_gg2vv->GetLegend()->AddEntry(h1_mWW_gg2vv[i],"Phantom Sig.","l");
+    plotmWW_gg2vv->GetLegend()->AddEntry(h1_mWW_gg2vv[i],"GG2VV Sig.","l");
     plotmWW_gg2vv->AddTextBox(jetName,0.6,0.92,0.92,0.95,0);
     plotmWW_gg2vv->SetXRange(0,1500);
     plotmWW_gg2vv->Draw(myCan,kTRUE,"png");
@@ -134,10 +138,10 @@ void CalcPowReW2gg2vv()
     plotmWW_comp->AddHist1D(h1_mWW_powheg[i],"HIST",kRed);
     plotmWW_comp->SetLegend(0.63,0.76,0.88,0.92);
     plotmWW_comp->GetLegend()->AddEntry(h1_mWW_powheg[i],"POWHEG","l");
-    plotmWW_comp->GetLegend()->AddEntry(h1_mWW_gg2vv[i],"Phantom Sig.","l");
+    plotmWW_comp->GetLegend()->AddEntry(h1_mWW_gg2vv[i],"GG2VV Sig.","l");
     plotmWW_comp->AddTextBox(jetName,0.6,0.92,0.92,0.95,0);
     plotmWW_comp->SetXRange(0,1500);
     plotmWW_comp->Draw(myCan,kTRUE,"png");
   }
+  Fout.close();
 }
-
