@@ -263,17 +263,29 @@ int HWwNjetStudy::InitHistogram()
     h1_njet_Off_noWeight[i] = new TH1D(histName,"Jet numbers in off-shell", 5, 0, 5);
   }
 
-
   for(int i(0); i<NjetBin+1; i++)
   {
     sprintf(histName, "h1_mWW_Off_Wevt_%d",i);
-    h1_mWW_Off_Wevt[i] = new TH1D(histName,"mWW", 100, 130, 1430);
-    //h1_mWW_Off_Wevt[i] = new TH1D(histName,"mWW", 150, 0, 1500); // gg2Vv
+#if VBF_MODE == 1
+    h1_mWW_Off_Wevt[i] = new TH1D(histName,"mWW", 100, 130, 1430);//phn
+#else
+    h1_mWW_Off_Wevt[i]  = new TH1D(histName,"mWW", 150, 0, 1500); // gg2Vv
+#endif
+
     sprintf(histName, "h1_mWW_Off_WevtPow2Gen_%d",i);
+#if VBF_MODE == 1
     h1_mWW_Off_WevtPow2Gen[i] = new TH1D(histName,"mWW", 100, 130, 1430);
+#else
+    h1_mWW_Off_WevtPow2Gen[i] = new TH1D(histName,"mWW", 150, 0, 1500);
+#endif
+
     sprintf(histName, "h1_mWW_Off_noWeight_%d",i);
+#if VBF_MODE == 1
     h1_mWW_Off_noWeight[i] = new TH1D(histName,"mWW", 100, 130, 1430);
-    //h1_mWW_Off_noWeight[i] = new TH1D(histName,"mWW", 150, 0, 1500); //gg2VV
+#else
+    h1_mWW_Off_noWeight[i] = new TH1D(histName,"mWW", 150, 0, 1500); //gg2VV
+#endif
+
     sprintf(histName, "h1_mjj_NoW_%d",i);
     h1_mjj_NoW[i] = new TH1D(histName,"mjj_NoW", 20, 0, 2000);
     sprintf(histName, "h1_mjj_Wevt_%d",i);
@@ -288,11 +300,26 @@ int HWwNjetStudy::InitHistogram()
     h1_detajj_WevtPow2Gen[i] = new TH1D(histName,"detajj_WevtPow2Gen", 16, 0, 8);
     
     sprintf(histName, "h1_mWW_Off_Wevt_NoCut_%d",i);
+#if VBF_MODE == 1
     h1_mWW_Off_Wevt_NoCut[i] = new TH1D(histName,"mWW", 100, 130, 1430);
+#else
+    h1_mWW_Off_Wevt_NoCut[i] = new TH1D(histName,"mWW", 150, 0, 1500);
+#endif
+
     sprintf(histName, "h1_mWW_Off_WevtPow2Gen_NoCut_%d",i);
+#if VBF_MODE == 1
     h1_mWW_Off_WevtPow2Gen_NoCut[i] = new TH1D(histName,"mWW", 100, 130, 1430);
+#else
+    h1_mWW_Off_WevtPow2Gen_NoCut[i] = new TH1D(histName,"mWW", 150, 0, 1500);
+#endif
+
     sprintf(histName, "h1_mWW_Off_noWeight_NoCut_%d",i);
+#if VBF_MODE == 1
     h1_mWW_Off_noWeight_NoCut[i] = new TH1D(histName,"mWW", 100, 130, 1430);
+#else
+    h1_mWW_Off_noWeight_NoCut[i] = new TH1D(histName,"mWW", 150, 0, 1500);
+#endif
+
     sprintf(histName, "h1_mjj_NoCut_%d",i);
     h1_mjj_NoCut[i] = new TH1D(histName,"mjj", 20, 0, 2000);
     sprintf(histName, "h1_detajj_NoCut_%d",i);

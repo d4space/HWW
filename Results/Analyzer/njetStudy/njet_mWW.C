@@ -75,7 +75,7 @@ int njet_mWW()
   
   for(int i(0);i<4;i++)
   {
-    sprintf(tmpName,"h1_mWW_Off_Wevt_%d",i);
+    sprintf(tmpName,"h1_mWW_Off_Wevt_%d",i); // Basic event weighted including lumi
     sprintf(histName,"h1_gg2vv_mWW_%d",i);
     h1_gg2vv_mWW[i] = (TH1D*)fname_gg2vv->Get(tmpName)->Clone(histName); h1_gg2vv_mWW[i]->Sumw2();
     

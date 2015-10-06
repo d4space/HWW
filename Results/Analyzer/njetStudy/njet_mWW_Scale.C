@@ -87,6 +87,7 @@ void njet_mWW_Scale()
   //Read Histograms from root file
   for(int i(0);i<12;i++)
   {
+    //Dump Njet for each mWW window
     sprintf(tmpName, "h1_njet_Off_Wevt_%d",i);
     sprintf(histName,"h1_njet_Off_Wevt_Phn_%d",i);
     h1_njet_Off_Wevt_Phn_1[i] = (TH1D*)f_phn_1->Get(tmpName)->Clone(histName);
@@ -99,6 +100,7 @@ void njet_mWW_Scale()
     h1_njet_Off_Wevt_Pow[i] = (TH1D*)f_pow->Get(tmpName)->Clone(histName);
     h1_njet_Off_Wevt_Pow[i]->Sumw2();
 
+    //Dump Njet for each mWW window: Pow weighted to phn in mWW
     sprintf(tmpName,"h1_njet_Off_WevtPow2Gen_%d",i);
     sprintf(histName,"h1_njet_Off_WevtPow2Gen_Phn_%d",i);
     h1_njet_Off_WevtPow2Gen_Phn[i]=(TH1D*)f_phn->Get(tmpName)->Clone(histName);
@@ -107,6 +109,7 @@ void njet_mWW_Scale()
     h1_njet_Off_WevtPow2Gen_Pow[i]=(TH1D*)f_pow->Get(tmpName)->Clone(histName);
     h1_njet_Off_WevtPow2Gen_Pow[i]->Sumw2();
     
+    //Dump Njet for each mWW window: Pow weighted to phn
     sprintf(tmpName, "h1_njet_Off_noWeight_%d",i);
     sprintf(histName,"h1_njet_Off_noW_Phn_%d",i);
     h1_njet_Off_noW_Phn[i] = (TH1D*)f_phn->Get(tmpName)->Clone(histName);
