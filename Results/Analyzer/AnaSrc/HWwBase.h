@@ -107,7 +107,7 @@ protected:
    double mthBins[12];
    double Nmllptll_OF0j[61][31];
    double Nmllptll_OF1j[61][31];
-   double mWWBins[12];
+   double mWWBins[NmWWBin+1];
 };
 #endif
 
@@ -197,18 +197,19 @@ HWwBase::HWwBase(TTree *HWwBaseTree,double lumiweight, TString SampleName_,TStri
   mllBins[10] = 450;
   mllBins[11] = 600;
   
-  mWWBins[0]  = 130;
-  mWWBins[1]  = 200;
-  mWWBins[2]  = 300;
-  mWWBins[3]  = 400;
-  mWWBins[4]  = 500;
-  mWWBins[5]  = 600;
-  mWWBins[6]  = 700;
-  mWWBins[7]  = 800;
-  mWWBins[8]  = 900;
-  mWWBins[9]  = 1000;
-  mWWBins[10] = 1250;
-  mWWBins[11] = 1500;
+  mWWBins[0]  = 120;
+  mWWBins[1]  = 130;
+  mWWBins[2]  = 200;
+  mWWBins[3]  = 300;
+  mWWBins[4]  = 400;
+  mWWBins[5]  = 500;
+  mWWBins[6]  = 600;
+  mWWBins[7]  = 700;
+  mWWBins[8]  = 800;
+  mWWBins[9]  = 900;
+  mWWBins[10]  = 1000;
+  mWWBins[11] = 1250;
+  mWWBins[12] = 1500;
 }
 
 HWwBase::~HWwBase()

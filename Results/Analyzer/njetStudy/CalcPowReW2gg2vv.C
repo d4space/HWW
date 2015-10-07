@@ -86,8 +86,8 @@ void CalcPowReW2gg2vv()
   //Printout reWeight Factor
   for (int j(1);j<=h1_reWeightFac->GetNbinsX();j++)
   {
-    cout<<"if(mWW > "<<(j-1)*10.<<" && mWW <= "<<j*10.<<") EvtWeight *="<<h1_reWeightFac->GetBinContent(j)<<";"<<endl;
-    Fout<<"if(mWW > "<<(j-1)*10.<<" && mWW <= "<<j*10.<<") EvtWeight *="<<h1_reWeightFac->GetBinContent(j)<<";"<<endl;
+    cout<<"if(mWW > "<<(j-1)*10.<<" && mWW <= "<<j*10.<<") WevtPow2Gen = EvtWeight *"<<h1_reWeightFac->GetBinContent(j)<<";"<<endl;
+    Fout<<"if(mWW > "<<(j-1)*10.<<" && mWW <= "<<j*10.<<") WevtPow2Gen = EvtWeight *"<<h1_reWeightFac->GetBinContent(j)<<";"<<endl;
   }
 
   //

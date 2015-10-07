@@ -12,6 +12,7 @@
 
 #include "../../../Utils/CPlot.hh"          // helper class for plots
 #include "../../../Utils/MitStyleRemix.hh"  // style settings for drawing
+#include "../AnaSrc/NjetBin.h"
 
 #include "RooGlobalFunc.h"
 #include "RooRealVar.h"
@@ -78,10 +79,10 @@ Double_t dpol2Func(const TF1 *fcn, const Double_t x, const TFitResultPtr fs) {
 
 void scalefit()
 {
-  const Int_t nbins = 11;
-  double Bins[12] = {130.,200.,300.,400.,500.,600.,700.,800.,900.,1000.,1250.,1500.};
+  const Int_t nbins = NmWWBin;
+  double Bins[NmWWBin+1] = {120., 130.,200.,300.,400.,500.,600.,700.,800.,900.,1000.,1250.,1500.};
   
-  TString OutDir = "plots";
+  TString OutDir = "KfactorCalc";
   gSystem->mkdir(OutDir);
   
   TFile *fname_gg2vv;
@@ -89,51 +90,118 @@ void scalefit()
   TFile *fname_SHERPA;
 
   fname_gg2vv  = new TFile("gg2vvHw1Sig8TeV/gg2vvHw1Sig8TeV_CommonCut_njet.root");
-  fname_POWHEG = new TFile("POWHEG_reweighted_step1/POWHEG_CommonCut_njet.root");
+  fname_POWHEG = new TFile("POWHEG/POWHEG_CommonCut_njet.root");
+  //fname_POWHEG = new TFile("POWHEG_reweighted_step1/POWHEG_CommonCut_njet.root");
 
   char tmpName[50];
   char a0Name[50];
   char a1Name[50];
   char histName[50];
   char mWWrange[50];
+  char jetName[50];
 
   //Histograms
-  TH1D* h1_gg2vv_mWW[4];
-  TH1D* h1_powheg_mWW[4];
-  TH1D* h1_gg2vv_mWW_noW[4];
-  TH1D* h1_powheg_mWW_noW[4];
+  TH1D* h1_gg2vv_mWW[NjetBin+1];
+  TH1D* h1_powheg_mWW[NjetBin+1];
+  TH1D* h1_gg2vv_mWW_noW[NjetBin+1];
+  TH1D* h1_powheg_mWW_noW[NjetBin+1];
   
-  TH1D* h1_gg2vv_njet[nbins];
-  TH1D* h1_powheg_njet[nbins];
-  TH1D* h1_gg2vv_njet_noW[nbins];
-  TH1D* h1_powheg_njet_noW[nbins];
+  TH1D* h1_gg2vv_njet[NmWWBin];
+  TH1D* h1_powheg_njet[NmWWBin];
+  TH1D* h1_gg2vv_njet_noW[NmWWBin];
+  TH1D* h1_powheg_njet_noW[NmWWBin];
   
-  TH1D* h1_powheg_gg2vv_njet[nbins];
+  TH1D* h1_powheg_gg2vv_njet[NmWWBin];
   
-  TH1D* h1_gg2vv_tmp[nbins];
-  TH1D* h1_powheg_tmp[nbins];
-  TH1D* h1_gg2vv_tmp_noW[nbins];
-  TH1D* h1_powheg_tmp_noW[nbins];
+  TH1D* h1_gg2vv_tmp[NmWWBin];
+  TH1D* h1_powheg_tmp[NmWWBin];
+  TH1D* h1_gg2vv_tmp_noW[NmWWBin];
+  TH1D* h1_powheg_tmp_noW[NmWWBin];
   
   double ymax;
   double err_gg2vv;
   double err_powheg;
-
-  for(int i(0);i<nbins;i++)
+  //mWW distribution for the weighted POW
+  TCanvas *myCan = MakeCanvas("myCan", "myCan", 900, 800);
+  for(int i(0);i<NjetBin+1;i++)
   {
-    sprintf(tmpName,"h1_njet_OffSh_%d",i);
+    // gg2VV Basic event weighted including lumiding lumi
+    sprintf(tmpName,"h1_mWW_Off_Wevt_%d",i); 
+    sprintf(histName,"h1_gg2vv_mWW_%d",i);
+    h1_gg2vv_mWW[i] = (TH1D*)fname_gg2vv->Get(tmpName)->Clone(histName);
+    h1_gg2vv_mWW[i]->Sumw2();
+    // Weighted Pow to follow gg2vv mWW 
+    sprintf(tmpName,"h1_mWW_Off_WevtPow2Gen_%d",i); 
+    sprintf(histName,"h1_powheg_mWW_%d",i);
+    h1_powheg_mWW[i] = (TH1D*)fname_POWHEG->Get(tmpName)->Clone(histName);
+    h1_powheg_mWW[i]->Sumw2();
+  
+    sprintf(tmpName,"h1_mWW_Off_noWeight_%d",i);
+    sprintf(histName,"h1_gg2vv_mWW_noW_%d",i);
+    h1_gg2vv_mWW_noW[i] = (TH1D*)fname_gg2vv->Get(tmpName)->Clone(histName);
+    h1_gg2vv_mWW_noW[i]->Sumw2();
+    sprintf(histName,"h1_powheg_mWW_noW_%d",i);
+    h1_powheg_mWW_noW[i] = (TH1D*)fname_POWHEG->Get(tmpName)->Clone(histName);
+    h1_powheg_mWW_noW[i]->Sumw2();
+  
+  
+    for (int j(1);j<=h1_gg2vv_mWW[i]->GetNbinsX();j++)
+    {
+      err_gg2vv  = 0.;
+      err_powheg = 0.;
+      if(h1_gg2vv_mWW[i]->GetBinContent(j)>0.)
+	err_gg2vv  = sqrt(h1_gg2vv_mWW_noW[i]->GetBinContent(j))*(h1_gg2vv_mWW[i]->GetBinContent(j)/h1_gg2vv_mWW_noW[i]->GetBinContent(j));
+      if(h1_powheg_mWW[i]->GetBinContent(j)>0.)
+	err_powheg = sqrt(h1_powheg_mWW_noW[i]->GetBinContent(j))*(h1_powheg_mWW[i]->GetBinContent(j)/h1_powheg_mWW_noW[i]->GetBinContent(j));
+      h1_gg2vv_mWW[i]  -> SetBinError(j,err_gg2vv);
+      h1_powheg_mWW[i] -> SetBinError(j,err_powheg);
+    }
+    //Normalize Histograms
+    h1_gg2vv_mWW[i]   -> Scale(1./h1_gg2vv_mWW[i]->Integral());
+    h1_powheg_mWW[i]  -> Scale(1./h1_powheg_mWW[i]->Integral());
+    
+
+    sprintf(jetName,"(njet = %d)",i);
+    if(i==2)
+      sprintf(jetName,"(njet #geq 2)");
+    if(i==3)
+      sprintf(jetName,"(Inclusive jet bins)");
+
+    //Powheg gg2VV comparison
+    sprintf(histName,"gg2vv_powheg_mWW_comp_%d",i);
+    sprintf(tmpName,"Events / %.1f ",h1_gg2vv_mWW[i]->GetBinWidth(1));
+    CPlot* plotmWW_comp=new CPlot(histName,"","mWW","");
+    plotmWW_comp->setOutDir(OutDir);
+    plotmWW_comp->AddHist1D(h1_gg2vv_mWW[i],"HIST",kBlue);
+    plotmWW_comp->AddHist1D(h1_powheg_mWW[i],"HIST",kRed);
+    plotmWW_comp->SetLegend(0.63,0.76,0.88,0.92);
+    plotmWW_comp->GetLegend()->AddEntry(h1_powheg_mWW[i],"POWHEG","l");
+    plotmWW_comp->GetLegend()->AddEntry(h1_gg2vv_mWW[i],"gg2VV Sig.","l");
+    plotmWW_comp->AddTextBox(jetName,0.6,0.92,0.92,0.95,0);
+    plotmWW_comp->Draw(myCan,kTRUE,"png");
+
+  }
+
+/***************************
+  for(int i(0);i<NmWWBin;i++)
+  {
+    sprintf(tmpName,"h1_njet_Off_Pow2Gen_%d",i);
     sprintf(histName,"h1_gg2vv_njet_%d",i);
-    h1_gg2vv_njet[i] = (TH1D*)fname_gg2vv->Get(tmpName)->Clone(histName); h1_gg2vv_njet[i]->Sumw2();
+    h1_gg2vv_njet[i] = (TH1D*)fname_gg2vv->Get(tmpName)->Clone(histName);
+    h1_gg2vv_njet[i]->Sumw2();
     
     sprintf(histName,"h1_powheg_njet_%d",i);
-    h1_powheg_njet[i] = (TH1D*)fname_POWHEG->Get(tmpName)->Clone(histName); h1_powheg_njet[i]->Sumw2();
+    h1_powheg_njet[i] = (TH1D*)fname_POWHEG->Get(tmpName)->Clone(histName);
+    h1_powheg_njet[i]->Sumw2();
   
-    sprintf(tmpName,"h1_njet_OffSh_noWeight_%d",i);
+    sprintf(tmpName,"h1_njet_Off_noWeight_%d",i);
     sprintf(histName,"h1_gg2vv_njet_noW_%d",i);
-    h1_gg2vv_njet_noW[i] = (TH1D*)fname_gg2vv->Get(tmpName)->Clone(histName); h1_gg2vv_njet_noW[i]->Sumw2();
+    h1_gg2vv_njet_noW[i] = (TH1D*)fname_gg2vv->Get(tmpName)->Clone(histName);
+    h1_gg2vv_njet_noW[i]->Sumw2();
     
     sprintf(histName,"h1_powheg_njet_noW_%d",i);
-    h1_powheg_njet_noW[i] = (TH1D*)fname_POWHEG->Get(tmpName)->Clone(histName); h1_powheg_njet_noW[i]->Sumw2();
+    h1_powheg_njet_noW[i] = (TH1D*)fname_POWHEG->Get(tmpName)->Clone(histName);
+    h1_powheg_njet_noW[i]->Sumw2();
   }
 
   for(int i(3);i<4;i++)
@@ -170,7 +238,7 @@ void scalefit()
     //}
   }
 
-  for(int i(0);i<nbins;i++)
+  for(int i(0);i<NmWWBin;i++)
   {
     for (int j(1);j<=h1_gg2vv_njet[i]->GetNbinsX();j++)
     {
@@ -299,5 +367,5 @@ void scalefit()
     
     plotFunc.Draw(c,kTRUE,"png");
   }
-
+********************/
 }
