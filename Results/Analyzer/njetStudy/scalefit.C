@@ -40,6 +40,44 @@ typedef ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double> > LorentzVecto
 //  
 //  return a+b*x[0];
 //}
+//
+Double_t sqrtFunc(double *x, double *par)
+{
+  Double_t a  = par[0];
+  Double_t b  = par[1];
+
+  return a + b*sqrt(x[0]);
+}
+
+Double_t df_dParsqrt(Double_t *x, Double_t *p) {
+  TF1 *fitFnc = new TF1("fitFnc",sqrtFunc,130,1500,2);
+  fitFnc->SetParameters(p[1],p[2]);
+  Double_t grad[2];
+  int ipar = int(p[0]);
+  assert (ipar >=0 && ipar < 2 );
+
+  assert(fitFnc);
+  fitFnc->GradientPar(x, grad);
+  return grad[ipar];
+}
+
+Double_t dsqrtFunc(const TF1 *fcn, const Double_t x, const TFitResultPtr fs) {
+  Double_t df[2];
+  Double_t a = fcn->GetParameter(0);
+  Double_t b = fcn->GetParameter(1);
+
+  TF1 *deriv_par0 = new TF1("dfdp0",df_dParsqrt,130,1500,3);
+  deriv_par0->SetParameters(0,a,b); // This will set the derivative for the first parameter.
+  TF1 *deriv_par1 = new TF1("dfdp1",df_dParsqrt,130,1500,3);
+  deriv_par1->SetParameters(1,a,b); // This will set the derivative for the second parameter
+  df[0] = deriv_par0->Eval(x);
+  df[1] = deriv_par1->Eval(x);
+  Double_t err2 = df[0]*df[0]*(fs->GetCovarianceMatrix()[0][0])
+                  + df[1]*df[1]*(fs->GetCovarianceMatrix()[1][1])
+		  + 2.0*df[0]*df[1]*(fs->GetCovarianceMatrix()[0][1]);
+  assert(err2>=0);
+  return sqrt(err2);
+}
 
 Double_t dpol1Func(const TF1 *fcn, const Double_t x, const TFitResultPtr fs) {
   Double_t df[2];
@@ -84,6 +122,7 @@ void scalefit()
   
   TString OutDir = "KfactorCalc";
   gSystem->mkdir(OutDir);
+  TFile f_out(OutDir+"/scaleFactors.root","recreate");
   
   TFile *fname_gg2vv;
   TFile *fname_POWHEG;
@@ -208,41 +247,6 @@ void scalefit()
     h1_powheg_njet_noW[i] = (TH1D*)fname_POWHEG->Get(tmpName)->Clone(histName);
     h1_powheg_njet_noW[i]->Sumw2();
   }
-/*****************
-  for(int i(3);i<4;i++)
-  {
-    sprintf(tmpName,"h1_mWWbin_OffSh_%d",i);
-    sprintf(histName,"h1_gg2vv_mWW_%d",i);
-    h1_gg2vv_mWW[i] = (TH1D*)fname_gg2vv->Get(tmpName)->Clone(histName); h1_gg2vv_mWW[i]->Sumw2();
-    
-    sprintf(histName,"h1_powheg_mWW_%d",i);
-    h1_powheg_mWW[i] = (TH1D*)fname_POWHEG->Get(tmpName)->Clone(histName); h1_powheg_mWW[i]->Sumw2();
-  
-    sprintf(tmpName,"h1_mWWbin_OffSh_noWeight_%d",i);
-    sprintf(histName,"h1_gg2vv_mWW_noW_%d",i);
-    h1_gg2vv_mWW_noW[i] = (TH1D*)fname_gg2vv->Get(tmpName)->Clone(histName); h1_gg2vv_mWW_noW[i]->Sumw2();
-    
-    sprintf(histName,"h1_powheg_mWW_noW_%d",i);
-    h1_powheg_mWW_noW[i] = (TH1D*)fname_POWHEG->Get(tmpName)->Clone(histName); h1_powheg_mWW_noW[i]->Sumw2();
-  
-    if(i==3)
-    {
-      for (int j(1);j<=h1_gg2vv_mWW[i]->GetNbinsX();j++)
-      {
-        h1_gg2vv_njet[j-1]->SetBinContent(i+1,h1_gg2vv_mWW[i]->GetBinContent(j));
-        h1_gg2vv_njet_noW[j-1]->SetBinContent(i+1,h1_gg2vv_mWW_noW[i]->GetBinContent(j));
-        h1_powheg_njet[j-1]->SetBinContent(i+1,h1_powheg_mWW[i]->GetBinContent(j));
-        h1_powheg_njet_noW[j-1]->SetBinContent(i+1,h1_powheg_mWW_noW[i]->GetBinContent(j));
-      }
-    }
-
-    //for (int j(1);j<=h1_gg2vv_mWW[i]->GetNbinsX();j++)
-    //{
-    //  //cout<<i<<"-jet: mWW bin_"<<j<<"\t"<<h1_gg2vv_mWW[i]->GetBinContent(j)<<"\t"<<h1_gg2vv_njet[j-1]->GetBinContent(i+1)<<endl;
-    //  cout<<i<<"-jet: mWW bin_"<<j<<"\t"<<h1_powheg_mWW[i]->GetBinContent(j)<<"\t"<<h1_powheg_njet[j-1]->GetBinContent(i+1)<<endl;
-    //}
-  }
-  ************************/
 
   // Loop for mWWBin not including inclusive bin (NmWWBin)
   for(int i(0);i<NmWWBin;i++)
@@ -264,27 +268,35 @@ void scalefit()
     h1_gg2vv_njet[i]  -> Scale(1./h1_gg2vv_njet[i]->Integral());
     h1_powheg_njet[i] -> Scale(1./h1_powheg_njet[i]->Integral());
     
-    //for (int j(1);j<=h1_gg2vv_njet[i]->GetNbinsX();j++)
-    //{
-    //  cout<<i<<" bin: "<<j<<"\t"<<h1_powheg_njet[i]->GetBinContent(j)<<"\t/\t"<<h1_gg2vv_njet[i]->GetBinContent(j)<<endl;
-    //}
     
     sprintf(histName,"h1_powheg_gg2vv_njet_%d",i);
     h1_powheg_gg2vv_njet[i] = (TH1D*)h1_powheg_njet[i]->Clone(histName); //h1_powheg_gg2vv_njet[i]->Sumw2();
     h1_powheg_gg2vv_njet[i]  -> Divide(h1_gg2vv_njet[i]);
   }
+  //fname_gg2vv->Close();
+  //fname_POWHEG->Close();
 
+  f_out.cd();
   //+++++++++++++++++++++++++++++++
   // Making powheg/gg2vv Histogram
   //+++++++++++++++++++++++++++++++
   TH1D *h1_powheg_gg2vv = new TH1D("h1_powheg_gg2vv","h1_powheg_gg2vv",NmWWBin,Bins);
   h1_powheg_gg2vv->Sumw2();
+
+  TH1D *h1_powheg_gg2vv_fitHighErr[NjetBin];
+  TH1D *h1_powheg_gg2vv_fitLowErr[NjetBin];
   //+++++++++++++++++++++++++++++
   // Fitting
   //+++++++++++++++++++++++++++++
   for (int i(0);i<NjetBin;i++)
   //for (int i(2);i<3;i++) //njets numbers
   {
+
+    sprintf(tmpName,"h1_powheg_gg2vv_fitHighErr_%d",i); 
+    h1_powheg_gg2vv_fitHighErr[i] = new TH1D(tmpName,tmpName,NmWWBin,Bins);
+    sprintf(tmpName,"h1_powheg_gg2vv_fitLowErr_%d",i); 
+    h1_powheg_gg2vv_fitLowErr[i] = new TH1D(tmpName,tmpName,NmWWBin,Bins);
+
     for (int j(1);j<=h1_powheg_gg2vv->GetNbinsX();j++)
     {
       h1_powheg_gg2vv -> SetBinContent(j,h1_powheg_gg2vv_njet[j-1]->GetBinContent(i+1));
@@ -293,9 +305,11 @@ void scalefit()
 
     TString pol1Func("pol1");
     TString pol2Func("pol2");
+    //TString sqrtFunc("sqrtFunc"); Don't use this, it is different usage btw root imbeded and user function
     
     //TFitResultPtr fitres;  TF1 *fit_func = new TF1("fit_func",pol1Func,0,2000);
-    TFitResultPtr fitres;  TF1 *fit_func = new TF1("fit_func",pol2Func,0,2000);
+    //TFitResultPtr fitres;  TF1 *fit_func = new TF1("fit_func",pol2Func,0,2000);
+    TFitResultPtr fitres;  TF1 *fit_func = new TF1("fit_func",sqrtFunc,130,1500,2);
     
     TGraphErrors *grRatio  = 0;
     
@@ -322,6 +336,10 @@ void scalefit()
     grRatio = new TGraphErrors(nbins,xval,rMean,xerr,rMeanErr);
     grRatio->SetName("grRatio");
 
+    if( i == 2){
+      fit_func->SetParameters(5,-0.2);
+    }
+
     //njet=0 set fit function parameter limits
     //fit_func->SetParLimits(0,0.93,0.97);
     //fit_func->SetParLimits(1,-0.00015,-0.000095);
@@ -338,15 +356,23 @@ void scalefit()
     sprintf(chi2ndf,"#chi^{2}/ndf = %.4f",(fit_func->GetChisquare())/(fit_func->GetNDF()));
     errBand->SetPoint(0,0.002*(xval[nbins-1]),fit_func->Eval(0.002*(xval[nbins-1])));
     //errBand->SetPointError(0,0,dpol1Func(fit_func,0.002*(xval[nbins-1]),fitres));
-    errBand->SetPointError(0,0,dpol2Func(fit_func,0.002*(xval[nbins-1]),fitres));
-    for(Int_t j=1; j<=nbins; j++) {
-      errBand->SetPoint(j,xval[j-1],fit_func->Eval(xval[j-1]));
+    errBand->SetPointError(0,0,dsqrtFunc(fit_func,0.002*(xval[nbins-1]),fitres));
+    //errBand->SetPointError(0,0,dpol2Func(fit_func,0.002*(xval[nbins-1]),fitres));
+    double point, error;
+    for(Int_t j=1; j<=NmWWBin; j++) {
+      point = fit_func->Eval(xval[j-1]);
+      errBand->SetPoint(j,xval[j-1],point);
       //errBand->SetPointError(j,0,dpol1Func(fit_func,xval[j-1],fitres));
-      errBand->SetPointError(j,0,dpol2Func(fit_func,xval[j-1],fitres));
+      //errBand->SetPointError(j,0,dpol2Func(fit_func,xval[j-1],fitres));
+      error = dsqrtFunc(fit_func,xval[j-1],fitres);
+      errBand->SetPointError(j,0,error);
+      h1_powheg_gg2vv_fitHighErr[i]->SetBinContent(j, point+fabs(error));
+      h1_powheg_gg2vv_fitLowErr[i] ->SetBinContent(j, point-fabs(error));
     }
     errBand->SetPoint(nbins+1,1.2*(xval[nbins-1]),fit_func->Eval(1.2*(xval[nbins-1])));
     //errBand->SetPointError(nbins+1,0,dpol1Func(fit_func,1.2*(xval[nbins-1]),fitres));
-    errBand->SetPointError(nbins+1,0,dpol2Func(fit_func,1.2*(xval[nbins-1]),fitres));
+    //errBand->SetPointError(nbins+1,0,dpol2Func(fit_func,1.2*(xval[nbins-1]),fitres));
+    errBand->SetPointError(nbins+1,0,dsqrtFunc(fit_func,1.2*(xval[nbins-1]),fitres));
 
     sprintf(histName,"Fit_%d_jet",i);
     CPlot plotFunc(histName,"","mWW","POWHEG/gg2VV Sig.");
@@ -380,5 +406,9 @@ void scalefit()
     plotFunc.AddTextBox(fitparam,0.25,0.78,0.45,0.74,0,kBlack,-1);
     
     plotFunc.Draw(c,kTRUE,"png");
+    h1_powheg_gg2vv_fitHighErr[i]->Write();
+    h1_powheg_gg2vv_fitLowErr[i]->Write();
   }
+  //f_out.Write();
+  f_out.Close();
 }
