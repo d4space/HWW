@@ -1,3 +1,6 @@
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// To Calculate the K factor btw LO (gg2VV), NLO (POWHEG)
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #if !defined(__CINT__) || defined(__MAKECINT__)
 #include <iostream>                   // standard I/O
 #include <fstream>                   // standard I/O
@@ -115,7 +118,7 @@ Double_t dpol2Func(const TF1 *fcn, const Double_t x, const TFitResultPtr fs) {
   return sqrt(err2);
 }
 
-void scalefit()
+void Kfactor()
 {
   const Int_t nbins = NmWWBin;
   double Bins[NmWWBin+1] = {120., 130.,200.,300.,400.,500.,600.,700.,800.,900.,1000.,1250.,1500.};
@@ -293,9 +296,9 @@ void scalefit()
   {
 
     sprintf(tmpName,"h1_powheg_gg2vv_fitHighErr_%d",i); 
-    h1_powheg_gg2vv_fitHighErr[i] = new TH1D(tmpName,tmpName,NmWWBin,Bins);
+    h1_powheg_gg2vv_fitHighErr[i] = new TH1D(tmpName,tmpName,1370,130,1500);
     sprintf(tmpName,"h1_powheg_gg2vv_fitLowErr_%d",i); 
-    h1_powheg_gg2vv_fitLowErr[i] = new TH1D(tmpName,tmpName,NmWWBin,Bins);
+    h1_powheg_gg2vv_fitLowErr[i]  = new TH1D(tmpName,tmpName,1370,130,1500);
 
     for (int j(1);j<=h1_powheg_gg2vv->GetNbinsX();j++)
     {
@@ -366,13 +369,18 @@ void scalefit()
       //errBand->SetPointError(j,0,dpol2Func(fit_func,xval[j-1],fitres));
       error = dsqrtFunc(fit_func,xval[j-1],fitres);
       errBand->SetPointError(j,0,error);
-      h1_powheg_gg2vv_fitHighErr[i]->SetBinContent(j, point+fabs(error));
-      h1_powheg_gg2vv_fitLowErr[i] ->SetBinContent(j, point-fabs(error));
     }
     errBand->SetPoint(nbins+1,1.2*(xval[nbins-1]),fit_func->Eval(1.2*(xval[nbins-1])));
     //errBand->SetPointError(nbins+1,0,dpol1Func(fit_func,1.2*(xval[nbins-1]),fitres));
     //errBand->SetPointError(nbins+1,0,dpol2Func(fit_func,1.2*(xval[nbins-1]),fitres));
     errBand->SetPointError(nbins+1,0,dsqrtFunc(fit_func,1.2*(xval[nbins-1]),fitres));
+    // Fill Envelop Histogram
+    for(Int_t j=0; j<1370; j++) {// 1 GeV bin
+      point = fit_func->Eval(130.5+j);
+      error = dsqrtFunc(fit_func,130.5+j,fitres);
+      h1_powheg_gg2vv_fitHighErr[i]->SetBinContent(j+1, point+fabs(error));
+      h1_powheg_gg2vv_fitLowErr[i] ->SetBinContent(j+1, point-fabs(error));
+    }
 
     sprintf(histName,"Fit_%d_jet",i);
     CPlot plotFunc(histName,"","mWW","POWHEG/gg2VV Sig.");
