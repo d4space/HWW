@@ -436,6 +436,10 @@ void LatinosTreeScript(Float_t luminosity,
 	else if (flavorChannel == "EMu" ) SelectedChannel =  2;
 	else if (flavorChannel == "MuE" ) SelectedChannel =  3;
 	else if (flavorChannel == "All" ) SelectedChannel = -1;
+	else if (flavorChannel == "SSEMuPlus"  ) SelectedChannel =  2; //Channel is the same
+	else if (flavorChannel == "SSEMuMinus" ) SelectedChannel =  2;
+	else if (flavorChannel == "SSMuEPlus"  ) SelectedChannel =  3;
+	else if (flavorChannel == "SSMuEMinus" ) SelectedChannel =  3;
 
 
 	//----------------------------------------------------------------------------
@@ -489,7 +493,12 @@ void LatinosTreeScript(Float_t luminosity,
 		if (pt1 <= 20)                                                           continue;
 		//if (pt2 <= 10)                                                           continue;
 		if (pt2 <= 20)                                                           continue; // off shell
-		if (ch1*ch2 > 0)                                                         continue;
+		// For Same sign "--" or "++"
+		if (flavorChannel == "SSEMuPlus" || flavorChannel == "SSMuEPlus"){
+		  if (ch1 < 0 || ch2 <0) continue;
+		}else if (flavorChannel == "SSEMuMinus" || flavorChannel == "SSMuEMinus"){
+		  if (ch1 > 0 || ch2 >0) continue;
+		}else if (ch1*ch2 > 0)                                                         continue;
 		//if (mth <= 30)                                                           continue;
 		if (mll <= 70)                                                           continue; // off shell
 
