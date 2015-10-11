@@ -10,7 +10,7 @@ LUMINOSITY=19.365
 
 NJETS=$1
 
-CHANNELS=" EE MuMu EMu MuE "
+CHANNELS=" EE MuMu EMu MuE SSEMuPlus SSEMuMinus SSMuEPlus SSMuEMinus"
 
 SAMPLES="          \
 ggWWto2L           \
