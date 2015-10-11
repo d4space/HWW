@@ -295,8 +295,10 @@ void LatinosTreeScript(Float_t luminosity,
 	//if (runAtOviedo) filesPath = "/afs/cern.ch/work/x/xjanssen/public/LatinoTrees/R53X_S1_V08_S2_V09_S3_V13/MoriondeffWPuWtriggW/MC_TightTight_DABCABC/";
 	//else             filesPath = "/afs/cern.ch/work/x/xjanssen/public/LatinoTrees/R53X_S1_V08_S2_V09_S3_V13/MoriondeffWPuWtriggW/MC_TightTight_DABCABC/";
 
-	if (runAtOviedo) filesPath = "root://eoscms.cern.ch//eos/cms/store/user/yjcho/nTuple/";
-	else             filesPath = "root://eoscms.cern.ch//eos/cms/store/user/yjcho/nTuple/";
+	if (runAtOviedo) filesPath = "/u/user/salee/Latino/nTuple/";
+	else             filesPath = "/u/user/salee/Latino/nTuple/";
+	//if (runAtOviedo) filesPath = "root://eoscms.cern.ch//eos/cms/store/user/yjcho/nTuple/";
+	//else             filesPath = "root://eoscms.cern.ch//eos/cms/store/user/yjcho/nTuple/";
 	TChain* tree = new TChain("latino", "latino");
 
 	if (theSample == "DataRun2012_Total") {
