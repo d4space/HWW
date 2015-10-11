@@ -31,16 +31,6 @@ void MakeHistoCtrPlots()
     HWwNjetStudygg2vvHw1Sig8TeV.Loop();
 //***/
 /**
-//sherpaHw1Sig8TeV========================================
-    cout<<"sherpaHw1Sig8TeV===================="<<endl;
-    RunOnMC = true;
-    TChain *TC_sherpaHw1Sig8TeV  = new TChain("latino","");
-    SetupTree("sherpaHw1Sig8TeV",TC_sherpaHw1Sig8TeV);
-    SampleName = "SHERPA";
-    HWwNjetStudy HWwNjetStudysherpaHw1Sig8TeV(TC_sherpaHw1Sig8TeV,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
-    HWwNjetStudysherpaHw1Sig8TeV.Loop();
-**/
-/**
 //POWHEG========================================
     cout<<"POWHEG===================="<<endl;
     RunOnMC = true;
@@ -50,6 +40,16 @@ void MakeHistoCtrPlots()
     HWwNjetStudy HWwNjetStudyPOWHEG(TC_POWHEG,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
     HWwNjetStudyPOWHEG.Loop();
 ********/
+/**
+//sherpaHw1Sig8TeV========================================
+    cout<<"sherpaHw1Sig8TeV===================="<<endl;
+    RunOnMC = true;
+    TChain *TC_sherpaHw1Sig8TeV  = new TChain("latino","");
+    SetupTree("sherpaHw1Sig8TeV",TC_sherpaHw1Sig8TeV);
+    SampleName = "SHERPA";
+    HWwNjetStudy HWwNjetStudysherpaHw1Sig8TeV(TC_sherpaHw1Sig8TeV,LumiTotal8TeV,SampleName,Cuts[i], RunOnMC);
+    HWwNjetStudysherpaHw1Sig8TeV.Loop();
+**/
 /****
 //phantom========================================
     cout<<"phantom===================="<<endl;
