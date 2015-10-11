@@ -55,13 +55,19 @@ done
 PATHSF=rootfiles/${NJETS}jet/SF
 PATHOF=rootfiles/${NJETS}jet/OF
 PATHAll=rootfiles/${NJETS}jet/All
+PATHSS=rootfiles/${NJETS}jet/SS
 
 mkdir ${PATHSF}
 mkdir ${PATHOF}
 mkdir ${PATHAll}
+mkdir ${PATHSS}
     
 PATHEMu=rootfiles/${NJETS}jet/EMu
+PATHSSEMuPlus=rootfiles/${NJETS}jet/SSEMuPlus
+PATHSSEMuMinus=rootfiles/${NJETS}jet/SSEMuMinus
 PATHMuE=rootfiles/${NJETS}jet/MuE
+PATHSSMuEPlus=rootfiles/${NJETS}jet/SSMuEPlus
+PATHSSMuEMinus=rootfiles/${NJETS}jet/SSMuEMinus
 PATHMuMu=rootfiles/${NJETS}jet/MuMu
 PATHEE=rootfiles/${NJETS}jet/EE
 
@@ -89,5 +95,6 @@ for SAMPLE in $ALLSAMPLES; do
     hadd ${PATHSF}/${SAMPLE}.root  ${PATHMuMu}/${SAMPLE}.root ${PATHEE}/${SAMPLE}.root
     hadd ${PATHOF}/${SAMPLE}.root  ${PATHMuE}/${SAMPLE}.root  ${PATHEMu}/${SAMPLE}.root
     hadd ${PATHAll}/${SAMPLE}.root ${PATHOF}/${SAMPLE}.root   ${PATHSF}/${SAMPLE}.root
+    hadd ${PATHSS}/${SAMPLE}.root  ${PATHSSEMuPlus}/${SAMPLE}.root ${PATHSSEMuMinus}/${SAMPLE}.root ${PATHSSMuEPlus}/${SAMPLE}.root ${PATHSSMuEMinus}/${SAMPLE}.root
  
 done

@@ -12,8 +12,12 @@
 
 NJET=0
 #CHANNEL=\"All\"
-CHANNEL=\"OF\"
+#CHANNEL=\"OF\"
 #root -l -b -q drawDistributions.C\($NJET,$CHANNEL,19365,\"pdf\",true,true,false\)
 root -l -q drawDistributions.C\($NJET,$CHANNEL,19365,\"png\",true,true,false\)
 NJET=1
+root -l -b -q drawDistributions.C\($NJET,$CHANNEL,19365,\"png\",true,true,false\)
+
+CHANNEL=\"SS\"
+NJET=0
 root -l -b -q drawDistributions.C\($NJET,$CHANNEL,19365,\"png\",true,true,false\)
