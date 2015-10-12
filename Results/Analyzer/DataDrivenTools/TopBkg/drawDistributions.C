@@ -258,17 +258,19 @@ void drawDistributions(Int_t    njet       = 0,
 //------------------------------------------------------------------------------
 void MakeDirectory()
 {
-  _output = Form("%s/%djet/%s", _format.Data(), _njet, _channel.Data());
+  if( _njet == 10){
+    _output = Form("%s/0plus1jet/%s", _format.Data(), _channel.Data());
+  }else  _output = Form("%s/%djet/%s", _format.Data(), _njet, _channel.Data());
 
   gSystem->Exec(Form("rm -rf %s", _output.Data()));
 
   gSystem->mkdir(_output, kTRUE);
 
-  gSystem->Exec(Form("cp index.php %s/.", _format.Data()));
+  //gSystem->Exec(Form("cp index.php %s/.", _format.Data()));
 
-  gSystem->Exec(Form("cp index.php %s/%djet/.", _format.Data(), _njet));
+  //gSystem->Exec(Form("cp index.php %s/%djet/.", _format.Data(), _njet));
 
-  gSystem->Exec(Form("cp index.php %s/.", _output.Data()));
+  //gSystem->Exec(Form("cp index.php %s/.", _output.Data()));
 }
 
 
