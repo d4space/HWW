@@ -87,10 +87,16 @@ Bool_t   _setLogy;
 //Double_t tWScale[] = {1.11, 1.11}; // from khakim
 //Double_t ttScale[] = {1.0,  1.0};
 //Double_t tWScale[] = {1.0,  1.0};
-Double_t ttScale[] = {0.967,  1.055};
-Double_t tWScale[] = {0.967,  1.055};
-Double_t WWScale[] = {1.08, 1.02};
-Double_t ZjScale[] = {4.59, 3.03};
+//
+//Double_t ttScale[] = {0.967,  1.055};
+//Double_t tWScale[] = {0.967,  1.055};
+//Double_t WWScale[] = {1.08, 1.02};
+//Double_t ZjScale[] = {4.59, 3.03};
+//SangEun Oct13 2015
+Double_t ttScale[] = {0.96,  0.95};
+Double_t tWScale[] = {0.96,  0.95};
+Double_t WWScale[] = {1.04, 0.95};
+Double_t ZjScale[] = {3.43, 2.62};
 
 // Levels
 //------------------------------------------------------------------------------

@@ -10,7 +10,7 @@ TString directory = "rootfiles";
 // standAloneTop
 //
 //------------------------------------------------------------------------------
-void standAloneTop(Int_t  njet          = 0,
+void standAloneTop(Int_t  njet          = 1,
 		   Bool_t useDataDriven = true,
 		   Int_t  printLevel    = 2)
 {
