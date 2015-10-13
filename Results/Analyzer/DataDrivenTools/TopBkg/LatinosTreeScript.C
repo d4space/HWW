@@ -494,6 +494,9 @@ void LatinosTreeScript(Float_t luminosity,
 		//if (pt2 <= 10)                                                           continue;
 		if (pt2 <= 20)                                                           continue; // off shell
 		// For Same sign "--" or "++"
+		if(ch1*ch2 >0){
+		  cout<<"ch1: "<<ch1<<"  ch2: "<<ch2<<endl;
+		}
 		if (flavorChannel == "SSEMuPlus" || flavorChannel == "SSMuEPlus"){
 		  if (ch1 < 0 || ch2 <0) continue;
 		}else if (flavorChannel == "SSEMuMinus" || flavorChannel == "SSMuEMinus"){
