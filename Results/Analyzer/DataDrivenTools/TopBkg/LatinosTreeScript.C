@@ -608,7 +608,7 @@ void LatinosTreeScript(Float_t luminosity,
 			//----------------------------------------------------------------------~~
 			if (zveto && metvar > (20 + 25*sameflav)) {
 
-				if ((jetChannel == 0 && njet == 0 && !bveto) ||
+				if ((jetChannel == 0 && njet == 0 && !bveto) ||// bveto:passes the anti-b-tagging requirements
 						(jetChannel == 1 && njet == 1 && bveto && jettche1 > 2.1) ||
 						(jetChannel == 2)) {
 
