@@ -214,7 +214,7 @@ void drawDistributions(Int_t    njet       = 0,
 
     //DrawHistogram("hbTagDisNTopTaggedTopControlRegion_HwidthMVAbkg", "MVA (Sig, Bkg)", 1, 1, "NULL", -999, 999, false);
     DrawHistogram("hbTagDisNTopControlRegion_HwidthMVAbkg",          "MVA (Sig, Bkg)", 1, 1, "NULL", -999, 999, false);
-    //DrawHistogram("hbTagDisTopTaggedEvents_HwidthMVAbkg",            "MVA (Sig, Bkg)", 1, 1, "NULL", -999, 999, false);
+    DrawHistogram("hbTagDisTopTaggedEvents_HwidthMVAbkg",            "MVA (Sig, Bkg)", 1, 1, "NULL", -999, 999, false);
     
     //DrawHistogram("hbTagDisNTopTaggedTopControlRegion_softtche", "TCHE b-Tag (15<p_{T}^{jet}<30 GeV/c)", 1, 1, "NULL", -999, 999, false);
     DrawHistogram("hbTagDisNTopControlRegion_softtche",          "TCHE b-Tag (15<p_{T}^{jet}<30 GeV/c)", 1, 1, "NULL", -999, 999, false);
