@@ -6,7 +6,7 @@
 #include "TTree.h"
 #include <iomanip>
 #include <iostream>
-
+#include <fstream>
 
 // Constants
 //------------------------------------------------------------------------------
@@ -176,6 +176,8 @@ void LatinosTreeScript(Float_t luminosity,
 	gSystem->mkdir(path, kTRUE);
 
 	TFile* output = new TFile(path + theSample + ".root", "recreate");
+	TString NameFout=path + theSample +".txt";
+	ofstream Fout(NameFout);
 
 
 	// Histograms
@@ -313,7 +315,16 @@ void LatinosTreeScript(Float_t luminosity,
 	}
 	else if (theSample == "WJetsFakes_Total") {
 		//tree->Add("/afs/cern.ch/work/c/calderon/public/LatinoTrees/Moriond13/LooseLoose/latino_LooseLoose_19.5fb.root");
-		tree->Add(filesPath + "latino_LooseLoose_19.5fb.root");
+		tree->Add(filesPath + "latino_LooseLoose_19.5fb.root"); // No same sign
+		//tree->Add(filesPath + "Data_LooseLoose/latino_RunA_892pbinv.root");// unknown branch -> HwidthMVAbkg, totalW = 1
+		//tree->Add(filesPath + "Data_LooseLoose/latino_RunB_4404pbinv.root");
+		//tree->Add(filesPath + "Data_LooseLoose/latino_RunC_7032pbinv.root");
+		//tree->Add(filesPath + "Data_LooseLoose/latino_RunD_7274pbinv.root");
+		//tree->Add(filesPath + "latino_080_WJetsToLNuMad.root"); // no event normalized to data
+		//tree->Add(filesPath + "latino_RunA_892pbinv.root");
+		//tree->Add(filesPath + "latino_RunB_4404pbinv.root");
+		//tree->Add(filesPath + "latino_RunC_7032pbinv.root");
+		//tree->Add(filesPath + "latino_RunD_7274pbinv.root");
 	}
 	else if (theSample == "ggWWto2L") {
 		tree->Add(filesPath + "latino_001_GluGluToWWTo4L.root");
@@ -459,6 +470,7 @@ void LatinosTreeScript(Float_t luminosity,
 		else if (theSample.Contains("WJetsFakes"))
 		{
 			totalW = fakeW;
+			//cout<<"fakeW: "<<fakeW<<endl;
 		}
 		else
 		{
@@ -494,9 +506,9 @@ void LatinosTreeScript(Float_t luminosity,
 		//if (pt2 <= 10)                                                           continue;
 		if (pt2 <= 20)                                                           continue; // off shell
 		// For Same sign "--" or "++"
-		if(ch1*ch2 >0){
-		  cout<<"ch1: "<<ch1<<"  ch2: "<<ch2<<endl;
-		}
+		//if(ch1*ch2 >0){
+		//  cout<<"ch1: "<<ch1<<"  ch2: "<<ch2<<endl;
+		//}
 		if (flavorChannel == "SSEMuPlus" || flavorChannel == "SSMuEPlus"){
 		  if (ch1 < 0 || ch2 <0) continue;
 		}else if (flavorChannel == "SSEMuMinus" || flavorChannel == "SSMuEMinus"){
@@ -568,6 +580,7 @@ void LatinosTreeScript(Float_t luminosity,
 					hbTagDisNTopControlRegion_bdt1     -> Fill(bdt1,     totalW);
 					hbTagDisNTopControlRegion_bdt2     -> Fill(bdt2,     totalW);
 					hbTagDisNTopControlRegion_HwidthMVAbkg     -> Fill(HwidthMVAbkg,     totalW);
+					Fout<<run<<"\t"<<totalW<<"\t"<<HwidthMVAbkg<<endl;
 
 					// btag_eff numerator
 					if ((jetChannel == 0 && !bveto_nj30) ||
@@ -726,6 +739,7 @@ void LatinosTreeScript(Float_t luminosity,
 	output->cd();
 	output->Write("", TObject::kOverwrite);
 	output->Close();
+	Fout.close();
 }
 
 
