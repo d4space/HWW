@@ -176,8 +176,8 @@ void LatinosTreeScript(Float_t luminosity,
 	gSystem->mkdir(path, kTRUE);
 
 	TFile* output = new TFile(path + theSample + ".root", "recreate");
-	TString NameFout=path + theSample +".txt";
-	ofstream Fout(NameFout);
+	//TString NameFout=path + theSample +".txt";
+	//ofstream Fout(NameFout);
 
 
 	// Histograms
@@ -245,25 +245,51 @@ void LatinosTreeScript(Float_t luminosity,
 	// Data-driven methods: Top
 	//----------------------------------------------------------------------------
 	TH1F* hTopTaggedEvents            = new TH1F("hTopTaggedEvents",            "", 3, 0, 3);
+	TH1F* hTopTaggedEvents_nobveto_tche1            = new TH1F("hTopTaggedEvents_nobveto_tche1",            "", 3, 0, 3);
+	TH1F* hTopTaggedEvents_tche1            = new TH1F("hTopTaggedEvents_tche1",            "", 3, 0, 3);
 	TH1F* hNTopControlRegion          = new TH1F("hNTopControlRegion",          "", 3, 0, 3);
 	TH1F* hNTopTaggedTopControlRegion = new TH1F("hNTopTaggedTopControlRegion", "", 3, 0, 3);
 
 	TH1F* hbTagDisTopTaggedEvents            = new TH1F("hbTagDisTopTaggedEvents",            "", 300, -10, 20);
+	TH1F* hbTagDisTopTaggedEvents_nobveto_tche1= new TH1F("hbTagDisTopTaggedEvents_nobveto_tche1",            "", 300, -10, 20);
+	TH1F* hbTagDisTopTaggedEvents_tche1      = new TH1F("hbTagDisTopTaggedEvents_tche1",            "", 300, -10, 20);
 	TH1F* hbTagDisNTopControlRegion          = new TH1F("hbTagDisNTopControlRegion",          "", 300, -10, 20);
 	TH1F* hbTagDisNTopTaggedTopControlRegion = new TH1F("hbTagDisNTopTaggedTopControlRegion", "", 300, -10, 20);
 
 	//TopBkgr estimation control plots
 	TH1F* hbTagDisTopTaggedEvents_channel  = new TH1F("hbTagDisTopTaggedEvents_channel", "", 4,  0,  4);
+	TH1F* hbTagDisTopTaggedEvents_channel_nobveto_tche1  = new TH1F("hbTagDisTopTaggedEvents_channel_nobveto_tche1", "", 4,  0,  4);
+	TH1F* hbTagDisTopTaggedEvents_channel_tche1  = new TH1F("hbTagDisTopTaggedEvents_channel_tche1", "", 4,  0,  4);
 	TH1F* hbTagDisTopTaggedEvents_dphill   = new TH1F("hbTagDisTopTaggedEvents_dphill",  "", 18, 0,  180);
+	TH1F* hbTagDisTopTaggedEvents_dphill_nobveto_tche1   = new TH1F("hbTagDisTopTaggedEvents_dphill_nobveto_tche1",  "", 18, 0,  180);
+	TH1F* hbTagDisTopTaggedEvents_dphill_tche1   = new TH1F("hbTagDisTopTaggedEvents_dphill_tche1",  "", 18, 0,  180);
 	TH1F* hbTagDisTopTaggedEvents_jetpt1   = new TH1F("hbTagDisTopTaggedEvents_jetpt1",  "", 40, 0,  300);
+	TH1F* hbTagDisTopTaggedEvents_jetpt1_nobveto_tche1   = new TH1F("hbTagDisTopTaggedEvents_jetpt1_nobveto_tche1",  "", 40, 0,  300);
+	TH1F* hbTagDisTopTaggedEvents_jetpt1_tche1   = new TH1F("hbTagDisTopTaggedEvents_jetpt1_tche1",  "", 40, 0,  300);
 	TH1F* hbTagDisTopTaggedEvents_jetmva1  = new TH1F("hbTagDisTopTaggedEvents_jetmva1", "", 10, -1, 1);
+	TH1F* hbTagDisTopTaggedEvents_jetmva1_nobveto_tche1  = new TH1F("hbTagDisTopTaggedEvents_jetmva1_nobveto_tche1", "", 10, -1, 1);
+	TH1F* hbTagDisTopTaggedEvents_jetmva1_tche1  = new TH1F("hbTagDisTopTaggedEvents_jetmva1_tche1", "", 10, -1, 1);
 	TH1F* hbTagDisTopTaggedEvents_softtche = new TH1F("hbTagDisTopTaggedEvents_softtche","", 25, -5, 20);
+	TH1F* hbTagDisTopTaggedEvents_softtche_nobveto_tche1 = new TH1F("hbTagDisTopTaggedEvents_softtche_nobveto_tche1","", 25, -5, 20);
+	TH1F* hbTagDisTopTaggedEvents_softtche_tche1 = new TH1F("hbTagDisTopTaggedEvents_softtche_tche1","", 25, -5, 20);
 	TH1F* hbTagDisTopTaggedEvents_hardtche = new TH1F("hbTagDisTopTaggedEvents_hardtche","", 25, -5, 20);
+	TH1F* hbTagDisTopTaggedEvents_hardtche_nobveto_tche1 = new TH1F("hbTagDisTopTaggedEvents_hardtche_nobveto_tche1","", 25, -5, 20);
+	TH1F* hbTagDisTopTaggedEvents_hardtche_tche1 = new TH1F("hbTagDisTopTaggedEvents_hardtche_tche1","", 25, -5, 20);
 	TH1F* hbTagDisTopTaggedEvents_mll      = new TH1F("hbTagDisTopTaggedEvents_mll",     "", 20, 0,  200);
+	TH1F* hbTagDisTopTaggedEvents_mll_nobveto_tche1      = new TH1F("hbTagDisTopTaggedEvents_mll_nobveto_tche1",     "", 20, 0,  200);
+	TH1F* hbTagDisTopTaggedEvents_mll_tche1      = new TH1F("hbTagDisTopTaggedEvents_mll_tche1",     "", 20, 0,  200);
 	TH1F* hbTagDisTopTaggedEvents_mth      = new TH1F("hbTagDisTopTaggedEvents_mth",     "", 30, 0,  300);
+	TH1F* hbTagDisTopTaggedEvents_mth_nobveto_tche1      = new TH1F("hbTagDisTopTaggedEvents_mth_nobveto_tche1",     "", 30, 0,  300);
+	TH1F* hbTagDisTopTaggedEvents_mth_tche1      = new TH1F("hbTagDisTopTaggedEvents_mth_tche1",     "", 30, 0,  300);
 	TH1F* hbTagDisTopTaggedEvents_bdt1     = new TH1F("hbTagDisTopTaggedEvents_bdt1",    "", 100, 0,  1);
+	TH1F* hbTagDisTopTaggedEvents_bdt1_nobveto_tche1     = new TH1F("hbTagDisTopTaggedEvents_bdt1_nobveto_tche1",    "", 100, 0,  1);
+	TH1F* hbTagDisTopTaggedEvents_bdt1_tche1     = new TH1F("hbTagDisTopTaggedEvents_bdt1_tche1",    "", 100, 0,  1);
 	TH1F* hbTagDisTopTaggedEvents_bdt2     = new TH1F("hbTagDisTopTaggedEvents_bdt2",    "", 100, 0,  1);
+	TH1F* hbTagDisTopTaggedEvents_bdt2_nobveto_tche1     = new TH1F("hbTagDisTopTaggedEvents_bdt2_nobveto_tche1",    "", 100, 0,  1);
+	TH1F* hbTagDisTopTaggedEvents_bdt2_tche1     = new TH1F("hbTagDisTopTaggedEvents_bdt2_tche1",    "", 100, 0,  1);
 	TH1F* hbTagDisTopTaggedEvents_HwidthMVAbkg     = new TH1F("hbTagDisTopTaggedEvents_HwidthMVAbkg",    "", HwidthMVA_NoBin,HwidthMVA_Bins);
+	TH1F* hbTagDisTopTaggedEvents_HwidthMVAbkg_nobveto_tche1     = new TH1F("hbTagDisTopTaggedEvents_HwidthMVAbkg_nobveto_tche1",    "", HwidthMVA_NoBin,HwidthMVA_Bins);
+	TH1F* hbTagDisTopTaggedEvents_HwidthMVAbkg_tche1     = new TH1F("hbTagDisTopTaggedEvents_HwidthMVAbkg_tche1",    "", HwidthMVA_NoBin,HwidthMVA_Bins);
 
 	TH1F* hbTagDisNTopControlRegion_channel  = new TH1F("hbTagDisNTopControlRegion_channel", "", 4,  0,  4);
 	TH1F* hbTagDisNTopControlRegion_dphill   = new TH1F("hbTagDisNTopControlRegion_dphill",  "", 18, 0,  180);
@@ -315,9 +341,12 @@ void LatinosTreeScript(Float_t luminosity,
 	}
 	else if (theSample == "WJetsFakes_Total") {
 		//tree->Add("/afs/cern.ch/work/c/calderon/public/LatinoTrees/Moriond13/LooseLoose/latino_LooseLoose_19.5fb.root");
-		tree->Add(filesPath + "latino_LooseLoose_19.5fb.root"); // No same sign
-		//tree->Add(filesPath + "Data_LooseLoose/latino_RunA_892pbinv.root");// unknown branch -> HwidthMVAbkg, totalW = 1
-		//tree->Add(filesPath + "Data_LooseLoose/latino_RunB_4404pbinv.root");
+		//tree->Add(filesPath + "latino_LooseLoose_19.5fb.root"); // No same sign
+		tree->Add(filesPath + "wjets/latino_RunA_892pbinv_LooseLoose.root");
+		tree->Add(filesPath + "wjets/latino_RunB_4404pbinv_LooseLoose.root");
+		tree->Add(filesPath + "wjets/latino_RunC_7032pbinv_LooseLoose.root");
+		tree->Add(filesPath + "wjets/latino_RunD_7274pbinv_LooseLoose.root");
+		//tree->Add(filesPath + "Data_LooseLoose/latino_RunB_4404pbinv.root");// unknown branch -> HwidthMVAbkg, totalW = 1
 		//tree->Add(filesPath + "Data_LooseLoose/latino_RunC_7032pbinv.root");
 		//tree->Add(filesPath + "Data_LooseLoose/latino_RunD_7274pbinv.root");
 		//tree->Add(filesPath + "latino_080_WJetsToLNuMad.root"); // no event normalized to data
@@ -470,7 +499,6 @@ void LatinosTreeScript(Float_t luminosity,
 		else if (theSample.Contains("WJetsFakes"))
 		{
 			totalW = fakeW;
-			//cout<<"fakeW: "<<fakeW<<endl;
 		}
 		else
 		{
@@ -514,6 +542,8 @@ void LatinosTreeScript(Float_t luminosity,
 		}else if (flavorChannel == "SSEMuMinus" || flavorChannel == "SSMuEMinus"){
 		  if (ch1 > 0 || ch2 >0) continue;
 		}else if (ch1*ch2 > 0)                                                         continue;
+
+		//cout<<"fakeW"<<"\t"<<fakeW<<"\t"<<"HwidthMVAbkg"<<"\t"<<HwidthMVAbkg<<endl;
 		//if (mth <= 30)                                                           continue;
 		if (mll <= 70)                                                           continue; // off shell
 
@@ -580,7 +610,7 @@ void LatinosTreeScript(Float_t luminosity,
 					hbTagDisNTopControlRegion_bdt1     -> Fill(bdt1,     totalW);
 					hbTagDisNTopControlRegion_bdt2     -> Fill(bdt2,     totalW);
 					hbTagDisNTopControlRegion_HwidthMVAbkg     -> Fill(HwidthMVAbkg,     totalW);
-					Fout<<run<<"\t"<<totalW<<"\t"<<HwidthMVAbkg<<endl;
+					//Fout<<run<<"\t"<<totalW<<"\t"<<HwidthMVAbkg<<endl;
 
 					// btag_eff numerator
 					if ((jetChannel == 0 && !bveto_nj30) ||
@@ -609,8 +639,10 @@ void LatinosTreeScript(Float_t luminosity,
 			if (zveto && metvar > (20 + 25*sameflav)) {
 
 				if ((jetChannel == 0 && njet == 0 && !bveto) ||// bveto:passes the anti-b-tagging requirements
-						(jetChannel == 1 && njet == 1 && bveto && jettche1 > 2.1) ||
-						(jetChannel == 2)) {
+						(jetChannel == 1 && njet == 1 && bveto && jettche1 > 2.1) || //this is the origin
+						(jetChannel == 2) // this is the origin
+						)
+				{
 
 					hTopTaggedEvents->Fill(1, totalW);
 					hbTagDisTopTaggedEvents->Fill(jettche2, totalW);
@@ -625,6 +657,46 @@ void LatinosTreeScript(Float_t luminosity,
 					hbTagDisTopTaggedEvents_bdt1     -> Fill(bdt1,     totalW);
 					hbTagDisTopTaggedEvents_bdt2     -> Fill(bdt2,     totalW);
 					hbTagDisTopTaggedEvents_HwidthMVAbkg     -> Fill(HwidthMVAbkg,     totalW);
+				}
+				if ((jetChannel == 0 && njet == 0 && !bveto) ||// bveto:passes the anti-b-tagging requirements
+						(jetChannel == 1 && njet == 1 && !bveto && jettche1 > 2.1 ) || // this is for top dominant region
+						(jetChannel == 2) // this is the origin
+				)
+				{
+
+					hTopTaggedEvents_nobveto_tche1->Fill(1, totalW);
+					hbTagDisTopTaggedEvents_nobveto_tche1->Fill(jettche2, totalW);
+					hbTagDisTopTaggedEvents_dphill_nobveto_tche1   -> Fill(dphill*TMath::RadToDeg(), totalW);
+					hbTagDisTopTaggedEvents_channel_nobveto_tche1  -> Fill(channel,  totalW);
+					hbTagDisTopTaggedEvents_jetpt1_nobveto_tche1   -> Fill(jetpt1,   totalW);
+					hbTagDisTopTaggedEvents_jetmva1_nobveto_tche1  -> Fill(jetmva1,  totalW);
+					hbTagDisTopTaggedEvents_softtche_nobveto_tche1 -> Fill(softtche, totalW);
+					hbTagDisTopTaggedEvents_hardtche_nobveto_tche1 -> Fill(hardtche, totalW);
+					hbTagDisTopTaggedEvents_mll_nobveto_tche1      -> Fill(mll,      totalW);
+					hbTagDisTopTaggedEvents_mth_nobveto_tche1      -> Fill(mth,      totalW);
+					hbTagDisTopTaggedEvents_bdt1_nobveto_tche1     -> Fill(bdt1,     totalW);
+					hbTagDisTopTaggedEvents_bdt2_nobveto_tche1     -> Fill(bdt2,     totalW);
+					hbTagDisTopTaggedEvents_HwidthMVAbkg_nobveto_tche1     -> Fill(HwidthMVAbkg,     totalW);
+				}
+				if ((jetChannel == 0 && njet == 0 && !bveto) ||// bveto:passes the anti-b-tagging requirements
+						(jetChannel == 1 && njet == 1 && jettche1 > 2.1 ) || // this is for top dominant region
+						(jetChannel == 2) // this is the origin
+				)
+				{
+
+					hTopTaggedEvents_tche1->Fill(1, totalW);
+					hbTagDisTopTaggedEvents_tche1->Fill(jettche2, totalW);
+					hbTagDisTopTaggedEvents_dphill_tche1   -> Fill(dphill*TMath::RadToDeg(), totalW);
+					hbTagDisTopTaggedEvents_channel_tche1  -> Fill(channel,  totalW);
+					hbTagDisTopTaggedEvents_jetpt1_tche1   -> Fill(jetpt1,   totalW);
+					hbTagDisTopTaggedEvents_jetmva1_tche1  -> Fill(jetmva1,  totalW);
+					hbTagDisTopTaggedEvents_softtche_tche1 -> Fill(softtche, totalW);
+					hbTagDisTopTaggedEvents_hardtche_tche1 -> Fill(hardtche, totalW);
+					hbTagDisTopTaggedEvents_mll_tche1      -> Fill(mll,      totalW);
+					hbTagDisTopTaggedEvents_mth_tche1      -> Fill(mth,      totalW);
+					hbTagDisTopTaggedEvents_bdt1_tche1     -> Fill(bdt1,     totalW);
+					hbTagDisTopTaggedEvents_bdt2_tche1     -> Fill(bdt2,     totalW);
+					hbTagDisTopTaggedEvents_HwidthMVAbkg_tche1     -> Fill(HwidthMVAbkg,     totalW);
 				}
 			}
 		}
@@ -739,7 +811,7 @@ void LatinosTreeScript(Float_t luminosity,
 	output->cd();
 	output->Write("", TObject::kOverwrite);
 	output->Close();
-	Fout.close();
+	//Fout.close();
 }
 
 
