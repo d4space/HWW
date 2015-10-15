@@ -38,3 +38,10 @@
  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  root -l drawDistributions.C
 
+#----------------------------
+# 5. SS for 0+1+2 X "--"+"++"
+#----------------------------
+ ./combineLatinoTree_SS.sh
+ vi drawDistributions.sh
+ use drawDistributions_SS.C NJET=10 for this inclusive SS
+

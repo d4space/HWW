@@ -15,6 +15,12 @@ Manual To run
 8. root -l CutFlow_23Inv.C for efficiency
 8. not working? error ==> NAN, then set them 0 at njet_mWW_Phn.C
 
+#---------
+# Calculate the Kfactor
+#---------
+python Kfactor.py
+
+
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @@@@@@@@@@@@   OLD @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

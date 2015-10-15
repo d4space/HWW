@@ -93,7 +93,8 @@ Bool_t   _setLogy;
 //Double_t WWScale[] = {1.08, 1.02};
 //Double_t ZjScale[] = {4.59, 3.03};
 //SangEun Oct13 2015
-Double_t ttScale[] = {0.96,  0.95};
+//Double_t ttScale[] = {0.94,  0.945};//nobveto tche
+Double_t ttScale[] = {0.94,  0.975}; //tche
 Double_t tWScale[] = {0.96,  0.95};
 Double_t WWScale[] = {1.04, 0.95};
 Double_t ZjScale[] = {3.43, 2.62};
@@ -221,6 +222,8 @@ void drawDistributions(Int_t    njet       = 0,
     //DrawHistogram("hbTagDisNTopTaggedTopControlRegion_HwidthMVAbkg", "MVA (Sig, Bkg)", 1, 1, "NULL", -999, 999, false);
     DrawHistogram("hbTagDisNTopControlRegion_HwidthMVAbkg",          "MVA (Sig, Bkg)", 1, 1, "NULL", -999, 999, false);
     DrawHistogram("hbTagDisTopTaggedEvents_HwidthMVAbkg",            "MVA (Sig, Bkg)", 1, 1, "NULL", -999, 999, false);
+    DrawHistogram("hbTagDisTopTaggedEvents_HwidthMVAbkg_nobveto_tche1",            "MVA (Sig, Bkg)", 1, 1, "NULL", -999, 999, false);
+    DrawHistogram("hbTagDisTopTaggedEvents_HwidthMVAbkg_tche1",            "MVA (Sig, Bkg)", 1, 1, "NULL", -999, 999, false);
     
     //DrawHistogram("hbTagDisNTopTaggedTopControlRegion_softtche", "TCHE b-Tag (15<p_{T}^{jet}<30 GeV/c)", 1, 1, "NULL", -999, 999, false);
     DrawHistogram("hbTagDisNTopControlRegion_softtche",          "TCHE b-Tag (15<p_{T}^{jet}<30 GeV/c)", 1, 1, "NULL", -999, 999, false);

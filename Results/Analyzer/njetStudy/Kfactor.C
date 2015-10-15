@@ -198,9 +198,12 @@ void Kfactor()
       h1_gg2vv_mWW[i]  -> SetBinError(j,err_gg2vv);
       h1_powheg_mWW[i] -> SetBinError(j,err_powheg);
     }
+  }
+  for(int i(0);i<NjetBin+1;i++)
+  {
     //Normalize Histograms
-    h1_gg2vv_mWW[i]   -> Scale(1./h1_gg2vv_mWW[i]->Integral());
-    h1_powheg_mWW[i]  -> Scale(1./h1_powheg_mWW[i]->Integral());
+    h1_gg2vv_mWW[i]   -> Scale(1./h1_gg2vv_mWW[NjetBin]->Integral());
+    h1_powheg_mWW[i]  -> Scale(1./h1_powheg_mWW[NjetBin]->Integral());
     
 
     sprintf(jetName,"(njet = %d)",i);
