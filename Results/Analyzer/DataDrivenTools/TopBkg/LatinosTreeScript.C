@@ -246,12 +246,14 @@ void LatinosTreeScript(Float_t luminosity,
 	//----------------------------------------------------------------------------
 	TH1F* hTopTaggedEvents            = new TH1F("hTopTaggedEvents",            "", 3, 0, 3);
 	TH1F* hTopTaggedEvents_nobveto_tche1            = new TH1F("hTopTaggedEvents_nobveto_tche1",            "", 3, 0, 3);
+	TH1F* hTopTaggedEvents_nobveto            = new TH1F("hTopTaggedEvents_nobveto",            "", 3, 0, 3);
 	TH1F* hTopTaggedEvents_tche1            = new TH1F("hTopTaggedEvents_tche1",            "", 3, 0, 3);
 	TH1F* hNTopControlRegion          = new TH1F("hNTopControlRegion",          "", 3, 0, 3);
 	TH1F* hNTopTaggedTopControlRegion = new TH1F("hNTopTaggedTopControlRegion", "", 3, 0, 3);
 
 	TH1F* hbTagDisTopTaggedEvents            = new TH1F("hbTagDisTopTaggedEvents",            "", 300, -10, 20);
 	TH1F* hbTagDisTopTaggedEvents_nobveto_tche1= new TH1F("hbTagDisTopTaggedEvents_nobveto_tche1",            "", 300, -10, 20);
+	TH1F* hbTagDisTopTaggedEvents_nobveto    = new TH1F("hbTagDisTopTaggedEvents_nobveto",            "", 300, -10, 20);
 	TH1F* hbTagDisTopTaggedEvents_tche1      = new TH1F("hbTagDisTopTaggedEvents_tche1",            "", 300, -10, 20);
 	TH1F* hbTagDisNTopControlRegion          = new TH1F("hbTagDisNTopControlRegion",          "", 300, -10, 20);
 	TH1F* hbTagDisNTopTaggedTopControlRegion = new TH1F("hbTagDisNTopTaggedTopControlRegion", "", 300, -10, 20);
@@ -259,37 +261,48 @@ void LatinosTreeScript(Float_t luminosity,
 	//TopBkgr estimation control plots
 	TH1F* hbTagDisTopTaggedEvents_channel  = new TH1F("hbTagDisTopTaggedEvents_channel", "", 4,  0,  4);
 	TH1F* hbTagDisTopTaggedEvents_channel_nobveto_tche1  = new TH1F("hbTagDisTopTaggedEvents_channel_nobveto_tche1", "", 4,  0,  4);
+	TH1F* hbTagDisTopTaggedEvents_channel_nobveto  = new TH1F("hbTagDisTopTaggedEvents_channel_nobveto", "", 4,  0,  4);
 	TH1F* hbTagDisTopTaggedEvents_channel_tche1  = new TH1F("hbTagDisTopTaggedEvents_channel_tche1", "", 4,  0,  4);
 	TH1F* hbTagDisTopTaggedEvents_dphill   = new TH1F("hbTagDisTopTaggedEvents_dphill",  "", 18, 0,  180);
 	TH1F* hbTagDisTopTaggedEvents_dphill_nobveto_tche1   = new TH1F("hbTagDisTopTaggedEvents_dphill_nobveto_tche1",  "", 18, 0,  180);
+	TH1F* hbTagDisTopTaggedEvents_dphill_nobveto   = new TH1F("hbTagDisTopTaggedEvents_dphill_nobveto",  "", 18, 0,  180);
 	TH1F* hbTagDisTopTaggedEvents_dphill_tche1   = new TH1F("hbTagDisTopTaggedEvents_dphill_tche1",  "", 18, 0,  180);
 	TH1F* hbTagDisTopTaggedEvents_jetpt1   = new TH1F("hbTagDisTopTaggedEvents_jetpt1",  "", 40, 0,  300);
 	TH1F* hbTagDisTopTaggedEvents_jetpt1_nobveto_tche1   = new TH1F("hbTagDisTopTaggedEvents_jetpt1_nobveto_tche1",  "", 40, 0,  300);
+	TH1F* hbTagDisTopTaggedEvents_jetpt1_nobveto   = new TH1F("hbTagDisTopTaggedEvents_jetpt1_nobveto",  "", 40, 0,  300);
 	TH1F* hbTagDisTopTaggedEvents_jetpt1_tche1   = new TH1F("hbTagDisTopTaggedEvents_jetpt1_tche1",  "", 40, 0,  300);
 	TH1F* hbTagDisTopTaggedEvents_jetmva1  = new TH1F("hbTagDisTopTaggedEvents_jetmva1", "", 10, -1, 1);
 	TH1F* hbTagDisTopTaggedEvents_jetmva1_nobveto_tche1  = new TH1F("hbTagDisTopTaggedEvents_jetmva1_nobveto_tche1", "", 10, -1, 1);
+	TH1F* hbTagDisTopTaggedEvents_jetmva1_nobveto  = new TH1F("hbTagDisTopTaggedEvents_jetmva1_nobveto", "", 10, -1, 1);
 	TH1F* hbTagDisTopTaggedEvents_jetmva1_tche1  = new TH1F("hbTagDisTopTaggedEvents_jetmva1_tche1", "", 10, -1, 1);
 	TH1F* hbTagDisTopTaggedEvents_softtche = new TH1F("hbTagDisTopTaggedEvents_softtche","", 25, -5, 20);
 	TH1F* hbTagDisTopTaggedEvents_softtche_nobveto_tche1 = new TH1F("hbTagDisTopTaggedEvents_softtche_nobveto_tche1","", 25, -5, 20);
+	TH1F* hbTagDisTopTaggedEvents_softtche_nobveto = new TH1F("hbTagDisTopTaggedEvents_softtche_nobveto","", 25, -5, 20);
 	TH1F* hbTagDisTopTaggedEvents_softtche_tche1 = new TH1F("hbTagDisTopTaggedEvents_softtche_tche1","", 25, -5, 20);
 	TH1F* hbTagDisTopTaggedEvents_hardtche = new TH1F("hbTagDisTopTaggedEvents_hardtche","", 25, -5, 20);
 	TH1F* hbTagDisTopTaggedEvents_hardtche_nobveto_tche1 = new TH1F("hbTagDisTopTaggedEvents_hardtche_nobveto_tche1","", 25, -5, 20);
+	TH1F* hbTagDisTopTaggedEvents_hardtche_nobveto = new TH1F("hbTagDisTopTaggedEvents_hardtche_nobveto","", 25, -5, 20);
 	TH1F* hbTagDisTopTaggedEvents_hardtche_tche1 = new TH1F("hbTagDisTopTaggedEvents_hardtche_tche1","", 25, -5, 20);
 	TH1F* hbTagDisTopTaggedEvents_mll      = new TH1F("hbTagDisTopTaggedEvents_mll",     "", 20, 0,  200);
 	TH1F* hbTagDisTopTaggedEvents_mll_nobveto_tche1      = new TH1F("hbTagDisTopTaggedEvents_mll_nobveto_tche1",     "", 20, 0,  200);
+	TH1F* hbTagDisTopTaggedEvents_mll_nobveto    = new TH1F("hbTagDisTopTaggedEvents_mll_nobveto",     "", 20, 0,  200);
 	TH1F* hbTagDisTopTaggedEvents_mll_tche1      = new TH1F("hbTagDisTopTaggedEvents_mll_tche1",     "", 20, 0,  200);
 	TH1F* hbTagDisTopTaggedEvents_mth      = new TH1F("hbTagDisTopTaggedEvents_mth",     "", 30, 0,  300);
 	TH1F* hbTagDisTopTaggedEvents_mth_nobveto_tche1      = new TH1F("hbTagDisTopTaggedEvents_mth_nobveto_tche1",     "", 30, 0,  300);
+	TH1F* hbTagDisTopTaggedEvents_mth_nobveto    = new TH1F("hbTagDisTopTaggedEvents_mth_nobveto",     "", 30, 0,  300);
 	TH1F* hbTagDisTopTaggedEvents_mth_tche1      = new TH1F("hbTagDisTopTaggedEvents_mth_tche1",     "", 30, 0,  300);
 	TH1F* hbTagDisTopTaggedEvents_bdt1     = new TH1F("hbTagDisTopTaggedEvents_bdt1",    "", 100, 0,  1);
 	TH1F* hbTagDisTopTaggedEvents_bdt1_nobveto_tche1     = new TH1F("hbTagDisTopTaggedEvents_bdt1_nobveto_tche1",    "", 100, 0,  1);
+	TH1F* hbTagDisTopTaggedEvents_bdt1_nobveto   = new TH1F("hbTagDisTopTaggedEvents_bdt1_nobveto",    "", 100, 0,  1);
 	TH1F* hbTagDisTopTaggedEvents_bdt1_tche1     = new TH1F("hbTagDisTopTaggedEvents_bdt1_tche1",    "", 100, 0,  1);
 	TH1F* hbTagDisTopTaggedEvents_bdt2     = new TH1F("hbTagDisTopTaggedEvents_bdt2",    "", 100, 0,  1);
 	TH1F* hbTagDisTopTaggedEvents_bdt2_nobveto_tche1     = new TH1F("hbTagDisTopTaggedEvents_bdt2_nobveto_tche1",    "", 100, 0,  1);
+	TH1F* hbTagDisTopTaggedEvents_bdt2_nobveto   = new TH1F("hbTagDisTopTaggedEvents_bdt2_nobveto",    "", 100, 0,  1);
 	TH1F* hbTagDisTopTaggedEvents_bdt2_tche1     = new TH1F("hbTagDisTopTaggedEvents_bdt2_tche1",    "", 100, 0,  1);
 	TH1F* hbTagDisTopTaggedEvents_HwidthMVAbkg     = new TH1F("hbTagDisTopTaggedEvents_HwidthMVAbkg",    "", HwidthMVA_NoBin,HwidthMVA_Bins);
 	TH1F* hbTagDisTopTaggedEvents_HwidthMVAbkg_nobveto_tche1     = new TH1F("hbTagDisTopTaggedEvents_HwidthMVAbkg_nobveto_tche1",    "", HwidthMVA_NoBin,HwidthMVA_Bins);
-	TH1F* hbTagDisTopTaggedEvents_HwidthMVAbkg_tche1     = new TH1F("hbTagDisTopTaggedEvents_HwidthMVAbkg_tche1",    "", HwidthMVA_NoBin,HwidthMVA_Bins);
+	TH1F* hbTagDisTopTaggedEvents_HwidthMVAbkg_nobveto  = new TH1F("hbTagDisTopTaggedEvents_HwidthMVAbkg_nobveto",    "", HwidthMVA_NoBin,HwidthMVA_Bins);
+	TH1F* hbTagDisTopTaggedEvents_HwidthMVAbkg_tche1    = new TH1F("hbTagDisTopTaggedEvents_HwidthMVAbkg_tche1",    "", HwidthMVA_NoBin,HwidthMVA_Bins);
 
 	TH1F* hbTagDisNTopControlRegion_channel  = new TH1F("hbTagDisNTopControlRegion_channel", "", 4,  0,  4);
 	TH1F* hbTagDisNTopControlRegion_dphill   = new TH1F("hbTagDisNTopControlRegion_dphill",  "", 18, 0,  180);
@@ -699,6 +712,26 @@ void LatinosTreeScript(Float_t luminosity,
 					hbTagDisTopTaggedEvents_bdt1_tche1     -> Fill(bdt1,     totalW);
 					hbTagDisTopTaggedEvents_bdt2_tche1     -> Fill(bdt2,     totalW);
 					hbTagDisTopTaggedEvents_HwidthMVAbkg_tche1     -> Fill(HwidthMVAbkg,     totalW);
+				}
+				if ((jetChannel == 0 && njet == 0 && !bveto) ||// bveto:passes the anti-b-tagging requirements
+						(jetChannel == 1 && njet == 1 && !bveto ) || // this is for top dominant region
+						(jetChannel == 2) // this is the origin
+				)
+				{
+
+					hTopTaggedEvents_nobveto->Fill(1, totalW);
+					hbTagDisTopTaggedEvents_nobveto->Fill(jettche2, totalW);
+					hbTagDisTopTaggedEvents_dphill_nobveto   -> Fill(dphill*TMath::RadToDeg(), totalW);
+					hbTagDisTopTaggedEvents_channel_nobveto  -> Fill(channel,  totalW);
+					hbTagDisTopTaggedEvents_jetpt1_nobveto   -> Fill(jetpt1,   totalW);
+					hbTagDisTopTaggedEvents_jetmva1_nobveto  -> Fill(jetmva1,  totalW);
+					hbTagDisTopTaggedEvents_softtche_nobveto -> Fill(softtche, totalW);
+					hbTagDisTopTaggedEvents_hardtche_nobveto -> Fill(hardtche, totalW);
+					hbTagDisTopTaggedEvents_mll_nobveto      -> Fill(mll,      totalW);
+					hbTagDisTopTaggedEvents_mth_nobveto      -> Fill(mth,      totalW);
+					hbTagDisTopTaggedEvents_bdt1_nobveto     -> Fill(bdt1,     totalW);
+					hbTagDisTopTaggedEvents_bdt2_nobveto     -> Fill(bdt2,     totalW);
+					hbTagDisTopTaggedEvents_HwidthMVAbkg_nobveto     -> Fill(HwidthMVAbkg,     totalW);
 				}
 			}
 		}
