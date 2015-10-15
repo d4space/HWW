@@ -531,16 +531,18 @@ void LatinosTreeScript(Float_t luminosity,
 		if (run == 201191)                                                       continue;
 		if (!trigger)                                                            continue;
 		if (pt1 <= 20)                                                           continue;
-		//if (pt2 <= 10)                                                           continue;
-		if (pt2 <= 20)                                                           continue; // off shell
+		if (pt2 <= 10)                                                           continue; // Legacy and SS study
+		//if (pt2 <= 20)                                                           continue; // off shell
 		// For Same sign "--" or "++"
 		//if(ch1*ch2 >0){
 		//  cout<<"ch1: "<<ch1<<"  ch2: "<<ch2<<endl;
 		//}
 		if (flavorChannel == "SSEMuPlus" || flavorChannel == "SSMuEPlus"){
 		  if (ch1 < 0 || ch2 <0) continue;
+		  if(nextra != 0) continue; // third lepton veto
 		}else if (flavorChannel == "SSEMuMinus" || flavorChannel == "SSMuEMinus"){
 		  if (ch1 > 0 || ch2 >0) continue;
+		  if(nextra != 0) continue; // third lepton veto
 		}else if (ch1*ch2 > 0)                                                         continue;
 
 		//cout<<"fakeW"<<"\t"<<fakeW<<"\t"<<"HwidthMVAbkg"<<"\t"<<HwidthMVAbkg<<endl;
