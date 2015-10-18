@@ -36,24 +36,24 @@ using namespace RooFit;
 typedef ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double> > LorentzVector;
 //typedef ROOT::Math::MinimizerOptions::SetDefaultPrintLevel(1);
 
-//Double_t pol1Func(double *x, double *par)
-//{
-//  Double_t a  = par[0];
-//  Double_t b  = par[1];
-//  
-//  return a+b*x[0];
-//}
+Double_t pol1Func(double *x, double *par)
+{
+  Double_t a  = par[0];
+  Double_t b  = par[1];
+  
+  return a+b/x[0];
+}
 //
 Double_t sqrtFunc(double *x, double *par)
 {
   Double_t a  = par[0];
   Double_t b  = par[1];
 
-  return a + b*sqrt(x[0]);
+  return a + b/sqrt(x[0]);
 }
 
 Double_t df_dParsqrt(Double_t *x, Double_t *p) {
-  TF1 *fitFnc = new TF1("fitFnc",sqrtFunc,130,1500,2);
+  TF1 *fitFnc = new TF1("fitFnc",sqrtFunc,125,1500,2);
   fitFnc->SetParameters(p[1],p[2]);
   Double_t grad[2];
   int ipar = int(p[0]);
@@ -69,9 +69,9 @@ Double_t dsqrtFunc(const TF1 *fcn, const Double_t x, const TFitResultPtr fs) {
   Double_t a = fcn->GetParameter(0);
   Double_t b = fcn->GetParameter(1);
 
-  TF1 *deriv_par0 = new TF1("dfdp0",df_dParsqrt,130,1500,3);
+  TF1 *deriv_par0 = new TF1("dfdp0",df_dParsqrt,125,1500,3);
   deriv_par0->SetParameters(0,a,b); // This will set the derivative for the first parameter.
-  TF1 *deriv_par1 = new TF1("dfdp1",df_dParsqrt,130,1500,3);
+  TF1 *deriv_par1 = new TF1("dfdp1",df_dParsqrt,125,1500,3);
   deriv_par1->SetParameters(1,a,b); // This will set the derivative for the second parameter
   df[0] = deriv_par0->Eval(x);
   df[1] = deriv_par1->Eval(x);
@@ -88,7 +88,7 @@ Double_t dpol1Func(const TF1 *fcn, const Double_t x, const TFitResultPtr fs) {
   Double_t b = fcn->GetParameter(1);
   
   df[0] = 1;
-  df[1] = x;
+  df[1] = 1/x;
   Double_t err2 = df[0]*df[0]*(fs->GetCovarianceMatrix()[0][0])
                   + df[1]*df[1]*(fs->GetCovarianceMatrix()[1][1])
 		  + 2.0*df[0]*df[1]*(fs->GetCovarianceMatrix()[0][1]);
@@ -299,9 +299,9 @@ void Kfactor()
   {
 
     sprintf(tmpName,"h1_powheg_gg2vv_fitHighErr_%d",i); 
-    h1_powheg_gg2vv_fitHighErr[i] = new TH1D(tmpName,tmpName,1370,130,1500);
+    h1_powheg_gg2vv_fitHighErr[i] = new TH1D(tmpName,tmpName,1375,125,1500);
     sprintf(tmpName,"h1_powheg_gg2vv_fitLowErr_%d",i); 
-    h1_powheg_gg2vv_fitLowErr[i]  = new TH1D(tmpName,tmpName,1370,130,1500);
+    h1_powheg_gg2vv_fitLowErr[i]  = new TH1D(tmpName,tmpName,1375,125,1500);
 
     for (int j(1);j<=h1_powheg_gg2vv->GetNbinsX();j++)
     {
@@ -309,13 +309,13 @@ void Kfactor()
       h1_powheg_gg2vv -> SetBinError(j,h1_powheg_gg2vv_njet[j-1]->GetBinError(i+1));
     }
 
-    TString pol1Func("pol1");
-    TString pol2Func("pol2");
+    //TString pol1Func("pol1");
+    //TString pol2Func("pol2");
     //TString sqrtFunc("sqrtFunc"); Don't use this, it is different usage btw root imbeded and user function
     
-    //TFitResultPtr fitres;  TF1 *fit_func = new TF1("fit_func",pol1Func,0,2000);
+    TFitResultPtr fitres;  TF1 *fit_func = new TF1("fit_func",pol1Func,125,1500,2);
     //TFitResultPtr fitres;  TF1 *fit_func = new TF1("fit_func",pol2Func,0,2000);
-    TFitResultPtr fitres;  TF1 *fit_func = new TF1("fit_func",sqrtFunc,130,1500,2);
+    //TFitResultPtr fitres;  TF1 *fit_func = new TF1("fit_func",sqrtFunc,125,1500,2);
     
     TGraphErrors *grRatio  = 0;
     
@@ -327,8 +327,14 @@ void Kfactor()
     for(Int_t ibin=0; ibin<nbins; ibin++) {
       xval[ibin] = 0.5*(Bins[ibin+1]+Bins[ibin]);
       xerr[ibin] = 0.5*(Bins[ibin+1]-Bins[ibin]);
-      
-      rMean[ibin]    = h1_powheg_gg2vv->GetBinContent(ibin+1);
+     
+      if( i == 2){
+        if(ibin == 0)rMean[ibin]    = 2.6;
+	else  rMean[ibin]    = h1_powheg_gg2vv->GetBinContent(ibin+1);
+      }else{
+        rMean[ibin]    = h1_powheg_gg2vv->GetBinContent(ibin+1);
+      }
+
       rMeanErr[ibin] = h1_powheg_gg2vv->GetBinError(ibin+1);
     
     }
@@ -342,13 +348,17 @@ void Kfactor()
     grRatio = new TGraphErrors(nbins,xval,rMean,xerr,rMeanErr);
     grRatio->SetName("grRatio");
 
-    if( i == 2){
-      fit_func->SetParameters(5,-0.2);
+    if( i == 0){
+      fit_func->SetParameters(1.119,-3.3);
+    //njet=0 set fit function parameter limits
+      //fit_func->SetParLimits(0,0.93,1.2);
+      //fit_func->SetParLimits(1,-4.,-2.);
     }
 
-    //njet=0 set fit function parameter limits
-    //fit_func->SetParLimits(0,0.93,0.97);
-    //fit_func->SetParLimits(1,-0.00015,-0.000095);
+    if( i == 2){
+      fit_func->SetParameters(0.05,24);
+    }
+
 
     //njet=1 set fit function parameter limits
     //fit_func->SetParLimits(0,0.,5.);
@@ -360,27 +370,28 @@ void Kfactor()
     fitres = grRatio->Fit("fit_func","QMRN0FBSE");
     //fitres = grRatio->Fit("fit_func","QMRN0SE");
     sprintf(chi2ndf,"#chi^{2}/ndf = %.4f",(fit_func->GetChisquare())/(fit_func->GetNDF()));
-    errBand->SetPoint(0,0.002*(xval[nbins-1]),fit_func->Eval(0.002*(xval[nbins-1])));
+    //errBand->SetPoint(0,0.002*(xval[nbins-1]),fit_func->Eval(0.002*(xval[nbins-1])));
     //errBand->SetPointError(0,0,dpol1Func(fit_func,0.002*(xval[nbins-1]),fitres));
-    errBand->SetPointError(0,0,dsqrtFunc(fit_func,0.002*(xval[nbins-1]),fitres));
+    //errBand->SetPointError(0,0,dsqrtFunc(fit_func,0.002*(xval[nbins-1]),fitres));
     //errBand->SetPointError(0,0,dpol2Func(fit_func,0.002*(xval[nbins-1]),fitres));
     double point, error;
     for(Int_t j=1; j<=NmWWBin; j++) {
       point = fit_func->Eval(xval[j-1]);
       errBand->SetPoint(j,xval[j-1],point);
       //errBand->SetPointError(j,0,dpol1Func(fit_func,xval[j-1],fitres));
-      //errBand->SetPointError(j,0,dpol2Func(fit_func,xval[j-1],fitres));
-      error = dsqrtFunc(fit_func,xval[j-1],fitres);
+      error = dpol1Func(fit_func,xval[j-1],fitres);
+      //error = dsqrtFunc(fit_func,xval[j-1],fitres);
       errBand->SetPointError(j,0,error);
     }
     errBand->SetPoint(nbins+1,1.2*(xval[nbins-1]),fit_func->Eval(1.2*(xval[nbins-1])));
-    //errBand->SetPointError(nbins+1,0,dpol1Func(fit_func,1.2*(xval[nbins-1]),fitres));
+    errBand->SetPointError(nbins+1,0,dpol1Func(fit_func,1.2*(xval[nbins-1]),fitres));
     //errBand->SetPointError(nbins+1,0,dpol2Func(fit_func,1.2*(xval[nbins-1]),fitres));
-    errBand->SetPointError(nbins+1,0,dsqrtFunc(fit_func,1.2*(xval[nbins-1]),fitres));
+    //errBand->SetPointError(nbins+1,0,dsqrtFunc(fit_func,1.2*(xval[nbins-1]),fitres));
     // Fill Envelop Histogram
-    for(Int_t j=0; j<1370; j++) {// 1 GeV bin
-      point = fit_func->Eval(130.5+j);
-      error = dsqrtFunc(fit_func,130.5+j,fitres);
+    for(Int_t j=0; j<1375; j++) {// 1 GeV bin
+      point = fit_func->Eval(125.5+j);
+      //error = dsqrtFunc(fit_func,125.5+j,fitres);
+      error = dpol1Func(fit_func,125.5+j,fitres);
       h1_powheg_gg2vv_fitHighErr[i]->SetBinContent(j+1, point+fabs(error));
       h1_powheg_gg2vv_fitLowErr[i] ->SetBinContent(j+1, point-fabs(error));
     }
@@ -390,16 +401,20 @@ void Kfactor()
     plotFunc.setOutDir(OutDir);
     //plotFunc.SetXRange(130,1200);
     if(i==0)
-      plotFunc.SetYRange(0.7,1.5);
+      plotFunc.SetYRange(0.6,2.0);
     if(i==1)
-      plotFunc.SetYRange(0.6,1.3);
-    //if(i==2)
-    //  plotFunc.SetYRange(0.5,2.1);
-    if(i==3)
-      plotFunc.SetYRange(-0.01,4.0);
+      plotFunc.SetYRange(0.6,1.6);
+    if(i==2)
+      plotFunc.SetYRange(0.5,3.0);
+
+    //h1_powheg_gg2vv_fitHighErr[i]->SetLineWidth(9);
+    //h1_powheg_gg2vv_fitLowErr[i]->SetLineWidth(9);
+
     plotFunc.AddGraph(grRatio,"");
     plotFunc.AddGraph(errBand,"3",kAzure-9,kFullDotSmall);
     plotFunc.AddGraph(grRatio,"",kBlack,kFullCircle);
+    plotFunc.AddHist1D(h1_powheg_gg2vv_fitHighErr[i],"HIST",kBlack);
+    plotFunc.AddHist1D(h1_powheg_gg2vv_fitLowErr[i],"HIST",kBlack);
     plotFunc.AddFcn(fit_func,kRed);
     
     sprintf(histName,"njet=%d",i);
@@ -413,8 +428,8 @@ void Kfactor()
     plotFunc.AddTextBox(fitparam,0.25,0.86,0.45,0.82,0,kBlack,-1);
     sprintf(fitparam,"b = %.4f #pm %.4f",fit_func->GetParameter(1),fit_func->GetParError(1));
     plotFunc.AddTextBox(fitparam,0.25,0.82,0.45,0.78,0,kBlack,-1);
-    sprintf(fitparam,"c = %.8f #pm %.8f",fit_func->GetParameter(2),fit_func->GetParError(2));
-    plotFunc.AddTextBox(fitparam,0.25,0.78,0.45,0.74,0,kBlack,-1);
+    //sprintf(fitparam,"c = %.8f #pm %.8f",fit_func->GetParameter(2),fit_func->GetParError(2));
+    //plotFunc.AddTextBox(fitparam,0.25,0.78,0.45,0.74,0,kBlack,-1);
     
     plotFunc.Draw(c,kTRUE,"png");
     h1_powheg_gg2vv_fitHighErr[i]->Write();
