@@ -32,6 +32,8 @@
 
 #endif
 
+#define LnFunction 1 // for a+b/x
+
 using namespace RooFit;
 typedef ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double> > LorentzVector;
 //typedef ROOT::Math::MinimizerOptions::SetDefaultPrintLevel(1);
@@ -314,6 +316,7 @@ void Kfactor()
     //TString sqrtFunc("sqrtFunc"); Don't use this, it is different usage btw root imbeded and user function
     
     TFitResultPtr fitres;  TF1 *fit_func = new TF1("fit_func",pol1Func,125,1500,2);
+    TF1 *fit_funcNormLn = new TF1("fit_funcNormLn",pol1Func,125,1500,2);
     //TFitResultPtr fitres;  TF1 *fit_func = new TF1("fit_func",pol2Func,0,2000);
     //TFitResultPtr fitres;  TF1 *fit_func = new TF1("fit_func",sqrtFunc,125,1500,2);
     
@@ -400,12 +403,18 @@ void Kfactor()
     CPlot plotFunc(histName,"","mWW","POWHEG/gg2VV Sig.");
     plotFunc.setOutDir(OutDir);
     //plotFunc.SetXRange(130,1200);
-    if(i==0)
+    if(i==0){
       plotFunc.SetYRange(0.6,2.0);
-    if(i==1)
+      fit_funcNormLn->SetParameters(1.0753,-48.9352);
+    }
+    if(i==1){
       plotFunc.SetYRange(0.6,1.6);
-    if(i==2)
+      fit_funcNormLn->SetParameters(0.8457,67.5294);
+    }
+    if(i==2){
       plotFunc.SetYRange(0.5,3.0);
+      fit_funcNormLn->SetParameters(0.7777,161.9353);
+    }
 
     //h1_powheg_gg2vv_fitHighErr[i]->SetLineWidth(9);
     //h1_powheg_gg2vv_fitLowErr[i]->SetLineWidth(9);
@@ -416,6 +425,7 @@ void Kfactor()
     plotFunc.AddHist1D(h1_powheg_gg2vv_fitHighErr[i],"HIST",kBlack);
     plotFunc.AddHist1D(h1_powheg_gg2vv_fitLowErr[i],"HIST",kBlack);
     plotFunc.AddFcn(fit_func,kRed);
+    //plotFunc.AddFcn(fit_funcNormLn,kBlue);
     
     sprintf(histName,"njet=%d",i);
     if(i==2)
